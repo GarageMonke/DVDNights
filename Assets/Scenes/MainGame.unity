@@ -358,7 +358,7 @@ Transform:
   m_GameObject: {fileID: 265031447}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.012002223, y: 0.0281353, z: -0.3}
+  m_LocalPosition: {x: -0.012002223, y: 0, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -468,15 +468,15 @@ RectTransform:
   m_GameObject: {fileID: 567087952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.579, y: 0.579, z: 0.579}
+  m_LocalScale: {x: 0.61, y: 0.61, z: 0.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1119955662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 45}
-  m_SizeDelta: {x: 1024, y: 768}
+  m_AnchoredPosition: {x: -1, y: 37}
+  m_SizeDelta: {x: 972.8, y: 729.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &567087954
 MonoBehaviour:
@@ -1066,9 +1066,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1955194195}
   - component: {fileID: 1955194198}
-  - component: {fileID: 1955194197}
   - component: {fileID: 1955194196}
   - component: {fileID: 1955194199}
+  - component: {fileID: 1955194200}
   m_Layer: 0
   m_Name: InsideTV-Camera
   m_TagString: Untagged
@@ -1085,7 +1085,7 @@ Transform:
   m_GameObject: {fileID: 1955194194}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -650}
+  m_LocalPosition: {x: 0, y: 0, z: -665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1135,14 +1135,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1955194197
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955194194}
-  m_Enabled: 1
 --- !u!20 &1955194198
 Camera:
   m_ObjectHideFlags: 0
@@ -1206,11 +1198,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsGlobal: 1
+  m_IsGlobal: 0
   priority: 0
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 66220cefd44809748a81cf35434f84fe, type: 2}
+--- !u!65 &1955194200
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955194194}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1528580211297936972
 Transform:
   m_ObjectHideFlags: 0
