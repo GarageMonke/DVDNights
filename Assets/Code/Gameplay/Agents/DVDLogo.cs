@@ -16,8 +16,6 @@ namespace DVDNights
         [SerializeField] private Vector2 logoSize;
 
         [Header("Debug / Testing")] 
-        [SerializeField] private bool forceCornerHit = false;
-
         [SerializeField] private CornerTarget forcedCorner = CornerTarget.BottomRight;
         [SerializeField] private bool visualizeCorners = true;
 
@@ -35,16 +33,16 @@ namespace DVDNights
         private void Start()
         {
             InitializeSizes();
-
-            if (forceCornerHit)
-                LaunchTowardCorner(forcedCorner);
-            else
-                LaunchRandom();
+            LaunchRandom();
         }
 
         private void Update()
         {
-            if (!isMoving) return;
+            if (!isMoving)
+            {
+                return;
+            }
+            
             Move();
         }
 
@@ -55,6 +53,27 @@ namespace DVDNights
 
             areaHalfSize = new Vector2(areaBounds.extents.x, areaBounds.extents.y);
             logoHalfSize = new Vector2(logoBounds.extents.x, logoBounds.extents.y);
+        }
+        
+        public float BaseSpeed
+        {
+            get => baseSpeed;
+            set
+            {
+                baseSpeed = value;
+                ApplySpeed();
+            }
+        }
+
+        private void OnValidate()
+        {
+            ApplySpeed();
+        }
+
+        private void ApplySpeed()
+        {
+            if (velocity == Vector2.zero) return;
+            velocity = velocity.normalized * baseSpeed;
         }
 
         private void LaunchRandom()
@@ -172,8 +191,10 @@ namespace DVDNights
             return nearX && nearY;
         }
 
-        public void SetSpeedMultiplier(float multiplier) =>
+        public void SetSpeedMultiplier(float multiplier)
+        {
             velocity = velocity.normalized * (baseSpeed * multiplier);
+        }
 
         public void RandomizeDirection()
         {
