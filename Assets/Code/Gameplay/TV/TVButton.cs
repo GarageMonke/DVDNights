@@ -12,12 +12,14 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
     
     [Header("Feedback")]
     [SerializeField] private AudioClip feedbackClip;
+    [SerializeField] private float volume = 0.5f;
+    [SerializeField] private float pitch = 1f;
     
     public Action<int> OnTvButtonPressed { get; set; }
     
     public int ButtonId => buttonId;
 
-    public float _originalZPosition;
+    private float _originalZPosition;
     
     private bool _canBePressed;
 
@@ -41,6 +43,11 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
         _canBePressed = true;
     }
 
+    public void DisableButton()
+    {
+        _canBePressed = false;
+    }
+
     private void PlayButtonAnimation()
     {
         _canBePressed = false;
@@ -48,7 +55,7 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
 
         transform.DOLocalMoveZ(destinationZPosition, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            AudioManager.Instance.PlaySFX(feedbackClip, 0.5f, randomizePitch: false);
+            AudioManager.Instance.PlaySFX(feedbackClip, volume, pitch, randomizePitch: false);
             transform.DOLocalMoveZ(_originalZPosition, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 _canBePressed = true;
@@ -68,4 +75,5 @@ public interface ITVButton
     public Action<int> OnTvButtonPressed { get; set; }
     public void Press();
     public void EnableButton();
+    public void DisableButton();
 }

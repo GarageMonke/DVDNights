@@ -69,28 +69,28 @@ namespace DVDNights
 
       private void NextSelection()
       {
+         if (_currentIndex + 1 >= selectableTextViews.Length)
+         {
+            return;
+         }
+         
          selectableTextViews[_currentIndex].Unselect();
          
          _currentIndex++;
-         
-         if (_currentIndex >= selectableTextViews.Length)
-         {
-            _currentIndex = 0;
-         }
          
          selectableTextViews[_currentIndex].Select();
       }
 
       private void PreviousSelection()
       {
+         if (_currentIndex - 1 < 0)
+         {
+            return;
+         }
+         
          selectableTextViews[_currentIndex].Unselect();
          
          _currentIndex--;
-         
-         if (_currentIndex < 0)
-         {
-            _currentIndex = selectableTextViews.Length - 1;
-         }
          
          selectableTextViews[_currentIndex].Select();
       }
