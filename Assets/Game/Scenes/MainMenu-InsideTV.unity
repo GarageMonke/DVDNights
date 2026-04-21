@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: 0, z: 2}
+  frameSkip: 10
 --- !u!1 &1955194194
 GameObject:
   m_ObjectHideFlags: 0

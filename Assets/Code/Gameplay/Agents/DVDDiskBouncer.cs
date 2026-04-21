@@ -14,6 +14,12 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Transform bounceArea;
+        
+        [Header("Retro Effect")]
+        [SerializeField] [Range(0, 50)] private int frameSkip; // 0 = smooth
+        private int _frameCounter;
+        private Vector3 _displayPosition;
+        private float _displayRotation;
 
         [Header("Feedback")] 
         [SerializeField] private Color[] feedbackColors;
@@ -43,13 +49,32 @@ namespace DVDNights
 
         private void Update()
         {
-            if (!_isMoving)
+            if (!_isMoving) return;
+
+            if (frameSkip == 0)
             {
+                Move();
+                SpinDisk();
                 return;
             }
+
+            _frameCounter++;
             
-            Move();
-            SpinDisk();
+            if (_frameCounter > frameSkip)
+            {
+                _frameCounter = 0;
+        
+                // Simulate all skipped frames at once
+                int framesToSimulate = frameSkip + 1;
+                for (int i = 0; i < framesToSimulate; i++)
+                {
+                    SimulateMove();
+                    SimulateSpin();
+                }
+
+                transform.position = _displayPosition;
+                transform.rotation = Quaternion.Euler(0, 0, _displayRotation);
+            }
         }
 
         private void InitializeSizes()
@@ -133,8 +158,8 @@ namespace DVDNights
             transform.position = bounceArea.position + new Vector3(startPos.x, startPos.y, 0f);
             _velocity = dir.normalized * baseSpeed;
         }
-
-        private void Move()
+        
+        private void SimulateMove()
         {
             Vector3 worldPos = transform.position;
             Vector2 localPos = new Vector2(
@@ -142,44 +167,33 @@ namespace DVDNights
                 worldPos.y - bounceArea.position.y
             );
 
-            localPos += _velocity * Time.deltaTime;
+            if (frameSkip > 0)
+            {
+                localPos += _velocity * (Time.deltaTime * frameSkip);
+            }
+            else
+            {
+                localPos += _velocity * Time.deltaTime;
+            }
 
             float minX = -_areaHalfSize.x + _logoHalfSize.x;
-            float maxX = _areaHalfSize.x - _logoHalfSize.x;
+            float maxX =  _areaHalfSize.x - _logoHalfSize.x;
             float minY = -_areaHalfSize.y + _logoHalfSize.y;
-            float maxY = _areaHalfSize.y - _logoHalfSize.y;
+            float maxY =  _areaHalfSize.y - _logoHalfSize.y;
 
             bool hitX = false;
             bool hitY = false;
 
-            if (localPos.x <= minX)
-            {
-                localPos.x = minX;
-                _velocity.x = Mathf.Abs(_velocity.x);
-                hitX = true;
-            }
-            else if (localPos.x >= maxX)
-            {
-                localPos.x = maxX;
-                _velocity.x = -Mathf.Abs(_velocity.x);
-                hitX = true;
-            }
+            if (localPos.x <= minX) { localPos.x = minX; _velocity.x =  Mathf.Abs(_velocity.x); hitX = true; }
+            else if (localPos.x >= maxX) { localPos.x = maxX; _velocity.x = -Mathf.Abs(_velocity.x); hitX = true; }
 
-            if (localPos.y <= minY)
-            {
-                localPos.y = minY;
-                _velocity.y = Mathf.Abs(_velocity.y);
-                hitY = true;
-            }
-            else if (localPos.y >= maxY)
-            {
-                localPos.y = maxY;
-                _velocity.y = -Mathf.Abs(_velocity.y);
-                hitY = true;
-            }
+            if (localPos.y <= minY) { localPos.y = minY; _velocity.y =  Mathf.Abs(_velocity.y); hitY = true; }
+            else if (localPos.y >= maxY) { localPos.y = maxY; _velocity.y = -Mathf.Abs(_velocity.y); hitY = true; }
 
-            transform.position = bounceArea.position + new Vector3(localPos.x, localPos.y, 0f);
+            // Store display position for when frame renders
+            _displayPosition = bounceArea.position + new Vector3(localPos.x, localPos.y, 0f);
 
+            // Events still fire every frame — no missed hits
             if (hitX || hitY)
             {
                 if ((hitX && hitY) || IsNearCorner(localPos, minX, maxX, minY, maxY))
@@ -191,9 +205,26 @@ namespace DVDNights
                 {
                     OnBorderHit?.Invoke();
                 }
-                
+
                 PlayFeedback();
             }
+        }
+
+        private void SimulateSpin()
+        {
+            _displayRotation += _spinSpeed;
+        }
+
+        private void Move()
+        {
+            SimulateMove();
+            transform.position = _displayPosition;
+        }
+
+        private void SpinDisk()
+        {
+            SimulateSpin();
+            transform.rotation = Quaternion.Euler(0, 0, _displayRotation);
         }
 
         private bool IsNearCorner(Vector2 pos, float minX, float maxX, float minY, float maxY)
@@ -295,12 +326,6 @@ namespace DVDNights
             _currentColorIndex = randomColorIndex;
             spriteRenderer.color = feedbackColors[randomColorIndex];
         }
-
-        private void SpinDisk()
-        {
-            transform.Rotate(new Vector3(0,0, _spinSpeed));
-        }
-
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
