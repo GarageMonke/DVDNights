@@ -200,13 +200,13 @@ namespace DVDNights
                 {
                     CornerTarget corner = DetectCorner(localPos, minX, maxX, minY, maxY);
                     OnCornerHit?.Invoke(corner);
+                    PlaySpecialFeedback();
                 }
                 else
                 {
                     OnBorderHit?.Invoke();
+                    PlayRegularFeedback();
                 }
-
-                PlayFeedback();
             }
         }
 
@@ -309,9 +309,14 @@ namespace DVDNights
                 return isBottom ? CornerTarget.BottomRight : CornerTarget.TopRight;
         }
 
-        private void PlayFeedback()
+        private void PlayRegularFeedback()
         {
             AudioManager.Instance.PlaySFX(audioClip, volume, pitch, true);
+        }
+        
+        private void PlaySpecialFeedback()
+        {
+            AudioManager.Instance.PlaySFX(audioClip, volume, pitch + pitch * 1.5f, true);
         }
 
         private void ChangeToRandomColor()
