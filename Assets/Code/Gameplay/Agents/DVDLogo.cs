@@ -1,4 +1,5 @@
 using System;
+using CorePatterns.Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,27 +7,30 @@ namespace DVDNights
 {
     public class DVDLogoBouncer : MonoBehaviour
     {
-        [Header("Movimiento")] [SerializeField]
-        private float baseSpeed = 2f;
+        [Header("Configuration")] 
+        [SerializeField] private float baseSpeed = 2f;
+        [SerializeField] private float cornerThreshold = 0.05f;
 
-        [Header("Área de rebote")] 
+        [Header("References")] 
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Transform bounceArea;
 
-        [SerializeField] private Vector2 bounceAreaSize;
-        [SerializeField] private Vector2 logoSize;
+        [Header("Feedback")] 
+        [SerializeField] private Color[] feedbackColors;
+        [SerializeField] private AudioClip audioClip;
+        [SerializeField] private float volume;
+        [SerializeField] private float pitch;
 
-        [Header("Debug / Testing")] 
+        [Header("Debug")] 
         [SerializeField] private CornerTarget forcedCorner = CornerTarget.BottomRight;
         [SerializeField] private bool visualizeCorners = true;
-
-        [Header("Corner Detection")] [SerializeField]
-        private float cornerThreshold = 0.05f;
-
+        
         private Vector2 velocity;
         private Vector2 logoHalfSize;
         private Vector2 areaHalfSize;
         private bool isMoving = true;
 
+        private int _currentColorIndex;
         public Action OnBorderHit;
         public Action<CornerTarget> OnCornerHit;
 
@@ -181,6 +185,8 @@ namespace DVDNights
                 {
                     OnBorderHit?.Invoke();
                 }
+                
+                PlayFeedback();
             }
         }
 
@@ -220,16 +226,12 @@ namespace DVDNights
                 transform.position.x - bounceArea.position.x,
                 transform.position.y - bounceArea.position.y
             );
-
-            float minX = -areaHalfSize.x + logoHalfSize.x;
-            float maxX =  areaHalfSize.x - logoHalfSize.x;
-            float minY = -areaHalfSize.y + logoHalfSize.y;
-            float maxY =  areaHalfSize.y - logoHalfSize.y;
+            
 
             CornerTarget nearest = CornerTarget.BottomLeft;
             float nearestDist = float.MaxValue;
 
-            foreach (CornerTarget corner in System.Enum.GetValues(typeof(CornerTarget)))
+            foreach (CornerTarget corner in Enum.GetValues(typeof(CornerTarget)))
             {
                 float dist = Vector2.Distance(localPos, GetCornerLocalPosition(corner));
                 if (dist < nearestDist)
@@ -268,6 +270,25 @@ namespace DVDNights
                 return isBottom ? CornerTarget.BottomLeft : CornerTarget.TopLeft;
             else
                 return isBottom ? CornerTarget.BottomRight : CornerTarget.TopRight;
+        }
+
+        private void PlayFeedback()
+        {
+            AudioManager.Instance.PlaySFX(audioClip, volume, pitch, true);
+            ChangeToRandomColor();
+        }
+
+        private void ChangeToRandomColor()
+        {
+            int randomColorIndex = Random.Range(0, feedbackColors.Length);
+
+            while (randomColorIndex == _currentColorIndex)
+            {
+                randomColorIndex = Random.Range(0, feedbackColors.Length);
+            }
+            
+            _currentColorIndex = randomColorIndex;
+            spriteRenderer.color = feedbackColors[randomColorIndex];
         }
 
 

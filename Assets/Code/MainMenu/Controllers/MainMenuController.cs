@@ -1,3 +1,4 @@
+using CorePatterns.Scenes;
 using UnityEngine;
 
 namespace DVDNights
@@ -7,6 +8,9 @@ namespace DVDNights
       [Header("Menu")]
       [SerializeField] private SelectableTextView[] selectableTextViews;
 
+      [Header("Scenes")] 
+      [SerializeField] private SceneDataSO gameSceneDataSO;
+      
       private int _currentIndex;
 
       private void Start()
@@ -24,6 +28,11 @@ namespace DVDNights
          if (Input.GetKeyDown(KeyCode.LeftArrow))
          {
             PreviousSelection();
+         }
+
+         if (Input.GetKeyDown(KeyCode.Space))
+         {
+            Submit();
          }
       }
       
@@ -65,6 +74,27 @@ namespace DVDNights
          }
          
          selectableTextViews[_currentIndex].Select();
+      }
+
+      private void Submit()
+      {
+         switch (_currentIndex)
+         {
+            case 0:
+               PlayGame();
+               break;
+            case 1:
+               break;
+            case 2:
+               break;
+            case 3:
+               break;
+         }
+      }
+
+      private void PlayGame()
+      {
+         SceneDataManager.Instance.OpenScene(gameSceneDataSO);
       }
    }
 }

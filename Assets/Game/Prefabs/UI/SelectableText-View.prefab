@@ -190,6 +190,9 @@ MonoBehaviour:
   selectImage: {fileID: 8714690029118605884}
   defaultColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   selectedColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  audioClip: {fileID: 8300000, guid: 403f81ea06a9bd141a8371db61ec0359, type: 3}
+  volume: 0.05
+  pitch: 1
 --- !u!1 &8855297015350035442
 GameObject:
   m_ObjectHideFlags: 0

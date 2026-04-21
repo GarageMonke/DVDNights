@@ -414,6 +414,7 @@ MonoBehaviour:
   - {fileID: 264151686}
   - {fileID: 957371582}
   - {fileID: 2080982437}
+  gameSceneDataSO: {fileID: 11400000, guid: 7706db46d74161c4cb7dea90dc446a44, type: 2}
 --- !u!1 &458197370
 GameObject:
   m_ObjectHideFlags: 0
