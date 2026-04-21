@@ -1,9 +1,11 @@
+using System;
 using CorePatterns.Scenes;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
 {
-   public class MainMenuController : MonoBehaviour
+   public class MainMenuController : MonoBehaviour, IMainMenuController
    {
       [Header("Menu")]
       [SerializeField] private SelectableTextView[] selectableTextViews;
@@ -13,9 +15,26 @@ namespace DVDNights
       
       private int _currentIndex;
 
+      private ITVNavigationController _tvNavigationController;
+
+      private void Awake()
+      {
+         InstallService();
+      }
+
+      private void InstallService()
+      {
+         ServiceLocator.RegisterService<IMainMenuController>(this);
+      }
+
       private void Start()
       {
          SelectFirst();
+         _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+
+         _tvNavigationController.OnPreviousButtonPressed += PreviousSelection;
+         _tvNavigationController.OnNextButtonPressed += NextSelection;
+         _tvNavigationController.OnSubmitButtonPressed += Submit;
       }
 
       private void Update()
@@ -96,5 +115,16 @@ namespace DVDNights
       {
          SceneDataManager.Instance.OpenScene(gameSceneDataSO);
       }
+
+      private void OnDestroy()
+      {
+         _tvNavigationController.OnPreviousButtonPressed -= PreviousSelection;
+         _tvNavigationController.OnNextButtonPressed -= NextSelection;
+         _tvNavigationController.OnSubmitButtonPressed -= Submit;
+      }
    }
+}
+
+public interface IMainMenuController
+{
 }
