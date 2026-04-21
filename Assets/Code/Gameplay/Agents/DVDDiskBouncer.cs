@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class DVDLogoBouncer : MonoBehaviour
+    public class DVDDiskBouncer : MonoBehaviour
     {
         [Header("Configuration")] 
         [SerializeField] private float baseSpeed = 2f;
