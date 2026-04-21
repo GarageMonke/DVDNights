@@ -25,10 +25,11 @@ namespace DVDNights
         [SerializeField] private CornerTarget forcedCorner = CornerTarget.BottomRight;
         [SerializeField] private bool visualizeCorners = true;
         
-        private Vector2 velocity;
-        private Vector2 logoHalfSize;
-        private Vector2 areaHalfSize;
-        private bool isMoving = true;
+        private Vector2 _velocity;
+        private Vector2 _logoHalfSize;
+        private Vector2 _areaHalfSize;
+        private bool _isMoving = true;
+        private float _spinSpeed;
 
         private int _currentColorIndex;
         public Action OnBorderHit;
@@ -42,12 +43,13 @@ namespace DVDNights
 
         private void Update()
         {
-            if (!isMoving)
+            if (!_isMoving)
             {
                 return;
             }
             
             Move();
+            SpinDisk();
         }
 
         private void InitializeSizes()
@@ -55,8 +57,10 @@ namespace DVDNights
             var areaBounds = bounceArea.GetComponent<MeshCollider>().bounds;
             var logoBounds = GetComponent<SpriteRenderer>().bounds;
 
-            areaHalfSize = new Vector2(areaBounds.extents.x, areaBounds.extents.y);
-            logoHalfSize = new Vector2(logoBounds.extents.x, logoBounds.extents.y);
+            _areaHalfSize = new Vector2(areaBounds.extents.x, areaBounds.extents.y);
+            _logoHalfSize = new Vector2(logoBounds.extents.x, logoBounds.extents.y);
+            
+            ApplySpeed();
         }
         
         public float BaseSpeed
@@ -76,18 +80,20 @@ namespace DVDNights
 
         private void ApplySpeed()
         {
-            if (velocity == Vector2.zero) return;
-            velocity = velocity.normalized * baseSpeed;
+            _spinSpeed = Mathf.Max(1, baseSpeed / 100f);
+            
+            if (_velocity == Vector2.zero) return;
+            _velocity = _velocity.normalized * baseSpeed;
         }
 
         private void LaunchRandom()
         {
             float x = Random.value > 0.5f ? 1f : -1f;
             float y = Random.value > 0.5f ? 1f : -1f;
-            velocity = new Vector2(x, y).normalized * baseSpeed;
+            _velocity = new Vector2(x, y).normalized * baseSpeed;
 
-            float px = Random.Range(-areaHalfSize.x + logoHalfSize.x, areaHalfSize.x - logoHalfSize.x);
-            float py = Random.Range(-areaHalfSize.y + logoHalfSize.y, areaHalfSize.y - logoHalfSize.y);
+            float px = Random.Range(-_areaHalfSize.x + _logoHalfSize.x, _areaHalfSize.x - _logoHalfSize.x);
+            float py = Random.Range(-_areaHalfSize.y + _logoHalfSize.y, _areaHalfSize.y - _logoHalfSize.y);
 
             transform.position = bounceArea.position + new Vector3(px, py, 0f);
         }
@@ -102,30 +108,30 @@ namespace DVDNights
             switch (corner)
             {
                 case CornerTarget.TopRight:
-                    startPos = new Vector2(-areaHalfSize.x + logoHalfSize.x + margin,
-                        -areaHalfSize.y + logoHalfSize.y + margin);
+                    startPos = new Vector2(-_areaHalfSize.x + _logoHalfSize.x + margin,
+                        -_areaHalfSize.y + _logoHalfSize.y + margin);
                     dir = new Vector2(1f, 1f);
                     break;
                 case CornerTarget.TopLeft:
-                    startPos = new Vector2(areaHalfSize.x - logoHalfSize.x - margin,
-                        -areaHalfSize.y + logoHalfSize.y + margin);
+                    startPos = new Vector2(_areaHalfSize.x - _logoHalfSize.x - margin,
+                        -_areaHalfSize.y + _logoHalfSize.y + margin);
                     dir = new Vector2(-1f, 1f);
                     break;
                 case CornerTarget.BottomLeft:
-                    startPos = new Vector2(areaHalfSize.x - logoHalfSize.x - margin,
-                        areaHalfSize.y - logoHalfSize.y - margin);
+                    startPos = new Vector2(_areaHalfSize.x - _logoHalfSize.x - margin,
+                        _areaHalfSize.y - _logoHalfSize.y - margin);
                     dir = new Vector2(-1f, -1f);
                     break;
                 case CornerTarget.BottomRight:
                 default:
-                    startPos = new Vector2(-areaHalfSize.x + logoHalfSize.x + margin,
-                        areaHalfSize.y - logoHalfSize.y - margin);
+                    startPos = new Vector2(-_areaHalfSize.x + _logoHalfSize.x + margin,
+                        _areaHalfSize.y - _logoHalfSize.y - margin);
                     dir = new Vector2(1f, -1f);
                     break;
             }
 
             transform.position = bounceArea.position + new Vector3(startPos.x, startPos.y, 0f);
-            velocity = dir.normalized * baseSpeed;
+            _velocity = dir.normalized * baseSpeed;
         }
 
         private void Move()
@@ -136,12 +142,12 @@ namespace DVDNights
                 worldPos.y - bounceArea.position.y
             );
 
-            localPos += velocity * Time.deltaTime;
+            localPos += _velocity * Time.deltaTime;
 
-            float minX = -areaHalfSize.x + logoHalfSize.x;
-            float maxX = areaHalfSize.x - logoHalfSize.x;
-            float minY = -areaHalfSize.y + logoHalfSize.y;
-            float maxY = areaHalfSize.y - logoHalfSize.y;
+            float minX = -_areaHalfSize.x + _logoHalfSize.x;
+            float maxX = _areaHalfSize.x - _logoHalfSize.x;
+            float minY = -_areaHalfSize.y + _logoHalfSize.y;
+            float maxY = _areaHalfSize.y - _logoHalfSize.y;
 
             bool hitX = false;
             bool hitY = false;
@@ -149,26 +155,26 @@ namespace DVDNights
             if (localPos.x <= minX)
             {
                 localPos.x = minX;
-                velocity.x = Mathf.Abs(velocity.x);
+                _velocity.x = Mathf.Abs(_velocity.x);
                 hitX = true;
             }
             else if (localPos.x >= maxX)
             {
                 localPos.x = maxX;
-                velocity.x = -Mathf.Abs(velocity.x);
+                _velocity.x = -Mathf.Abs(_velocity.x);
                 hitX = true;
             }
 
             if (localPos.y <= minY)
             {
                 localPos.y = minY;
-                velocity.y = Mathf.Abs(velocity.y);
+                _velocity.y = Mathf.Abs(_velocity.y);
                 hitY = true;
             }
             else if (localPos.y >= maxY)
             {
                 localPos.y = maxY;
-                velocity.y = -Mathf.Abs(velocity.y);
+                _velocity.y = -Mathf.Abs(_velocity.y);
                 hitY = true;
             }
 
@@ -199,16 +205,16 @@ namespace DVDNights
 
         public void SetSpeedMultiplier(float multiplier)
         {
-            velocity = velocity.normalized * (baseSpeed * multiplier);
+            _velocity = _velocity.normalized * (baseSpeed * multiplier);
         }
 
         public void RandomizeDirection()
         {
             float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
-            velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * velocity.magnitude;
+            _velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * _velocity.magnitude;
         }
 
-        public void SetMoving(bool moving) => isMoving = moving;
+        public void SetMoving(bool moving) => _isMoving = moving;
 
         public void DirectTowardCorner(CornerTarget corner)
         {
@@ -217,7 +223,7 @@ namespace DVDNights
                 transform.position.x - bounceArea.position.x,
                 transform.position.y - bounceArea.position.y
             );
-            velocity = (target - localPos).normalized * velocity.magnitude;
+            _velocity = (target - localPos).normalized * _velocity.magnitude;
         }
         
         public void DirectTowardNearestCorner()
@@ -246,10 +252,10 @@ namespace DVDNights
 
         private Vector2 GetCornerLocalPosition(CornerTarget corner)
         {
-            float minX = -areaHalfSize.x + logoHalfSize.x;
-            float maxX = areaHalfSize.x - logoHalfSize.x;
-            float minY = -areaHalfSize.y + logoHalfSize.y;
-            float maxY = areaHalfSize.y - logoHalfSize.y;
+            float minX = -_areaHalfSize.x + _logoHalfSize.x;
+            float maxX = _areaHalfSize.x - _logoHalfSize.x;
+            float minY = -_areaHalfSize.y + _logoHalfSize.y;
+            float maxY = _areaHalfSize.y - _logoHalfSize.y;
 
             return corner switch
             {
@@ -275,7 +281,6 @@ namespace DVDNights
         private void PlayFeedback()
         {
             AudioManager.Instance.PlaySFX(audioClip, volume, pitch, true);
-            ChangeToRandomColor();
         }
 
         private void ChangeToRandomColor()
@@ -291,6 +296,11 @@ namespace DVDNights
             spriteRenderer.color = feedbackColors[randomColorIndex];
         }
 
+        private void SpinDisk()
+        {
+            transform.Rotate(new Vector3(0,0, _spinSpeed));
+        }
+
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -301,10 +311,10 @@ namespace DVDNights
 
             Vector3 center = bounceArea.position;
 
-            float minX = -areaHalfSize.x + logoHalfSize.x;
-            float maxX = areaHalfSize.x - logoHalfSize.x;
-            float minY = -areaHalfSize.y + logoHalfSize.y;
-            float maxY = areaHalfSize.y - logoHalfSize.y;
+            float minX = -_areaHalfSize.x + _logoHalfSize.x;
+            float maxX = _areaHalfSize.x - _logoHalfSize.x;
+            float minY = -_areaHalfSize.y + _logoHalfSize.y;
+            float maxY = _areaHalfSize.y - _logoHalfSize.y;
 
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(center, new Vector3(maxX - minX, maxY - minY, 0f));
