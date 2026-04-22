@@ -1,13 +1,15 @@
 using System;
 using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class DVDDiskBouncer : MonoBehaviour
+    public class BouncerDisk : MonoBehaviour, IBouncerDisk
     {
         [Header("Configuration")] 
+        [SerializeField] private DiskDataSO diskDataSO;
         [SerializeField] private float baseSpeed = 2f;
         [SerializeField] private float cornerThreshold = 0.05f;
 
@@ -22,7 +24,6 @@ namespace DVDNights
         private float _displayRotation;
 
         [Header("Feedback")] 
-        [SerializeField] private Color[] feedbackColors;
         [SerializeField] private AudioClip audioClip;
         [SerializeField] private float volume;
         [SerializeField] private float pitch;
@@ -38,13 +39,29 @@ namespace DVDNights
         private float _spinSpeed;
 
         private int _currentColorIndex;
-        public Action OnBorderHit;
-        public Action<CornerTarget> OnCornerHit;
+        public Action<DiskDataSO> OnBorderHit { get; set; }
+        public Action<DiskDataSO> OnCornerHit { get; set; }
+        
+        private IDisksController _disksController;
 
         private void Start()
         {
+            _disksController = ServiceLocator.GetService<IDisksController>();
+            _disksController.AddDisk(this);
+            InitializeDisk();
+        }
+
+        public DiskDataSO DiskDataSO => diskDataSO;
+
+        public void InitializeDisk()
+        {
             InitializeSizes();
             LaunchRandom();
+        }
+
+        public void DestroyDisk()
+        {
+            Destroy(gameObject);
         }
 
         private void Update()
@@ -198,13 +215,12 @@ namespace DVDNights
             {
                 if ((hitX && hitY) || IsNearCorner(localPos, minX, maxX, minY, maxY))
                 {
-                    CornerTarget corner = DetectCorner(localPos, minX, maxX, minY, maxY);
-                    OnCornerHit?.Invoke(corner);
+                    OnCornerHit?.Invoke(diskDataSO);
                     PlaySpecialFeedback();
                 }
                 else
                 {
-                    OnBorderHit?.Invoke();
+                    OnBorderHit?.Invoke(diskDataSO);
                     PlayRegularFeedback();
                 }
             }
@@ -319,19 +335,6 @@ namespace DVDNights
             AudioManager.Instance.PlaySFX(audioClip, volume, pitch + pitch * 1.5f, true);
         }
 
-        private void ChangeToRandomColor()
-        {
-            int randomColorIndex = Random.Range(0, feedbackColors.Length);
-
-            while (randomColorIndex == _currentColorIndex)
-            {
-                randomColorIndex = Random.Range(0, feedbackColors.Length);
-            }
-            
-            _currentColorIndex = randomColorIndex;
-            spriteRenderer.color = feedbackColors[randomColorIndex];
-        }
-
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -363,5 +366,15 @@ namespace DVDNights
             DirectTowardNearestCorner();
         }
 #endif
+    }
+
+    public interface IBouncerDisk
+    {
+        public Action<DiskDataSO> OnBorderHit { get; set; }
+        public Action<DiskDataSO> OnCornerHit { get; set; }
+        public DiskDataSO DiskDataSO { get; }
+        public void InitializeDisk();
+
+        public void DestroyDisk();
     }
 }

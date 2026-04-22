@@ -100,18 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d45835fdcfc7e94a9741b2adb5a1d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diskDataSO: {fileID: 11400000, guid: 3ebf51f7d4bbf654e8331531dc84b29a, type: 2}
   baseSpeed: 200
   cornerThreshold: 0.05
   spriteRenderer: {fileID: 2676109372367175515}
   bounceArea: {fileID: 0}
   frameSkip: 10
-  feedbackColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0.11055279, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0.88666916, b: 0, a: 1}
   audioClip: {fileID: 8300000, guid: 403f81ea06a9bd141a8371db61ec0359, type: 3}
   volume: 0.1
   pitch: 1

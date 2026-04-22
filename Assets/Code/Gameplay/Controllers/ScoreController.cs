@@ -1,35 +1,37 @@
+using CorePatterns.ServiceLocator;
 using DVDNights;
 using TMPro;
 using UnityEngine;
 
-public class ScoreController : MonoBehaviour
+public class ScoreController : MonoBehaviour, IScoreController
 {
     [Header("References")]
-    [SerializeField] private DVDDiskBouncer dvdDiskBouncer;
     [SerializeField] private TMP_Text scoreText;
+    
     private int _score;
+    private int _borderScoreBonus = 1;
+    private int _cornerScoreBonus = 5;
 
-    private void OnEnable()
+    private void Awake()
     {
-        dvdDiskBouncer.OnBorderHit += HandleBorderHit;
-        dvdDiskBouncer.OnCornerHit += HandleCornerHit;
+        InstallService();
     }
 
-    private void OnDisable()
+    private void InstallService()
     {
-        dvdDiskBouncer.OnBorderHit -= HandleBorderHit;
-        dvdDiskBouncer.OnCornerHit -= HandleCornerHit;
+        ServiceLocator.RegisterService<IScoreController>(this);   
     }
 
-    private void HandleBorderHit()
+
+    private void HandleBorderHit(DiskDataSO diskData)
     {
-        _score += 1;
+        _score += _borderScoreBonus * diskData.DiskMultiplier;
         UpdateScoreText();
     }
 
-    private void HandleCornerHit(CornerTarget corner)
+    private void HandleCornerHit(DiskDataSO diskData)
     {
-        _score += 5;
+        _score += _cornerScoreBonus * diskData.DiskMultiplier;
         UpdateScoreText();
     }
 
@@ -37,4 +39,34 @@ public class ScoreController : MonoBehaviour
     {
         scoreText.text = "POINTS: " + _score;
     }
+
+    public void RegisterBouncingDisk(IBouncerDisk bouncerDisk)
+    {
+        bouncerDisk.OnBorderHit += HandleBorderHit;
+        bouncerDisk.OnCornerHit += HandleCornerHit;
+    }
+
+    public void UnregisterBouncingDisk(IBouncerDisk bouncerDisk)
+    {
+        bouncerDisk.OnBorderHit -= HandleBorderHit;
+        bouncerDisk.OnCornerHit -= HandleCornerHit;
+    }
+
+    public void AddToBorderScoreBonus(int amountToAdd)
+    {
+        _borderScoreBonus += amountToAdd;
+    }
+
+    public void AddToCornerScoreBonus(int amountToAdd)
+    {
+        _cornerScoreBonus += amountToAdd;
+    }
+}
+
+public interface IScoreController
+{
+    public void RegisterBouncingDisk(IBouncerDisk bouncerDisk);
+    public void UnregisterBouncingDisk(IBouncerDisk bouncerDisk);
+    public void AddToBorderScoreBonus(int amountToAdd);
+    public void AddToCornerScoreBonus(int amountToAdd);
 }
