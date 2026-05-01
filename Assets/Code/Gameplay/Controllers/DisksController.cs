@@ -6,7 +6,7 @@ using UnityEngine;
 public class DisksController : MonoBehaviour, IDisksController
 {
     private Dictionary<DiskType, List<IBouncerDisk>> _registeredDisks;
-    private IScoreController _scoreController;
+    private IPointsController _pointsController;
 
     private void Awake()
     {
@@ -44,9 +44,9 @@ public class DisksController : MonoBehaviour, IDisksController
         _registeredDisks[diskType].Add(diskToAdd);
         _registeredDisks[diskType] = existingDisks;
 
-        _scoreController ??= ServiceLocator.GetService<IScoreController>();
+        _pointsController ??= ServiceLocator.GetService<IPointsController>();
         
-        _scoreController.RegisterBouncingDisk(diskToAdd);
+        _pointsController.RegisterBouncingDisk(diskToAdd);
     }
 
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity)
@@ -61,7 +61,7 @@ public class DisksController : MonoBehaviour, IDisksController
         foreach (IBouncerDisk existingDisk in existingDisks)
         {
             _registeredDisks[diskTypeToRemove].Remove(existingDisk);
-            _scoreController.UnregisterBouncingDisk(existingDisk);
+            _pointsController.UnregisterBouncingDisk(existingDisk);
             existingDisk.DestroyDisk();
         }
     }
