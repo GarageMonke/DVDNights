@@ -43,6 +43,7 @@ namespace DVDNights
         public Action<DiskDataSO> OnCornerHit { get; set; }
         
         private IDisksController _disksController;
+        public DiskDataSO DiskDataSO => diskDataSO;
 
         private void Start()
         {
@@ -50,9 +51,7 @@ namespace DVDNights
             _disksController.AddDisk(this);
             InitializeDisk();
         }
-
-        public DiskDataSO DiskDataSO => diskDataSO;
-
+        
         public void InitializeDisk()
         {
             InitializeSizes();
@@ -206,15 +205,14 @@ namespace DVDNights
 
             if (localPos.y <= minY) { localPos.y = minY; _velocity.y =  Mathf.Abs(_velocity.y); hitY = true; }
             else if (localPos.y >= maxY) { localPos.y = maxY; _velocity.y = -Mathf.Abs(_velocity.y); hitY = true; }
-
-            // Store display position for when frame renders
+            
             _displayPosition = bounceArea.position + new Vector3(localPos.x, localPos.y, 0f);
-
-            // Events still fire every frame — no missed hits
+            
             if (hitX || hitY)
             {
                 if ((hitX && hitY) || IsNearCorner(localPos, minX, maxX, minY, maxY))
                 {
+                    
                     OnCornerHit?.Invoke(diskDataSO);
                     PlaySpecialFeedback();
                 }
@@ -279,7 +277,6 @@ namespace DVDNights
                 transform.position.x - bounceArea.position.x,
                 transform.position.y - bounceArea.position.y
             );
-            
 
             CornerTarget nearest = CornerTarget.BottomLeft;
             float nearestDist = float.MaxValue;
