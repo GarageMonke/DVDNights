@@ -7,7 +7,7 @@ namespace DVDNights
     {
         [Header("References")]
         [SerializeField] private TextMeshProUGUI itemName;
-        [SerializeField] private TextMeshProUGUI itemQuantity;
+        [SerializeField] private TextMeshProUGUI itemInfo;
         [SerializeField] private TextMeshProUGUI itemPrice;
 
         [Header("Configuration")] 
@@ -15,12 +15,9 @@ namespace DVDNights
         [SerializeField] private Color normalColor;
         [SerializeField] private Color warningColor;
 
+        [SerializeField] private int itemId;
 
-        private int _selectedQuantity;
-        
-        public void InitializeItem()
-        {
-        }
+        public int ItemId => itemId;
 
         public void HighlightItem()
         {
@@ -35,18 +32,18 @@ namespace DVDNights
         public void SelectItem()
         {
             itemName.color = normalColor;
-            itemQuantity.color = highlightColor;
+            itemInfo.color = highlightColor;
         }
 
         public void DeselectItem()
         {
             HighlightItem();
-            itemQuantity.color = normalColor;
+            itemInfo.color = normalColor;
         }
 
-        public void UpdatePrice(int updatedPrice, bool isAffordable)
+        public void UpdateCost(int updatedCost, bool isAffordable)
         {
-            itemPrice.text = updatedPrice.ToString();
+            itemPrice.text = updatedCost.ToString();
 
             if (!isAffordable)
             {
@@ -57,27 +54,20 @@ namespace DVDNights
             itemPrice.color = normalColor;
         }
 
-        public void UpdateQuantity(int updatedQuantity)
+        public void UpdateInfo(string updatedInfo)
         {
-            _selectedQuantity = updatedQuantity;
-            itemQuantity.text = "< " + updatedQuantity + " >";
-        }
-
-        public int GetSelectedQuantity()
-        {
-            return _selectedQuantity;
+            itemInfo.text = updatedInfo;
         }
     }
 
     public interface IShopItemView
     {
-        public void InitializeItem();
+        public int ItemId { get; }
         public void HighlightItem();
         public void UnhighlightItem();
         public void SelectItem();
         public void DeselectItem();
-        public void UpdatePrice(int updatedPrice, bool isAffordable);
-        public void UpdateQuantity(int updatedQuantity);
-        public int GetSelectedQuantity();
+        public void UpdateCost(int updatedCost, bool isAffordable);
+        public void UpdateInfo(string updatedInfo);
     }
 }

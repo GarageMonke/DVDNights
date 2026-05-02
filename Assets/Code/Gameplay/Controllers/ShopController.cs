@@ -29,7 +29,6 @@ namespace DVDNights
             _navigationController = ServiceLocator.GetService<ITVNavigationController>();
             _navigationController.OnMenuButtonPressed += OpenShop;
             _pointsController.OnScoreChanged += UpdateTotalPoints;
-            _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
         }
 
         public void OpenShop()
@@ -37,6 +36,7 @@ namespace DVDNights
             _navigationController.OnMenuButtonPressed -= OpenShop;
             SubscribeToEvents();
             _shopWindow.Display();
+            _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
             _shopWindow.HighlightItem();
         }
 

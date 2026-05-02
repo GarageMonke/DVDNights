@@ -9,6 +9,9 @@ public class DisksController : MonoBehaviour, IDisksController
     private List<IBouncerDisk> _allRegisteredDisks;
     private IPointsController _pointsController;
     private IDiskLevelController _diskLevelController;
+    private int _disksRegistered;
+
+    public int DisksRegistered => _disksRegistered;
 
     private void Awake()
     {
@@ -56,6 +59,7 @@ public class DisksController : MonoBehaviour, IDisksController
         _pointsController ??= ServiceLocator.GetService<IPointsController>();
         
         _pointsController.RegisterBouncingDisk(diskToAdd);
+        _disksRegistered++;
     }
 
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity)
@@ -89,6 +93,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
 public interface IDisksController
 {
+    public int DisksRegistered { get; }
     public void AddDisk(IBouncerDisk diskToAdd);
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity);
     public void UpdateAllDisks();

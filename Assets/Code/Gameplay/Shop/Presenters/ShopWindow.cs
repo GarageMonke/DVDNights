@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using CorePatterns.ServiceLocator;
+using TMPro;
 using UnityEngine;
 
 namespace DVDNights
@@ -13,15 +15,34 @@ namespace DVDNights
         private bool _isItemSelected;
         private int _currentItemIndex;
         private int _previousItemIndex;
+        private IShopItemView _currentItemView;
+        private ShopItemView _previousItemView;
+        private IShopItemInfoProvider _shopItemInfoProvider;
+        private int _availablePoints;
+
+
+        private void Start()
+        {
+            _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
+            _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
+        }
 
         public void Display()
         {
             foreach (IShopItemView shopItemView in shopItemViews)
             {
-                shopItemView.UpdateQuantity(1);
+                shopItemView.UpdateInfo(_shopItemInfoProvider.GetInfoByItemId(shopItemView.ItemId));
+                UpdateItemCost(shopItemView);
             }
             
             shopWindow.SetActive(true);
+        }
+
+        private void UpdateItemCost(IShopItemView shopItemView)
+        {
+            int itemCost = _shopItemInfoProvider.GetCostByItemId(shopItemView.ItemId);
+            bool isAffordable = _availablePoints >= itemCost;
+            shopItemView.UpdateCost(itemCost, isAffordable);
         }
 
         public void Hide()
@@ -31,32 +52,35 @@ namespace DVDNights
 
         public void HighlightItem()
         {
-            IShopItemView previousItemView = shopItemViews[_previousItemIndex];
-            previousItemView.UnhighlightItem();
+           _previousItemView = shopItemViews[_previousItemIndex];
+           _previousItemView.UnhighlightItem();
             
-            IShopItemView currentItemView = shopItemViews[_currentItemIndex];
-            currentItemView.HighlightItem();
+            _currentItemView = shopItemViews[_currentItemIndex];
+            _currentItemView.HighlightItem();
         }
 
         public void SelectItem()
         {
             _isItemSelected = true;
             
-            IShopItemView currentItemView = shopItemViews[_currentItemIndex];
-            currentItemView.SelectItem();
+            _currentItemView = shopItemViews[_currentItemIndex];
+            _currentItemView.SelectItem();
         }
 
         public void DeselectItem()
         {
             _isItemSelected = false;
             
-            IShopItemView currentItemView = shopItemViews[_currentItemIndex];
-            currentItemView.DeselectItem();
+            _currentItemView = shopItemViews[_currentItemIndex];
+            _currentItemView.DeselectItem();
         }
 
         public void TryBuyItem()
         {
-            throw new System.NotImplementedException();
+            if (!_isItemSelected)
+            {
+                return;
+            }
         }
         
         public void SaveShop()
@@ -73,7 +97,6 @@ namespace DVDNights
         {
             if (_isItemSelected)
             {
-                IncreaseQuantity();
                 return;
             }
             
@@ -88,7 +111,6 @@ namespace DVDNights
         {
             if (_isItemSelected)
             {
-                DecreaseQuantity();
                 return;
             }
             
@@ -101,32 +123,18 @@ namespace DVDNights
 
         public void UpdateAvailablePoints(int availablePoints)
         {
+            _availablePoints = availablePoints;
             availablePointsText.text = "AVAILABLE POINTS: " + availablePoints.ToString("D10");
+            
+            foreach (IShopItemView shopItemView in shopItemViews)
+            {
+                UpdateItemCost(shopItemView);
+            }
         }
 
         public bool IsItemSelected()
         {
             return _isItemSelected;
-        }
-
-        private void IncreaseQuantity()
-        {
-            IShopItemView currentItemView = shopItemViews[_currentItemIndex];
-            int currentQuantity = currentItemView.GetSelectedQuantity();
-
-            currentQuantity++;
-            currentQuantity = Mathf.Min(currentQuantity, 99);
-            currentItemView.UpdateQuantity(currentQuantity);
-        }
-
-        private void DecreaseQuantity()
-        {
-            IShopItemView currentItemView = shopItemViews[_currentItemIndex];
-            int currentQuantity = currentItemView.GetSelectedQuantity();
-
-            currentQuantity--;
-            currentQuantity = Mathf.Max(1, currentQuantity);
-            currentItemView.UpdateQuantity(currentQuantity);
         }
     }
 

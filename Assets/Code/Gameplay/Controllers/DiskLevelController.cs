@@ -24,9 +24,9 @@ namespace DVDNights
             ServiceLocator.RegisterService<IDiskLevelController>(this);
             
             //Load Bonus Levels
-            UpdateDiskBorderBonusLevel(1);
-            UpdateDiskCornerBonusLevel(1);
-            UpdateDiskSpeedBonusLevel(1);
+            UpdateDiskBorderBonusLevel(0);
+            UpdateDiskCornerBonusLevel(0);
+            UpdateDiskSpeedBonusLevel(0);
         }
 
         public void UpdateDiskBorderBonusLevel(int updatedDiskBorderBonusLevel)
