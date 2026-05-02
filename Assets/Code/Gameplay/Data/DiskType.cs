@@ -2,12 +2,13 @@
 {
     public enum DiskType
     {
-        WHITE,
-        CYAN,
-        YELLOW,
-        RED,
-        GREEN,
-        MAGENTA,
-        GOLD
+        WHITE = 0,
+        CYAN = 1,
+        YELLOW = 2,
+        ORANGE = 3,
+        RED = 4,
+        GREEN = 5,
+        MAGENTA = 6,
+        GOLD = 7
     }
 }

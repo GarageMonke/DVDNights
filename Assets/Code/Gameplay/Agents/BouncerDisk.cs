@@ -10,7 +10,7 @@ namespace DVDNights
     {
         [Header("Configuration")] 
         [SerializeField] private DiskDataSO diskDataSO;
-        [SerializeField] private float baseSpeed = 2f;
+        [SerializeField] private int baseSpeed = 200;
         [SerializeField] private float cornerThreshold = 0.05f;
 
         [Header("References")] 
@@ -104,7 +104,7 @@ namespace DVDNights
             ApplySpeed();
         }
         
-        public float BaseSpeed
+        public int BaseSpeed
         {
             get => baseSpeed;
             set
@@ -371,7 +371,7 @@ namespace DVDNights
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
         public void InitializeDisk();
-
+        public int BaseSpeed { get; set; }
         public void DestroyDisk();
     }
 }

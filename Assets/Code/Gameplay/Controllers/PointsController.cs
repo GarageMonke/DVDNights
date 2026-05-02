@@ -12,37 +12,44 @@ public class PointsController : MonoBehaviour, IPointsController
     
     private int _points;
     private int _visualPoints;
-    private int _borderScoreBonus = 1;
-    private int _cornerScoreBonus = 5;
 
     private Tweener _pointsTween;
     private float _refreshTimer;
     private float _refreshRate = 10;
-    
+    private IDiskLevelController _diskLevelController;
+
+
     public Action<int> OnScoreChanged { get; set; }
     
     private void Awake()
     {
         InstallService();
-        scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
+        UpdatePointsText();
     }
 
     private void InstallService()
     {
         ServiceLocator.RegisterService<IPointsController>(this);   
     }
-    
+
+    private void Start()
+    {
+        _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+    }
+
     private void HandleBorderHit(DiskDataSO diskData)
     {
-        int amount = _borderScoreBonus * diskData.DiskMultiplier;
-        _points += amount;
+        int diskTier = (int) diskData.DiskType;
+        double amountToAdd = GameProgression.DiscBaseBorderPoints * GameProgression.GetTierExtraMult(diskTier) * GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) * diskData.DiskMultiplier + GameProgression.GetTierExtraPoints(diskTier);
+        _points += (int) amountToAdd;
         TweenToScore();
     }
 
     private void HandleCornerHit(DiskDataSO diskData)
     {
-        int amount = _cornerScoreBonus * diskData.DiskMultiplier;
-        _points += amount;
+        int diskTier = (int) diskData.DiskType;
+        double amountToAdd = GameProgression.DiscBaseCornerPoints * GameProgression.GetTierExtraMult(diskTier) * GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel) * diskData.DiskMultiplier + GameProgression.GetTierExtraPoints(diskTier);
+        _points += (int) amountToAdd;
         TweenToScore();
     }
 
@@ -80,14 +87,11 @@ public class PointsController : MonoBehaviour, IPointsController
         bouncerDisk.OnCornerHit -= HandleCornerHit;
     }
 
-    public void AddToBorderScoreBonus(int amountToAdd)
+    public void UpdatePoints(int updatedPoints)
     {
-        _borderScoreBonus += amountToAdd;
-    }
-
-    public void AddToCornerScoreBonus(int amountToAdd)
-    {
-        _cornerScoreBonus += amountToAdd;
+        _points = updatedPoints;
+        _visualPoints = updatedPoints;
+        UpdatePointsText();
     }
 
     public int GetTotalPoints()
@@ -99,10 +103,10 @@ public class PointsController : MonoBehaviour, IPointsController
     {
         return _visualPoints;
     }
-
-    private void UpdateScoreText()
+    
+    private void UpdatePointsText()
     {
-        scoreText.text = "POINTS: " + _points;
+        scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
     }
 }
 
@@ -111,8 +115,7 @@ public interface IPointsController
     public Action<int> OnScoreChanged { get; set; }
     public void RegisterBouncingDisk(IBouncerDisk bouncerDisk);
     public void UnregisterBouncingDisk(IBouncerDisk bouncerDisk);
-    public void AddToBorderScoreBonus(int amountToAdd);
-    public void AddToCornerScoreBonus(int amountToAdd);
+    public void UpdatePoints(int updatedPoints);
     public int GetTotalPoints();
     public int GetVisualPoints();
 }

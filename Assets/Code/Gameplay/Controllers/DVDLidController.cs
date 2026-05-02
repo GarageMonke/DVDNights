@@ -47,8 +47,6 @@ namespace DVDNights
                 return;
             }
             
-            Debug.Log("lid handled");
-            
             _canAnimate = false;
             _tvOpenCloseButton.DisableButton();
             

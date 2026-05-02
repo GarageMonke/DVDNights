@@ -6,7 +6,9 @@ using UnityEngine;
 public class DisksController : MonoBehaviour, IDisksController
 {
     private Dictionary<DiskType, List<IBouncerDisk>> _registeredDisks;
+    private List<IBouncerDisk> _allRegisteredDisks;
     private IPointsController _pointsController;
+    private IDiskLevelController _diskLevelController;
 
     private void Awake()
     {
@@ -15,6 +17,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
     private void InstallService()
     {
+        _allRegisteredDisks = new List<IBouncerDisk>();
         _registeredDisks = new Dictionary<DiskType, List<IBouncerDisk>>
         {
             { DiskType.WHITE, new List<IBouncerDisk>() },
@@ -28,7 +31,12 @@ public class DisksController : MonoBehaviour, IDisksController
 
         ServiceLocator.RegisterService<IDisksController>(this);
     }
-    
+
+    private void Start()
+    {
+        _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+    }
+
 
     public void AddDisk(IBouncerDisk diskToAdd)
     {
@@ -43,6 +51,7 @@ public class DisksController : MonoBehaviour, IDisksController
         
         _registeredDisks[diskType].Add(diskToAdd);
         _registeredDisks[diskType] = existingDisks;
+        _allRegisteredDisks.Add(diskToAdd);
 
         _pointsController ??= ServiceLocator.GetService<IPointsController>();
         
@@ -60,9 +69,20 @@ public class DisksController : MonoBehaviour, IDisksController
         
         foreach (IBouncerDisk existingDisk in existingDisks)
         {
+            _allRegisteredDisks.Remove(existingDisk);
             _registeredDisks[diskTypeToRemove].Remove(existingDisk);
             _pointsController.UnregisterBouncingDisk(existingDisk);
             existingDisk.DestroyDisk();
+        }
+    }
+
+    public void UpdateAllDisks()
+    {
+        int updatedSpeed = GameProgression.DiscBaseSpeed * (int)GameProgression.GetSpeedBonusMult(_diskLevelController.DiskSpeedBonusLevel);
+        
+        foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
+        {
+            existingDisk.BaseSpeed = updatedSpeed;
         }
     }
 }
@@ -71,4 +91,5 @@ public interface IDisksController
 {
     public void AddDisk(IBouncerDisk diskToAdd);
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity);
+    public void UpdateAllDisks();
 }

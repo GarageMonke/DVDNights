@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 65380566}
   - component: {fileID: 65380567}
   m_Layer: 0
-  m_Name: Score-Controller
+  m_Name: Points-Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,6 +541,7 @@ Transform:
   - {fileID: 65380566}
   - {fileID: 2094859047}
   - {fileID: 1712847263}
+  - {fileID: 1344780843}
   m_Father: {fileID: 1559345874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490401494
@@ -1272,8 +1273,8 @@ RectTransform:
   - {fileID: 1965698588}
   - {fileID: 363529152}
   - {fileID: 648689970}
-  - {fileID: 607623339}
   - {fileID: 1501864589}
+  - {fileID: 607623339}
   m_Father: {fileID: 108797788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -1863,6 +1864,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5230732936342834746, guid: 1f25b41687a815442af2cfa4f8a061d8, type: 3}
   m_PrefabInstance: {fileID: 123673809818877104}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1344780842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344780843}
+  - component: {fileID: 1344780844}
+  m_Layer: 0
+  m_Name: Level-Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1344780843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344780842}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 458197371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344780844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344780842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3155634cbcae4b26a6f58007719b6fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1362800632
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,7 +3572,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5418785724061013655, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_Name
-      value: ScoreLabel-Text
+      value: PointsLabel-Text
       objectReference: {fileID: 0}
     - target: {fileID: 5418785724061013655, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_IsActive
