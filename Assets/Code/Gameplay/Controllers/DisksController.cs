@@ -14,6 +14,7 @@ public class DisksController : MonoBehaviour, IDisksController
     private IDiskFactory _diskFactory;
 
     public int DisksRegistered => _disksRegistered;
+    public List<IBouncerDisk> AllRegisteredDisks => _allRegisteredDisks;
 
     private void Awake()
     {
@@ -53,8 +54,7 @@ public class DisksController : MonoBehaviour, IDisksController
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
     }
-
-
+    
     public void AddDisk(IBouncerDisk diskToAdd)
     {
         DiskDataSO diskData = diskToAdd.DiskDataSO;
@@ -137,6 +137,7 @@ public class DisksController : MonoBehaviour, IDisksController
 public interface IDisksController
 {
     public int DisksRegistered { get; }
+    public List<IBouncerDisk> AllRegisteredDisks { get; }
     public void AddDisk(IBouncerDisk diskToAdd);
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity);
     public void UpdateAllDisks();

@@ -2,6 +2,7 @@ using System;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace DVDNights
@@ -17,7 +18,6 @@ namespace DVDNights
         [SerializeField] private Transform bounceArea;
         
         [Header("Retro Effect")]
-        [SerializeField] [Range(0, 50)] private int frameSkip; // 0 = smooth
         private int _frameCounter;
         private Vector3 _displayPosition;
         private float _displayRotation;
@@ -40,15 +40,19 @@ namespace DVDNights
         
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
+        public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
         
         private IDisksController _disksController;
         public DiskDataSO DiskDataSO => _diskDataSO;
+
+        private IBounceFeedbackController _bounceFeedbackController;
         
         public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea)
         {
             _diskDataSO = diskData;
             spriteRenderer.color = diskData.DiskColor;
-            
+            _bounceFeedbackController = ServiceLocator.GetService<IBounceFeedbackController>();
+            _bounceFeedbackController.ListenToBouncer(this);
             bounceArea = bouncingArea;
             InitializeSizes();
             LaunchRandom();
@@ -63,7 +67,7 @@ namespace DVDNights
         {
             if (!_isMoving) return;
 
-            if (frameSkip == 0)
+            if (GameFeel.IgnoreTvFrameRate)
             {
                 Move();
                 SpinDisk();
@@ -72,12 +76,12 @@ namespace DVDNights
 
             _frameCounter++;
             
-            if (_frameCounter > frameSkip)
+            if (_frameCounter > GameFeel.TvFrameRate)
             {
                 _frameCounter = 0;
         
                 // Simulate all skipped frames at once
-                int framesToSimulate = frameSkip + 1;
+                int framesToSimulate = GameFeel.TvFrameRate + 1;
                 for (int i = 0; i < framesToSimulate; i++)
                 {
                     SimulateMove();
@@ -179,9 +183,9 @@ namespace DVDNights
                 worldPos.y - bounceArea.position.y
             );
 
-            if (frameSkip > 0)
+            if (!GameFeel.IgnoreTvFrameRate)
             {
-                localPos += _velocity * (Time.deltaTime * frameSkip);
+                localPos += _velocity * (Time.deltaTime * GameFeel.TvFrameRate);
             }
             else
             {
@@ -206,15 +210,20 @@ namespace DVDNights
             
             if (hitX || hitY)
             {
+                float nx = localPos.x / _areaHalfSize.x; // already -1 to 1
+                float ny = localPos.y / _areaHalfSize.y;
+                Vector2 normalizedPos = new Vector2(nx, ny);
+                
                 if ((hitX && hitY) || IsNearCorner(localPos, minX, maxX, minY, maxY))
                 {
-                    
                     OnCornerHit?.Invoke(_diskDataSO);
+                    OnHit?.Invoke(_diskDataSO, normalizedPos, true);
                     PlaySpecialFeedback();
                 }
                 else
                 {
                     OnBorderHit?.Invoke(_diskDataSO);
+                    OnHit?.Invoke(_diskDataSO, normalizedPos, false);
                     PlayRegularFeedback();
                 }
             }
@@ -328,6 +337,11 @@ namespace DVDNights
             AudioManager.Instance.PlaySFX(audioClip, volume, pitch + pitch * 1.5f, true);
         }
 
+        private void OnDestroy()
+        {
+            _bounceFeedbackController.RemoveBouncer(this);
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -365,6 +379,7 @@ namespace DVDNights
     {
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
+        public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
         public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea);
         public int BaseSpeed { get; set; }

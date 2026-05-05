@@ -5,7 +5,7 @@ namespace DVDNights
     public static class GameProgression
     {
         public static readonly int DiscBaseBorderPoints = 1;
-        public static readonly int DiscBaseCornerPoints = 5;
+        public static readonly int DiscBaseCornerPoints = 10;
         public static readonly int DiscBaseSpeed = 200;
         public static readonly long MaxPoints = 2_147_483_647;
         
