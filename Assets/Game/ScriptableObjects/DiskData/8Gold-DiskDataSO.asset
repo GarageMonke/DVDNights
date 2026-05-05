@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ae92a69c0604071b23be9f5bfa95a2c, type: 3}
-  m_Name: White-DiskDataSO
+  m_Name: 8Gold-DiskDataSO
   m_EditorClassIdentifier: 
-  diskType: 0
-  diskMultiplier: 1
+  diskType: 7
+  diskMultiplier: 128
+  diskColor: {r: 1, g: 0.88666916, b: 0, a: 1}

@@ -9,7 +9,6 @@ namespace DVDNights
     public class BouncerDisk : MonoBehaviour, IBouncerDisk
     {
         [Header("Configuration")] 
-        [SerializeField] private DiskDataSO diskDataSO;
         [SerializeField] private int baseSpeed = 200;
         [SerializeField] private float cornerThreshold = 0.05f;
 
@@ -32,21 +31,24 @@ namespace DVDNights
         [SerializeField] private CornerTarget forcedCorner = CornerTarget.BottomRight;
         [SerializeField] private bool visualizeCorners = true;
         
+        private DiskDataSO _diskDataSO;
         private Vector2 _velocity;
         private Vector2 _logoHalfSize;
         private Vector2 _areaHalfSize;
         private bool _isMoving = true;
         private float _spinSpeed;
-
-        private int _currentColorIndex;
+        
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
         
         private IDisksController _disksController;
-        public DiskDataSO DiskDataSO => diskDataSO;
+        public DiskDataSO DiskDataSO => _diskDataSO;
         
-        public void InitializeDisk(Transform bouncingArea)
+        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea)
         {
+            _diskDataSO = diskData;
+            spriteRenderer.color = diskData.DiskColor;
+            
             bounceArea = bouncingArea;
             InitializeSizes();
             LaunchRandom();
@@ -207,12 +209,12 @@ namespace DVDNights
                 if ((hitX && hitY) || IsNearCorner(localPos, minX, maxX, minY, maxY))
                 {
                     
-                    OnCornerHit?.Invoke(diskDataSO);
+                    OnCornerHit?.Invoke(_diskDataSO);
                     PlaySpecialFeedback();
                 }
                 else
                 {
-                    OnBorderHit?.Invoke(diskDataSO);
+                    OnBorderHit?.Invoke(_diskDataSO);
                     PlayRegularFeedback();
                 }
             }
@@ -364,7 +366,7 @@ namespace DVDNights
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
-        public void InitializeDisk(Transform bouncingArea);
+        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea);
         public int BaseSpeed { get; set; }
         public void DestroyDisk();
     }

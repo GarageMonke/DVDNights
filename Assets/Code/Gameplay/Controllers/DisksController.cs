@@ -10,6 +10,8 @@ public class DisksController : MonoBehaviour, IDisksController
     private IPointsController _pointsController;
     private IDiskLevelController _diskLevelController;
     private int _disksRegistered;
+    private DiskType[]  _mergeOrder;
+    private IDiskFactory _diskFactory;
 
     public int DisksRegistered => _disksRegistered;
 
@@ -27,9 +29,20 @@ public class DisksController : MonoBehaviour, IDisksController
             { DiskType.CYAN, new List<IBouncerDisk>() },
             { DiskType.YELLOW, new List<IBouncerDisk>() },
             { DiskType.RED, new List<IBouncerDisk>() },
+            { DiskType.ORANGE , new List<IBouncerDisk>()},
             { DiskType.GREEN, new List<IBouncerDisk>() },
             { DiskType.MAGENTA, new List<IBouncerDisk>() },
             { DiskType.GOLD, new List<IBouncerDisk>() }
+        };
+        
+        _mergeOrder = new DiskType[]{
+            DiskType.WHITE,
+            DiskType.CYAN,
+            DiskType.YELLOW,
+            DiskType.ORANGE,
+            DiskType.RED,
+            DiskType.GREEN,
+            DiskType.MAGENTA
         };
 
         ServiceLocator.RegisterService<IDisksController>(this);
@@ -38,6 +51,7 @@ public class DisksController : MonoBehaviour, IDisksController
     private void Start()
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+        _diskFactory = ServiceLocator.GetService<IDiskFactory>();
     }
 
 
@@ -60,8 +74,10 @@ public class DisksController : MonoBehaviour, IDisksController
         
         _pointsController.RegisterBouncingDisk(diskToAdd);
         _disksRegistered++;
+        
+        CheckDisksToMerge();
     }
-
+    
     public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity)
     {
         List<IBouncerDisk> existingDisks = _registeredDisks[diskTypeToRemove];
@@ -71,24 +87,51 @@ public class DisksController : MonoBehaviour, IDisksController
             return;
         }
         
-        foreach (IBouncerDisk existingDisk in existingDisks)
+        List<IBouncerDisk> toRemove = existingDisks.GetRange(0, quantity);
+
+        foreach (IBouncerDisk disk in toRemove)
         {
-            _allRegisteredDisks.Remove(existingDisk);
-            _registeredDisks[diskTypeToRemove].Remove(existingDisk);
-            _pointsController.UnregisterBouncingDisk(existingDisk);
-            existingDisk.DestroyDisk();
+            _allRegisteredDisks.Remove(disk);
+            _pointsController.UnregisterBouncingDisk(disk);
+            disk.DestroyDisk();
         }
+
+        existingDisks.RemoveRange(0, quantity);
     }
 
     public void UpdateAllDisks()
     {
-        int updatedSpeed = GameProgression.DiscBaseSpeed * (int)GameProgression.GetSpeedBonusMult(_diskLevelController.DiskSpeedBonusLevel);
+        int updatedSpeed = (int)(GameProgression.DiscBaseSpeed * GameProgression.GetSpeedBonusMult(_diskLevelController.DiskSpeedBonusLevel));
         
         foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
         {
             existingDisk.BaseSpeed = updatedSpeed;
         }
     }
+
+    private void CheckDisksToMerge()
+    {
+        foreach (DiskType diskType in _mergeOrder)
+        {
+            List<IBouncerDisk> disks = _registeredDisks[diskType];
+
+            if (disks.Count < 10)
+            {
+                continue;
+            }
+            
+            DiskType nextTier = GetNextTier(diskType);
+            RemoveDisksByQuantity(diskType, 10);
+            _diskFactory.CreateDisk(nextTier);
+            return;
+        }
+    }
+    
+    private DiskType GetNextTier(DiskType current)
+    {
+        return (DiskType)((int)current + 1);
+    }
+
 }
 
 public interface IDisksController

@@ -463,8 +463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071d65c5eaf34abfb06166a4ef3b9c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diskDataProvider: {fileID: 11400000, guid: 7eedcb5183d83d64d91deb45a87e40fb, type: 2}
   diskOrigin: {fileID: 1517291250}
-  whiteBouncerDiskPrefab: {fileID: 6535648666492460007, guid: 1f25b41687a815442af2cfa4f8a061d8, type: 3}
+  diskPrefab: {fileID: 6535648666492460007, guid: 1f25b41687a815442af2cfa4f8a061d8, type: 3}
 --- !u!1 &490401494
 GameObject:
   m_ObjectHideFlags: 0

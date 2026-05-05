@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CorePatterns.Providers.Implementations;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
@@ -8,11 +8,11 @@ namespace DVDNights
     public class DiskFactory : MonoBehaviour, IDiskFactory
     {
         [Header("References")] 
+        [SerializeField] private DiskDataProvider diskDataProvider;
         [SerializeField] private Transform diskOrigin;
         [Header("Disk-Prefabs")]
-        [SerializeField] private BouncerDisk whiteBouncerDiskPrefab;
-
-        private Dictionary<DiskType, BouncerDisk> _disks;
+        [SerializeField] private BouncerDisk diskPrefab;
+        
         private IDisksController _disksController;
 
         private void Awake()
@@ -28,39 +28,16 @@ namespace DVDNights
 
         private void InstallService()
         {
-            _disks = new Dictionary<DiskType, BouncerDisk>
-            {
-                { DiskType.WHITE, whiteBouncerDiskPrefab }
-            };
-
+            diskDataProvider.InitializeProvider();
+            
             ServiceLocator.RegisterService<IDiskFactory>(this);
         }
 
         public void CreateDisk(DiskType type)
         {
-            IBouncerDisk instantiatedDisk = null;
-            switch (type)
-            {
-                case DiskType.WHITE:
-                    instantiatedDisk = Instantiate(whiteBouncerDiskPrefab, diskOrigin);
-                    break;
-                case DiskType.CYAN:
-                    break;
-                case DiskType.YELLOW:
-                    break;
-                case DiskType.ORANGE:
-                    break;
-                case DiskType.RED:
-                    break;
-                case DiskType.GREEN:
-                    break;
-                case DiskType.MAGENTA:
-                    break;
-                case DiskType.GOLD:
-                    break;
-            }
-
-            instantiatedDisk?.InitializeDisk(diskOrigin);
+            IBouncerDisk instantiatedDisk = Instantiate(diskPrefab, diskOrigin);
+            DiskDataSO diskDataSO = diskDataProvider.GetElementById(type.ToString());
+            instantiatedDisk?.InitializeDisk(diskDataSO, diskOrigin);
             _disksController.AddDisk(instantiatedDisk);
         }
     }
