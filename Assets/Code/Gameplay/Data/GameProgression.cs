@@ -22,13 +22,13 @@ namespace DVDNights
         public static int GetTierExtraPoints(int tier) => TierPoints[tier];
         public static int GetTierExtraMult(int tier) => TierLateMult[tier];
 
-        public static double GetSpeedBonusMult(int level) => 1.0 + level * 0.06;
+        public static double GetSpeedBonusMult(int level) => 1.0 + Math.Sqrt(level);
         public static int GetSpeedBonusCost(int level) => (int)(100 * Math.Pow(1.38, level));
 
-        public static double GetBorderBonusMult(int level) => 1.0 + level * 0.18;
+        public static double GetBorderBonusMult(int level) => 1.0 + Math.Pow(level + 1, 1.8) * 0.30;
         public static int GetBorderBonusCost(int level) => (int)(10 * Math.Pow(1.43, level));
 
-        public static double GetCornerBonusMult(int level) => 1.0 + level * 0.22;
+        public static double GetCornerBonusMult(int level) => Math.Pow(level, 2.0);
         public static int GetCornerBonusCost(int level) => (int)(50 * Math.Pow(1.48, level));
 
         public static double DiscIncomePerMinute(int tier, int speedLvl, int borderLvl, int cornerLvl)

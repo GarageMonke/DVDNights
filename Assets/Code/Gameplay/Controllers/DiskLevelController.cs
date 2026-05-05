@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -10,9 +9,23 @@ namespace DVDNights
         private int _diskCornerBonusLevel;
         private int _diskSpeedBonusLevel;
 
-        public int DiskBorderBonusLevel => _diskBorderBonusLevel;
-        public int DiskCornerBonusLevel => _diskCornerBonusLevel; 
-        public int DiskSpeedBonusLevel =>  _diskSpeedBonusLevel;
+        public int DiskBorderBonusLevel
+        {
+            get => _diskBorderBonusLevel;
+            set => _diskBorderBonusLevel = value;
+        }
+
+        public int DiskCornerBonusLevel
+        {
+            get => _diskCornerBonusLevel;
+            set => _diskCornerBonusLevel = value;
+        }
+
+        public int DiskSpeedBonusLevel
+        {
+            get => _diskSpeedBonusLevel;
+            set => _diskSpeedBonusLevel = value;
+        }
 
         private void Awake()
         {
@@ -24,35 +37,16 @@ namespace DVDNights
             ServiceLocator.RegisterService<IDiskLevelController>(this);
             
             //Load Bonus Levels
-            UpdateDiskBorderBonusLevel(0);
-            UpdateDiskCornerBonusLevel(0);
-            UpdateDiskSpeedBonusLevel(0);
-        }
-
-        public void UpdateDiskBorderBonusLevel(int updatedDiskBorderBonusLevel)
-        {
-            _diskBorderBonusLevel = updatedDiskBorderBonusLevel;
-        }
-
-        public void UpdateDiskCornerBonusLevel(int updatedDiskCornerBonusLevel)
-        {
-            _diskCornerBonusLevel = updatedDiskCornerBonusLevel;
-        }
-
-        public void UpdateDiskSpeedBonusLevel(int updatedDiskSpeedBonusLevel)
-        {
-            _diskSpeedBonusLevel = updatedDiskSpeedBonusLevel;
+            _diskBorderBonusLevel = 0;
+            _diskCornerBonusLevel = 0;
+            _diskSpeedBonusLevel = 0;
         }
     }
 
     public interface IDiskLevelController
     {
-        public int DiskBorderBonusLevel { get; }
-        public int DiskCornerBonusLevel { get; }
-        public int DiskSpeedBonusLevel { get; }
-
-        public void UpdateDiskBorderBonusLevel(int updatedDiskBorderBonusLevel);
-        public void UpdateDiskCornerBonusLevel(int updatedDiskCornerBonusLevel);
-        public void UpdateDiskSpeedBonusLevel(int updatedDiskSpeedBonusLevel);
+        public int DiskBorderBonusLevel { get; set; }
+        public int DiskCornerBonusLevel { get; set; }
+        public int DiskSpeedBonusLevel { get; set; }
     }
 }

@@ -19,11 +19,11 @@ namespace DVDNights
         private ShopItemView _previousItemView;
         private IShopItemInfoProvider _shopItemInfoProvider;
         private int _availablePoints;
-
+        
+        public Action<int> OnItemPurchased { get; set; }
 
         private void Start()
         {
-            _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
             _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
         }
 
@@ -80,6 +80,13 @@ namespace DVDNights
             if (!_isItemSelected)
             {
                 return;
+            }
+            
+            int itemCost = _shopItemInfoProvider.GetCostByItemId(_currentItemView.ItemId);
+
+            if (_availablePoints >= itemCost)
+            {
+                OnItemPurchased?.Invoke(_currentItemView.ItemId);
             }
         }
         
@@ -140,6 +147,7 @@ namespace DVDNights
 
     public interface IShopWindow : IWindow
     {
+        public Action<int> OnItemPurchased { get; set; }
         public void HighlightItem();
         public void SelectItem();
         public void DeselectItem();

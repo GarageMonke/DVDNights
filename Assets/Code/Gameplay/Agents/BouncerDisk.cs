@@ -44,16 +44,10 @@ namespace DVDNights
         
         private IDisksController _disksController;
         public DiskDataSO DiskDataSO => diskDataSO;
-
-        private void Start()
-        {
-            _disksController = ServiceLocator.GetService<IDisksController>();
-            _disksController.AddDisk(this);
-            InitializeDisk();
-        }
         
-        public void InitializeDisk()
+        public void InitializeDisk(Transform bouncingArea)
         {
+            bounceArea = bouncingArea;
             InitializeSizes();
             LaunchRandom();
         }
@@ -370,7 +364,7 @@ namespace DVDNights
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
-        public void InitializeDisk();
+        public void InitializeDisk(Transform bouncingArea);
         public int BaseSpeed { get; set; }
         public void DestroyDisk();
     }
