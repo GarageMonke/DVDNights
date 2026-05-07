@@ -36,7 +36,15 @@ namespace DVDNights
 
             while (elapsed < duration)
             {
-                elapsed += tickInterval;
+                if (GameFeel.IgnoreTvFrameRate)
+                {
+                    elapsed += Time.deltaTime;
+                }
+                else
+                {
+                    elapsed += tickInterval;
+                }
+         
                 float t = Mathf.Clamp01(elapsed / duration);
 
                 transform.localPosition = startPos + Vector3.up * (50f * t);

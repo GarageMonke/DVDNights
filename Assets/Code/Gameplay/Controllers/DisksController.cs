@@ -54,7 +54,7 @@ public class DisksController : MonoBehaviour, IDisksController
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
     }
-    
+     
     public void AddDisk(IBouncerDisk diskToAdd)
     {
         DiskDataSO diskData = diskToAdd.DiskDataSO;
@@ -115,13 +115,13 @@ public class DisksController : MonoBehaviour, IDisksController
         {
             List<IBouncerDisk> disks = _registeredDisks[diskType];
 
-            if (disks.Count < 10)
+            if (disks.Count < GameProgression.DiscMergeAmount)
             {
                 continue;
             }
             
             DiskType nextTier = GetNextTier(diskType);
-            RemoveDisksByQuantity(diskType, 10);
+            RemoveDisksByQuantity(diskType, GameProgression.DiscMergeAmount);
             _diskFactory.CreateDisk(nextTier);
             return;
         }

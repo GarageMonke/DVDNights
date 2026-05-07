@@ -35,7 +35,7 @@ public class PointsController : MonoBehaviour, IPointsController
     private void Start()
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-        UpdatePoints(int.MaxValue - 10000);
+        UpdatePoints(0);
     }
 
     private void HandleBorderHit(DiskDataSO diskData)
@@ -55,17 +55,24 @@ public class PointsController : MonoBehaviour, IPointsController
     private void TweenToScore()
     {
         _pointsTween?.Kill();
-    
+        
         _pointsTween = DOTween.To(() => _visualPoints, x => _visualPoints = x, _points, 0.5f)
             .SetEase(Ease.OutExpo)
             .OnUpdate(() =>
             {
-                _refreshTimer += Time.deltaTime;
-            
-                if (_refreshTimer >= _refreshRate)
+                if (GameFeel.IgnoreTvFrameRate)
                 {
-                    _refreshTimer = 0;
-                    scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
+                    scoreText.text = "POINTS: " + ((long)_visualPoints).ToString("D10");
+                }
+                else
+                {
+                    _refreshTimer += Time.deltaTime;
+
+                    if (_refreshTimer >= _refreshRate)
+                    {
+                        _refreshTimer = 0;
+                        scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
+                    }
                 }
             })
             .OnComplete(() => {
@@ -107,14 +114,16 @@ public class PointsController : MonoBehaviour, IPointsController
     {
         int diskTier = (int) diskData.DiskType;
         double amountToAdd = GameProgression.DiscBaseBorderPoints * GameProgression.GetTierExtraMult(diskTier) * GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) * diskData.DiskMultiplier + GameProgression.GetTierExtraPoints(diskTier);
-        return (int)amountToAdd;
+        amountToAdd = Mathf.CeilToInt((float)amountToAdd);
+        return Mathf.Max(1, (int)amountToAdd);
     }
 
     public int GetCornerPoints(DiskDataSO diskData)
     {
         int diskTier = (int) diskData.DiskType;
         double amountToAdd = GameProgression.DiscBaseCornerPoints * GameProgression.GetTierExtraMult(diskTier) * GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel + 1) * diskData.DiskMultiplier + GameProgression.GetTierExtraPoints(diskTier);
-        return (int) amountToAdd;
+        amountToAdd = Mathf.CeilToInt((float)amountToAdd);
+        return Mathf.Max(1, (int)amountToAdd);
     }
 
     private void UpdatePointsText()
