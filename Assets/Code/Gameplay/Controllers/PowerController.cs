@@ -5,6 +5,10 @@ namespace DVDNights
 {
     public class PowerController : MonoBehaviour, IPowerController
     {
+        [Header("References")] 
+        [SerializeField] private GameObject powerView;
+        
+        
         private int _pressValue = 1;
         private float _currentPower;
         private float _consumedPower;
@@ -51,14 +55,14 @@ namespace DVDNights
         {
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
-            Debug.Log("Start Forwarding");
+            powerView.SetActive(true);
         }
 
         private void StopForward()
         {
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
-            Debug.Log("Stop Forwarding");
+            powerView.SetActive(false);
         }
 
         private void Update()
