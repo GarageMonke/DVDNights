@@ -18,6 +18,12 @@ namespace DVDNights
         public Action OnPlayPauseButtonPressed { get; set; }
         public Action OnVolumeDownButtonPressed { get; set; }
         public Action OnVolumeUpButtonPressed { get; set; }
+        public Action OnNextButtonHeld { get; set; }
+        public Action OnVolumeUpButtonHeld { get; set; }
+        public Action OnVolumeDownButtonHeld { get; set; }
+        public Action OnNextButtonReleased { get; set; }
+        public Action OnVolumeUpButtonReleased { get; set; }
+        public Action OnVolumeDownButtonReleased { get; set; }
 
         private void Awake()
         {
@@ -35,7 +41,19 @@ namespace DVDNights
             foreach (ITVButton tvButton in tvButtons)
             {
                 tvButton.OnTvButtonPressed += HandleButtonPressed;
+                tvButton.OnTvButtonHeld += HandleButtonHeld;
+                tvButton.OnTvButtonReleased += HandleButtonReleased;
                 tvButton.EnableButton();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (ITVButton tvButton in tvButtons)
+            {
+                tvButton.OnTvButtonPressed -= HandleButtonPressed;
+                tvButton.OnTvButtonHeld -= HandleButtonHeld;
+                tvButton.OnTvButtonReleased -= HandleButtonReleased;
             }
         }
 
@@ -81,6 +99,44 @@ namespace DVDNights
                     break;
             }
         }
+        
+        private void HandleButtonHeld(int buttonId)
+        {
+            switch (buttonId)
+            {
+                //Next Button
+                case 5:
+                    OnNextButtonHeld?.Invoke();
+                    break;
+                //Volume Down Button
+                case 7:
+                    OnVolumeDownButtonHeld?.Invoke();
+                    break;
+                //Volume Up Button
+                case 8:
+                    OnVolumeUpButtonHeld?.Invoke();
+                    break;
+            }
+        }
+        
+        private void HandleButtonReleased(int buttonId)
+        {
+            switch (buttonId)
+            {
+                //Next Button
+                case 5:
+                    OnNextButtonReleased?.Invoke();
+                    break;
+                //Volume Down Button
+                case 7:
+                    OnVolumeDownButtonReleased?.Invoke();
+                    break;
+                //Volume Up Button
+                case 8:
+                    OnVolumeUpButtonReleased?.Invoke();
+                    break;
+            }
+        }
     }
 }
 
@@ -96,4 +152,12 @@ public interface ITVNavigationController
     public Action OnPlayPauseButtonPressed { get; set; }
     public Action OnVolumeDownButtonPressed { get; set; }
     public Action OnVolumeUpButtonPressed { get; set; }
+    
+    public Action OnNextButtonHeld { get; set; }
+    public Action OnVolumeUpButtonHeld { get; set; }
+    public Action OnVolumeDownButtonHeld { get; set; }
+    
+    public Action OnNextButtonReleased { get; set; }
+    public Action OnVolumeUpButtonReleased { get; set; }
+    public Action OnVolumeDownButtonReleased{ get; set; }
 }

@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
+public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Configuration")]
     [SerializeField] private int buttonId;
@@ -14,18 +14,55 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
     [SerializeField] private AudioClip feedbackClip;
     [SerializeField] private float volume = 0.5f;
     [SerializeField] private float pitch = 1f;
+    [SerializeField] private bool canBeHeld = false;
+    [SerializeField] private float holdThreshold = 0.15f;
     
     public Action<int> OnTvButtonPressed { get; set; }
+    public Action<int> OnTvButtonHeld { get; set; }
+    public Action<int> OnTvButtonReleased { get; set; }
     
-    public int ButtonId => buttonId;
-
     private float _originalZPosition;
-    
     private bool _canBePressed;
+    private bool _isPointerDown;
+    private float _pointerDownTimer;
+    private bool _holdTriggered;
+    private float _heldSecondsTimer;
+
+    public void EnableButton()  => _canBePressed = true;
+    public void DisableButton() => _canBePressed = false;
 
     private void Awake()
     {
         _originalZPosition = transform.localPosition.z;
+    }
+
+    private void Update()
+    {
+        if (!_isPointerDown)
+        {
+            return;
+        }
+
+        _pointerDownTimer += Time.deltaTime;
+
+        if (!_holdTriggered)
+        {
+            if (!(_pointerDownTimer >= holdThreshold))
+            {
+                return;
+            }
+            
+            _holdTriggered = true;
+        }
+        
+        _heldSecondsTimer += Time.deltaTime;
+
+        if (_heldSecondsTimer >= 0.5f)
+        {
+            _heldSecondsTimer = 0f;
+            OnTvButtonHeld?.Invoke(buttonId);
+            Debug.Log("HELD BUTTON ACTION");
+        }
     }
 
     public void Press()
@@ -34,46 +71,64 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler
         {
             return;
         }
-        
-        PlayButtonAnimation();
-    }
 
-    public void EnableButton()
-    {
-        _canBePressed = true;
-    }
-
-    public void DisableButton()
-    {
+        _isPointerDown = true;
         _canBePressed = false;
-    }
+        _holdTriggered = false;
+        _pointerDownTimer = 0f;
 
-    private void PlayButtonAnimation()
-    {
-        _canBePressed = false;
         transform.DOKill();
-
-        transform.DOLocalMoveZ(destinationZPosition, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOLocalMoveZ(destinationZPosition, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
         {
             AudioManager.Instance.PlaySFX(feedbackClip, volume, pitch, randomizePitch: false);
-            transform.DOLocalMoveZ(_originalZPosition, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+
+            if (!canBeHeld)
             {
-                _canBePressed = true;
-                OnTvButtonPressed?.Invoke(buttonId); 
-            });;
+                ReleaseButton();
+            }
         });
+    }
+    
+    private void ReleaseButton()
+    {
+        if (!_isPointerDown)
+        {
+            return;
+        }
+        
+        transform.DOLocalMoveZ(_originalZPosition, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            _canBePressed = true;
+        });
+                
+        if (!_holdTriggered)
+        {
+            OnTvButtonPressed?.Invoke(buttonId);
+        }
+                
+        _pointerDownTimer = 0f;
+        _isPointerDown = false;
+        _holdTriggered = false;
+        OnTvButtonReleased?.Invoke(buttonId);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         Press();
     }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        ReleaseButton();
+    }
 }
 
 public interface ITVButton
 {
-    public Action<int> OnTvButtonPressed { get; set; }
-    public void Press();
-    public void EnableButton();
-    public void DisableButton();
+    Action<int> OnTvButtonPressed { get; set; }
+    Action<int> OnTvButtonHeld { get; set; }
+    Action<int> OnTvButtonReleased { get; set; }
+    
+    void EnableButton();
+    void DisableButton();
 }

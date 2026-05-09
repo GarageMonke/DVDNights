@@ -15,6 +15,9 @@ namespace DVDNights
         private IDiskFactory _diskFactory;
         private IShopItemInfoProvider _shopItemInfoProvider;
         private IDisksController _disksController;
+        private bool _isShopOpened;
+
+        public bool IsShopOpened => _isShopOpened;
 
         private void Awake()
         {
@@ -70,8 +73,9 @@ namespace DVDNights
             
             _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
             _shopWindow.Display();
-            _disksController.UpdateAllDisks();
+            _disksController.BoostAllDisksSpeed();
         }
+        
 
         public void OpenShop()
         {
@@ -80,6 +84,7 @@ namespace DVDNights
             _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
             _shopWindow.Display();
             _shopWindow.HighlightItem();
+            _isShopOpened = true;
         }
 
         public void CloseShop()
@@ -91,7 +96,8 @@ namespace DVDNights
             }
 
             UnsubscribeFromEvents();
-            
+
+            _isShopOpened = false;
             _navigationController.OnMenuButtonPressed += OpenShop;
             _shopWindow.Hide();
         }
@@ -146,6 +152,7 @@ namespace DVDNights
 
     public interface IShopController
     {
+        public bool IsShopOpened { get; }
         public void OpenShop();
         public void CloseShop();
         public void MoveToNext();

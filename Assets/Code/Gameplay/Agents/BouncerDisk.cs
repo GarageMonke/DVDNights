@@ -10,7 +10,7 @@ namespace DVDNights
     public class BouncerDisk : MonoBehaviour, IBouncerDisk
     {
         [Header("Configuration")] 
-        [SerializeField] private int baseSpeed = 200;
+        [SerializeField] private float baseSpeed = 200;
         [SerializeField] private float cornerThreshold = 0.05f;
 
         [Header("References")] 
@@ -104,7 +104,7 @@ namespace DVDNights
             ApplySpeed();
         }
         
-        public int BaseSpeed
+        public float BaseSpeed
         {
             get => baseSpeed;
             set
@@ -382,7 +382,7 @@ namespace DVDNights
         public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
         public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea);
-        public int BaseSpeed { get; set; }
+        public float BaseSpeed { get; set; }
         public void DestroyDisk();
     }
 }
