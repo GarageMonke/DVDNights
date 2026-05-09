@@ -73,7 +73,6 @@ namespace DVDNights
             
             _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
             _shopWindow.Display();
-            _disksController.BoostAllDisksSpeed();
         }
         
 

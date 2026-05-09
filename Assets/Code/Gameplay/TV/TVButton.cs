@@ -100,16 +100,20 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         {
             _canBePressed = true;
         });
+        
+        _pointerDownTimer = 0f;
+        _isPointerDown = false;
                 
         if (!_holdTriggered)
         {
             OnTvButtonPressed?.Invoke(buttonId);
         }
-                
-        _pointerDownTimer = 0f;
-        _isPointerDown = false;
+        else
+        {
+            OnTvButtonReleased?.Invoke(buttonId);
+        }
+        
         _holdTriggered = false;
-        OnTvButtonReleased?.Invoke(buttonId);
     }
 
     public void OnPointerDown(PointerEventData eventData)

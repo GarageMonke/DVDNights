@@ -51,12 +51,14 @@ namespace DVDNights
         {
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
+            Debug.Log("Start Forwarding");
         }
 
         private void StopForward()
         {
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
+            Debug.Log("Stop Forwarding");
         }
 
         private void Update()
@@ -88,6 +90,12 @@ namespace DVDNights
             }
             
             _currentPower = Mathf.Max(0, _currentPower - amount);
+
+            if (_currentPower <= 0)
+            {
+                _disksController.ResetAllDisksSpeed();
+            }
+            
             Debug.Log("Current Power:" + _currentPower);
             RecalculateLayer();
         }
