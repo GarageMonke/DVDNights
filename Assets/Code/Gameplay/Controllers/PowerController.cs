@@ -16,7 +16,6 @@ namespace DVDNights
         private int _pressValue = 1;
         private float _currentPower;
         private float _consumedPower;
-        private int _currentLayer;
         private int _powerLevel;
         
         private float _layerProgress;
@@ -25,7 +24,7 @@ namespace DVDNights
         private bool _isForwarding;
         private IDisksController _disksController;
 
-        public int PowerLevel => _currentLayer;
+        public int PowerLevel => _powerLevel;
 
         private void Awake()
         {
@@ -127,13 +126,14 @@ namespace DVDNights
         {
             if (_isForwarding)
             {
-                float drain = GameProgression.LayerDrainRate[_currentLayer] * Time.deltaTime;
+                float drain = GameProgression.GetDrainRate(_powerLevel) * Time.deltaTime;
                 ConsumePower(drain);
             }
 
-            if (Input.anyKeyDown)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _powerLevel++;
+                _powerLevel = Mathf.Clamp(_powerLevel, 0, GameProgression.GetPowerMaxLevel());
             }
         }
         
@@ -145,8 +145,8 @@ namespace DVDNights
             }
             
             _currentPower += _pressValue * GameProgression.GetPowerPoints(_powerLevel);
+            _currentPower = Mathf.Clamp(_currentPower, 0, 100);
             Debug.Log("Current Power:" + _currentPower);
-            RecalculateLayer();
         }
 
         private void ConsumePower(float amount)
@@ -164,38 +164,7 @@ namespace DVDNights
                 ResetForwardShader();
             }
             
-            RecalculateLayer();
-        }
-
-        public void SetPressValue(int value)
-        {
-            _pressValue = value;
-        }
-        
-        private void RecalculateLayer()
-        {
-            int newLayer = 0;
-            float remaining = _currentPower;
-
-            for (int i = 0; i < GameProgression.LayerThresholdsLength; i++)
-            {
-                if (remaining >= GameProgression.GetLayerThreshold(i))
-                {
-                    remaining -= GameProgression.GetLayerThreshold(i);
-                    newLayer = i + 1;
-                }
-                else
-                {
-                    _layerProgress = remaining / GameProgression.GetLayerThreshold(i);
-                    break;
-                }
-            }
-            
-            newLayer = Mathf.Min(newLayer, GameProgression.LayerThresholdsLength);
-
-            _currentLayer = newLayer;
-            
-            Debug.Log("Current Layer:" + _currentLayer);
+            Debug.Log("Current Power:" + _currentPower);
         }
     }
 

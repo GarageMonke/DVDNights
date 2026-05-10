@@ -20,12 +20,11 @@ namespace DVDNights
         private static readonly long[] DiscBaseCost = { 10 };
         
         //Power base amount per level
-        private static readonly int[] PowerPoints = { 5, 100, 1000, 10000, 100000, 1000000 };
+        private static readonly int[] PowerPoints = { 100, 2, 5, 10, 25, 50 };
         private static readonly float[] PowerLayerMult = { 1.5f, 2, 3, 4, 5, 10 };
-        private static readonly int[] LayerThresholds = { 100, 250, 5000, 100000, 1000000, 10000000 };
-        public static readonly int[] LayerDrainRate = { 5, 15, 30, 60, 250, 500 };
+        public static readonly float[] DrainRate = { 10f, 5f, 2.5f, 1.25f, 0.626f, 0.1f };
         public static float GetPressValue(int level) => PowerPoints[level];
-        public static float GetDrainResistance(int level) => 1f - level * 0.03f;
+        public static float GetDrainRate(int level) => DrainRate[level];
 
         public static int GetDiscCost(int tier, int acquired) => (int)(DiscBaseCost[tier] * Math.Pow(1.06, acquired));
         public static int GetTierExtraPoints(int tier) => TierPoints[tier];
@@ -33,11 +32,10 @@ namespace DVDNights
 
         public static double GetSpeedBonusMult(int level) => 1.0 + Math.Pow(level + 1, 1.8) * 0.00602;
         public static int GetSpeedBonusCost(int level) => (int)(100 * Math.Pow(1.18, level));
-
-        public static int LayerThresholdsLength => LayerThresholds.Length;
-        public static int GetLayerThreshold(int layer) => LayerThresholds[layer];
+        
         public static int GetPowerPoints(int level) => PowerPoints[level];
         public static float GetPowerMult(int level) => PowerLayerMult[level];
+        public static int GetPowerMaxLevel() => PowerPoints.Length - 1;
 
         public static double GetBorderBonusMult(int level)
         {
