@@ -19,11 +19,10 @@ namespace DVDNights
         // Disc base purchase costs per tier
         private static readonly long[] DiscBaseCost = { 10 };
         
-        //Power base amount per level
-        private static readonly int[] PowerPoints = { 100, 2, 5, 10, 25, 50 };
-        private static readonly float[] PowerLayerMult = { 1.5f, 2, 3, 4, 5, 10 };
+        private static readonly int[] ForwardPoints = { 100, 2, 5, 10, 25, 50 };
+        private static readonly float[] ForwardLevelMult = { 1.5f, 2, 3, 4, 5, 10 };
         public static readonly float[] DrainRate = { 10f, 5f, 2.5f, 1.25f, 0.626f, 0.1f };
-        public static float GetPressValue(int level) => PowerPoints[level];
+        public static float GetPressValue(int level) => ForwardPoints[level];
         public static float GetDrainRate(int level) => DrainRate[level];
 
         public static int GetDiscCost(int tier, int acquired) => (int)(DiscBaseCost[tier] * Math.Pow(1.06, acquired));
@@ -33,9 +32,9 @@ namespace DVDNights
         public static double GetSpeedBonusMult(int level) => 1.0 + Math.Pow(level + 1, 1.8) * 0.00602;
         public static int GetSpeedBonusCost(int level) => (int)(100 * Math.Pow(1.18, level));
         
-        public static int GetPowerPoints(int level) => PowerPoints[level];
-        public static float GetPowerMult(int level) => PowerLayerMult[level];
-        public static int GetPowerMaxLevel() => PowerPoints.Length - 1;
+        public static int GetForwardPoints(int level) => ForwardPoints[level];
+        public static float GetForwardLevelMult(int level) => ForwardLevelMult[level];
+        public static int GetForwardMaxLevel() => ForwardPoints.Length - 1;
 
         public static double GetBorderBonusMult(int level)
         {

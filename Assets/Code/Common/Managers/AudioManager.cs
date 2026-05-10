@@ -47,7 +47,7 @@ namespace CorePatterns.Managers
             sfxSource.PlayOneShot(clip, volume);
         }   
         
-        public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false)
+        public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false, float pitch = 1f)
         {
             if (!newClip)
             {
@@ -64,6 +64,7 @@ namespace CorePatterns.Managers
             if (!ostSource.isPlaying || !ostSource.clip)
             {
                 ostSource.clip = newClip;
+                ostSource.pitch = pitch;
                 ostSource.volume = volume;
                 ostSource.loop = loop;
                 ostSource.volume = 0f;
@@ -77,6 +78,7 @@ namespace CorePatterns.Managers
             {
                 ostSource.Stop();
                 ostSource.clip = newClip;
+                ostSource.pitch = pitch;
                 ostSource.volume = volume;
                 ostSource.loop = loop;
                 ostSource.Play();

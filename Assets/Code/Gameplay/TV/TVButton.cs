@@ -51,17 +51,9 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
             {
                 return;
             }
-            
-            _holdTriggered = true;
-        }
-        
-        _heldSecondsTimer += Time.deltaTime;
 
-        if (_heldSecondsTimer >= 0.5f)
-        {
-            _heldSecondsTimer = 0f;
             OnTvButtonHeld?.Invoke(buttonId);
-            Debug.Log("HELD BUTTON ACTION");
+            _holdTriggered = true;
         }
     }
 

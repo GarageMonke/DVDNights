@@ -1,9 +1,12 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace DVDNights
 {
-    public class PowerController : MonoBehaviour, IPowerController
+    public class ForwardController : MonoBehaviour, IForwardController
     {
         private static readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
         private static readonly int DistortionStrength = Shader.PropertyToID("_DistortionStrength");
@@ -12,11 +15,17 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private GameObject powerView;
         [SerializeField] private Material forwardMaterial;
+
+        [Header("Feedback")] 
+        [SerializeField] private TextMeshProUGUI forwardLevelText;
+        [SerializeField] private AudioClip startForwardingClip;
+        [SerializeField] private AudioClip forwardingClip;
+        [SerializeField] private AudioClip stopForwardingClip;
         
         private int _pressValue = 1;
         private float _currentPower;
         private float _consumedPower;
-        private int _powerLevel;
+        private int _forwardLevel;
         
         private float _layerProgress;
         private IShopController _shopController;
@@ -24,7 +33,7 @@ namespace DVDNights
         private bool _isForwarding;
         private IDisksController _disksController;
 
-        public int PowerLevel => _powerLevel;
+        public int ForwardLevel => _forwardLevel;
 
         private void Awake()
         {
@@ -33,7 +42,7 @@ namespace DVDNights
 
         private void InstallService()
         {
-            ServiceLocator.RegisterService<IPowerController>(this);
+            ServiceLocator.RegisterService<IForwardController>(this);
         }
 
         private void Start()
@@ -56,9 +65,20 @@ namespace DVDNights
 
         private void GoForward()
         {
+            
+            AudioManager.Instance.PlaySFX(startForwardingClip, volume: 0.1f);
+            GameFeel.ForwardPitch = _forwardLevel * 0.2f;
+            float forwardPitch = 0.8f + GameFeel.ForwardPitch;
+            Debug.Log("forwardPitch:" + forwardPitch);
+            DOVirtual.DelayedCall(startForwardingClip.length, () => 
+            {
+                AudioManager.Instance.PlayOST(forwardingClip, volume: 0.1f, loop: true, pitch: forwardPitch);
+            });
+            
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
             powerView.SetActive(true);
+            forwardLevelText.text = "X" + GameProgression.GetForwardLevelMult(_forwardLevel);
             SetForwardShader();
         }
 
@@ -68,7 +88,7 @@ namespace DVDNights
             float distortion = 0;
             float opacity = 0;
             
-            switch (_powerLevel)
+            switch (_forwardLevel)
             {
                 case 0:
                     speed = 0.25f;
@@ -117,6 +137,8 @@ namespace DVDNights
 
         private void StopForward()
         {
+            AudioManager.Instance.StopOST();
+            AudioManager.Instance.PlaySFX(stopForwardingClip, 0.1f);
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
             ResetForwardShader();
@@ -126,14 +148,15 @@ namespace DVDNights
         {
             if (_isForwarding)
             {
-                float drain = GameProgression.GetDrainRate(_powerLevel) * Time.deltaTime;
+                float drain = GameProgression.GetDrainRate(_forwardLevel) * Time.deltaTime;
                 ConsumePower(drain);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _powerLevel++;
-                _powerLevel = Mathf.Clamp(_powerLevel, 0, GameProgression.GetPowerMaxLevel());
+                _forwardLevel++;
+                _forwardLevel = Mathf.Clamp(_forwardLevel, 0, GameProgression.GetForwardMaxLevel());
+                Debug.Log("Power Level:" + _forwardLevel);
             }
         }
         
@@ -144,7 +167,7 @@ namespace DVDNights
                 return;
             }
             
-            _currentPower += _pressValue * GameProgression.GetPowerPoints(_powerLevel);
+            _currentPower += _pressValue * GameProgression.GetForwardPoints(_forwardLevel);
             _currentPower = Mathf.Clamp(_currentPower, 0, 100);
             Debug.Log("Current Power:" + _currentPower);
         }
@@ -160,16 +183,15 @@ namespace DVDNights
 
             if (_currentPower <= 0)
             {
-                _disksController.ResetAllDisksSpeed();
-                ResetForwardShader();
+                StopForward();
             }
             
             Debug.Log("Current Power:" + _currentPower);
         }
     }
 
-    public interface IPowerController
+    public interface IForwardController
     {
-        public int PowerLevel { get; }
+        public int ForwardLevel { get; }
     }
 }

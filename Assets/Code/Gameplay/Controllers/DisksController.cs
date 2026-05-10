@@ -9,7 +9,7 @@ public class DisksController : MonoBehaviour, IDisksController
     private List<IBouncerDisk> _allRegisteredDisks;
     private IPointsController _pointsController;
     private IDiskLevelController _diskLevelController;
-    private IPowerController _powerController;
+    private IForwardController _forwardController;
     private int _disksRegistered;
     private DiskType[]  _mergeOrder;
     private IDiskFactory _diskFactory;
@@ -54,7 +54,7 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
-        _powerController = ServiceLocator.GetService<IPowerController>();
+        _forwardController = ServiceLocator.GetService<IForwardController>();
     }
      
     public void AddDisk(IBouncerDisk diskToAdd)
@@ -103,7 +103,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
     public void BoostAllDisksSpeed()
     {
-        float updatedSpeed = GameProgression.DiscBaseSpeed * GameProgression.GetPowerMult(_powerController.PowerLevel);
+        float updatedSpeed = GameProgression.DiscBaseSpeed * GameProgression.GetForwardLevelMult(_forwardController.ForwardLevel);
         
         foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
         {
