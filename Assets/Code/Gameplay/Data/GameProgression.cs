@@ -19,7 +19,7 @@ namespace DVDNights
         // Disc base purchase costs per tier
         private static readonly long[] DiscBaseCost = { 10 };
         
-        private static readonly int[] ForwardPoints = { 100, 2, 5, 10, 25, 50 };
+        private static readonly int[] ForwardPoints = { 1, 2, 5, 10, 25, 50 };
         private static readonly float[] ForwardLevelMult = { 1.5f, 2, 3, 4, 5, 10 };
         public static readonly float[] DrainRate = { 10f, 5f, 2.5f, 1.25f, 0.626f, 0.1f };
         public static float GetPressValue(int level) => ForwardPoints[level];
