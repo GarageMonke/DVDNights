@@ -269,7 +269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &121974325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1343,6 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerView: {fileID: 121974324}
+  forwardMaterial: {fileID: 2100000, guid: 27adabc1d87a83041bb5d43d920cdb34, type: 2}
 --- !u!1001 &956383007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2533,7 +2534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 99c85b0470f3586429d7ff6ea0ef571c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d5c39ea4d5dee30498cd571ba21414b8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
