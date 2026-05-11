@@ -7,7 +7,9 @@ namespace DVDNights
     {
         private int _diskBorderBonusLevel;
         private int _diskCornerBonusLevel;
-        private int _diskSpeedBonusLevel;
+        private int _diskFFBonusLevel;
+        private int _diskFFMultLevel;
+        private int _diskFFDrainRateLevel;
 
         public int DiskBorderBonusLevel
         {
@@ -21,11 +23,24 @@ namespace DVDNights
             set => _diskCornerBonusLevel = value;
         }
 
-        public int DiskSpeedBonusLevel
+        public int DiskFFBonusLevel 
         {
-            get => _diskSpeedBonusLevel;
-            set => _diskSpeedBonusLevel = value;
+            get => _diskFFBonusLevel;
+            set => _diskFFBonusLevel = value;
         }
+        
+        public int DiskFFMultLevel
+        {
+            get => _diskFFMultLevel;
+            set => _diskFFMultLevel = value;
+        }
+        
+        public int DiskFFDrainRateLevel
+        {
+            get => _diskFFDrainRateLevel;
+            set => _diskFFDrainRateLevel = value;
+        }
+        
 
         private void Awake()
         {
@@ -39,7 +54,9 @@ namespace DVDNights
             //Load Bonus Levels
             _diskBorderBonusLevel = 0;
             _diskCornerBonusLevel = 0;
-            _diskSpeedBonusLevel = 0;
+            _diskFFBonusLevel = 0;
+            _diskFFMultLevel = 0;
+            _diskFFDrainRateLevel = 0;
         }
     }
 
@@ -47,6 +64,8 @@ namespace DVDNights
     {
         public int DiskBorderBonusLevel { get; set; }
         public int DiskCornerBonusLevel { get; set; }
-        public int DiskSpeedBonusLevel { get; set; }
+        public int DiskFFBonusLevel { get; set; }
+        public int DiskFFMultLevel { get; set; }
+        public int DiskFFDrainRateLevel { get; set; }
     }
 }

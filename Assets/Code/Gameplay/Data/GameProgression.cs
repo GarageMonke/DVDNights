@@ -22,20 +22,23 @@ namespace DVDNights
         private static readonly int[] ForwardPoints = { 1, 2, 5, 10, 25, 50 };
         private static readonly float[] ForwardLevelMult = { 1.5f, 2, 3, 4, 5, 10 };
         public static readonly float[] DrainRate = { 10f, 5f, 2.5f, 1.25f, 0.626f, 0.1f };
-        public static float GetPressValue(int level) => ForwardPoints[level];
-        public static float GetDrainRate(int level) => DrainRate[level];
 
         public static int GetDiscCost(int tier, int acquired) => (int)(DiscBaseCost[tier] * Math.Pow(1.06, acquired));
         public static int GetTierExtraPoints(int tier) => TierPoints[tier];
         public static int GetTierExtraMult(int tier) => TierLateMult[tier];
-
-        public static double GetSpeedBonusMult(int level) => 1.0 + Math.Pow(level + 1, 1.8) * 0.00602;
-        public static int GetSpeedBonusCost(int level) => (int)(100 * Math.Pow(1.18, level));
         
-        public static int GetForwardPoints(int level) => ForwardPoints[level];
-        public static float GetForwardLevelMult(int level) => ForwardLevelMult[level];
-        public static int GetForwardMaxLevel() => ForwardPoints.Length - 1;
+        public static int GetFFCost(int level) => (int)(10000 * Math.Pow(level + 1, 5));
+        
+        public static int GetFFPoints(int level) => ForwardPoints[level];
+        public static float GetFFLevelMult(int level) => ForwardLevelMult[level];
+        public static float GetFFDrainRate(int level) => DrainRate[level];
+        public static int GetFFMaxLevel() => ForwardPoints.Length - 1;
+        
 
+        public static int GetBorderBonusCost(int level) => (int)(10 * Math.Pow(1.45, level));
+        public static double GetCornerBonusMult(int level) => Math.Pow(level, 2.0);
+        public static int GetCornerBonusCost(int level) => (int)(100 * Math.Pow(1.18, level));
+        
         public static double GetBorderBonusMult(int level)
         {
             if (level == 0)
@@ -49,19 +52,6 @@ namespace DVDNights
             }
             
             return Math.Pow(level, 1.5);
-        }
-
-        public static int GetBorderBonusCost(int level) => (int)(10 * Math.Pow(1.45, level));
-        public static double GetCornerBonusMult(int level) => Math.Pow(level, 2.0);
-        public static int GetCornerBonusCost(int level) => (int)(100 * Math.Pow(1.18, level));
-
-        public static double DiscIncomePerMinute(int tier, int speedLvl, int borderLvl, int cornerLvl)
-        {
-            double hpm = 30.0 * GetSpeedBonusMult(speedLvl);
-            double pts = TierPoints[tier] * TierLateMult[tier];
-            double border = hpm * pts * GetBorderBonusMult(borderLvl);
-            double corner = hpm * (1.0 / 12.0) * pts * 5.0 * GetCornerBonusMult(cornerLvl);
-            return border + corner;
         }
     }
 }

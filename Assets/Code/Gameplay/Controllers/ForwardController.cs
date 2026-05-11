@@ -77,7 +77,7 @@ namespace DVDNights
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
             powerView.SetActive(true);
-            forwardLevelText.text = "X" + GameProgression.GetForwardLevelMult(_forwardLevel);
+            forwardLevelText.text = "X" + GameProgression.GetFFLevelMult(_forwardLevel);
             SetForwardShader();
         }
 
@@ -147,14 +147,14 @@ namespace DVDNights
         {
             if (_isForwarding)
             {
-                float drain = GameProgression.GetDrainRate(_forwardLevel) * Time.deltaTime;
+                float drain = GameProgression.GetFFDrainRate(_forwardLevel) * Time.deltaTime;
                 ConsumePower(drain);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 _forwardLevel++;
-                _forwardLevel = Mathf.Clamp(_forwardLevel, 0, GameProgression.GetForwardMaxLevel());
+                _forwardLevel = Mathf.Clamp(_forwardLevel, 0, GameProgression.GetFFMaxLevel());
             }
         }
         
@@ -165,7 +165,7 @@ namespace DVDNights
                 return;
             }
             
-            _currentPower += GameProgression.GetForwardPoints(_forwardLevel);
+            _currentPower += GameProgression.GetFFPoints(_forwardLevel);
             _currentPower = Mathf.Clamp(_currentPower, 0, 100);
             forwardFillView.UpdateFill(_currentPower);
         }

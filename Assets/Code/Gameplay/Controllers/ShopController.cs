@@ -61,13 +61,36 @@ namespace DVDNights
                 case 1:
                     _diskLevelController.DiskBorderBonusLevel += 1;
                     break;
-                //Disk Speed Level
-                case 2:
-                    _diskLevelController.DiskSpeedBonusLevel += 1;
-                    break;
                 //Disk Corner Bonus Level
-                case 3:
+                case 2:
                     _diskLevelController.DiskCornerBonusLevel += 1;
+                    break;
+                //FF Bonus Level
+                case 3:
+                    if (_diskLevelController.DiskFFBonusLevel == GameProgression.GetFFMaxLevel())
+                    {
+                        //Purchase Failed
+                        break;
+                    }
+                    _diskLevelController.DiskFFBonusLevel += 1;
+                    break;
+                //FF Mult Level
+                case 4:
+                    if (_diskLevelController.DiskFFMultLevel == GameProgression.GetFFMaxLevel())
+                    {
+                        //Purchase Failed
+                        break;
+                    }
+                    _diskLevelController.DiskFFMultLevel += 1;
+                    break;
+                //FF Drain Rate
+                case 5:
+                    if (_diskLevelController.DiskFFDrainRateLevel == GameProgression.GetFFMaxLevel())
+                    {
+                        //Purchase Failed
+                        break;
+                    }
+                    _diskLevelController.DiskFFDrainRateLevel += 1;
                     break;
             }
             

@@ -103,7 +103,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
     public void BoostAllDisksSpeed()
     {
-        float updatedSpeed = GameProgression.DiscBaseSpeed * GameProgression.GetForwardLevelMult(_forwardController.ForwardLevel);
+        float updatedSpeed = GameProgression.DiscBaseSpeed * GameProgression.GetFFLevelMult(_forwardController.ForwardLevel);
         
         foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
         {
