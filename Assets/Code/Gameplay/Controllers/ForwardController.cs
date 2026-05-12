@@ -21,19 +21,18 @@ namespace DVDNights
         
         private float _currentPower;
         private float _consumedPower;
-        private int _forwardLevel;
         
         private float _layerProgress;
         private IShopController _shopController;
         private ITVNavigationController _tvNagivationController;
         private bool _isForwarding;
         private IDisksController _disksController;
-        
+        private IDiskLevelController _diskLevelController;
+
         private static readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
         private static readonly int DistortionStrength = Shader.PropertyToID("_DistortionStrength");
         private static readonly int ScanlineOpacity = Shader.PropertyToID("_ScanlineOpacity");
-
-        public int ForwardLevel => _forwardLevel;
+        
 
         private void Awake()
         {
@@ -51,6 +50,7 @@ namespace DVDNights
             _shopController = ServiceLocator.GetService<IShopController>();
             _tvNagivationController = ServiceLocator.GetService<ITVNavigationController>();
             _disksController = ServiceLocator.GetService<IDisksController>();
+            _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
 
             _tvNagivationController.OnSubmitButtonPressed += AddPower;
             _tvNagivationController.OnNextButtonHeld += GoForward;
@@ -67,7 +67,7 @@ namespace DVDNights
         private void GoForward()
         {
             AudioManager.Instance.PlaySFX(startForwardingClip, volume: 0.1f);
-            GameFeel.ForwardPitch = _forwardLevel * 0.2f;
+            GameFeel.ForwardPitch = _diskLevelController.DiskFFMultLevel * 0.2f;
             float forwardPitch = 0.8f + GameFeel.ForwardPitch;
             DOVirtual.DelayedCall(startForwardingClip.length, () => 
             {
@@ -77,7 +77,7 @@ namespace DVDNights
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
             powerView.SetActive(true);
-            forwardLevelText.text = "X" + GameProgression.GetFFLevelMult(_forwardLevel);
+            forwardLevelText.text = "X" + GameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
             SetForwardShader();
         }
 
@@ -87,7 +87,7 @@ namespace DVDNights
             float distortion = 0;
             float opacity = 0;
             
-            switch (_forwardLevel)
+            switch (_diskLevelController.DiskFFMultLevel)
             {
                 case 0:
                     speed = 0.25f;
@@ -95,26 +95,31 @@ namespace DVDNights
                     opacity = 0.025f;
                     break;
                 case 1:
+                case 2:
+                case 3:
                     speed = 0.5f;
                     distortion = 0.01f;
                     opacity = 0.025f;
                     break;
-                case 2:
+                case 4:
+                case 5:
                     speed = 0.75f;
                     distortion = 0.0125f;
                     opacity = 0.05f;
                     break;
-                case 3:
+                case 6:
+                case 7:
                     speed = 1f;
                     distortion = 0.02f;
                     opacity = 0.1f;
                     break;
-                case 4:
+                case 8:
+                case 9:
                     speed = 1.25f;
                     distortion = 0.035f;
                     opacity = 0.15f;
                     break;
-                case 5:
+                case 10:
                     speed = 5f;
                     distortion = 0.05f;
                     opacity = 0.5f;
@@ -147,14 +152,8 @@ namespace DVDNights
         {
             if (_isForwarding)
             {
-                float drain = GameProgression.GetFFDrainRate(_forwardLevel) * Time.deltaTime;
+                float drain = GameProgression.GetFFDrainRate(_diskLevelController.DiskFFDrainRateLevel) * Time.deltaTime;
                 ConsumePower(drain);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _forwardLevel++;
-                _forwardLevel = Mathf.Clamp(_forwardLevel, 0, GameProgression.GetFFMaxLevel());
             }
         }
         
@@ -165,7 +164,7 @@ namespace DVDNights
                 return;
             }
             
-            _currentPower += GameProgression.GetFFPoints(_forwardLevel);
+            _currentPower += GameProgression.GetFFClickBonus(_diskLevelController.DiskFFBonusLevel);
             _currentPower = Mathf.Clamp(_currentPower, 0, 100);
             forwardFillView.UpdateFill(_currentPower);
         }
@@ -189,6 +188,5 @@ namespace DVDNights
 
     public interface IForwardController
     {
-        public int ForwardLevel { get; }
     }
 }

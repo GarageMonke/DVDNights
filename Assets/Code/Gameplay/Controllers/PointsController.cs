@@ -35,7 +35,7 @@ public class PointsController : MonoBehaviour, IPointsController
     private void Start()
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-        UpdatePoints(0);
+        UpdatePoints(Int32.MaxValue - 100000);
     }
 
     private void HandleBorderHit(DiskDataSO diskData)
@@ -57,24 +57,14 @@ public class PointsController : MonoBehaviour, IPointsController
         _pointsTween?.Kill();
         
         _pointsTween = DOTween.To(() => _visualPoints, x => _visualPoints = x, _points, 0.5f)
-            .SetEase(Ease.OutExpo)
             .OnUpdate(() =>
             {
                 if (GameFeel.IgnoreTvFrameRate)
                 {
-                    scoreText.text = "POINTS: " + ((long)_visualPoints).ToString("D10");
-                }
-                else
-                {
-                    _refreshTimer += Time.deltaTime;
-
-                    if (_refreshTimer >= _refreshRate)
-                    {
-                        _refreshTimer = 0;
-                        scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
-                    }
+                    scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
                 }
             })
+            .SetEase(Ease.Linear)
             .OnComplete(() => {
                 scoreText.text = "POINTS: " + _points.ToString("D10");
                 OnScoreChanged?.Invoke(_points);
