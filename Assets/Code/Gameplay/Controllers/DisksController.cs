@@ -74,9 +74,7 @@ public class DisksController : MonoBehaviour, IDisksController
         _shopController.OnShopOpened += StopAllDisksMoving;
         _shopController.OnShopClosed += CheckDisksToMerge;
         
-        CreateDisk(DiskType.MAGENTA);
-        CreateDisk(DiskType.MAGENTA);
-        CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.WHITE);
         ResumeAllDisksMoving();
     }
 
