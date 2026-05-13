@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 2Cyan-DiskDataSO
   m_EditorClassIdentifier: 
   diskType: 1
-  diskMultiplier: 4
+  diskMultiplier: 2
   diskColor: {r: 0, g: 1, b: 1, a: 1}

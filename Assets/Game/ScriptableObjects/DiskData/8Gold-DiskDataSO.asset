@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 8Gold-DiskDataSO
   m_EditorClassIdentifier: 
   diskType: 7
-  diskMultiplier: 16384
+  diskMultiplier: 128
   diskColor: {r: 1, g: 0.88666916, b: 0, a: 1}

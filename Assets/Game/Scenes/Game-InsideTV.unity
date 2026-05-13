@@ -1165,7 +1165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_text
-      value: CORNER BONUS
+      value: CORNER MULT
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_fontSize
@@ -1362,7 +1362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_text
-      value: DISC BONUS
+      value: BORDER MULT
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_wordWrappingRatios
@@ -3570,7 +3570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_text
-      value: FF BONUS
+      value: FF CLICK PWR
       objectReference: {fileID: 0}
     - target: {fileID: 8064795109587790679, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
       propertyPath: m_wordWrappingRatios

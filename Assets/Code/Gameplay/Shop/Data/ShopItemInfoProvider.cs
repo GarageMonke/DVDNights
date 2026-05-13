@@ -36,29 +36,29 @@ namespace DVDNights
                     break;
                 //Disk Base Bonus Level
                 case 1:
-                    int currentDiskBaseBonusLevel = _diskLevelController.DiskBorderBonusLevel;
+                    float currentDiskBaseBonus = GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel);
                    
                     if (_diskLevelController.DiskBorderBonusLevel == GameProgression.GetBonusMaxLevel())
                     {
-                        shopItemInfo = $"{currentDiskBaseBonusLevel} (MAX)";
+                        shopItemInfo = $"{currentDiskBaseBonus.ToKMB()} (MAX)";
                         break;
                     }
                     
-                    int nextDiskBaseBonusLevel =  currentDiskBaseBonusLevel + 1;
-                    shopItemInfo = $"{currentDiskBaseBonusLevel} -> {nextDiskBaseBonusLevel}";
+                    int nextDiskBaseBonusLevel =  GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel + 1);
+                    shopItemInfo = $"{currentDiskBaseBonus.ToKMB()} -> {nextDiskBaseBonusLevel.ToKMB()}";
                     break;
                 //Disk Corner Bonus Level
                 case 2:
-                    int currentDiskCornerBonusLevel = _diskLevelController.DiskCornerBonusLevel;
+                    float currentDiskCornerBonus = GameProgression.GetBorderBonusMult(_diskLevelController.DiskCornerBonusLevel);
                     
                     if (_diskLevelController.DiskCornerBonusLevel == GameProgression.GetBonusMaxLevel())
                     {
-                        shopItemInfo = $"{currentDiskCornerBonusLevel} (MAX)";
+                        shopItemInfo = $"{currentDiskCornerBonus.ToKMB()} (MAX)";
                         break;
                     }
                   
-                    int nextDiskCornerBonusLevel =  currentDiskCornerBonusLevel + 1;
-                    shopItemInfo = $"{currentDiskCornerBonusLevel} -> {nextDiskCornerBonusLevel}";
+                    int nextDiskCornerBonusLevel = GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel + 1);
+                    shopItemInfo = $"{currentDiskCornerBonus.ToKMB()} -> {nextDiskCornerBonusLevel.ToKMB()}";
                     break;
                 //FF Bonus Level
                 case 3:
@@ -66,12 +66,12 @@ namespace DVDNights
                     
                     if (_diskLevelController.DiskFFBonusLevel == GameProgression.GetFFMaxLevel())
                     {
-                        shopItemInfo = $"{currentDiskFFBonus} (MAX)";
+                        shopItemInfo = $"{currentDiskFFBonus.ToKMB()} (MAX)";
                         break;
                     }
                     
                     float nextDiskFFBonus = GameProgression.GetFFClickBonus(_diskLevelController.DiskFFBonusLevel + 1);;
-                    shopItemInfo = $"{currentDiskFFBonus} -> {nextDiskFFBonus}";
+                    shopItemInfo = $"{currentDiskFFBonus.ToKMB()} -> {nextDiskFFBonus.ToKMB()}";
                     break;
                 //FF Speed Level
                 case 4:
@@ -110,7 +110,8 @@ namespace DVDNights
             {
                 //Buy White Disk
                 case 0:
-                    shopItemCost = GameProgression.GetDiscCost(_disksController.DisksRegistered - 1);
+                    //_disksController.DisksRegistered - 1
+                    shopItemCost = GameProgression.GetDiscCost(2186);
                     break;
                 //Disk Base Bonus Level
                 case 1:

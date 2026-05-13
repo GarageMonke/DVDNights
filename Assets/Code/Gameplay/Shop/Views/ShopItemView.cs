@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace DVDNights
@@ -43,7 +44,7 @@ namespace DVDNights
 
         public void UpdateCost(int updatedCost, bool isAffordable)
         {
-            itemPrice.text = updatedCost.ToString();
+            itemPrice.text = updatedCost.ToKMB();
 
             if (!isAffordable)
             {
@@ -52,6 +53,16 @@ namespace DVDNights
             }
             
             itemPrice.color = normalColor;
+            
+            if (updatedCost <= 0)
+            {
+                itemPrice.text = "-";
+            }
+
+            if (updatedCost >= Int32.MaxValue)
+            {
+                itemPrice.text = "MAX";
+            }
         }
 
         public void UpdateInfo(string updatedInfo)

@@ -126,15 +126,9 @@ public class PointsController : MonoBehaviour, IPointsController
             return 0;
         }
         
-        int diskTier = (int) diskData.DiskType;
+        double totalMultiplier = GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) * diskData.DiskMultiplier;
         
-        double baseValue = GameProgression.DiscBaseBorderPoints + GameProgression.GetTierExtraPoints(diskTier);
-        
-        double totalMultiplier = GameProgression.GetTierExtraMult(diskTier) 
-                                 * GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) 
-                                 * diskData.DiskMultiplier;
-        
-        double amountToAdd = baseValue * totalMultiplier;
+        double amountToAdd = GameProgression.DiscBaseBorderPoints * totalMultiplier;
         
         return Mathf.Max(1, (int)amountToAdd);
     }
@@ -146,15 +140,9 @@ public class PointsController : MonoBehaviour, IPointsController
             return 0;
         }
         
-        int diskTier = (int) diskData.DiskType;
+        double totalMultiplier = GameProgression.GetBorderBonusMult(_diskLevelController.DiskCornerBonusLevel) * diskData.DiskMultiplier;
         
-        double baseValue = GameProgression.DiscBaseCornerPoints + GameProgression.GetTierExtraPoints(diskTier);
-        
-        double totalMultiplier = GameProgression.GetTierExtraMult(diskTier) 
-                                 * GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel) 
-                                 * diskData.DiskMultiplier;
-        
-        double amountToAdd = baseValue * totalMultiplier;
+        double amountToAdd = GameProgression.DiscBaseCornerPoints * totalMultiplier;
         
         return Mathf.Max(1, (int)amountToAdd);
     }

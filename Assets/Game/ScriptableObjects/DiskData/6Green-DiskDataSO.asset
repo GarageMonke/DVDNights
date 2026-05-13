@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 6Green-DiskDataSO
   m_EditorClassIdentifier: 
   diskType: 5
-  diskMultiplier: 1024
+  diskMultiplier: 32
   diskColor: {r: 0, g: 1, b: 0.11055279, a: 1}
