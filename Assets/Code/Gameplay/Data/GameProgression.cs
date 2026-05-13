@@ -27,10 +27,11 @@ namespace DVDNights
         public static int GetDiscCost(int acquired)
         {
             if (acquired < 3) return DiscBaseCost;
-            return (int)(DiscBaseCost * Math.Pow(1.05, acquired - 2));
+            double cost = DiscBaseCost * Math.Pow(1.00864, acquired - 2);
+            return (int)Math.Min(MaxPoints - 1, cost);
         }
         
-        public static int GetBorderBonusMaxLevel() => 20;
+        public static int GetBonusMaxLevel() => 20;
             
         public static int GetTierExtraPoints(int tier) => TierPoints[tier];
         public static int GetTierExtraMult(int tier) => TierLateMult[tier];
@@ -38,7 +39,7 @@ namespace DVDNights
         public static float GetFFClickBonus(int level) => FFClickBonus[level];
         // L0=500  L3=7.3K  L6=108K  L9=1.6M
         
-        public static int GetFFBonusCost(int level) => (int)(10000 * Math.Pow(1.9, level));
+        public static int GetFFBonusCost(int level) => (int)(10000 * Math.Pow(2, level));
         
         public static float GetFFLevelMult(int level) => FFMult[level];
         
@@ -54,7 +55,7 @@ namespace DVDNights
                 return 1;
             }
             
-            return Math.Pow(level + 1, 2.7) * 0.55;
+            return Math.Pow(level + 1, 2.7);
         }
 
         public static int GetCornerBonusCost(int level) => (int)(150 * Math.Pow(2.0, level));
@@ -68,13 +69,11 @@ namespace DVDNights
                 return 1;
             }
             
-            return Math.Pow(level + 1, 2.2) * 0.75;
+            return Math.Pow(level + 1, 3);
         }
         
               
         // L0=50  L5=700  L10=10K  L15=150K  L20=2M
         public static int GetBorderBonusCost(int level) => (int)(50 * Math.Pow(1.85, level));
-        
-        public static int GetDiskBonusMaxLevel() => 20;
     }
 }

@@ -105,12 +105,6 @@ namespace DVDNights
             ApplySpeed();
             
             float hpm = (baseSpeed / (2 * (_areaHalfSize.x*2 + _areaHalfSize.y*2))) * 2 * 60;
-            Debug.Log($"Border hits/min: {hpm:F1}");
-            Debug.Log($"Cross time X: {_areaHalfSize.x*2/baseSpeed:F2}s");
-            
-            Debug.Log($"Logo half size: {_logoHalfSize}");
-            Debug.Log($"Area half size: {_areaHalfSize}");
-            Debug.Log($"Ratio disk/area: {_logoHalfSize.x / _areaHalfSize.x:F4}");
         }
         
         public float BaseSpeed

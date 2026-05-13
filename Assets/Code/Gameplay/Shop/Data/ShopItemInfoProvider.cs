@@ -36,27 +36,29 @@ namespace DVDNights
                     break;
                 //Disk Base Bonus Level
                 case 1:
-                    double currentBonusAmountToAdd = GameProgression.DiscBaseBorderPoints * GameProgression.GetTierExtraMult((int) DiskType.WHITE) * GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) + GameProgression.GetTierExtraPoints((int) DiskType.WHITE);
-                    currentBonusAmountToAdd = Mathf.CeilToInt((float)currentBonusAmountToAdd);
-                    int currentFormattedBonusAmountToAdd = Mathf.Max(1, (int)currentBonusAmountToAdd);
+                    int currentDiskBaseBonusLevel = _diskLevelController.DiskBorderBonusLevel;
+                   
+                    if (_diskLevelController.DiskBorderBonusLevel == GameProgression.GetBonusMaxLevel())
+                    {
+                        shopItemInfo = $"{currentDiskBaseBonusLevel} (MAX)";
+                        break;
+                    }
                     
-                    double nextBonusAmountToAdd = GameProgression.DiscBaseBorderPoints * GameProgression.GetTierExtraMult((int) DiskType.WHITE) * GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel + 1) + GameProgression.GetTierExtraPoints((int) DiskType.WHITE);
-                    nextBonusAmountToAdd = Mathf.CeilToInt((float)nextBonusAmountToAdd);
-                    int nextFormattedBonusAmountToAdd = Mathf.Max(1, (int)nextBonusAmountToAdd);
-                    
-                    shopItemInfo = $"{currentFormattedBonusAmountToAdd} -> {nextFormattedBonusAmountToAdd}";
+                    int nextDiskBaseBonusLevel =  currentDiskBaseBonusLevel + 1;
+                    shopItemInfo = $"{currentDiskBaseBonusLevel} -> {nextDiskBaseBonusLevel}";
                     break;
                 //Disk Corner Bonus Level
                 case 2:
-                    double currentCornerAmountToAdd = GameProgression.DiscBaseCornerPoints * GameProgression.GetTierExtraMult((int) DiskType.WHITE) * GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel + 1)  + GameProgression.GetTierExtraPoints((int) DiskType.WHITE);
-                    currentCornerAmountToAdd = Mathf.CeilToInt((float)currentCornerAmountToAdd);
-                    int currentCornerFormattedAmountToAdd = Mathf.Max(1, (int)currentCornerAmountToAdd);
+                    int currentDiskCornerBonusLevel = _diskLevelController.DiskCornerBonusLevel;
                     
-                    double nextCornerAmountToAdd = GameProgression.DiscBaseCornerPoints * GameProgression.GetTierExtraMult((int) DiskType.WHITE) * GameProgression.GetCornerBonusMult(_diskLevelController.DiskCornerBonusLevel + 2)  + GameProgression.GetTierExtraPoints((int) DiskType.WHITE);
-                    nextCornerAmountToAdd = Mathf.CeilToInt((float)nextCornerAmountToAdd);
-                    int nextFormattedCornerAmountToAdd = Mathf.Max(1, (int)nextCornerAmountToAdd);
-                    
-                    shopItemInfo = $"{currentCornerFormattedAmountToAdd} -> {nextFormattedCornerAmountToAdd}";
+                    if (_diskLevelController.DiskCornerBonusLevel == GameProgression.GetBonusMaxLevel())
+                    {
+                        shopItemInfo = $"{currentDiskCornerBonusLevel} (MAX)";
+                        break;
+                    }
+                  
+                    int nextDiskCornerBonusLevel =  currentDiskCornerBonusLevel + 1;
+                    shopItemInfo = $"{currentDiskCornerBonusLevel} -> {nextDiskCornerBonusLevel}";
                     break;
                 //FF Bonus Level
                 case 3:

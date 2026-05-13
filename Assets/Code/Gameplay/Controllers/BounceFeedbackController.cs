@@ -56,12 +56,12 @@ namespace DVDNights
             if (isCorner)
             {
                 amountEarned = _pointsController.GetCornerPoints(diskData);
-                hitView.InitializeView("+" + amountEarned, true);
+                hitView.InitializeView("+" + amountEarned.ToKMB(), true);
                 return;
             }
 
             amountEarned = _pointsController.GetBorderPoints(diskData);
-            hitView.InitializeView("+" + amountEarned, false);
+            hitView.InitializeView("+" + amountEarned.ToKMB(), false);
         }
 
         private Vector2 WorldToTvPanelLocal(Vector3 normalizedPos)

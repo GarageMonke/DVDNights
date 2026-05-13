@@ -49,20 +49,32 @@ namespace DVDNights
             int itemCost = _shopItemInfoProvider.GetCostByItemId(itemPurchasedId);
             int currentPoints = _pointsController.GetVisualPoints();
             
-            _pointsController.UpdatePoints(currentPoints - itemCost);
-            
             switch (itemPurchasedId)
             {
                 //Buy White Disk
                 case 0:
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskFactory.CreateDisk(DiskType.WHITE);
                     break;
                 //Disk Base Bonus Level
                 case 1:
+                    if (_diskLevelController.DiskBorderBonusLevel == GameProgression.GetBonusMaxLevel())
+                    {
+                        //Purchase Failed
+                        break;
+                    }
+                    
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskBorderBonusLevel += 1;
                     break;
                 //Disk Corner Bonus Level
                 case 2:
+                    if (_diskLevelController.DiskCornerBonusLevel == GameProgression.GetBonusMaxLevel())
+                    {
+                        //Purchase Failed
+                        break;
+                    }
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskCornerBonusLevel += 1;
                     break;
                 //FF Bonus Level
@@ -72,6 +84,7 @@ namespace DVDNights
                         //Purchase Failed
                         break;
                     }
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskFFBonusLevel += 1;
                     break;
                 //FF Mult Level
@@ -81,6 +94,7 @@ namespace DVDNights
                         //Purchase Failed
                         break;
                     }
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskFFMultLevel += 1;
                     break;
                 //FF Drain Rate
@@ -90,6 +104,7 @@ namespace DVDNights
                         //Purchase Failed
                         break;
                     }
+                    _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskFFDrainRateLevel += 1;
                     break;
             }
