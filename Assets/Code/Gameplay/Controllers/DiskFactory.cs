@@ -13,17 +13,10 @@ namespace DVDNights
         [Header("Disk-Prefabs")]
         [SerializeField] private BouncerDisk diskPrefab;
         
-        private IDisksController _disksController;
 
         private void Awake()
         {
             InstallService();
-        }
-
-        private void Start()
-        {
-            _disksController = ServiceLocator.GetService<IDisksController>();
-            CreateDisk(DiskType.WHITE);
         }
 
         private void InstallService()
@@ -33,17 +26,18 @@ namespace DVDNights
             ServiceLocator.RegisterService<IDiskFactory>(this);
         }
 
-        public void CreateDisk(DiskType type)
+        public IBouncerDisk CreateDisk(DiskType type, Vector3 position)
         {
             IBouncerDisk instantiatedDisk = Instantiate(diskPrefab, diskOrigin);
+            instantiatedDisk.Transform.SetPositionAndRotation(position, Quaternion.identity);
             DiskDataSO diskDataSO = diskDataProvider.GetElementById(type.ToString());
-            instantiatedDisk?.InitializeDisk(diskDataSO, diskOrigin);
-            _disksController.AddDisk(instantiatedDisk);
+            instantiatedDisk.InitializeDisk(diskDataSO, diskOrigin);
+            return instantiatedDisk;
         }
     }
 
     public interface IDiskFactory
     {
-        public void CreateDisk(DiskType type);
+        public IBouncerDisk CreateDisk(DiskType type, Vector3 position);
     }
 }

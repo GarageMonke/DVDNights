@@ -1,20 +1,35 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
+using DG.Tweening;
 using DVDNights;
 using UnityEngine;
 
 public class DisksController : MonoBehaviour, IDisksController
 {
+    [Header("References")] 
+    [SerializeField] private Transform bounceArea;
+    [SerializeField] private CanvasGroup whiteFlashCanvasGroup;
+
+    [Header("Feedback")] 
+    [SerializeField] private AudioClip flashAudioClip;
+    [SerializeField] private AudioClip mergeAudioClip;
+    
+    
     private Dictionary<DiskType, List<IBouncerDisk>> _registeredDisks;
     private List<IBouncerDisk> _allRegisteredDisks;
     private IPointsController _pointsController;
     private IDiskLevelController _diskLevelController;
-    private IForwardController _forwardController;
     private int _disksRegistered;
     private DiskType[]  _mergeOrder;
     private IDiskFactory _diskFactory;
+    private IShopController _shopController;
+    private Sequence _mergeSequence;
 
     public int DisksRegistered => _disksRegistered;
+    public Action OnGoldDiskCreated { get; set; }
     public List<IBouncerDisk> AllRegisteredDisks => _allRegisteredDisks;
 
     private void Awake()
@@ -54,10 +69,24 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
-        _forwardController = ServiceLocator.GetService<IForwardController>();
+        
+        _shopController = ServiceLocator.GetService<IShopController>();
+        _shopController.OnShopOpened += StopAllDisksMoving;
+        _shopController.OnShopClosed += CheckDisksToMerge;
+        
+        CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.MAGENTA);
+        ResumeAllDisksMoving();
     }
-     
-    public void AddDisk(IBouncerDisk diskToAdd)
+
+    public void CreateDisk(DiskType diskType)
+    {
+        IBouncerDisk createdDisk = _diskFactory.CreateDisk(diskType, bounceArea.position);
+        AddDisk(createdDisk);
+    }
+
+    private void AddDisk(IBouncerDisk diskToAdd)
     {
         DiskDataSO diskData = diskToAdd.DiskDataSO;
         DiskType diskType = diskData.DiskType;
@@ -76,11 +105,9 @@ public class DisksController : MonoBehaviour, IDisksController
         
         _pointsController.RegisterBouncingDisk(diskToAdd);
         _disksRegistered++;
-        
-        CheckDisksToMerge();
     }
     
-    public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity)
+    private void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity)
     {
         List<IBouncerDisk> existingDisks = _registeredDisks[diskTypeToRemove];
 
@@ -121,6 +148,8 @@ public class DisksController : MonoBehaviour, IDisksController
 
     private void CheckDisksToMerge()
     {
+        ResumeAllDisksMoving();
+        
         foreach (DiskType diskType in _mergeOrder)
         {
             List<IBouncerDisk> disks = _registeredDisks[diskType];
@@ -130,10 +159,93 @@ public class DisksController : MonoBehaviour, IDisksController
                 continue;
             }
             
+            List<IBouncerDisk> disksToMerge = disks
+                .Take(GameProgression.DiscMergeAmount)
+                .ToList();
+
             DiskType nextTier = GetNextTier(diskType);
-            RemoveDisksByQuantity(diskType, GameProgression.DiscMergeAmount);
-            _diskFactory.CreateDisk(nextTier);
+            
+            StopAllDisksMoving();
+            
+            PlayMergeAnimation(disksToMerge, diskType, nextTier);
             return;
+        }
+    }
+
+    private void PlayMergeAnimation(List<IBouncerDisk> disksToMerge, DiskType fromTier, DiskType nextTier)
+    {
+        _mergeSequence?.Kill();
+        Vector3 centerPos = bounceArea.position;
+        float duration = 2f;
+        int completed = 0;
+
+        foreach (IBouncerDisk disk in disksToMerge)
+        {
+            Transform diskTransform = disk.Transform;
+
+            diskTransform
+                .DOMove(centerPos, duration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    completed++;
+
+                    if (completed < GameProgression.DiscMergeAmount)
+                    {
+                        return;
+                    }
+                    
+                    AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                    float flashLength = flashAudioClip.length / 2f;
+                    
+                    _mergeSequence = DOTween.Sequence()
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            RemoveDisksByQuantity(fromTier, GameProgression.DiscMergeAmount);
+                            CreateDisk(nextTier);
+                            ResumeAllDisksMoving();
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .OnComplete(() =>
+                        {
+                            AudioManager.Instance.PlaySFX(mergeAudioClip, 0.5f);
+                            CheckDisksToMerge();
+
+                            if (nextTier == DiskType.GOLD)
+                            {
+                                OnGoldDiskCreated?.Invoke();
+                            }
+                        });
+                });
+        }
+    }
+    
+    private void StopAllDisksMoving()
+    {
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            disk.SetMoving(false);
+        }
+    }
+    
+    private void ResumeAllDisksMoving()
+    {
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            disk.SetMoving(true);
         }
     }
     
@@ -142,14 +254,19 @@ public class DisksController : MonoBehaviour, IDisksController
         return (DiskType)((int)current + 1);
     }
 
+    private void OnDestroy()
+    {
+        _shopController.OnShopOpened -= StopAllDisksMoving;
+        _shopController.OnShopClosed -= CheckDisksToMerge;
+    }
 }
 
 public interface IDisksController
 {
     public int DisksRegistered { get; }
+    public Action OnGoldDiskCreated { get; set; }
     public List<IBouncerDisk> AllRegisteredDisks { get; }
-    public void AddDisk(IBouncerDisk diskToAdd);
-    public void RemoveDisksByQuantity(DiskType diskTypeToRemove, int quantity);
+    public void CreateDisk(DiskType diskType);
     public void BoostAllDisksSpeed();
     public void ResetAllDisksSpeed();
 }

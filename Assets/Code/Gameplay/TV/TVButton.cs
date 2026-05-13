@@ -127,4 +127,5 @@ public interface ITVButton
     
     void EnableButton();
     void DisableButton();
+    void Press();
 }

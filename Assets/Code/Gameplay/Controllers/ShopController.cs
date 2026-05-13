@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using System;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -12,11 +13,12 @@ namespace DVDNights
         private ITVNavigationController _navigationController;
         private IPointsController _pointsController;
         private IDiskLevelController _diskLevelController;
-        private IDiskFactory _diskFactory;
         private IShopItemInfoProvider _shopItemInfoProvider;
         private IDisksController _disksController;
         private bool _isShopOpened;
 
+        public Action OnShopOpened { get; set; }
+        public Action OnShopClosed { get; set; }
         public bool IsShopOpened => _isShopOpened;
 
         private void Awake()
@@ -39,7 +41,6 @@ namespace DVDNights
             _shopWindow.OnItemPurchased += PurchaseItem;
             
             _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-            _diskFactory = ServiceLocator.GetService<IDiskFactory>();
             _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
             _disksController = ServiceLocator.GetService<IDisksController>();
         }
@@ -54,7 +55,7 @@ namespace DVDNights
                 //Buy White Disk
                 case 0:
                     _pointsController.UpdatePoints(currentPoints - itemCost);
-                    _diskFactory.CreateDisk(DiskType.WHITE);
+                    _disksController.CreateDisk(DiskType.WHITE);
                     break;
                 //Disk Base Bonus Level
                 case 1:
@@ -123,6 +124,7 @@ namespace DVDNights
             _shopWindow.Display();
             _shopWindow.HighlightItem();
             _isShopOpened = true;
+            OnShopOpened?.Invoke();
         }
 
         public void CloseShop()
@@ -138,6 +140,7 @@ namespace DVDNights
             _isShopOpened = false;
             _navigationController.OnMenuButtonPressed += OpenShop;
             _shopWindow.Hide();
+            OnShopClosed?.Invoke();
         }
 
         public void MoveToNext()
@@ -190,6 +193,8 @@ namespace DVDNights
 
     public interface IShopController
     {
+        public Action OnShopOpened { get; set; }
+        public Action OnShopClosed { get; set; }
         public bool IsShopOpened { get; }
         public void OpenShop();
         public void CloseShop();

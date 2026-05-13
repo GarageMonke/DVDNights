@@ -110,8 +110,7 @@ namespace DVDNights
             {
                 //Buy White Disk
                 case 0:
-                    //_disksController.DisksRegistered - 1
-                    shopItemCost = GameProgression.GetDiscCost(2186);
+                    shopItemCost = GameProgression.GetDiscCost(_disksController.DisksRegistered);
                     break;
                 //Disk Base Bonus Level
                 case 1:

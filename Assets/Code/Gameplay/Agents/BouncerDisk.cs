@@ -37,7 +37,8 @@ namespace DVDNights
         private Vector2 _areaHalfSize;
         private bool _isMoving = true;
         private float _spinSpeed;
-        
+
+        public Transform Transform => transform;
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
@@ -54,6 +55,7 @@ namespace DVDNights
             _bounceFeedbackController = ServiceLocator.GetService<IBounceFeedbackController>();
             _bounceFeedbackController.ListenToBouncer(this);
             bounceArea = bouncingArea;
+            _isMoving = false;
             InitializeSizes();
             LaunchRandom();
         }
@@ -66,7 +68,11 @@ namespace DVDNights
 
         private void Update()
         {
-            if (!_isMoving) return;
+            if (!_isMoving)
+            {
+                SpinDisk();
+                return;
+            }
 
             if (GameFeel.IgnoreTvFrameRate)
             {
@@ -382,6 +388,7 @@ namespace DVDNights
 
     public interface IBouncerDisk
     {
+        public Transform Transform { get; }
         public Action<DiskDataSO> OnBorderHit { get; set; }
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
@@ -389,5 +396,6 @@ namespace DVDNights
         public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea);
         public float BaseSpeed { get; set; }
         public void DestroyDisk();
+        public void SetMoving(bool isMoving);
     }
 }
