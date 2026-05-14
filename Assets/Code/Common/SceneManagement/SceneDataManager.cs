@@ -21,8 +21,8 @@ namespace CorePatterns.Scenes
         public void OpenScene(SceneDataSO sceneDataToOpen)
         {
             CloseScenes(sceneDataToOpen.SceneDataToClose);
-            OpenDependantScenes(sceneDataToOpen.SceneDataToOpen);
             OpenSingleScene(sceneDataToOpen);
+            OpenDependantScenes(sceneDataToOpen.SceneDataToOpen);
         }
 
         private void CloseScenes(SceneDataSO[] sceneDataToClose)
