@@ -23,7 +23,7 @@ public class CustomPlayButton
 
     private static void PlayFromStartScene()
     {
-        var startScenePath = "Assets/Game/Scenes/MainMenu-InsideTV.unity";
+        var startScenePath = "Assets/Game/Scenes/Global-Managers.unity";
 
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
