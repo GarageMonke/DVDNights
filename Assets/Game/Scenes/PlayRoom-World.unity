@@ -780,6 +780,14 @@ PrefabInstance:
       propertyPath: holdThreshold
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4165938587888959309, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4165938587888959309, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fd233bba0d50e7d4094e96a80ddb5e4a, type: 2}
     - target: {fileID: 4359818851695934486, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: canBeHeld
       value: 1
