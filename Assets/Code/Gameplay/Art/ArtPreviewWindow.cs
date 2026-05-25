@@ -16,6 +16,8 @@ namespace DVDNights
         {
             if (!artData)
             {
+                artistNameText.text = "ARTIST: YOUR NAME HERE";
+                artPreviewImage.sprite = null;
                 return;
             }
             

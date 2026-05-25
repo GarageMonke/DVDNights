@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 26962602}
   - component: {fileID: 26962604}
   - component: {fileID: 26962605}
+  - component: {fileID: 26962606}
   m_Layer: 6
   m_Name: Picture_12
   m_TagString: Untagged
@@ -241,11 +242,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 26962606}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &26962606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26962600}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &147319809
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +541,7 @@ GameObject:
   - component: {fileID: 213849827}
   - component: {fileID: 213849829}
   - component: {fileID: 213849830}
+  - component: {fileID: 213849831}
   m_Layer: 6
   m_Name: Picture_05
   m_TagString: Untagged
@@ -630,11 +651,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 213849831}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 11400000, guid: 389fb4ad14b81994fbd04557472d4247, type: 2}
+--- !u!114 &213849831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213849825}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &265031447
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1028,7 @@ GameObject:
   - component: {fileID: 450308638}
   - component: {fileID: 450308640}
   - component: {fileID: 450308641}
+  - component: {fileID: 450308642}
   m_Layer: 6
   m_Name: Picture_07
   m_TagString: Untagged
@@ -1097,11 +1138,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 450308642}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &450308642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450308636}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &477185752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1210,9 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 64
+  crosshairImage: {fileID: 210067194}
+  detectedColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  undetectedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &559293770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1226,7 @@ GameObject:
   - component: {fileID: 559293772}
   - component: {fileID: 559293774}
   - component: {fileID: 559293775}
+  - component: {fileID: 559293776}
   m_Layer: 6
   m_Name: Picture_10
   m_TagString: Untagged
@@ -1272,11 +1336,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 559293776}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &559293776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559293770}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &639967251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,6 +1373,7 @@ GameObject:
   - component: {fileID: 639967253}
   - component: {fileID: 639967255}
   - component: {fileID: 639967256}
+  - component: {fileID: 639967257}
   m_Layer: 6
   m_Name: Picture_09
   m_TagString: Untagged
@@ -1399,11 +1483,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 639967257}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &639967257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639967251}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &687647544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,6 +1765,7 @@ GameObject:
   - component: {fileID: 890086323}
   - component: {fileID: 890086325}
   - component: {fileID: 890086326}
+  - component: {fileID: 890086327}
   m_Layer: 6
   m_Name: Picture_13
   m_TagString: Untagged
@@ -1771,11 +1875,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 890086327}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &890086327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890086321}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &944501367 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5418785724061013655, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
@@ -2024,6 +2147,7 @@ GameObject:
   - component: {fileID: 1193559310}
   - component: {fileID: 1193559312}
   - component: {fileID: 1193559313}
+  - component: {fileID: 1193559314}
   m_Layer: 6
   m_Name: Picture_04
   m_TagString: Untagged
@@ -2133,11 +2257,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 1193559314}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 11400000, guid: 59824cc994cffd24cb38b9e2321bb01a, type: 2}
+--- !u!114 &1193559314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193559308}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1220249510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,6 +2727,7 @@ GameObject:
   - component: {fileID: 1664828555}
   - component: {fileID: 1664828557}
   - component: {fileID: 1664828558}
+  - component: {fileID: 1664828559}
   m_Layer: 6
   m_Name: Picture_11
   m_TagString: Untagged
@@ -2693,11 +2837,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 1664828559}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &1664828559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664828553}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1668030813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +3055,6 @@ MonoBehaviour:
   _maxPitchAngle: 90
   _minYawAngle: -90
   _maxYawAngle: 100
-  crosshair: {fileID: 210067192}
 --- !u!1 &1900299446
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +3112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c64c7aba4ce6b164bbbca8aefc7cacbc, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3207,6 +3369,7 @@ GameObject:
   - component: {fileID: 4398426855461022186}
   - component: {fileID: 8486733768534113468}
   - component: {fileID: 8486733768534113469}
+  - component: {fileID: 8486733768534113470}
   m_Layer: 6
   m_Name: Picture_03
   m_TagString: Untagged
@@ -3235,6 +3398,7 @@ GameObject:
   - component: {fileID: 206664886982346514}
   - component: {fileID: 7251352126119873769}
   - component: {fileID: 7251352126119873770}
+  - component: {fileID: 7251352126119873771}
   m_Layer: 6
   m_Name: Picture_01
   m_TagString: Untagged
@@ -4000,6 +4164,7 @@ GameObject:
   - component: {fileID: 5334300465004224990}
   - component: {fileID: 5334300465004224991}
   - component: {fileID: 5334300465004224992}
+  - component: {fileID: 5334300465004224993}
   m_Layer: 6
   m_Name: Picture_02
   m_TagString: Untagged
@@ -5805,6 +5970,7 @@ GameObject:
   - component: {fileID: 3518174229377883830}
   - component: {fileID: 7171494655180442260}
   - component: {fileID: 7171494655180442261}
+  - component: {fileID: 7171494655180442262}
   m_Layer: 6
   m_Name: Picture_08
   m_TagString: Untagged
@@ -6308,11 +6474,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 5334300465004224993}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 11400000, guid: 9df27ba58a9deb24c88ad9d9cf84c347, type: 2}
+--- !u!114 &5334300465004224993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076305818829524656}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!23 &5419399147754310049
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7147,6 +7332,7 @@ GameObject:
   - component: {fileID: 9055023351136841086}
   - component: {fileID: 9055023351136841087}
   - component: {fileID: 9055023351136841088}
+  - component: {fileID: 9055023351136841089}
   m_Layer: 6
   m_Name: Picture_06
   m_TagString: Untagged
@@ -7470,11 +7656,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 7171494655180442262}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &7171494655180442262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4655933399415763496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &7182217484160576481
 Transform:
   m_ObjectHideFlags: 0
@@ -7594,11 +7799,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 7251352126119873771}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 11400000, guid: 159b44729d43c584a9d921581d994744, type: 2}
+--- !u!114 &7251352126119873771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452567534776243977}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7282400538322944515
 GameObject:
   m_ObjectHideFlags: 0
@@ -8445,11 +8669,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 8486733768534113470}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 0}
+--- !u!114 &8486733768534113470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430846367555105598}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &8489918419730119014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9292,11 +9535,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c035ff18e4864071a463b2520ac4b43b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outline: {fileID: 9055023351136841089}
   cameraPosition: {x: 0, y: 0, z: 0}
   cameraRotation: {x: 0, y: 0, z: 0}
   overrideCamera: 0
   artPreviewWindow: {fileID: 808405783}
   artDataSO: {fileID: 11400000, guid: b3dc30b6e6415f14ca075f0879061169, type: 2}
+--- !u!114 &9055023351136841089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6667313178428645638}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &9088770225944314298
 Transform:
   m_ObjectHideFlags: 0

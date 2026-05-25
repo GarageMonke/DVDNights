@@ -2,12 +2,18 @@
 using CorePatterns.ServiceLocator;
 using DVDNights;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour, IInteractionController
 {
     [Header("Raycast Settings")]
     [SerializeField] private float _interactionRange = 3f;
     [SerializeField] private LayerMask _interactableLayer;
+
+    [Header("Interaction Settings")] 
+    [SerializeField] private Image crosshairImage;
+    [SerializeField] private Color detectedColor;
+    [SerializeField] private Color undetectedColor;
 
     private ICameraController _cameraController;
     private IInteractableObject _currentInteraction;
@@ -69,6 +75,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
         _currentHighlighted.Unhighlight();
         _currentHighlighted = null;
+        crosshairImage.color = undetectedColor;
     }
 
     private void InteractWithObject(IInteractableObject interactableObject)
@@ -81,6 +88,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
             _cameraController.UpdateCameraPositionAndRotation(_currentInteraction.CameraPosition, _currentInteraction.CameraRotation);
         }
         
+        crosshairImage.gameObject.SetActive(false);
         _cameraController.DisableNavigation();
     }
 
@@ -92,6 +100,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         }
 
         _currentHighlighted = interactableObject;
+        crosshairImage.color = detectedColor;
         _currentHighlighted.Highlight();
     }
 
@@ -107,6 +116,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         }
 
         _currentInteraction = null;
+        crosshairImage.gameObject.SetActive(true);
         _cameraController.EnableNavigation();
     }
 }

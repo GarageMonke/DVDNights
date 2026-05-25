@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DVDNights
 {
     public abstract class InteractableObject : MonoBehaviour, IInteractableObject
     {
         [Header("Configuration")] 
+        [SerializeField] private Outline outline;
         [SerializeField] private Vector3 cameraPosition;
         [SerializeField] private Vector3 cameraRotation;
         [SerializeField] private bool overrideCamera;
@@ -13,20 +15,24 @@ namespace DVDNights
         public Vector3 CameraRotation =>  cameraRotation;
 
         public bool OverrideCamera => overrideCamera;
-
-
+        
         public abstract void Interact();
 
         public abstract void StopInteraction();
 
+        private void Awake()
+        {
+            Unhighlight();
+        }
+
         public void Highlight()
         {
-           
+            outline.enabled = true;
         }
 
         public void Unhighlight()
         {
-            
+            outline.enabled = false;
         }
     }
 

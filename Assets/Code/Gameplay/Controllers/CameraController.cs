@@ -19,9 +19,6 @@ namespace DVDNights
         [SerializeField] private float _minYawAngle = -90f;
         [SerializeField] private float _maxYawAngle = 90f;
 
-        [Header("Crosshair")] 
-        [SerializeField] private GameObject crosshair;
-
         private float _currentPitch;
         private float _currentYaw;
         private bool _isEnabled;
@@ -84,7 +81,6 @@ namespace DVDNights
             _isEnabled = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            UpdateCrossHair();
         }
 
         public void DisableNavigation()
@@ -92,7 +88,6 @@ namespace DVDNights
             _isEnabled = false;
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            UpdateCrossHair();
         }
         
 
@@ -109,11 +104,6 @@ namespace DVDNights
         {
             transform.position = _previousCameraPosition;
             transform.rotation = _previousCameraRotation;
-        }
-
-        private void UpdateCrossHair()
-        {
-            crosshair.gameObject.SetActive(_isEnabled);
         }
     }
 
