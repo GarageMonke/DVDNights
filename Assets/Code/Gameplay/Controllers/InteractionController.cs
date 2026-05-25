@@ -1,5 +1,6 @@
 ﻿
 using CorePatterns.ServiceLocator;
+using DG.Tweening;
 using DVDNights;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
     private Camera _camera;
 
     private bool _isEnabled;
+    private Tween _currentTween;
 
     private void Start()
     {
@@ -76,6 +78,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentHighlighted.Unhighlight();
         _currentHighlighted = null;
         crosshairImage.color = undetectedColor;
+        TweenToSize(Vector2.one);
     }
 
     private void InteractWithObject(IInteractableObject interactableObject)
@@ -102,6 +105,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentHighlighted = interactableObject;
         crosshairImage.color = detectedColor;
         _currentHighlighted.Highlight();
+        TweenToSize(Vector2.one * 1.5f);
     }
 
     private void StopInteractionWithObject()
@@ -118,6 +122,14 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentInteraction = null;
         crosshairImage.gameObject.SetActive(true);
         _cameraController.EnableNavigation();
+    }
+    
+    private void TweenToSize(Vector2 targetSize)
+    {
+        _currentTween?.Kill();
+        _currentTween = crosshairImage.transform
+            .DOScale(targetSize, 0.25f)
+            .SetEase(Ease.Linear);
     }
 }
 
