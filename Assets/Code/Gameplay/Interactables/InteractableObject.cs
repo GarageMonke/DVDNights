@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DVDNights
 {
@@ -7,14 +6,9 @@ namespace DVDNights
     {
         [Header("Configuration")] 
         [SerializeField] private Outline outline;
-        [SerializeField] private Vector3 cameraPosition;
-        [SerializeField] private Vector3 cameraRotation;
-        [SerializeField] private bool overrideCamera;
-
-        public Vector3 CameraPosition =>  cameraPosition;
-        public Vector3 CameraRotation =>  cameraRotation;
-
-        public bool OverrideCamera => overrideCamera;
+        [SerializeField] private InteractionData interactionData;
+        
+        public InteractionData InteractionData => interactionData;
         
         public abstract void Interact();
 
@@ -38,9 +32,7 @@ namespace DVDNights
 
     public interface IInteractableObject
     {
-        public Vector3 CameraPosition { get; }
-        public Vector3 CameraRotation { get; }
-        public bool OverrideCamera { get; }
+        public InteractionData InteractionData { get; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();

@@ -24,12 +24,15 @@ public class InteractionController : MonoBehaviour, IInteractionController
     private bool _isEnabled;
     private Tween _currentTween;
 
+    private bool _isInteracting;
+
     private void Start()
     {
         _cameraController = ServiceLocator.GetService<ICameraController>();
         _cameraController.EnableNavigation();
         _camera = _cameraController.Camera;
         _isEnabled = true;
+        _isInteracting = false;
     }
 
     private void Update()
@@ -85,21 +88,40 @@ public class InteractionController : MonoBehaviour, IInteractionController
     {
         _currentInteraction = interactableObject;
         _currentInteraction.Interact();
-
-        if (_currentInteraction.OverrideCamera)
-        {
-            _cameraController.UpdateCameraPositionAndRotation(_currentInteraction.CameraPosition, _currentInteraction.CameraRotation);
-        }
         
+        InteractionData interactionData = interactableObject.InteractionData;
+
+        if (interactionData.OverrideCamera)
+        {
+            _cameraController.DisableNavigation();
+            _cameraController.UpdateCameraPositionAndRotation(interactionData.CameraPosition, interactionData.CameraRotation);
+        }
+
+        if (interactionData.TweenToPosition)
+        {
+            _cameraController.TweenToPosition(interactionData.CameraEndPosition);
+        }
+
+        if (interactionData.UnhighlightOnInteraction)
+        {
+            _currentHighlighted.Unhighlight();
+        }
+
+        _isInteracting = true;
         crosshairImage.gameObject.SetActive(false);
-        _cameraController.DisableNavigation();
     }
 
     private void HighlightObject(IInteractableObject interactableObject)
     {
+        if (_isInteracting)
+        {
+            return;
+        }
+        
         if (_currentHighlighted != null && _currentHighlighted != interactableObject)
         {
             _currentHighlighted.Unhighlight();
+            return;
         }
 
         _currentHighlighted = interactableObject;
@@ -113,13 +135,21 @@ public class InteractionController : MonoBehaviour, IInteractionController
         if (_currentInteraction == null) return;
 
         _currentInteraction.StopInteraction();
+        
+        InteractionData interactionData = _currentInteraction.InteractionData;
 
-        if (_currentInteraction.OverrideCamera)
+        if (interactionData.OverrideCamera)
         {
             _cameraController.RestoreCameraPositionAndRotation();
         }
+        
+        if (interactionData.UnhighlightOnInteraction)
+        {
+            _currentHighlighted.Highlight();
+        }
 
         _currentInteraction = null;
+        _isInteracting = false;
         crosshairImage.gameObject.SetActive(true);
         _cameraController.EnableNavigation();
     }

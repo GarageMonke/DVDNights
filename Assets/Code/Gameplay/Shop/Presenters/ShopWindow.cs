@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class ShopWindow : MonoBehaviour, IShopWindow
+    public class ShopWindow : Window, IShopWindow
     {
         [Header("References")] 
-        [SerializeField] private GameObject shopWindow;
         [SerializeField] private TextMeshProUGUI availablePointsText;
         [SerializeField] private ShopItemView[] shopItemViews;
 
@@ -27,7 +26,7 @@ namespace DVDNights
             _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
         }
 
-        public void Display()
+        public override void Display()
         {
             foreach (IShopItemView shopItemView in shopItemViews)
             {
@@ -35,7 +34,7 @@ namespace DVDNights
                 UpdateItemCost(shopItemView);
             }
             
-            shopWindow.SetActive(true);
+            base.Display();
         }
 
         private void UpdateItemCost(IShopItemView shopItemView)
@@ -44,11 +43,7 @@ namespace DVDNights
             bool isAffordable = _availablePoints >= itemCost;
             shopItemView.UpdateCost(itemCost, isAffordable);
         }
-
-        public void Hide()
-        {
-            shopWindow.SetActive(false);
-        }
+        
 
         public void HighlightItem()
         {

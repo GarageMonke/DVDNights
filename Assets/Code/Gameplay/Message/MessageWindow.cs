@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class MessageWindow : MonoBehaviour, IMessageWindow
+    public class MessageWindow : Window, IMessageWindow
     {
         [Header("References")] 
         [SerializeField] private GameObject messageWindow;
@@ -32,16 +32,16 @@ namespace DVDNights
             Hide();
         }
 
-        public void Display()
+        public override void Display()
         {
             _tvNavigationController.OnSubmitButtonPressed += RaiseOnMessageAccepted;
-            messageWindow.SetActive(true);
+            base.Display();
         }
 
-        public void Hide()
+        public override void Hide()
         {
             _tvNavigationController.OnSubmitButtonPressed -= RaiseOnMessageAccepted;
-            messageWindow.SetActive(false);
+            base.Hide();
         }
     }
 
