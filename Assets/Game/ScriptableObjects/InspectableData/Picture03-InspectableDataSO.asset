@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ef0dbb7cc54f32a424f351f2e15115, type: 3}
+  m_Name: Picture03-InspectableDataSO
+  m_EditorClassIdentifier: 
+  inspectableObject: {fileID: 4337281179591459067, guid: 3b0634a85c47d3449930ece8cc42923f, type: 3}
+  inspectableTitle: Your Painting
+  inspectableDescription: 'Artist: Your Name'
+  inspectionMaxAngle: {x: 45, y: 45}
+  inspectionMaxZoom: 3
+  inspectionStartSize: 1.5

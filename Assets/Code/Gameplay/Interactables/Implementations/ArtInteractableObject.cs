@@ -5,29 +5,24 @@ namespace DVDNights
 {
     public class ArtInteractableObject : InteractableObject
     {
-        [Header("View")]
-        [SerializeField] private ArtPreviewWindow artPreviewWindow;
-        
         [Header("Configuration")]
-        [SerializeField] private ArtDataSO artDataSO;
+        [SerializeField] private InspectableDataSO inspectableDataSO;
         
-        IArtPreviewWindow _artPreviewWindow;
-        private IDialogController _dialogController;
+        private IInspectionController _inspectionController;
 
         private void Start()
         {
-            _artPreviewWindow = artPreviewWindow;
-            _dialogController = ServiceLocator.GetService<IDialogController>();
+            _inspectionController = ServiceLocator.GetService<IInspectionController>();
         }
 
         public override void Interact()
         {
-            _dialogController.DisplayDialog("Artist: " + artDataSO.ArtistName);
+           _inspectionController.Inspect(inspectableDataSO);
         }
 
         public override void StopInteraction()
         {
-            _dialogController.HideDialog();
+            _inspectionController.StopInspection();
         }
     }
 }

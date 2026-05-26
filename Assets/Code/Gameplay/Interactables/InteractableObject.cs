@@ -6,9 +6,6 @@ namespace DVDNights
     {
         [Header("Configuration")] 
         [SerializeField] private Outline outline;
-        [SerializeField] private InteractionData interactionData;
-        
-        public InteractionData InteractionData => interactionData;
         
         public abstract void Interact();
 
@@ -32,7 +29,6 @@ namespace DVDNights
 
     public interface IInteractableObject
     {
-        public InteractionData InteractionData { get; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();
