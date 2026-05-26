@@ -12,6 +12,7 @@ namespace DVDNights
 
         [Header("Configuration")]
         [SerializeField] private float rotationSpeed = 50f;
+        [SerializeField] private float rotationSmoothTime = 0.1f;
         [SerializeField] private float zoomSpeed = 2f;
         [SerializeField] private float minZoom = 1f;
         [SerializeField] private float zoomSmoothTime = 0.1f;
@@ -23,6 +24,11 @@ namespace DVDNights
         private Vector3 _lastMousePosition;
         private float _currentXAngle;
         private float _currentYAngle;
+        
+        private float _targetXAngle;
+        private float _targetYAngle;
+        private float _xVelocity;
+        private float _yVelocity;
 
         private float _maxXAngle;
         private float _maxYAngle;
@@ -99,13 +105,16 @@ namespace DVDNights
                 _maxXAngle = _inspectionMaxAngle.x;
                 _maxYAngle = _inspectionMaxAngle.y;
 
-                _currentXAngle = Mathf.Clamp(_currentXAngle + deltaX, -_maxXAngle, _maxXAngle);
-                _currentYAngle = Mathf.Clamp(_currentYAngle + deltaY, -_maxYAngle, _maxYAngle);
-
-                _inspectedObject.transform.localRotation = Quaternion.Euler(_currentXAngle, _currentYAngle, 0f);
+                _targetXAngle = Mathf.Clamp(_targetXAngle + deltaX, -_maxXAngle, _maxXAngle);
+                _targetYAngle = Mathf.Clamp(_targetYAngle + deltaY, -_maxYAngle, _maxYAngle);
 
                 _lastMousePosition = Input.mousePosition;
             }
+            
+            _currentXAngle = Mathf.SmoothDamp(_currentXAngle, _targetXAngle, ref _xVelocity, rotationSmoothTime);
+            _currentYAngle = Mathf.SmoothDamp(_currentYAngle, _targetYAngle, ref _yVelocity, rotationSmoothTime);
+                
+            _inspectedObject.transform.localRotation = Quaternion.Euler(_currentXAngle, _currentYAngle, 0f);
             
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             
@@ -125,6 +134,8 @@ namespace DVDNights
 
         private void ResetInspection()
         {
+            _targetXAngle = 0;
+            _targetYAngle = 0;
             _currentXAngle = 0;
             _currentYAngle = 0;
             _lastMousePosition = Vector3.zero;

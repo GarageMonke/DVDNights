@@ -15,6 +15,6 @@ MonoBehaviour:
   inspectableObject: {fileID: 948963932177591857, guid: 77fb7e64b6554b246aa5ffe966ef43ec, type: 3}
   inspectableTitle: Your Painting
   inspectableDescription: 'Artist: Your Name'
-  inspectionMaxAngle: {x: 45, y: 45}
+  inspectionMaxAngle: {x: 15, y: 45}
   inspectionMaxZoom: 1.3
   inspectionStartSize: 1

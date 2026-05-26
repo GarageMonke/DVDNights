@@ -15,6 +15,6 @@ MonoBehaviour:
   inspectableObject: {fileID: 2094666091731319892, guid: f1725a7cabf26ea43bda00f0a8e7d41a, type: 3}
   inspectableTitle: Painting
   inspectableDescription: 'Artist: guidocavazzart'
-  inspectionMaxAngle: {x: 45, y: 45}
+  inspectionMaxAngle: {x: 15, y: 45}
   inspectionMaxZoom: 1.2
   inspectionStartSize: 1

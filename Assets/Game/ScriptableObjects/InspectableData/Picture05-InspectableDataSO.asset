@@ -15,6 +15,6 @@ MonoBehaviour:
   inspectableObject: {fileID: 5444793732127278293, guid: 392891701454c114aaa0cb7887edf4ba, type: 3}
   inspectableTitle: Painting
   inspectableDescription: 'Artist: octadc'
-  inspectionMaxAngle: {x: 45, y: 45}
+  inspectionMaxAngle: {x: 15, y: 45}
   inspectionMaxZoom: 1.2
   inspectionStartSize: 1
