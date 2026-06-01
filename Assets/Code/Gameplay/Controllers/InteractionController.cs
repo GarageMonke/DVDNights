@@ -108,7 +108,6 @@ public class InteractionController : MonoBehaviour, IInteractionController
         if (_currentHighlighted != null && _currentHighlighted != interactableObject)
         {
             _currentHighlighted.Unhighlight();
-            return;
         }
 
         _currentHighlighted = interactableObject;

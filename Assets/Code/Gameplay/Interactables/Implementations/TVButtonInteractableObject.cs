@@ -4,10 +4,11 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerUpHandler
+public class TVButtonInteractableObject : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Configuration")]
     [SerializeField] private int buttonId;
+    [SerializeField] private Outline outline;
     [SerializeField] private float destinationZPosition;
     
     [Header("Feedback")]
@@ -30,6 +31,7 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
 
     public void EnableButton()  => _canBePressed = true;
     public void DisableButton() => _canBePressed = false;
+    
 
     private void Awake()
     {
@@ -63,7 +65,7 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         {
             return;
         }
-
+        
         _isPointerDown = true;
         _canBePressed = false;
         _holdTriggered = false;
@@ -107,15 +109,30 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         
         _holdTriggered = false;
     }
-
+    
     public void OnPointerDown(PointerEventData eventData)
     {
-        Press();
+       Press();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         ReleaseButton();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!_canBePressed)
+        {
+            return;
+        }
+        
+        outline.enabled = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        outline.enabled = false;
     }
 }
 

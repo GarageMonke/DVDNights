@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using System;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 
@@ -27,9 +28,11 @@ namespace DVDNights
         private Vector3 _previousCameraPosition;
         private Vector3 _initialCameraPosition;
         private Quaternion _previousCameraRotation;
-        private Tween _currentTween;
+        private Tween _currentMoveTween;
+        private Tween _currentRotationTween;
 
         public Camera Camera => _camera;
+        public Vector3 OriginPosition => _initialCameraPosition;
 
         private void Awake()
         {
@@ -105,16 +108,24 @@ namespace DVDNights
 
         public void RestoreCameraPositionAndRotation()
         {
-            _currentTween?.Kill();
-            _camera.transform.localPosition = _initialCameraPosition;
-            _camera.transform.localRotation = _previousCameraRotation;
+            TweenToPosition(_initialCameraPosition);
+            TweenToRotation(_previousCameraRotation);
         }
 
-        public void TweenToPosition(Vector3 position)
+        public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null)
         {
-            _currentTween?.Kill();
-            _currentTween = _camera.transform
-                .DOLocalMove(position, 10f)
+            _currentMoveTween?.Kill();
+            _currentMoveTween = _camera.transform
+                .DOLocalMove(position, duration)
+                .SetEase(Ease.Linear).OnComplete(
+                    () => callback?.Invoke());
+        }
+
+        public void TweenToRotation(Quaternion rotation, float duration = 1f)
+        {
+            _currentRotationTween?.Kill();
+            _currentRotationTween = _camera.transform
+                .DOLocalRotate(rotation.eulerAngles, duration)
                 .SetEase(Ease.Linear);
         }
     }
@@ -122,6 +133,7 @@ namespace DVDNights
     public interface ICameraController
     {
         public Camera Camera { get; }
+        public Vector3 OriginPosition { get; }
         public void HandleRotation();
         public void SetSensitivity(float sensitivity);
         public void EnableNavigation();
@@ -129,6 +141,7 @@ namespace DVDNights
         public void UpdateCameraPositionAndRotation(Vector3 newCameraPosition, Vector3 newCameraRotation);
         public void RestoreCameraPositionAndRotation();
         
-        public void TweenToPosition(Vector3 position);
+        public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null);
+        public void TweenToRotation(Quaternion rotation, float duration = 1f);
     }
 }

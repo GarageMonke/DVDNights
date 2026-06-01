@@ -14,4 +14,10 @@ namespace DVDNights
             gameObject.SetActive(false);
         }
     }
+    
+    public interface IWindow
+    {
+        public void Display();
+        public void Hide();
+    }
 }

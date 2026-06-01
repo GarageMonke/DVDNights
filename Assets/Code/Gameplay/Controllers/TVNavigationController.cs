@@ -6,7 +6,7 @@ namespace DVDNights
 {
     public class TVNavigationController : MonoBehaviour, ITVNavigationController
     {
-        [SerializeField] private TVButton[] tvButtons;
+        [SerializeField] private TVButtonInteractableObject[] tvButtons;
 
         public ITVButton OpenCloseButton => tvButtons[1];
         public Action OnPowerButtonPressed { get; set; }
@@ -24,6 +24,7 @@ namespace DVDNights
         public Action OnNextButtonReleased { get; set; }
         public Action OnVolumeUpButtonReleased { get; set; }
         public Action OnVolumeDownButtonReleased { get; set; }
+        
 
         private void Awake()
         {
@@ -44,6 +45,22 @@ namespace DVDNights
                 tvButton.OnTvButtonHeld += HandleButtonHeld;
                 tvButton.OnTvButtonReleased += HandleButtonReleased;
                 tvButton.EnableButton();
+            }
+        }
+        
+        public void EnableButtons()
+        {
+            foreach (ITVButton tvButton in tvButtons)
+            {
+                tvButton.EnableButton();
+            }
+        }
+
+        public void DisableButtons()
+        {
+            foreach (ITVButton tvButton in tvButtons)
+            {
+                tvButton.DisableButton();
             }
         }
 
@@ -152,12 +169,13 @@ public interface ITVNavigationController
     public Action OnPlayPauseButtonPressed { get; set; }
     public Action OnVolumeDownButtonPressed { get; set; }
     public Action OnVolumeUpButtonPressed { get; set; }
-    
     public Action OnNextButtonHeld { get; set; }
     public Action OnVolumeUpButtonHeld { get; set; }
     public Action OnVolumeDownButtonHeld { get; set; }
-    
     public Action OnNextButtonReleased { get; set; }
     public Action OnVolumeUpButtonReleased { get; set; }
     public Action OnVolumeDownButtonReleased{ get; set; }
+
+    public void EnableButtons();
+    public void DisableButtons();
 }
