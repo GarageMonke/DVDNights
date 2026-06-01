@@ -5,6 +5,9 @@ namespace DVDNights
     public abstract class InteractableObject : MonoBehaviour, IInteractableObject
     {
         [Header("Configuration")] 
+        [SerializeField] private bool hasNavigation;
+        
+        [Header("References")] 
         [SerializeField] private Outline outline;
         
         public abstract void Interact();
@@ -25,6 +28,8 @@ namespace DVDNights
         {
             outline.enabled = false;
         }
+
+        public bool HasNavigation => hasNavigation;
     }
 
     public interface IInteractableObject
@@ -33,5 +38,7 @@ namespace DVDNights
         public void StopInteraction();
         public void Highlight();
         public void Unhighlight();
+        
+        public bool HasNavigation { get; }
     }
 }

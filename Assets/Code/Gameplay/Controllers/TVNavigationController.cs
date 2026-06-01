@@ -6,7 +6,7 @@ namespace DVDNights
 {
     public class TVNavigationController : MonoBehaviour, ITVNavigationController
     {
-        [SerializeField] private TVButtonInteractableObject[] tvButtons;
+        [SerializeField] private TVButton[] tvButtons;
 
         public ITVButton OpenCloseButton => tvButtons[1];
         public Action OnPowerButtonPressed { get; set; }

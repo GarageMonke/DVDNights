@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TVButtonInteractableObject : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Configuration")]
     [SerializeField] private int buttonId;
