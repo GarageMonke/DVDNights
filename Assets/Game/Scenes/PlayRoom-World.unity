@@ -824,7 +824,7 @@ Transform:
   m_GameObject: {fileID: 265031447}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.724}
+  m_LocalPosition: {x: 0, y: 0.1, z: -0.724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -4020,8 +4020,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 0.44321817, g: 0.44321817, b: 0.44321817, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.4517622, g: 0.4517622, b: 0.4517622, a: 1}
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8590,13 +8590,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5867785443594390203}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29386765, y: 0.64315003, z: 0.6431498, w: -0.2938676}
-  m_LocalPosition: {x: -0.8854235, y: 0.6680151, z: -1.1379577}
+  m_LocalRotation: {x: 0.7068582, y: 0.01875286, z: 0.01875283, w: -0.706858}
+  m_LocalPosition: {x: -0.7316, y: 0.6498, z: -0.9865}
   m_LocalScale: {x: 0.18452238, y: 0.18452238, z: 0.18452239}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450652621633756}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -3.039}
 --- !u!23 &5334300465004224990
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11824,8 +11824,8 @@ MonoBehaviour:
   hasNavigation: 0
   outline: {fileID: 8934777401684220119}
   lampLight: {fileID: 8912049513932429848}
-  turnOnLampAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  turnOffLampAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  turnOnLampAudioClip: {fileID: 8300000, guid: e62ee1e26cf8d734bbdc3b241a43cff6, type: 3}
+  turnOffLampAudioClip: {fileID: 8300000, guid: 99829057f7ac01c4c95ab9912708f173, type: 3}
 --- !u!65 &8934777401684220121
 BoxCollider:
   m_ObjectHideFlags: 0

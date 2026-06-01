@@ -18,20 +18,17 @@ namespace DVDNights
             lampLight.enabled = _isOn;
 
             AudioClip toPlay;
-            float pitch;
             
             if (_isOn)
             {
                 toPlay = turnOnLampAudioClip;
-                pitch = 1.1f;
             }
             else
             {
                 toPlay = turnOffLampAudioClip;
-                pitch = 0.8f;
             }
             
-            AudioManager.Instance.PlaySFX(toPlay, volume: 0.5f, pitch: pitch, randomizePitch: true);
+            AudioManager.Instance.PlaySFX(toPlay, volume: 0.5f, pitch: 1.25f);
         }
 
         public override void StopInteraction()
