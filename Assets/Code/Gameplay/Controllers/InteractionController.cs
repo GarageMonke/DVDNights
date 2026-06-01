@@ -1,12 +1,18 @@
 ﻿
+using System;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour, IInteractionController
 {
+    [Header("Input Action")]
+    [SerializeField] private InputActionSO _interactInputActionSO;
+    [SerializeField] private InputActionSO _stopInteractionInputActionSO;
+    
     [Header("Raycast Settings")]
     [SerializeField] private float _interactionRange = 3f;
     [SerializeField] private LayerMask _interactableLayer;
@@ -26,6 +32,31 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private bool _isInteracting;
 
+    private InputAction _interactInputAction;
+    private InputAction _stopInteractionInputAction;
+
+    private void Awake()
+    {
+        InstallService();
+    }
+    
+
+    private void InstallService()
+    {
+        _interactInputAction = _interactInputActionSO.GetInputAction();
+        _stopInteractionInputAction = _stopInteractionInputActionSO.GetInputAction();
+
+        _interactInputAction.performed += ExecuteInteract;
+        _stopInteractionInputAction.performed += ExecuteStopInteraction;
+    }
+
+
+    private void OnDestroy()
+    {
+        _interactInputAction.performed -= ExecuteInteract;
+        _stopInteractionInputAction.performed -= ExecuteStopInteraction;
+    }
+
     private void Start()
     {
         _cameraController = ServiceLocator.GetService<ICameraController>();
@@ -43,19 +74,29 @@ public class InteractionController : MonoBehaviour, IInteractionController
         }
         
         HandleRaycast();
+    }
 
-        if (Input.GetMouseButton(0))
+    private void ExecuteInteract(InputAction.CallbackContext context)
+    {
+        if (!_isEnabled)
         {
-            if (_currentHighlighted != null)
-            {
-                InteractWithObject(_currentHighlighted);
-            }
+            return;
         }
 
-        if (Input.GetMouseButton(1))
+        if (_currentHighlighted != null)
         {
-            StopInteractionWithObject();
+            InteractWithObject(_currentHighlighted);
         }
+    }
+
+    private void ExecuteStopInteraction(InputAction.CallbackContext context)
+    {
+        if (!_isEnabled)
+        {
+            return;
+        }
+        
+        StopInteractionWithObject();
     }
 
     private void HandleRaycast()
