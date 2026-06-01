@@ -10,6 +10,7 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private TextMeshProUGUI availablePointsText;
         [SerializeField] private ShopItemView[] shopItemViews;
+        [SerializeField] private GameObject shopContent;
 
         private bool _isItemSelected;
         private int _currentItemIndex;
@@ -34,7 +35,12 @@ namespace DVDNights
                 UpdateItemCost(shopItemView);
             }
             
-            base.Display();
+            shopContent.SetActive(true);
+        }
+
+        public override void Hide()
+        {
+            shopContent.SetActive(false);
         }
 
         private void UpdateItemCost(IShopItemView shopItemView)
