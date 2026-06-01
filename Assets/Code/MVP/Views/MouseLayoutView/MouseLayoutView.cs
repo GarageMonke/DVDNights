@@ -2,23 +2,23 @@
 
 namespace DVDNights
 {
-    public class MouseLayoutView : MonoBehaviour, IMouseLayoutView
+    public class MouseLayoutView : Window, IMouseLayoutView
     {
         [SerializeField] private GameObject mouseLeftClick;
         [SerializeField] private GameObject mouseWheelClick;
         [SerializeField] private GameObject mouseRightClick;
         
-        public void ShowRegularLayout()
+        public void DisplayRegularLayout()
         {
             HideAll();
             mouseLeftClick.SetActive(true);
             mouseRightClick.SetActive(true);
         }
 
-        public void ShowZoomLayout()
+        public void DisplayInspectionLayout()
         { 
             HideAll();
-           ShowRegularLayout();
+           DisplayRegularLayout();
            mouseWheelClick.SetActive(true);
         }
 
@@ -30,9 +30,9 @@ namespace DVDNights
         }
     }
 
-    public interface IMouseLayoutView
+    public interface IMouseLayoutView : IWindow
     {
-        public void ShowRegularLayout();
-        public void ShowZoomLayout();
+        public void DisplayRegularLayout();
+        public void DisplayInspectionLayout();
     }
 }

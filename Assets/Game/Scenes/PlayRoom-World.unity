@@ -3660,6 +3660,51 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5097600679595703554, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
   m_PrefabInstance: {fileID: 2170810949659493852}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1554753979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1554753980}
+  - component: {fileID: 1554753981}
+  m_Layer: 0
+  m_Name: MouseLayout-Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1554753980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554753979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1565611357}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1554753981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554753979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfe4a23cf754d56b281f2a7c8ee88f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseLayoutView: {fileID: 1577831339}
 --- !u!1 &1565611356
 GameObject:
   m_ObjectHideFlags: 0
@@ -3693,6 +3738,7 @@ Transform:
   - {fileID: 477185753}
   - {fileID: 747929748}
   - {fileID: 501218935}
+  - {fileID: 1554753980}
   m_Father: {fileID: 147319810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573430520 stripped
@@ -3746,8 +3792,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1577831338}
+  - component: {fileID: 1577831339}
   m_Layer: 5
-  m_Name: Mouse-View
+  m_Name: MouseLayout-View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3773,6 +3820,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1577831339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577831337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d467024d9c9437da3a218ac4fe84bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseLeftClick: {fileID: 421111084}
+  mouseWheelClick: {fileID: 1575216676}
+  mouseRightClick: {fileID: 1172032038}
 --- !u!1 &1577893678
 GameObject:
   m_ObjectHideFlags: 0

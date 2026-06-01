@@ -39,6 +39,8 @@ namespace DVDNights
         private float _currentZoom = 1f;
         private float _zoomVelocity;
         private float _inspectionStartSize;
+        
+        private IMouseLayoutController _mouseLayoutController;
 
         private void Awake()
         {
@@ -50,6 +52,11 @@ namespace DVDNights
             _isInspecting = false;
             _inspectionWindow = inspectionWindow;
             ServiceLocator.RegisterService<IInspectionController>(this);
+        }
+
+        private void Start()
+        {
+            _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
         }
 
         public void Inspect(InspectableDataSO inspectableDataSO)
@@ -69,6 +76,7 @@ namespace DVDNights
             _inspectionWindow.UpdateInspectableInfo(inspectableDataSO.InspectableTitle, inspectableDataSO.InspectableDescription);
             ResetInspection();
             _isInspecting = true;
+            _mouseLayoutController.DisplayInspectionLayout();
         }
 
         public void StopInspection()
@@ -76,6 +84,7 @@ namespace DVDNights
             _isInspecting = false;
             Destroy(_inspectedObject);
             _inspectionWindow.Hide();
+            _mouseLayoutController.HideMouseLayout();
         }
 
         private void Update()

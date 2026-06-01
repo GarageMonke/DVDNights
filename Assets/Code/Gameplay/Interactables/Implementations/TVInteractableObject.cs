@@ -10,11 +10,13 @@ namespace DVDNights
 
         ICameraController _cameraController;
         private ITVNavigationController _tvNavigationController;
+        private IMouseLayoutController _mouseLayoutController;
 
         private void Start()
         {
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+            _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
         }
 
         public override void Interact()
@@ -23,6 +25,7 @@ namespace DVDNights
             _cameraController.TweenToPosition(cameraLockPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
             _tvNavigationController.EnableButtons();
+            _mouseLayoutController.DisplayRegularLayout();
         }
 
         public override void StopInteraction()
@@ -31,6 +34,7 @@ namespace DVDNights
             _tvNavigationController.DisableButtons();
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
+            _mouseLayoutController.HideMouseLayout();
         }
     }
 }
