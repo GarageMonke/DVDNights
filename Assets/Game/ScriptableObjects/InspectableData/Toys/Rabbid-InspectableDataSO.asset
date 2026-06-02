@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ef0dbb7cc54f32a424f351f2e15115, type: 3}
+  m_Name: Rabbid-InspectableDataSO
+  m_EditorClassIdentifier: 
+  inspectableObject: {fileID: 758663444944572950, guid: f419403e1805d56448d66fc571b67b73, type: 3}
+  inspectableTitle: Rabbid
+  inspectableDescription: "Le arrebataron lo \xFAnico que amaba: su conejo. Ahora,
+    la venganza es lo \xFAnico que le queda. Un personaje sencillamente brillante."
+  inspectionMaxAngle: {x: 0, y: 360}
+  inspectionMaxZoom: 4
+  inspectionMinZoom: 2
+  inspectionStartSize: 2
+  inspectionStartRotation: {x: 0, y: 0, z: 0}

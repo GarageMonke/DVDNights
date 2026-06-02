@@ -14,7 +14,6 @@ namespace DVDNights
         [SerializeField] private float rotationSpeed = 50f;
         [SerializeField] private float rotationSmoothTime = 0.1f;
         [SerializeField] private float zoomSpeed = 2f;
-        [SerializeField] private float minZoom = 1f;
         [SerializeField] private float zoomSmoothTime = 0.1f;
         
         private GameObject _inspectedObject;
@@ -25,6 +24,10 @@ namespace DVDNights
         private float _currentXAngle;
         private float _currentYAngle;
         
+        
+        private float _startXAngle;
+        private float _startYAngle;
+        
         private float _targetXAngle;
         private float _targetYAngle;
         private float _xVelocity;
@@ -34,6 +37,7 @@ namespace DVDNights
         private float _maxYAngle;
         private Vector2 _inspectionMaxAngle;
         private float _inspectionMaxZoom;
+        private float _inspectionMinZoom;
         
         private float _targetZoom = 1f;
         private float _currentZoom = 1f;
@@ -70,8 +74,13 @@ namespace DVDNights
             _maxXAngle = _inspectionMaxAngle.x;
             _maxYAngle = _inspectionMaxAngle.y;
             _inspectionMaxZoom = inspectableDataSO.InspectionMaxZoom;
+            _inspectionMinZoom = inspectableDataSO.InspectionMinZoom;
             _inspectionStartSize = inspectableDataSO.InspectionStartSize;
             _inspectedObject = Instantiate(inspectableDataSO.InspectableObject, inspectionOrigin);
+
+            Quaternion startRotation = Quaternion.Euler(inspectableDataSO.InspectionStartRotation);
+            _startXAngle = startRotation.eulerAngles.x;
+            _startYAngle = startRotation.eulerAngles.y;
             _inspectionWindow.Display();
             _inspectionWindow.UpdateInspectableInfo(inspectableDataSO.InspectableTitle, inspectableDataSO.InspectableDescription);
             ResetInspection();
@@ -129,7 +138,7 @@ namespace DVDNights
             
             if (scroll != 0f)
             {
-                _targetZoom = Mathf.Clamp(_targetZoom + scroll * zoomSpeed, minZoom, _inspectionMaxZoom);
+                _targetZoom = Mathf.Clamp(_targetZoom + scroll * zoomSpeed, _inspectionMinZoom, _inspectionMaxZoom);
             }
 
             _currentZoom = Mathf.SmoothDamp(_currentZoom, _targetZoom, ref _zoomVelocity, zoomSmoothTime);
@@ -143,17 +152,17 @@ namespace DVDNights
 
         private void ResetInspection()
         {
-            _targetXAngle = 0;
-            _targetYAngle = 0;
-            _currentXAngle = 0;
-            _currentYAngle = 0;
+            _targetXAngle = _startXAngle;
+            _targetYAngle = _startYAngle;
+            _currentXAngle = _startXAngle;
+            _currentYAngle = _startYAngle;
             _lastMousePosition = Vector3.zero;
             _currentZoom = _inspectionStartSize;
             _targetZoom = _currentZoom;
 
             if (_inspectedObject)
             {
-                _inspectedObject.transform.localRotation = Quaternion.Euler(_currentXAngle, _currentYAngle, 0f);
+                _inspectedObject.transform.localRotation = Quaternion.Euler(_startXAngle, _startYAngle, 0f);
             }
         }
     }

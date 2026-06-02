@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ namespace DVDNights
 {
     public class TVInteractableObject : InteractableObject
     {
+        [Header("Configuration")]
         [SerializeField] private Vector3 cameraLockPosition;
 
         ICameraController _cameraController;
@@ -26,6 +27,7 @@ namespace DVDNights
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
             _tvNavigationController.EnableButtons();
             _mouseLayoutController.DisplayRegularLayout();
+            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 2.5f);
         }
 
         public override void StopInteraction()
@@ -35,6 +37,7 @@ namespace DVDNights
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
             _mouseLayoutController.HideMouseLayout();
+            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 1.5f);
         }
     }
 }

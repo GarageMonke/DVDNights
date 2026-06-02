@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CorePatterns.Managers;
+using UnityEngine;
 
 namespace DVDNights
 {
@@ -9,6 +10,9 @@ namespace DVDNights
         
         [Header("References")] 
         [SerializeField] private Outline outline;
+        
+        [Header("Feedback")]
+        [SerializeField] private AudioClip interactionAudioClip;
         
         public abstract void Interact();
 
@@ -30,6 +34,7 @@ namespace DVDNights
         }
 
         public bool HasNavigation => hasNavigation;
+        public AudioClip InteractionAudioClip => interactionAudioClip;
     }
 
     public interface IInteractableObject
@@ -38,7 +43,7 @@ namespace DVDNights
         public void StopInteraction();
         public void Highlight();
         public void Unhighlight();
-        
         public bool HasNavigation { get; }
+        public AudioClip InteractionAudioClip { get; }
     }
 }

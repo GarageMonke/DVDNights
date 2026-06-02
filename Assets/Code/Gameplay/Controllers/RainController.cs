@@ -48,7 +48,8 @@ namespace DVDNights
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(60, 1200));
+                //yield return new WaitForSeconds(Random.Range(60, 1200));
+                yield return new WaitForSeconds(Random.Range(20, 25));
                 PlayThunder();
             }
         }
