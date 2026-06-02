@@ -47,5 +47,10 @@ namespace CorePatterns.Providers
            
            return elements;
         }
+
+        public int GetCount()
+        {
+            return _elementsDictionary.Count;
+        }
     }
 }

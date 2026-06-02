@@ -11,20 +11,19 @@ namespace DVDNights
         [SerializeField] private Vector3 cameraLockRotation;
 
         ICameraController _cameraController;
-        private IMouseLayoutController _mouseLayoutController;
+        private ITrackSelectionController _trackSelectorController;
 
         private void Start()
         {
             _cameraController = ServiceLocator.GetService<ICameraController>();
-            _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
+            _trackSelectorController = ServiceLocator.GetService<ITrackSelectionController>();
         }
 
         public override void Interact()
         {
             Unhighlight();
-            _cameraController.TweenToPosition(cameraLockPosition, 0.5f);
+            _cameraController.TweenToPosition(cameraLockPosition, 0.5f, ()=> _trackSelectorController.OpenTrackSelector());
             _cameraController.TweenToRotation(Quaternion.Euler(cameraLockRotation), 0.5f);
-            _mouseLayoutController.DisplayRegularLayout();
             AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 2.5f);
         }
 
@@ -32,8 +31,8 @@ namespace DVDNights
         {
             Highlight();
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
-            _mouseLayoutController.HideMouseLayout();
             AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 1.5f);
+            _trackSelectorController.CloseTrackSelector();
         }
     }
 }
