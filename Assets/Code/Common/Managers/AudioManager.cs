@@ -70,7 +70,7 @@ namespace CorePatterns.Managers
                 ostSource.volume = 0f;
                 ostSource.Play();
 
-                _fadeTween = ostSource.DOFade(1f, 2f);
+                _fadeTween = ostSource.DOFade(volume, 2f);
                 return;
             }
             
@@ -82,7 +82,7 @@ namespace CorePatterns.Managers
                 ostSource.volume = volume;
                 ostSource.loop = loop;
                 ostSource.Play();
-                ostSource.DOFade(1f, 3f);
+                ostSource.DOFade(volume, 3f);
             });
         }
 

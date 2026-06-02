@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: e7cd5930ae709aa4bbf907273f335a78
+guid: 263262ebefe30b541b89095af2925670
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Cortina
-    second: {fileID: 2100000, guid: c0dc2bfd9f78db74587f3010b826f798, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +30,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
