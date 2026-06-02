@@ -12,6 +12,8 @@ namespace CorePatterns.Managers
         [SerializeField] private AudioSource ostSource;
         
         private Tween _fadeTween;
+        private AudioClip _previousOSTClip;
+        private float _previousOstVolume;
         
         private void Awake()
         {
@@ -65,7 +67,6 @@ namespace CorePatterns.Managers
             {
                 ostSource.clip = newClip;
                 ostSource.pitch = pitch;
-                ostSource.volume = volume;
                 ostSource.loop = loop;
                 ostSource.volume = 0f;
                 ostSource.Play();
@@ -98,6 +99,47 @@ namespace CorePatterns.Managers
                     ostSource.clip = null;
                 });
             }
+        }
+
+        public void PlayPreview(AudioClip previewClip, float volume = 1f)
+        {
+            if (!previewClip)
+            {
+                return;
+            }
+
+            _previousOSTClip = ostSource.clip;
+            _previousOstVolume = ostSource.volume;
+
+            _fadeTween?.Kill();
+            
+            _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
+            {
+                ostSource.Stop();
+                ostSource.clip = previewClip;
+                ostSource.volume = volume;
+                ostSource.Play();
+                
+                _fadeTween = ostSource.DOFade(volume, 1f).OnComplete(() =>
+                {
+                    // 4. Wait 10 seconds while preview plays
+                    DOVirtual.DelayedCall(25f, () =>
+                    {
+                        _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
+                        {
+                            ostSource.Stop();
+                            
+                            if (_previousOSTClip)
+                            {
+                                ostSource.clip = _previousOSTClip;
+                                ostSource.volume = 0f;
+                                ostSource.Play();
+                                _fadeTween = ostSource.DOFade(_previousOstVolume, 1f);
+                            }
+                        });
+                    });
+                });
+            });
         }
     }
 }

@@ -2902,6 +2902,9 @@ MonoBehaviour:
   trackTitleText: {fileID: 702475503}
   coverArtText: {fileID: 996068304}
   composerText: {fileID: 7701811}
+  nextTrackButton: {fileID: 1398246074}
+  previousTrackButton: {fileID: 617483001}
+  selectTrackButton: {fileID: 1830639657}
 --- !u!1 &617482999
 GameObject:
   m_ObjectHideFlags: 0

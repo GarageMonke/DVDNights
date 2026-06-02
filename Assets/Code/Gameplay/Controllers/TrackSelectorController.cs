@@ -1,4 +1,5 @@
 ﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.Providers.Implementations;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace DVDNights
         [SerializeField] private Transform trackOrigin;
         [SerializeField] private TrackSelectionWindow trackSelectionWindow;
         [SerializeField] private TrackDataProvider trackDataProvider;
+        
 
         private GameObject _trackObject;
         
@@ -38,21 +40,26 @@ namespace DVDNights
         {
             DisplayTrack();
             trackSelectionWindow.Display();
+            trackSelectionWindow.OnNextTrackRequested += NextTrack;
+            trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
+            trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
             _mouseLayoutController.DisplayRegularLayout();
         }
 
         private void DisplayTrack()
         {
+            DeleteTrack();
             TrackDataSO currentTrackData =  trackDataProvider.GetElementById(_currentTrackIndex.ToString());
             _trackObject = Instantiate(currentTrackData.TrackObject, trackOrigin);
             trackSelectionWindow.UpdateTrackInfo(currentTrackData.TrackTitle, currentTrackData.CoverArt, currentTrackData.Composer);
+            AudioManager.Instance.PlayPreview(currentTrackData.TrackAudioClip);
         }
 
         private void NextTrack()
         {
             _currentTrackIndex++;
 
-            if (_currentTrackIndex > trackDataProvider.GetCount())
+            if (_currentTrackIndex >= trackDataProvider.GetCount())
             {
                 _currentTrackIndex = 0;
             }
@@ -71,14 +78,30 @@ namespace DVDNights
             
             DisplayTrack();
         }
+
+        private void SelectTrack()
+        {
+            Debug.Log("Track selected");
+        }
+
+        private void DeleteTrack()
+        {
+            if (!_trackObject)
+            {
+                return;
+            }
+            
+            Destroy(_trackObject);
+            _trackObject = null;
+        }
         
         public void CloseTrackSelector()
         {
-            if (_trackObject)
-            {
-                Destroy(_trackObject);
-                _trackObject = null;
-            }
+            DeleteTrack();
+            
+            trackSelectionWindow.OnNextTrackRequested -= NextTrack;
+            trackSelectionWindow.OnPreviousTrackRequested -= PreviousTrack;
+            trackSelectionWindow.OnSelectTrackRequested -= SelectTrack;
             
             _mouseLayoutController.HideMouseLayout();
             trackSelectionWindow.Hide();
