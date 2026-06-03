@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -7,8 +6,7 @@ namespace DVDNights
     public class MouseLayoutController : MonoBehaviour, IMouseLayoutController
     {
         [SerializeField] private MouseLayoutView mouseLayoutView;
-
-
+        
         private void Awake()
         {
             InstallService();
