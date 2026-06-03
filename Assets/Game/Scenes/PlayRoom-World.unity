@@ -462,9 +462,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -2487,9 +2494,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -3165,9 +3179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -3950,9 +3971,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -5249,6 +5277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 2
@@ -5619,9 +5654,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -7086,9 +7128,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -7324,6 +7373,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 2.5
@@ -7742,14 +7798,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941329835}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 21350c36d9bed764b969eb364b82d034, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 1
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 8
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -8124,9 +8187,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -8608,14 +8678,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8838071640733181510}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 1
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -8847,14 +8924,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548885263}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -10703,9 +10787,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -10863,12 +10954,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 106f3ff43a17d4967a2b64c7a92e49ec, type: 2}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
-      propertyPath: outlineMode
+      propertyPath: scrollX
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: scrollY
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: hatchScale
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: updateRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: outlineMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: hatchTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: noiseTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: outlineWidth
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: noiseStrength
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7044139479803096461, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: m_Name
@@ -11113,9 +11232,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -11157,9 +11283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -11186,6 +11319,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -11225,14 +11365,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5662194100105662031}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 1
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -12400,9 +12547,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -13127,9 +13281,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -13462,6 +13623,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -13969,6 +14137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -15054,9 +15229,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -15131,6 +15313,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16186,6 +16375,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16289,9 +16485,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -16364,6 +16567,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16460,6 +16670,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16641,6 +16858,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16815,14 +17039,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8934777401684220118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 2.5
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -16937,6 +17168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 0}
+  noiseTexture: {fileID: 0}
+  hatchScale: 120
+  noiseStrength: 0.02
+  updateRate: 8
+  scrollX: 0.03
+  scrollY: 0.02
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5

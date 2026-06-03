@@ -14,6 +14,28 @@ using UnityEngine;
 [DisallowMultipleComponent]
 
 public class Outline : MonoBehaviour {
+  
+  [SerializeField]
+  private Texture2D hatchTexture;
+
+  [SerializeField]
+  private Texture2D noiseTexture;
+
+  [SerializeField]
+  private float hatchScale = 120f;
+
+  [SerializeField]
+  private float noiseStrength = 0.02f;
+
+  [SerializeField]
+  private float updateRate = 8f;
+
+  [SerializeField]
+  private float scrollX = 0.03f;
+
+  [SerializeField]
+  private float scrollY = 0.02f;
+  
   private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
   public enum Mode {
@@ -59,7 +81,7 @@ public class Outline : MonoBehaviour {
   [SerializeField]
   private Color outlineColor = Color.white;
 
-  [SerializeField, Range(0f, 10f)]
+  [SerializeField, Range(0f, 20f)]
   private float outlineWidth = 2f;
 
   [Header("Optional")]
@@ -269,41 +291,140 @@ public class Outline : MonoBehaviour {
     mesh.SetTriangles(mesh.triangles, mesh.subMeshCount - 1);
   }
 
-  void UpdateMaterialProperties() {
+  void UpdateMaterialProperties()
+{
+    outlineFillMaterial.SetColor(
+        "_OutlineColor",
+        outlineColor
+    );
 
-    // Apply properties according to mode
-    outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
-
-    switch (outlineMode) {
-      case Mode.OutlineAll:
-        outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-        outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-        outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-        break;
-
-      case Mode.OutlineVisible:
-        outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-        outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-        outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-        break;
-
-      case Mode.OutlineHidden:
-        outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-        outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-        outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-        break;
-
-      case Mode.OutlineAndSilhouette:
-        outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-        outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-        outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-        break;
-
-      case Mode.SilhouetteOnly:
-        outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-        outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-        outlineFillMaterial.SetFloat("_OutlineWidth", 0f);
-        break;
+    if (hatchTexture != null)
+    {
+        outlineFillMaterial.SetTexture(
+            "_HatchTex",
+            hatchTexture
+        );
     }
-  }
+
+    if (noiseTexture != null)
+    {
+        outlineFillMaterial.SetTexture(
+            "_NoiseTex",
+            noiseTexture
+        );
+    }
+
+    outlineFillMaterial.SetFloat(
+        "_HatchScale",
+        hatchScale
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_NoiseStrength",
+        noiseStrength
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_UpdateRate",
+        updateRate
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_ScrollX",
+        scrollX
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_ScrollY",
+        scrollY
+    );
+
+    switch (outlineMode)
+    {
+        case Mode.OutlineAll:
+            outlineMaskMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Always
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Always
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_OutlineWidth",
+                outlineWidth
+            );
+            break;
+
+        case Mode.OutlineVisible:
+            outlineMaskMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Always
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.LessEqual
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_OutlineWidth",
+                outlineWidth
+            );
+            break;
+
+        case Mode.OutlineHidden:
+            outlineMaskMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Always
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Greater
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_OutlineWidth",
+                outlineWidth
+            );
+            break;
+
+        case Mode.OutlineAndSilhouette:
+            outlineMaskMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.LessEqual
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Always
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_OutlineWidth",
+                outlineWidth
+            );
+            break;
+
+        case Mode.SilhouetteOnly:
+            outlineMaskMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.LessEqual
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_ZTest",
+                (float)UnityEngine.Rendering.CompareFunction.Greater
+            );
+
+            outlineFillMaterial.SetFloat(
+                "_OutlineWidth",
+                0f
+            );
+            break;
+    }
+}
 }
