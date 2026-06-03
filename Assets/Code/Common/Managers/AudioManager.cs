@@ -108,9 +108,7 @@ namespace CorePatterns.Managers
                 return;
             }
 
-            _previousOSTClip = ostSource.clip;
-            _previousOstVolume = ostSource.volume;
-
+            
             _fadeTween?.Kill();
             
             _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
@@ -128,14 +126,6 @@ namespace CorePatterns.Managers
                         _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
                         {
                             ostSource.Stop();
-                            
-                            if (_previousOSTClip)
-                            {
-                                ostSource.clip = _previousOSTClip;
-                                ostSource.volume = 0f;
-                                ostSource.Play();
-                                _fadeTween = ostSource.DOFade(_previousOstVolume, 1f);
-                            }
                         });
                     });
                 });

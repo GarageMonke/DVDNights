@@ -5192,9 +5192,6 @@ PrefabInstance:
       addedObject: {fileID: 1147314859}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: addcd350665177647b49157bd3dfcbb7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1147314861}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: addcd350665177647b49157bd3dfcbb7, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1147314860}
   m_SourcePrefab: {fileID: 100100000, guid: addcd350665177647b49157bd3dfcbb7, type: 3}
 --- !u!4 &1147314858 stripped
@@ -5230,7 +5227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914906407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -5241,23 +5238,6 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &1147314861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914906407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9025e3ef83f3430bb4118c33ecb71ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasNavigation: 0
-  outline: {fileID: 1147314860}
-  interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  cameraLockPosition: {x: 0, y: 0, z: 0}
-  cameraLockRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &1171936846
 GameObject:
   m_ObjectHideFlags: 0

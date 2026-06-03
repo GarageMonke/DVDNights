@@ -15,3 +15,5 @@ MonoBehaviour:
   assignedElements:
   - Id: 0
     Value: {fileID: 11400000, guid: 9c61a6e4e934a64458c14300d2084048, type: 2}
+  - Id: 1
+    Value: {fileID: 11400000, guid: 21c7914c0cd5c7d4b89c26e81a1d9e89, type: 2}

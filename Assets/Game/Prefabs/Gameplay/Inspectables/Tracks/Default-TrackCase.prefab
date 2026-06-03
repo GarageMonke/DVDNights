@@ -99,5 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92facc7f3a4aad74f9bc1acb609b0749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVector: {x: 0, y: 0, z: -0.5}
+  rotationVector: {x: 0, y: 0, z: -1}
   frameSkip: 0
+  smoothSpeed: 35
