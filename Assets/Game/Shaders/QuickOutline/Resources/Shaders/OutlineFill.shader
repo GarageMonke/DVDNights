@@ -18,6 +18,11 @@
 
         _ScrollX("Scroll X", Float) = 0.03
         _ScrollY("Scroll Y", Float) = 0.02
+        
+        _JitterAmount ("Jitter Amount", Range(0,20)) = 3
+        _JitterScale ("Jitter Scale", Float) = 5
+        _NoiseTex ("Noise Texture", 2D) = "gray" {}
+        _UpdateRate ("Update Rate", Range(1,60)) = 8
     }
 
     SubShader
@@ -86,43 +91,96 @@
             float _ScrollX;
             float _ScrollY;
 
+            float _JitterAmount;
+            float _JitterScale;
+
             v2f vert(appdata input)
-            {
-                v2f output;
+{
+    v2f output;
 
-                UNITY_SETUP_INSTANCE_ID(input);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+    UNITY_SETUP_INSTANCE_ID(input);
+    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-                float3 normal =
-                    any(input.smoothNormal)
-                    ? input.smoothNormal
-                    : input.normal;
+    float3 normal =
+        any(input.smoothNormal)
+        ? input.smoothNormal
+        : input.normal;
 
-                float3 viewPosition =
-                    UnityObjectToViewPos(input.vertex);
+    float3 viewPosition =
+        UnityObjectToViewPos(input.vertex);
 
-                float3 viewNormal =
-                    normalize(
-                        mul(
-                            (float3x3)UNITY_MATRIX_IT_MV,
-                            normal
-                        )
-                    );
+    float3 viewNormal =
+        normalize(
+            mul(
+                (float3x3)UNITY_MATRIX_IT_MV,
+                normal
+            )
+        );
 
-                output.position =
-                    UnityViewToClipPos(
-                        viewPosition +
-                        viewNormal *
-                        -viewPosition.z *
-                        _OutlineWidth /
-                        1000.0
-                    );
+    //----------------------------------------
+    // Stepped time (redraw effect)
+    //----------------------------------------
 
-                output.screenPos =
-                    ComputeScreenPos(output.position);
+    float steppedTime =
+        floor(_Time.y * _UpdateRate)
+        / _UpdateRate;
 
-                return output;
-            }
+    //----------------------------------------
+    // Stable object-space noise
+    //----------------------------------------
+
+    float2 noiseUV =
+        input.vertex.xz * _JitterScale +
+        steppedTime;
+
+    float2 noise =
+        tex2Dlod(
+            _NoiseTex,
+            float4(noiseUV, 0, 0)
+        ).rg;
+
+    noise = (noise - 0.5) * 2.0;
+
+    //----------------------------------------
+    // Variable width
+    //----------------------------------------
+
+    float widthVariation =
+        lerp(
+            0.7,
+            1.4,
+            noise.r * 0.5 + 0.5
+        );
+
+    float finalWidth =
+        _OutlineWidth *
+        widthVariation;
+
+    //----------------------------------------
+    // Sideways jitter
+    //----------------------------------------
+
+    viewPosition.xy +=
+        noise * _JitterAmount;
+
+    //----------------------------------------
+    // Normal expansion
+    //----------------------------------------
+
+    output.position =
+        UnityViewToClipPos(
+            viewPosition +
+            viewNormal *
+            -viewPosition.z *
+            finalWidth /
+            1000.0
+        );
+
+    output.screenPos =
+        ComputeScreenPos(output.position);
+
+    return output;
+}
 
             fixed4 frag(v2f input) : SV_Target
             {

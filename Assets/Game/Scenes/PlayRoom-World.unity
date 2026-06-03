@@ -193,7 +193,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Composer: Marian Powerup'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_sharedMaterial: {fileID: 4301620736344218295, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26962600}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -469,8 +469,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -2489,7 +2491,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450308636}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -2501,8 +2503,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -3174,7 +3178,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639967251}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -3186,8 +3190,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -3435,7 +3441,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Track: Montotos al poder'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_sharedMaterial: {fileID: 4301620736344218295, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3966,7 +3972,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890086321}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -3978,8 +3984,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -4210,7 +4218,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Cover Art: Montotito'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_sharedMaterial: {fileID: 4301620736344218295, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4392,7 +4400,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: DIALOG MESSAGE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_sharedMaterial: {fileID: -3953191020179106902, guid: 321ee3572fd1eb84a82ad1e45f863504, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5284,6 +5292,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 2
@@ -5649,7 +5659,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193559308}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -5661,8 +5671,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -5855,7 +5867,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7123,7 +7135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664828553}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -7135,8 +7147,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -7380,6 +7394,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 2.5
@@ -7798,21 +7814,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941329835}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 2800000, guid: 21350c36d9bed764b969eb364b82d034, type: 3}
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
   noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
   hatchScale: 25
   noiseStrength: 2
   updateRate: 4
   scrollX: 1
   scrollY: 20
-  outlineMode: 1
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 8
+  jitterAmount: 0.05
+  jitterScale: 15
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -8182,7 +8200,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061118750}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -8194,6 +8212,8 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -8349,7 +8369,6 @@ GameObject:
   - component: {fileID: 2105149363}
   - component: {fileID: 2105149365}
   - component: {fileID: 2105149364}
-  - component: {fileID: 2105149366}
   m_Layer: 5
   m_Name: Title-Text
   m_TagString: Untagged
@@ -8475,21 +8494,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105149362}
   m_CullTransparentMesh: 1
---- !u!114 &2105149366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2105149362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0696b859a05745728363b6a24658c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAmount: 0.5
-  speed: 0.25
-  movementAmount: 10
 --- !u!1 &2145121373
 GameObject:
   m_ObjectHideFlags: 0
@@ -8678,7 +8682,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8838071640733181510}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -8690,8 +8694,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
-  outlineMode: 1
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  jitterAmount: 0.05
+  jitterScale: 15
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
@@ -8924,7 +8930,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548885263}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -8936,8 +8942,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -10782,7 +10790,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375191201981741255}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -10794,8 +10802,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -10962,12 +10972,20 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: hatchScale
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: updateRate
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: jitterScale
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: outlineMode
@@ -10977,6 +10995,10 @@ PrefabInstance:
       propertyPath: hatchTexture
       value: 
       objectReference: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: jitterAmount
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: noiseTexture
       value: 
@@ -10988,6 +11010,14 @@ PrefabInstance:
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: noiseStrength
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: outlineColor.g
+      value: 0.8862745
       objectReference: {fileID: 0}
     - target: {fileID: 7044139479803096461, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: m_Name
@@ -11227,7 +11257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6097892906772340284}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -11239,8 +11269,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -11278,7 +11310,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7607582976118905419}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -11290,8 +11322,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -11326,6 +11360,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -11365,7 +11401,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5662194100105662031}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -11377,8 +11413,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
-  outlineMode: 1
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  jitterAmount: 0.05
+  jitterScale: 15
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 5
   precomputeOutline: 0
   bakeKeys: []
@@ -12542,7 +12580,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148319574322774669}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -12554,8 +12592,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -13276,7 +13316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076305818829524656}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -13288,8 +13328,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -13630,6 +13672,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -14144,6 +14188,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -15224,7 +15270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4655933399415763496}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -15236,8 +15282,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -15320,6 +15368,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16382,6 +16432,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16480,7 +16532,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4717396825484653657}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -16492,8 +16544,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 0
   bakeKeys: []
@@ -16574,6 +16628,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16677,6 +16733,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -16865,6 +16923,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5
@@ -17039,7 +17099,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8934777401684220118}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -17051,8 +17111,10 @@ MonoBehaviour:
   updateRate: 4
   scrollX: 1
   scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -17175,6 +17237,8 @@ MonoBehaviour:
   updateRate: 8
   scrollX: 0.03
   scrollY: 0.02
+  jitterAmount: 1.5
+  jitterScale: 10
   outlineMode: 0
   outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 5

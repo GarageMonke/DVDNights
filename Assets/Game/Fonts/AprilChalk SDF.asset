@@ -1579,12 +1579,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _HatchTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: -1916394908967579461}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d3c089d4325450a4d881b5452fd74e83, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -1593,7 +1597,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaVariation: 0.1
+    - _AlphaVariation: 0
     - _Ambient: 0.5
     - _Bevel: 0.5
     - _BevelClamp: 0
@@ -1606,19 +1610,25 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _DistortionMultiplier: 1.1
+    - _DistortionMultiplier: 0.215
+    - _EdgeVariation: 0.25
     - _FaceDilate: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
+    - _GhostStrength: 0.1
     - _GlowInner: 0.05
     - _GlowOffset: 0
     - _GlowOuter: 0.05
     - _GlowPower: 0.75
     - _GradientScale: 10
+    - _HatchScale: 80
+    - _HatchStrength: 0.15
+    - _JitterAmount: 0.01
+    - _JitterScale: 12
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
-    - _NoiseStrength: 0.005
+    - _NoiseStrength: 0.0125
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0

@@ -102,7 +102,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _AlphaVariation: 0.1
+    - _AlphaVariation: 0.017
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -115,10 +115,14 @@ Material:
     - _DistortionMultiplier: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EdgeVariation: 0.246
     - _EnvironmentReflections: 1
+    - _GhostStrength: 0.791
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _JitterAmount: 0.0183
+    - _JitterScale: 12
     - _Metallic: 0
     - _NoiseScale: 8
     - _NoiseStrength: 0.017

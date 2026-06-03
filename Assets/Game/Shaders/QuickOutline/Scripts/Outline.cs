@@ -36,6 +36,12 @@ public class Outline : MonoBehaviour {
   [SerializeField]
   private float scrollY = 0.02f;
   
+  [SerializeField] 
+  private float jitterAmount = 1.5f;
+  
+  [SerializeField]
+  private float jitterScale = 10f;
+  
   private static HashSet<Mesh> registeredMeshes = new HashSet<Mesh>();
 
   public enum Mode {
@@ -337,6 +343,21 @@ public class Outline : MonoBehaviour {
     outlineFillMaterial.SetFloat(
         "_ScrollY",
         scrollY
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_JitterAmount",
+        jitterAmount
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_JitterScale",
+        jitterScale
+    );
+
+    outlineFillMaterial.SetFloat(
+        "_UpdateRate",
+        updateRate
     );
 
     switch (outlineMode)
