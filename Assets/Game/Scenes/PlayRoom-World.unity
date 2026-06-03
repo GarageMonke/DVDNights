@@ -2017,7 +2017,6 @@ GameObject:
   - component: {fileID: 373598698}
   - component: {fileID: 373598700}
   - component: {fileID: 373598699}
-  - component: {fileID: 373598701}
   m_Layer: 5
   m_Name: Title-Text (TMP)
   m_TagString: Untagged
@@ -2143,21 +2142,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373598697}
   m_CullTransparentMesh: 1
---- !u!114 &373598701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373598697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0696b859a05745728363b6a24658c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAmount: 0.5
-  speed: 0.25
-  movementAmount: 10
 --- !u!1 &408107316
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,9 +2310,9 @@ RectTransform:
   - {fileID: 1123801274}
   m_Father: {fileID: 476018414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1670, y: -25}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &450044260
@@ -4468,7 +4452,6 @@ GameObject:
   - component: {fileID: 1069102371}
   - component: {fileID: 1069102373}
   - component: {fileID: 1069102372}
-  - component: {fileID: 1069102375}
   m_Layer: 5
   m_Name: MouseLabel-Text
   m_TagString: Untagged
@@ -4492,7 +4475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1069102372
@@ -4594,21 +4577,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069102370}
   m_CullTransparentMesh: 1
---- !u!114 &1069102375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069102370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0696b859a05745728363b6a24658c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAmount: 0.5
-  speed: 0.25
-  movementAmount: 10
 --- !u!1 &1109355906
 GameObject:
   m_ObjectHideFlags: 0
@@ -5347,7 +5315,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: OBJECT DESCRIPTION
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_sharedMaterial: {fileID: -2654289938521661938, guid: 7f52369968acbde4eadbb87ceb1ae49b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5470,9 +5438,9 @@ RectTransform:
   - {fileID: 559470758}
   m_Father: {fileID: 476018414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1870, y: -25}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1179020669
@@ -6661,9 +6629,9 @@ RectTransform:
   - {fileID: 576775275}
   m_Father: {fileID: 476018414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1770, y: -25}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1577831337
@@ -6682,7 +6650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1577831338
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7903,7 +7871,6 @@ GameObject:
   - component: {fileID: 2016735855}
   - component: {fileID: 2016735857}
   - component: {fileID: 2016735856}
-  - component: {fileID: 2016735859}
   m_Layer: 5
   m_Name: MouseLabel-Text
   m_TagString: Untagged
@@ -7927,7 +7894,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2016735856
@@ -8029,21 +7996,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016735854}
   m_CullTransparentMesh: 1
---- !u!114 &2016735859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016735854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0696b859a05745728363b6a24658c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAmount: 0.5
-  speed: 0.25
-  movementAmount: 10
 --- !u!4 &2021900523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1832738379315556381, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
@@ -8479,7 +8431,6 @@ GameObject:
   - component: {fileID: 2145121374}
   - component: {fileID: 2145121376}
   - component: {fileID: 2145121375}
-  - component: {fileID: 2145121377}
   m_Layer: 5
   m_Name: MouseLabel-Text
   m_TagString: Untagged
@@ -8503,7 +8454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2145121375
@@ -8605,21 +8556,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145121373}
   m_CullTransparentMesh: 1
---- !u!114 &2145121377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145121373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0696b859a05745728363b6a24658c47f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationAmount: 0.5
-  speed: 0.25
-  movementAmount: 10
 --- !u!4 &1817756786665179
 Transform:
   m_ObjectHideFlags: 0
