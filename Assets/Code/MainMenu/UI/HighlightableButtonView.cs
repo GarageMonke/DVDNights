@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DVDNights
 {
-    public class HighlightableButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerUpHandler
+    public class HighlightableButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         [Header("References")]
         [SerializeField] private Button button;
@@ -38,17 +38,20 @@ namespace DVDNights
         {
             highlightImage.gameObject.SetActive(false);
             buttonText.color = _originalTextHighlightColor;
-            buttonText.fontStyle =_originalFontStyle;
+            buttonText.fontStyle = _originalFontStyle;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             highlightImage.color = Color.grey;
+            buttonText.color = _originalTextHighlightColor;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             highlightImage.color = _originalImageHighlightColor;
+            buttonText.color = _originalTextHighlightColor;
+            buttonText.fontStyle = _originalFontStyle;
         }
     }
 
