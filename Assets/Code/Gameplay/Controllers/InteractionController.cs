@@ -137,6 +137,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         
         _currentInteraction = interactableObject;
         _currentInteraction.Interact();
+        _currentHighlighted.Unhighlight();
 
         if (_currentInteraction.HasNavigation)
         {
