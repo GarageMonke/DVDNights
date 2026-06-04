@@ -1,6 +1,8 @@
 using System;
 using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
+using DVDNights;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,6 +30,10 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
     private float _pointerDownTimer;
     private bool _holdTriggered;
     private float _heldSecondsTimer;
+    private string _buttonAction;
+    
+    private IDialogController _dialogController;
+    private ITVButtonContextController _tvButtonContextController;
 
     public void EnableButton()  => _canBePressed = true;
     public void DisableButton() => _canBePressed = false;
@@ -36,6 +42,12 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
     private void Awake()
     {
         _originalZPosition = transform.localPosition.z;
+    }
+
+    private void Start()
+    {
+        _dialogController = ServiceLocator.GetService<IDialogController>();
+        _tvButtonContextController = ServiceLocator.GetService<ITVButtonContextController>();
     }
 
     private void Update()
@@ -82,7 +94,12 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
             }
         });
     }
-    
+
+    public void SetButtonAction(string newButtonAction)
+    {
+        _buttonAction = newButtonAction;
+    }
+
     private void ReleaseButton()
     {
         if (!_isPointerDown)
@@ -108,6 +125,7 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         }
         
         _holdTriggered = false;
+        _dialogController.HideDialog();
     }
     
     public void OnPointerDown(PointerEventData eventData)
@@ -128,11 +146,16 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         }
         
         outline.enabled = true;
+        
+        string contextAction = _tvButtonContextController.GetTVButtonAction(buttonId);
+        
+        _dialogController.DisplayDialog(contextAction);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         outline.enabled = false;
+        _dialogController.HideDialog();
     }
 }
 
@@ -145,4 +168,6 @@ public interface ITVButton
     void EnableButton();
     void DisableButton();
     void Press();
+    
+    void SetButtonAction(string buttonAction);
 }

@@ -16,6 +16,11 @@ namespace DVDNights
             _inspectionController = ServiceLocator.GetService<IInspectionController>();
         }
 
+        public override string GetInteractionAction()
+        {
+            return "Inspect";
+        }
+
         public override void Interact()
         {
            _inspectionController.Inspect(inspectableDataSO);

@@ -4314,6 +4314,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996068301}
   m_CullTransparentMesh: 1
+--- !u!1 &1001995925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001995926}
+  - component: {fileID: 1001995927}
+  m_Layer: 0
+  m_Name: ButtonContext-Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1001995926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001995925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1270939009}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1001995927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001995925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c624810feae643bb814e6608971d8b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1023553247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4420,7 +4464,7 @@ MonoBehaviour:
   m_text: DIALOG MESSAGE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
-  m_sharedMaterial: {fileID: -3953191020179106902, guid: 321ee3572fd1eb84a82ad1e45f863504, type: 2}
+  m_sharedMaterial: {fileID: 4301620736344218295, guid: f387cb712faabb54795c76671a205ec6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5857,6 +5901,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1220249511}
+  - {fileID: 1001995926}
   - {fileID: 300040024}
   m_Father: {fileID: 2094049054}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10745,6 +10790,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1196090299077348724, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Previous / Backwards
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196090299077348724, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
       objectReference: {fileID: 8300000, guid: 5f592251a5610c54fa1040dee47aa584, type: 3}
@@ -10756,6 +10805,10 @@ PrefabInstance:
       propertyPath: outline
       value: 
       objectReference: {fileID: 8550424698138556389}
+    - target: {fileID: 1381081138983017403, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Power
+      objectReference: {fileID: 0}
     - target: {fileID: 1381081138983017403, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: holdThreshold
       value: 0.2
@@ -10773,6 +10826,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2621558271367863710, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Next / Fast Forward
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621558271367863710, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
       objectReference: {fileID: 8300000, guid: 5f592251a5610c54fa1040dee47aa584, type: 3}
@@ -10787,6 +10844,10 @@ PrefabInstance:
     - target: {fileID: 2766526169908236507, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: canBeHeld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766526169908236507, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Volume Up
       objectReference: {fileID: 0}
     - target: {fileID: 2766526169908236507, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
@@ -10825,6 +10886,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4359818851695934486, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Volume Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 4359818851695934486, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
       objectReference: {fileID: 8300000, guid: 5f592251a5610c54fa1040dee47aa584, type: 3}
@@ -10840,6 +10905,10 @@ PrefabInstance:
       propertyPath: outline
       value: 
       objectReference: {fileID: 7329241222668155546}
+    - target: {fileID: 4740233639726789271, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Open/Close
+      objectReference: {fileID: 0}
     - target: {fileID: 4740233639726789271, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
@@ -10868,6 +10937,10 @@ PrefabInstance:
       propertyPath: outline
       value: 
       objectReference: {fileID: 8080185433090515271}
+    - target: {fileID: 5548150124911511421, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 5548150124911511421, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
@@ -10929,6 +11002,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9105314742109740891}
     - target: {fileID: 6726440077582669977, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Select / FF Power
+      objectReference: {fileID: 0}
+    - target: {fileID: 6726440077582669977, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
       objectReference: {fileID: 8300000, guid: 5f592251a5610c54fa1040dee47aa584, type: 3}
@@ -10944,6 +11021,10 @@ PrefabInstance:
       propertyPath: outline
       value: 
       objectReference: {fileID: 8709743455816535486}
+    - target: {fileID: 8661058543158319518, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: buttonAction
+      value: Play / Pause
+      objectReference: {fileID: 0}
     - target: {fileID: 8661058543158319518, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: feedbackClip
       value: 
@@ -11635,18 +11716,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -13947,18 +14028,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -14463,18 +14544,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -15643,18 +15724,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -16707,18 +16788,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -16903,18 +16984,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -17008,18 +17089,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -17198,18 +17279,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -17512,18 +17593,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hatchTexture: {fileID: 0}
-  noiseTexture: {fileID: 0}
-  hatchScale: 120
-  noiseStrength: 0.02
-  updateRate: 8
-  scrollX: 0.03
-  scrollY: 0.02
-  jitterAmount: 1.5
-  jitterScale: 10
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  outlineWidth: 5
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.025
+  jitterScale: 25
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []

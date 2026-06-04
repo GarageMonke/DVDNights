@@ -7,8 +7,13 @@ namespace DVDNights
     public class TVNavigationController : MonoBehaviour, ITVNavigationController
     {
         [SerializeField] private TVButton[] tvButtons;
-
+        
+        public ITVButton PowerButton => tvButtons[0];
         public ITVButton OpenCloseButton => tvButtons[1];
+        public ITVButton MenuButton =>  tvButtons[2];
+        public ITVButton SubmitButton  =>  tvButtons[4];
+        public ITVButton NextButton  =>  tvButtons[5];
+        public ITVButton PlayPauseButton  =>  tvButtons[6];
         public Action OnPowerButtonPressed { get; set; }
         public Action OnOpenCloseButtonPressed { get; set; }
         public Action OnMenuButtonPressed { get; set; }
@@ -25,6 +30,8 @@ namespace DVDNights
         public Action OnVolumeUpButtonReleased { get; set; }
         public Action OnVolumeDownButtonReleased { get; set; }
         
+        public TVButton[] TvButtons => tvButtons;
+
 
         private void Awake()
         {
@@ -47,7 +54,7 @@ namespace DVDNights
                 tvButton.EnableButton();
             }
         }
-        
+
         public void EnableButtons()
         {
             foreach (ITVButton tvButton in tvButtons)
@@ -159,7 +166,12 @@ namespace DVDNights
 
 public interface ITVNavigationController
 {
+    public ITVButton PowerButton { get; }
     public ITVButton OpenCloseButton { get; }
+    public ITVButton MenuButton { get; }
+    public ITVButton SubmitButton { get; }
+    public ITVButton NextButton { get; }
+    public ITVButton PlayPauseButton { get; }
     public Action OnPowerButtonPressed { get; set; }
     public Action OnOpenCloseButtonPressed { get; set; }
     public Action OnMenuButtonPressed { get; set; }
@@ -175,6 +187,8 @@ public interface ITVNavigationController
     public Action OnNextButtonReleased { get; set; }
     public Action OnVolumeUpButtonReleased { get; set; }
     public Action OnVolumeDownButtonReleased{ get; set; }
+    
+    public TVButton[] TvButtons { get; }
 
     public void EnableButtons();
     public void DisableButtons();

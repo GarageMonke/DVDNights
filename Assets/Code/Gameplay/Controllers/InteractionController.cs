@@ -34,6 +34,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private InputAction _interactInputAction;
     private InputAction _stopInteractionInputAction;
+    private IDialogController _dialogController;
 
     private void Awake()
     {
@@ -59,6 +60,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private void Start()
     {
+        _dialogController = ServiceLocator.GetService<IDialogController>();
         _cameraController = ServiceLocator.GetService<ICameraController>();
         _cameraController.EnableNavigation();
         _camera = _cameraController.Camera;
@@ -123,6 +125,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentHighlighted = null;
         crosshairImage.color = undetectedColor;
         TweenToSize(Vector2.one);
+        _dialogController.HideDialog();
     }
 
     private void InteractWithObject(IInteractableObject interactableObject)
@@ -140,6 +143,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
             _cameraController.DisableNavigation();
             _isInteracting = true;
             crosshairImage.gameObject.SetActive(false);
+            _dialogController.HideDialog();
         }
     }
 
@@ -159,6 +163,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
         crosshairImage.color = detectedColor;
         _currentHighlighted.Highlight();
         TweenToSize(Vector2.one * 1.5f);
+        
+        _dialogController.DisplayDialog(_currentHighlighted.GetInteractionAction());
     }
 
     private void StopInteractionWithObject()
@@ -178,6 +184,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _isInteracting = false;
         crosshairImage.gameObject.SetActive(true);
         _cameraController.EnableNavigation();
+        _dialogController.HideDialog();
     }
     
     private void TweenToSize(Vector2 targetSize)

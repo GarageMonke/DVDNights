@@ -23,6 +23,7 @@ namespace DVDNights
         private bool _isOpened;
         private ITVButton _tvOpenCloseButton;
 
+        public bool IsLidOpened => _isOpened;
         public Action OnLidOpened { get; set; }
         public Action OnLidClosed { get; set; }
 
@@ -31,6 +32,12 @@ namespace DVDNights
             _originalZPosition = diskLidTransform.localPosition.z;
             _canAnimate = true;
             _isOpened = false;
+            InstallService();
+        }
+
+        private void InstallService()
+        {
+            ServiceLocator.RegisterService<IDVDLidController>(this);
         }
 
         private void Start()
@@ -95,6 +102,7 @@ namespace DVDNights
     
     public interface IDVDLidController
     {
+        public bool IsLidOpened { get; }
         public Action OnLidOpened { get; set; }
         public Action OnLidClosed { get; set; }
     }

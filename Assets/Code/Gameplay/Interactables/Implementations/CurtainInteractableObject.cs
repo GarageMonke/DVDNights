@@ -19,6 +19,11 @@ namespace DVDNights
             _rainController = ServiceLocator.GetService<IRainController>();
         }
 
+        public override string GetInteractionAction()
+        {
+            return _isOpened ? "Close" : "Open";
+        }
+
         public override void Interact()
         {
             _isOpened = !_isOpened;

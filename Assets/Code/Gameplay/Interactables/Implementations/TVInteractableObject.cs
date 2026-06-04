@@ -20,6 +20,11 @@ namespace DVDNights
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
         }
 
+        public override string GetInteractionAction()
+        {
+            return "Play game";
+        }
+
         public override void Interact()
         {
             Unhighlight();

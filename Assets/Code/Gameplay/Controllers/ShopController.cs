@@ -20,6 +20,11 @@ namespace DVDNights
         public Action OnShopOpened { get; set; }
         public Action OnShopClosed { get; set; }
         public bool IsShopOpened => _isShopOpened;
+        public bool IsItemSelected => _shopWindow.IsItemSelected();
+
+        private ITVButton _menuTVButton;
+        private ITVButton _nextButton;
+        private ITVButton _submitButton;
 
         private void Awake()
         {
@@ -37,6 +42,11 @@ namespace DVDNights
             _pointsController = ServiceLocator.GetService<IPointsController>();
             _navigationController = ServiceLocator.GetService<ITVNavigationController>();
             _navigationController.OnMenuButtonPressed += OpenShop;
+
+            _menuTVButton = _navigationController.MenuButton;
+            _nextButton = _navigationController.NextButton;
+            _submitButton = _navigationController.SubmitButton;
+            
             _pointsController.OnScoreChanged += UpdateTotalPoints;
             _shopWindow.OnItemPurchased += PurchaseItem;
             
@@ -196,6 +206,7 @@ namespace DVDNights
         public Action OnShopOpened { get; set; }
         public Action OnShopClosed { get; set; }
         public bool IsShopOpened { get; }
+        public bool IsItemSelected { get; }
         public void OpenShop();
         public void CloseShop();
         public void MoveToNext();

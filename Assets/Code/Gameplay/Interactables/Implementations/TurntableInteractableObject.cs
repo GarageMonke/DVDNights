@@ -19,6 +19,11 @@ namespace DVDNights
             _trackSelectorController = ServiceLocator.GetService<ITrackSelectionController>();
         }
 
+        public override string GetInteractionAction()
+        {
+            return "Select Track";
+        }
+
         public override void Interact()
         {
             Unhighlight();

@@ -14,6 +14,10 @@ namespace DVDNights
         [Header("Feedback")]
         [SerializeField] private AudioClip interactionAudioClip;
         
+        public bool HasNavigation => hasNavigation;
+        public AudioClip InteractionAudioClip => interactionAudioClip;
+        public abstract string GetInteractionAction();
+
         public abstract void Interact();
 
         public abstract void StopInteraction();
@@ -32,9 +36,6 @@ namespace DVDNights
         {
             outline.enabled = false;
         }
-
-        public bool HasNavigation => hasNavigation;
-        public AudioClip InteractionAudioClip => interactionAudioClip;
     }
 
     public interface IInteractableObject
@@ -45,5 +46,7 @@ namespace DVDNights
         public void Unhighlight();
         public bool HasNavigation { get; }
         public AudioClip InteractionAudioClip { get; }
+
+        public string GetInteractionAction();
     }
 }

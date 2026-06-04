@@ -11,7 +11,12 @@ namespace DVDNights
         [SerializeField] private AudioClip turnOffLampAudioClip;
 
         private bool _isOn;
-        
+
+        public override string GetInteractionAction()
+        {
+            return _isOn ? "Turn Off" : "Turn On";
+        }
+
         public override void Interact()
         {
             _isOn = !_isOn;
