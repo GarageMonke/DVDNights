@@ -9,6 +9,7 @@ namespace DVDNights
         [SerializeField] private GameObject inspectableObject;
         [SerializeField] private string inspectableTitle;
         [SerializeField] private string inspectableSubTitle;
+        [Multiline]
         [SerializeField] private string inspectableDescription;
 
         [SerializeField] private Vector2 inspectionMaxAngle;
