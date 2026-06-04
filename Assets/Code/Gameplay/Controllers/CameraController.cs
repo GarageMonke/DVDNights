@@ -2,13 +2,16 @@
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace DVDNights
 {
     public class CameraController : MonoBehaviour, ICameraController
     {
         [Header("Camera Reference")]
-        [SerializeField] private Camera _camera;
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private Volume postProcessing;
 
         [Header("Rotation Settings")]
         [SerializeField] private float _mouseSensitivity = 2f;
@@ -31,8 +34,10 @@ namespace DVDNights
         private Tween _currentMoveTween;
         private Tween _currentRotationTween;
 
-        public Camera Camera => _camera;
+        public Camera Camera => mainCamera;
         public Vector3 OriginPosition => _initialCameraPosition;
+        
+        private DepthOfField _depthOfField;
 
         private void Awake()
         {
@@ -41,16 +46,17 @@ namespace DVDNights
 
         private void InstallService()
         {
-            if (!_camera)
+            if (!mainCamera)
             {
-                _camera = Camera.main;
+                mainCamera = Camera.main;
             }
             
-            _initialCameraPosition = _camera.transform.localPosition;
-            Vector3 startAngles = _camera.transform.eulerAngles;
+            _initialCameraPosition = mainCamera.transform.localPosition;
+            Vector3 startAngles = mainCamera.transform.eulerAngles;
             _currentPitch = startAngles.x;
             _currentYaw   = startAngles.y;
-            
+            postProcessing.profile.TryGet(out _depthOfField);
+
             ServiceLocator.RegisterService<ICameraController>(this);
         }
         
@@ -75,7 +81,7 @@ namespace DVDNights
 
             // Pitch (X axis, up/down)
             _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
-            _camera.transform.localRotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
+            mainCamera.transform.localRotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
         }
 
         public void SetSensitivity(float sensitivity)
@@ -100,10 +106,10 @@ namespace DVDNights
 
         public void UpdateCameraPositionAndRotation(Vector3 newCameraPosition, Vector3 newCameraRotation)
         {
-            _previousCameraRotation = _camera.transform.localRotation;
+            _previousCameraRotation = mainCamera.transform.localRotation;
             
-            _camera.transform.localPosition = newCameraPosition;
-            _camera.transform.localRotation = Quaternion.Euler(newCameraRotation);
+            mainCamera.transform.localPosition = newCameraPosition;
+            mainCamera.transform.localRotation = Quaternion.Euler(newCameraRotation);
         }
 
         public void RestoreCameraPositionAndRotation()
@@ -115,7 +121,7 @@ namespace DVDNights
         public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null)
         {
             _currentMoveTween?.Kill();
-            _currentMoveTween = _camera.transform
+            _currentMoveTween = mainCamera.transform
                 .DOLocalMove(position, duration)
                 .SetEase(Ease.Linear).OnComplete(
                     () => callback?.Invoke());
@@ -124,9 +130,19 @@ namespace DVDNights
         public void TweenToRotation(Quaternion rotation, float duration = 1f)
         {
             _currentRotationTween?.Kill();
-            _currentRotationTween = _camera.transform
+            _currentRotationTween = mainCamera.transform
                 .DOLocalRotate(rotation.eulerAngles, duration)
                 .SetEase(Ease.Linear);
+        }
+
+        public void Focus()
+        {
+            _depthOfField.active = false;
+        }
+
+        public void Unfocus()
+        {
+            _depthOfField.active = true;
         }
     }
 
@@ -140,8 +156,9 @@ namespace DVDNights
         public void DisableNavigation();
         public void UpdateCameraPositionAndRotation(Vector3 newCameraPosition, Vector3 newCameraRotation);
         public void RestoreCameraPositionAndRotation();
-        
         public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null);
         public void TweenToRotation(Quaternion rotation, float duration = 1f);
+        public void Focus();
+        public void Unfocus();
     }
 }

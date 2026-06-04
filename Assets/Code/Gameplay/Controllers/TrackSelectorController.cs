@@ -19,7 +19,8 @@ namespace DVDNights
         private int _currentTrackIndex = 0;
 
         private IMouseLayoutController _mouseLayoutController;
-        
+        private ICameraController _cameraController;
+
         private void Awake()
         {
             InstallService();
@@ -34,6 +35,7 @@ namespace DVDNights
         private void Start()
         {
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
+            _cameraController = ServiceLocator.GetService<ICameraController>();
         }
 
         public void OpenTrackSelector()
@@ -44,6 +46,7 @@ namespace DVDNights
             trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
             trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
             _mouseLayoutController.DisplayRegularLayout();
+            _cameraController.Unfocus();
         }
 
         private void DisplayTrack()
@@ -105,6 +108,7 @@ namespace DVDNights
             
             _mouseLayoutController.HideMouseLayout();
             trackSelectionWindow.Hide();
+            _cameraController.Focus();
         }
     }
 
