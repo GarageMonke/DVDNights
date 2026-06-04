@@ -30,7 +30,6 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
     private float _pointerDownTimer;
     private bool _holdTriggered;
     private float _heldSecondsTimer;
-    private string _buttonAction;
     
     private IDialogController _dialogController;
     private ITVButtonContextController _tvButtonContextController;
@@ -95,9 +94,17 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         });
     }
 
-    public void SetButtonAction(string newButtonAction)
+    public void ForceRelease()
     {
-        _buttonAction = newButtonAction;
+        transform.DOKill();
+        transform.DOLocalMoveZ(_originalZPosition, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            _canBePressed = true;
+            _pointerDownTimer = 0f;
+            _isPointerDown = false;
+            _holdTriggered = false;
+            _dialogController.HideDialog();
+        });
     }
 
     private void ReleaseButton()
@@ -168,6 +175,5 @@ public interface ITVButton
     void EnableButton();
     void DisableButton();
     void Press();
-    
-    void SetButtonAction(string buttonAction);
+    void ForceRelease();
 }

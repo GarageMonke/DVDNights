@@ -33,6 +33,8 @@ namespace DVDNights
         private static readonly int DistortionStrength = Shader.PropertyToID("_DistortionStrength");
         private static readonly int ScanlineOpacity = Shader.PropertyToID("_ScanlineOpacity");
         
+        private Tween _tween;
+        private ITVButton _forwardButton;
 
         private void Awake()
         {
@@ -55,6 +57,7 @@ namespace DVDNights
             _tvNagivationController.OnSubmitButtonPressed += AddPower;
             _tvNagivationController.OnNextButtonHeld += GoForward;
             _tvNagivationController.OnNextButtonReleased += StopForward;
+            _forwardButton = _tvNagivationController.NextButton;
         }
 
         private void OnDestroy()
@@ -66,10 +69,23 @@ namespace DVDNights
 
         private void GoForward()
         {
+            if (_currentPower <= 0)
+            {
+                StopForward();
+                return;
+            }
+            
+            if (_isForwarding)
+            {
+                return;
+            }
+            
             AudioManager.Instance.PlaySFX(startForwardingClip, volume: 0.1f);
             GameFeel.ForwardPitch = _diskLevelController.DiskFFMultLevel * 0.2f;
             float forwardPitch = 0.8f + GameFeel.ForwardPitch;
-            DOVirtual.DelayedCall(startForwardingClip.length, () => 
+            
+            _tween?.Kill();
+            _tween = DOVirtual.DelayedCall(startForwardingClip.length, () => 
             {
                 AudioManager.Instance.PlayOST(forwardingClip, volume: 0.1f, loop: true, pitch: forwardPitch);
             });
@@ -141,6 +157,11 @@ namespace DVDNights
 
         private void StopForward()
         {
+            if (!_isForwarding)
+            {
+                return;
+            }
+            
             AudioManager.Instance.StopOST();
             AudioManager.Instance.PlaySFX(stopForwardingClip, 0.1f);
             _isForwarding = false;
