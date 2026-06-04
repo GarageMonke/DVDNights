@@ -49,6 +49,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
         _interactInputAction.performed += ExecuteInteract;
         _stopInteractionInputAction.performed += ExecuteStopInteraction;
+
+        ServiceLocator.RegisterService<IInteractionController>(this);
     }
 
 
@@ -64,8 +66,6 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _cameraController = ServiceLocator.GetService<ICameraController>();
         _cameraController.EnableNavigation();
         _camera = _cameraController.Camera;
-        _isEnabled = true;
-        _isInteracting = false;
     }
 
     private void Update()
@@ -194,8 +194,21 @@ public class InteractionController : MonoBehaviour, IInteractionController
             .DOScale(targetSize, 0.25f)
             .SetEase(Ease.Linear);
     }
+
+    public void EnableInteractions()
+    {
+        _isEnabled = true;
+        _isInteracting = false;
+    }
+
+    public void DisableInteractions()
+    {
+        _isEnabled = false;
+    }
 }
 
 public interface IInteractionController
 {
+    public void EnableInteractions();
+    public void DisableInteractions();
 }

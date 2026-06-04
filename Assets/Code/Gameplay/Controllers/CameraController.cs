@@ -51,6 +51,7 @@ namespace DVDNights
                 mainCamera = Camera.main;
             }
             
+            DisableNavigation();
             _initialCameraPosition = mainCamera.transform.localPosition;
             Vector3 startAngles = mainCamera.transform.eulerAngles;
             _currentPitch = startAngles.x;

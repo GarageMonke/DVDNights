@@ -1,4 +1,6 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -13,7 +15,9 @@ namespace DVDNights
         
         [Header("Feedback")]
         [SerializeField] private AudioClip interactionAudioClip;
-        
+
+        private IOutlineController _outlineController;
+
         public bool HasNavigation => hasNavigation;
         public AudioClip InteractionAudioClip => interactionAudioClip;
         public abstract string GetInteractionAction();
@@ -25,6 +29,12 @@ namespace DVDNights
         private void Awake()
         {
             Unhighlight();
+        }
+
+        private void Start()
+        {
+            _outlineController = ServiceLocator.GetService<IOutlineController>();
+            _outlineController.RegisterOutline(outline);
         }
 
         public void Highlight()
