@@ -8,6 +8,7 @@ namespace DVDNights
         [Header("Configuration")] 
         [SerializeField] private GameObject inspectableObject;
         [SerializeField] private string inspectableTitle;
+        [SerializeField] private string inspectableSubTitle;
         [SerializeField] private string inspectableDescription;
 
         [SerializeField] private Vector2 inspectionMaxAngle;
@@ -18,6 +19,7 @@ namespace DVDNights
         
         public GameObject InspectableObject => inspectableObject;
         public string InspectableTitle => inspectableTitle;
+        public string InspectableSubTitle => inspectableSubTitle;
         public string InspectableDescription => inspectableDescription;
         
         public Vector2 InspectionMaxAngle => inspectionMaxAngle;

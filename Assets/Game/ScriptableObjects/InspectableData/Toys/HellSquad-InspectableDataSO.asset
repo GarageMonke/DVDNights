@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectableObject: {fileID: 1641573271359060045, guid: f14e5da7cda763849aea36a37791c6fb, type: 3}
   inspectableTitle: Hell Squad
+  inspectableSubTitle: "Figuras de Acci\xF3n"
   inspectableDescription: "La franquicia m\xE1s grande que nunca existi\xF3. Cancelada
     por presupuesto, pero destinada a la grandeza."
   inspectionMaxAngle: {x: 0, y: 360}

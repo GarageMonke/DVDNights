@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectableObject: {fileID: 758663444944572950, guid: f419403e1805d56448d66fc571b67b73, type: 3}
   inspectableTitle: Rabbid
+  inspectableSubTitle: "Figura de Acci\xF3n"
   inspectableDescription: "Le arrebataron lo \xFAnico que amaba: su conejo. Ahora,
     la venganza es lo \xFAnico que le queda. Un personaje sencillamente brillante."
   inspectionMaxAngle: {x: 0, y: 360}

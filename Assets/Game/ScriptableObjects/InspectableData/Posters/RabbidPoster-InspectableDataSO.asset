@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RabbidPoster-InspectableDataSO
   m_EditorClassIdentifier: 
   inspectableObject: {fileID: 7044139479803096461, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
-  inspectableTitle: Revenge Poster
-  inspectableDescription: 'Artist: octadc'
+  inspectableTitle: Revenge
+  inspectableSubTitle: 'Artist: octadc'
+  inspectableDescription: 
   inspectionMaxAngle: {x: 15, y: 45}
   inspectionMaxZoom: 1.8
   inspectionMinZoom: 1.2

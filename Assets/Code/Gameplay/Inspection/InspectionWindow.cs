@@ -7,18 +7,20 @@ namespace DVDNights
     {
         [Header("References")]
         [SerializeField] private TextMeshProUGUI inspectableTitle;
+        [SerializeField] private TextMeshProUGUI inspectableSubtitle;
         [SerializeField] private TextMeshProUGUI inspectableDescription;
         
         
-        public void UpdateInspectableInfo(string newInspectableTitle, string newInspectableDescription)
+        public void UpdateInspectableInfo(string newInspectableTitle, string newInspectableSubtitle, string newInspectableDescription)
         {
             inspectableTitle.text = newInspectableTitle;
+            inspectableSubtitle.text = newInspectableSubtitle;
             inspectableDescription.text = newInspectableDescription;
         }
     }
 
     public interface IInspectionWindow : IWindow
     {
-        public void UpdateInspectableInfo(string inspectableTitle, string inspectableDescription);
+        public void UpdateInspectableInfo(string inspectableTitle, string inspectableSubtitle, string inspectableDescription);
     }
 }

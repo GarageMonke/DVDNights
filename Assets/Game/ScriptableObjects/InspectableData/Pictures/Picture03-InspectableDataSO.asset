@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectableObject: {fileID: 4337281179591459067, guid: 3b0634a85c47d3449930ece8cc42923f, type: 3}
   inspectableTitle: Your Painting
-  inspectableDescription: 'Artist: Your Name'
+  inspectableSubTitle: 'Artist: Your Name'
+  inspectableDescription: 
   inspectionMaxAngle: {x: 15, y: 45}
   inspectionMaxZoom: 3
+  inspectionMinZoom: 1
   inspectionStartSize: 1.5
+  inspectionStartRotation: {x: 0, y: 0, z: 0}

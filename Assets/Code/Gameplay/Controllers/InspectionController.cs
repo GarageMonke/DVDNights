@@ -84,7 +84,7 @@ namespace DVDNights
             _startXAngle = startRotation.eulerAngles.x;
             _startYAngle = startRotation.eulerAngles.y;
             _inspectionWindow.Display();
-            _inspectionWindow.UpdateInspectableInfo(inspectableDataSO.InspectableTitle, inspectableDataSO.InspectableDescription);
+            _inspectionWindow.UpdateInspectableInfo(inspectableDataSO.InspectableTitle,  inspectableDataSO.InspectableSubTitle, inspectableDataSO.InspectableDescription);
             ResetInspection();
             _isInspecting = true;
             _mouseLayoutController.DisplayInspectionLayout();
