@@ -141,11 +141,6 @@ namespace DVDNights
             float x = Random.value > 0.5f ? 1f : -1f;
             float y = Random.value > 0.5f ? 1f : -1f;
             _velocity = new Vector2(x, y).normalized * baseSpeed;
-
-            float px = Random.Range(-_areaHalfSize.x + _logoHalfSize.x, _areaHalfSize.x - _logoHalfSize.x);
-            float py = Random.Range(-_areaHalfSize.y + _logoHalfSize.y, _areaHalfSize.y - _logoHalfSize.y);
-
-            transform.position = bounceArea.position + new Vector3(px, py, 0f);
         }
 
         private void LaunchTowardCorner(CornerTarget corner)

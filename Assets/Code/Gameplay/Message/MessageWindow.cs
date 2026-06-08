@@ -18,7 +18,6 @@ namespace DVDNights
         private void Start()
         {
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
-          
         }
         
         public void SetMessage(string message)
@@ -35,13 +34,13 @@ namespace DVDNights
         public override void Display()
         {
             _tvNavigationController.OnSubmitButtonPressed += RaiseOnMessageAccepted;
-            base.Display();
+            messageWindow.SetActive(true);
         }
 
         public override void Hide()
         {
             _tvNavigationController.OnSubmitButtonPressed -= RaiseOnMessageAccepted;
-            base.Hide();
+            messageWindow.SetActive(false);
         }
     }
 

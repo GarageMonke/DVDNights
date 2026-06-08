@@ -74,8 +74,18 @@ public class DisksController : MonoBehaviour, IDisksController
         _shopController.OnShopOpened += StopAllDisksMoving;
         _shopController.OnShopClosed += CheckDisksToMerge;
         
+        //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);
+        CreateDisk(DiskType.WHITE);
+        
+        CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.GREEN);
+        CreateDisk(DiskType.GREEN);
+        CreateDisk(DiskType.GREEN);
+        CreateDisk(DiskType.YELLOW);
         ResumeAllDisksMoving();
+        CheckDisksToMerge();
     }
 
     public void CreateDisk(DiskType diskType)
@@ -125,6 +135,17 @@ public class DisksController : MonoBehaviour, IDisksController
 
         existingDisks.RemoveRange(0, quantity);
     }
+    
+    private void RemoveAllDisks()
+    {
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            _pointsController.UnregisterBouncingDisk(disk);
+            disk.DestroyDisk();
+        }
+        
+        _allRegisteredDisks.Clear();
+    }
 
     public void BoostAllDisksSpeed()
     {
@@ -163,8 +184,73 @@ public class DisksController : MonoBehaviour, IDisksController
 
             DiskType nextTier = GetNextTier(diskType);
             
-            PlayMergeAnimation(disksToMerge, diskType, nextTier);
+            if (nextTier == DiskType.GOLD)
+            {
+                PlayGoldenMergeAnimation();
+            }
+            else
+            {
+                PlayMergeAnimation(disksToMerge, diskType, nextTier);
+            }
+           
             return;
+        }
+    }
+    
+    private void PlayGoldenMergeAnimation()
+    {
+        _mergeSequence?.Kill();
+        Vector3 centerPos = bounceArea.position;
+        float duration = 2f;
+        int completed = 0;
+        
+        StopDisksMoving(_allRegisteredDisks);
+
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            Transform diskTransform = disk.Transform;
+
+            diskTransform
+                .DOMove(centerPos, duration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    completed++;
+
+                    if (completed < _allRegisteredDisks.Count)
+                    {
+                        return;
+                    }
+                    
+                    AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                    float flashLength = flashAudioClip.length / 2f;
+                    
+                    _mergeSequence = DOTween.Sequence()
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
+                        .AppendCallback(() => 
+                        {
+                            RemoveAllDisks();
+                            CreateDisk(DiskType.GOLD);
+                        })
+                        .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
+                        .OnComplete(() =>
+                        {
+                            AudioManager.Instance.PlaySFX(mergeAudioClip, 0.5f);
+                            OnGoldDiskCreated?.Invoke();
+                        });
+                });
         }
     }
 
@@ -221,11 +307,6 @@ public class DisksController : MonoBehaviour, IDisksController
                         {
                             AudioManager.Instance.PlaySFX(mergeAudioClip, 0.5f);
                             CheckDisksToMerge();
-
-                            if (nextTier == DiskType.GOLD)
-                            {
-                                OnGoldDiskCreated?.Invoke();
-                            }
                         });
                 });
         }
