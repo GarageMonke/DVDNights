@@ -163,8 +163,6 @@ public class DisksController : MonoBehaviour, IDisksController
 
             DiskType nextTier = GetNextTier(diskType);
             
-            StopAllDisksMoving();
-            
             PlayMergeAnimation(disksToMerge, diskType, nextTier);
             return;
         }
@@ -176,6 +174,8 @@ public class DisksController : MonoBehaviour, IDisksController
         Vector3 centerPos = bounceArea.position;
         float duration = 2f;
         int completed = 0;
+        
+        StopDisksMoving(disksToMerge);
 
         foreach (IBouncerDisk disk in disksToMerge)
         {
@@ -234,6 +234,14 @@ public class DisksController : MonoBehaviour, IDisksController
     private void StopAllDisksMoving()
     {
         foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            disk.SetMoving(false);
+        }
+    }
+    
+    private void StopDisksMoving(List<IBouncerDisk> disksList)
+    {
+        foreach (IBouncerDisk disk in disksList)
         {
             disk.SetMoving(false);
         }
