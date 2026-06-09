@@ -11,15 +11,13 @@ namespace DVDNights
         [SerializeField] private TextMeshProUGUI itemName;
         [SerializeField] private TextMeshProUGUI itemInfo;
         [SerializeField] private TextMeshProUGUI itemPrice;
-        [SerializeField] private Image itemNameBackground;
-        [SerializeField] private Image itemInfoBackground;
+        [SerializeField] private Image itemBackground;
 
         [Header("Configuration")] 
         [SerializeField] private Color highlightColor;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color warningColor;
         
-
         [SerializeField] private int itemId;
 
         public int ItemId => itemId;
@@ -27,27 +25,27 @@ namespace DVDNights
         public void HighlightItem()
         {
             itemName.color = Color.black;
-            itemNameBackground.gameObject.SetActive(true);
+            itemInfo.color = Color.black;
+            itemPrice.color = Color.black;
+            itemBackground.gameObject.SetActive(true);
         }
 
         public void UnhighlightItem()
         {
             itemName.color = normalColor;
-            itemNameBackground.gameObject.SetActive(false);
+            itemInfo.color = normalColor;
+            itemPrice.color = normalColor;
+            itemBackground.gameObject.SetActive(false);
         }
 
         public void SelectItem()
         {
-            UnhighlightItem();
-            itemInfo.color = Color.black;
-            itemInfoBackground.gameObject.SetActive(true);
+           
         }
 
         public void DeselectItem()
         {
-            HighlightItem();
-            itemInfo.color = normalColor;
-            itemInfoBackground.gameObject.SetActive(false);
+           
         }
 
         public void UpdateCost(int updatedCost, bool isAffordable)
