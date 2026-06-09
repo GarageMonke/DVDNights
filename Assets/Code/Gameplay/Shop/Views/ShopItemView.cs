@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DVDNights
 {
@@ -10,11 +11,14 @@ namespace DVDNights
         [SerializeField] private TextMeshProUGUI itemName;
         [SerializeField] private TextMeshProUGUI itemInfo;
         [SerializeField] private TextMeshProUGUI itemPrice;
+        [SerializeField] private Image itemNameBackground;
+        [SerializeField] private Image itemInfoBackground;
 
         [Header("Configuration")] 
         [SerializeField] private Color highlightColor;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color warningColor;
+        
 
         [SerializeField] private int itemId;
 
@@ -22,24 +26,28 @@ namespace DVDNights
 
         public void HighlightItem()
         {
-            itemName.color = highlightColor;
+            itemName.color = Color.black;
+            itemNameBackground.gameObject.SetActive(true);
         }
 
         public void UnhighlightItem()
         {
             itemName.color = normalColor;
+            itemNameBackground.gameObject.SetActive(false);
         }
 
         public void SelectItem()
         {
-            itemName.color = normalColor;
-            itemInfo.color = highlightColor;
+            UnhighlightItem();
+            itemInfo.color = Color.black;
+            itemInfoBackground.gameObject.SetActive(true);
         }
 
         public void DeselectItem()
         {
             HighlightItem();
             itemInfo.color = normalColor;
+            itemInfoBackground.gameObject.SetActive(false);
         }
 
         public void UpdateCost(int updatedCost, bool isAffordable)

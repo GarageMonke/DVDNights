@@ -1,15 +1,19 @@
 ﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
 
 namespace DVDNights
 {
-    public class MessageWindow : Window, IMessageWindow
+    public class TVMessageWindow : Window, IMessageWindow
     {
         [Header("References")] 
         [SerializeField] private GameObject messageWindow;
         [SerializeField] private TextMeshProUGUI messageText;
+        
+        [Header("Feedback")]
+        [SerializeField] private AudioClip audioClip;
 
         public Action OnMessageAccepted { get; set; }
 
@@ -35,6 +39,7 @@ namespace DVDNights
         {
             _tvNavigationController.OnSubmitButtonPressed += RaiseOnMessageAccepted;
             messageWindow.SetActive(true);
+            AudioManager.Instance.PlaySFX(audioClip);
         }
 
         public override void Hide()
@@ -47,7 +52,6 @@ namespace DVDNights
     public interface IMessageWindow : IWindow
     {
         public Action OnMessageAccepted { get; set; }
-
         public void SetMessage(string message);
     }
 }

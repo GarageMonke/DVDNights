@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 423e24a072ec25b4ca2f4040e0221ebe, type: 2}
+  m_sharedMaterial: {fileID: 7975607806780324845, guid: 423e24a072ec25b4ca2f4040e0221ebe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -227,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -5}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 150, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4514084839943196555
