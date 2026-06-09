@@ -29,8 +29,6 @@ namespace DVDNights
             _disksController.OnGoldDiskCreated += CheckGameEnding;
 
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
-
-            tvMessageWindow.OnMessageAccepted += EjectDisk;
         }
 
         public void CheckGameEnding()
@@ -43,7 +41,8 @@ namespace DVDNights
                 return;
             }
             
-            tvMessageWindow.SetMessage("GAME OVER!");
+            tvMessageWindow.OnMessageAccepted += EjectDisk;
+            tvMessageWindow.SetMessage("Error: Something went wrong.");
             tvMessageWindow.Display();
         }
 

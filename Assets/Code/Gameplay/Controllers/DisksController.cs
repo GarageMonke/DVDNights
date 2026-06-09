@@ -82,7 +82,7 @@ public class DisksController : MonoBehaviour, IDisksController
         CreateDisk(DiskType.MAGENTA);
         CreateDisk(DiskType.GREEN);
         CreateDisk(DiskType.GREEN);
-        //CreateDisk(DiskType.GREEN);
+        CreateDisk(DiskType.GREEN);
         CreateDisk(DiskType.YELLOW);
         ResumeAllDisksMoving();
         CheckDisksToMerge();

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
@@ -11,6 +13,7 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private GameObject messageWindow;
         [SerializeField] private TextMeshProUGUI messageText;
+        [SerializeField] private CanvasGroup canvasGroup;
         
         [Header("Feedback")]
         [SerializeField] private AudioClip audioClip;
@@ -38,14 +41,31 @@ namespace DVDNights
         public override void Display()
         {
             _tvNavigationController.OnSubmitButtonPressed += RaiseOnMessageAccepted;
-            messageWindow.SetActive(true);
-            AudioManager.Instance.PlaySFX(audioClip);
+            StartCoroutine(StartRebuilding());
         }
 
         public override void Hide()
         {
+            canvasGroup.alpha = 0;
             _tvNavigationController.OnSubmitButtonPressed -= RaiseOnMessageAccepted;
             messageWindow.SetActive(false);
+        }
+
+        private IEnumerator StartRebuilding()
+        {
+            int retries = 5;
+            while (retries > 0)
+            {
+                messageWindow.SetActive(true);
+                yield return new WaitForEndOfFrame();
+                messageWindow.SetActive(false);
+                yield return new WaitForEndOfFrame();
+                retries--;
+            }
+            
+            canvasGroup.alpha = 1;
+            messageWindow.SetActive(true);
+            AudioManager.Instance.PlaySFX(audioClip);
         }
     }
 
