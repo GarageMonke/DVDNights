@@ -40,6 +40,7 @@ namespace DVDNights
 
         public override void Hide()
         {
+            _currentItemIndex = 0;
             shopContent.SetActive(false);
         }
 
@@ -60,29 +61,20 @@ namespace DVDNights
             _currentItemView.HighlightItem();
         }
 
-        public void SelectItem()
+        public void ResetShop()
         {
-            _isItemSelected = true;
+            foreach (IShopItemView shopItemView in shopItemViews)
+            {
+               shopItemView.UnhighlightItem();
+            }
             
-            _currentItemView = shopItemViews[_currentItemIndex];
-            _currentItemView.SelectItem();
+            _currentItemView = shopItemViews[0];
+            _currentItemView.HighlightItem();
         }
-
-        public void DeselectItem()
-        {
-            _isItemSelected = false;
-            
-            _currentItemView = shopItemViews[_currentItemIndex];
-            _currentItemView.DeselectItem();
-        }
+        
 
         public void TryBuyItem()
         {
-            if (!_isItemSelected)
-            {
-                return;
-            }
-            
             int itemCost = _shopItemInfoProvider.GetCostByItemId(_currentItemView.ItemId);
 
             if (_availablePoints >= itemCost)
@@ -150,9 +142,8 @@ namespace DVDNights
     {
         public Action<int> OnItemPurchased { get; set; }
         public void HighlightItem();
-        public void SelectItem();
-        public void DeselectItem();
         public void TryBuyItem();
+        public void ResetShop();
         public void SaveShop();
         public void LoadShop();
         public void MoveToNextItem();

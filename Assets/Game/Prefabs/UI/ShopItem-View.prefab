@@ -190,9 +190,9 @@ MonoBehaviour:
   itemInfo: {fileID: 5960819962152273387}
   itemPrice: {fileID: 5952254723345741432}
   itemBackground: {fileID: 891748351202496635}
-  highlightColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightColor: {r: 0.7490196, g: 0.69803923, b: 0, a: 0.78431374}
   normalColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
-  warningColor: {r: 1, g: 0, b: 0, a: 1}
+  warningColor: {r: 0.7490196, g: 0, b: 0.0086857835, a: 0.49019608}
   itemId: 0
 --- !u!114 &5404746036329018192
 MonoBehaviour:

@@ -132,19 +132,13 @@ namespace DVDNights
             SubscribeToEvents();
             _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());
             _shopWindow.Display();
-            _shopWindow.HighlightItem();
+            _shopWindow.ResetShop();
             _isShopOpened = true;
             OnShopOpened?.Invoke();
         }
 
         public void CloseShop()
         {
-            if (_shopWindow.IsItemSelected())
-            {
-                _shopWindow.DeselectItem();
-                return;
-            }
-
             UnsubscribeFromEvents();
 
             _isShopOpened = false;
@@ -165,13 +159,7 @@ namespace DVDNights
 
         public void SelectItem()
         {
-            if (_shopWindow.IsItemSelected())
-            {
-                _shopWindow.TryBuyItem();
-                return;
-            }
-            
-            _shopWindow.SelectItem();
+            _shopWindow.TryBuyItem();
         }
 
         private void UpdateTotalPoints(int totalAvailablePoints)

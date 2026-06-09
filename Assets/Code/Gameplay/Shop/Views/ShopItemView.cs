@@ -21,6 +21,8 @@ namespace DVDNights
         [SerializeField] private int itemId;
 
         public int ItemId => itemId;
+        
+        private bool _isHighlighted = false;
 
         public void HighlightItem()
         {
@@ -28,6 +30,7 @@ namespace DVDNights
             itemInfo.color = Color.black;
             itemPrice.color = Color.black;
             itemBackground.gameObject.SetActive(true);
+            _isHighlighted = true;
         }
 
         public void UnhighlightItem()
@@ -36,17 +39,9 @@ namespace DVDNights
             itemInfo.color = normalColor;
             itemPrice.color = normalColor;
             itemBackground.gameObject.SetActive(false);
+            _isHighlighted = false;
         }
-
-        public void SelectItem()
-        {
-           
-        }
-
-        public void DeselectItem()
-        {
-           
-        }
+        
 
         public void UpdateCost(int updatedCost, bool isAffordable)
         {
@@ -54,11 +49,20 @@ namespace DVDNights
 
             if (!isAffordable)
             {
-                itemPrice.color =  warningColor;
+                itemBackground.color =  warningColor;
                 return;
             }
+
+            itemBackground.color = highlightColor;
             
-            itemPrice.color = normalColor;
+            if (_isHighlighted)
+            {
+                itemPrice.color = Color.black;
+            }
+            else
+            {
+                itemPrice.color = normalColor;
+            }
             
             if (updatedCost <= 0)
             {
@@ -82,8 +86,6 @@ namespace DVDNights
         public int ItemId { get; }
         public void HighlightItem();
         public void UnhighlightItem();
-        public void SelectItem();
-        public void DeselectItem();
         public void UpdateCost(int updatedCost, bool isAffordable);
         public void UpdateInfo(string updatedInfo);
     }
