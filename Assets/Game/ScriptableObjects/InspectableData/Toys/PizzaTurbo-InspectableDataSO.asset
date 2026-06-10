@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ef0dbb7cc54f32a424f351f2e15115, type: 3}
   m_Name: PizzaTurbo-InspectableDataSO
   m_EditorClassIdentifier: 
-  inspectableObject: {fileID: 1577621619179438207, guid: 1b2d02714d7f32347a99e95eddf4e4f3, type: 3}
+  inspectableObject: {fileID: 7332031415888103043, guid: 738c1268b7d0d714591d6948ec96f645, type: 3}
   inspectableTitle: Pizza Turbo
   inspectableSubTitle: "Figura de Acci\xF3n"
   inspectableDescription: Mi madre tenia que apagarme la consola por la cantidad
