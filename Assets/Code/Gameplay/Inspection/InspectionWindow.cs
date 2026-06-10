@@ -9,11 +9,16 @@ namespace DVDNights
         [SerializeField] private TextMeshProUGUI inspectableTitle;
         [SerializeField] private TextMeshProUGUI inspectableSubtitle;
         [SerializeField] private TextMeshProUGUI inspectableDescription;
+
+        [SerializeField] private GameObject subtitleContent;
         
         
         public void UpdateInspectableInfo(string newInspectableTitle, string newInspectableSubtitle, string newInspectableDescription)
         {
             inspectableTitle.text = newInspectableTitle;
+
+            subtitleContent.gameObject.SetActive(!string.IsNullOrEmpty(newInspectableSubtitle));
+            
             inspectableSubtitle.text = newInspectableSubtitle;
             inspectableDescription.text = newInspectableDescription;
         }

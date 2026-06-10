@@ -10,7 +10,7 @@ namespace DVDNights
         [SerializeField] private InspectableDataSO inspectableDataSO;
         
         private IInspectionController _inspectionController;
-
+        
         private void Start()
         {
             _inspectionController = ServiceLocator.GetService<IInspectionController>();

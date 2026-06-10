@@ -127,8 +127,17 @@ namespace DVDNights
                 _maxXAngle = _inspectionMaxAngle.x;
                 _maxYAngle = _inspectionMaxAngle.y;
 
-                _targetXAngle = Mathf.Clamp(_targetXAngle + deltaX, -_maxXAngle, _maxXAngle);
-                _targetYAngle = Mathf.Clamp(_targetYAngle + deltaY, -_maxYAngle, _maxYAngle);
+                if (_maxYAngle == 360f)
+                {
+                    _targetYAngle += deltaY;
+                }
+                else
+                {
+                    _targetXAngle = Mathf.Clamp(_targetXAngle + deltaX, -_maxXAngle, _maxXAngle);
+                    _targetYAngle = Mathf.Clamp(_targetYAngle + deltaY, -_maxYAngle, _maxYAngle);
+                }
+
+              
 
                 _lastMousePosition = Input.mousePosition;
             }
