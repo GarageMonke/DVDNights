@@ -49,7 +49,7 @@ namespace DVDNights
             return (int)Math.Min(MaxPoints, cost);
         }
         
-        public static int GetBonusMaxLevel() => 20;
+        public static int GetBonusMaxLevel() => 2;
 
         public static float GetFFClickBonus(int level) => FFClickBonus[level];
         

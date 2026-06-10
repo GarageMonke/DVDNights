@@ -1,4 +1,3 @@
-using System;
 using CorePatterns.Scenes;
 using CorePatterns.ServiceLocator;
 using UnityEngine;

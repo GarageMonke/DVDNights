@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class MessageWindow : Window, IMessageWindow
+    public class TVMessageWindow : Window, IMessageWindow
     {
         [Header("References")] 
         [SerializeField] private GameObject messageWindow;
         [SerializeField] private TextMeshProUGUI messageText;
+        [SerializeField] private CanvasGroup canvasGroup;
+        
+        [Header("Feedback")]
+        [SerializeField] private AudioClip audioClip;
 
         public Action OnMessageAccepted { get; set; }
 
@@ -34,20 +41,37 @@ namespace DVDNights
         public override void Display()
         {
             _tvNavigationController.OnSubmitButtonPressed += RaiseOnMessageAccepted;
-            messageWindow.SetActive(true);
+            StartCoroutine(StartRebuilding());
         }
 
         public override void Hide()
         {
+            canvasGroup.alpha = 0;
             _tvNavigationController.OnSubmitButtonPressed -= RaiseOnMessageAccepted;
             messageWindow.SetActive(false);
+        }
+
+        private IEnumerator StartRebuilding()
+        {
+            int retries = 5;
+            while (retries > 0)
+            {
+                messageWindow.SetActive(true);
+                yield return new WaitForEndOfFrame();
+                messageWindow.SetActive(false);
+                yield return new WaitForEndOfFrame();
+                retries--;
+            }
+            
+            canvasGroup.alpha = 1;
+            messageWindow.SetActive(true);
+            AudioManager.Instance.PlaySFX(audioClip);
         }
     }
 
     public interface IMessageWindow : IWindow
     {
         public Action OnMessageAccepted { get; set; }
-
         public void SetMessage(string message);
     }
 }

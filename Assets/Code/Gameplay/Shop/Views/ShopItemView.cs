@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DVDNights
 {
@@ -10,37 +11,37 @@ namespace DVDNights
         [SerializeField] private TextMeshProUGUI itemName;
         [SerializeField] private TextMeshProUGUI itemInfo;
         [SerializeField] private TextMeshProUGUI itemPrice;
+        [SerializeField] private Image itemBackground;
 
         [Header("Configuration")] 
         [SerializeField] private Color highlightColor;
         [SerializeField] private Color normalColor;
         [SerializeField] private Color warningColor;
-
+        
         [SerializeField] private int itemId;
 
         public int ItemId => itemId;
+        
+        private bool _isHighlighted = false;
 
         public void HighlightItem()
         {
-            itemName.color = highlightColor;
+            itemName.color = Color.black;
+            itemInfo.color = Color.black;
+            itemPrice.color = Color.black;
+            itemBackground.gameObject.SetActive(true);
+            _isHighlighted = true;
         }
 
         public void UnhighlightItem()
         {
             itemName.color = normalColor;
-        }
-
-        public void SelectItem()
-        {
-            itemName.color = normalColor;
-            itemInfo.color = highlightColor;
-        }
-
-        public void DeselectItem()
-        {
-            HighlightItem();
             itemInfo.color = normalColor;
+            itemPrice.color = normalColor;
+            itemBackground.gameObject.SetActive(false);
+            _isHighlighted = false;
         }
+        
 
         public void UpdateCost(int updatedCost, bool isAffordable)
         {
@@ -48,11 +49,20 @@ namespace DVDNights
 
             if (!isAffordable)
             {
-                itemPrice.color =  warningColor;
+                itemBackground.color =  warningColor;
                 return;
             }
+
+            itemBackground.color = highlightColor;
             
-            itemPrice.color = normalColor;
+            if (_isHighlighted)
+            {
+                itemPrice.color = Color.black;
+            }
+            else
+            {
+                itemPrice.color = normalColor;
+            }
             
             if (updatedCost <= 0)
             {
@@ -76,8 +86,6 @@ namespace DVDNights
         public int ItemId { get; }
         public void HighlightItem();
         public void UnhighlightItem();
-        public void SelectItem();
-        public void DeselectItem();
         public void UpdateCost(int updatedCost, bool isAffordable);
         public void UpdateInfo(string updatedInfo);
     }

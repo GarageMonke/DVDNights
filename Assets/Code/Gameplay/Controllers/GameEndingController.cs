@@ -6,7 +6,7 @@ namespace DVDNights
     public class GameEndingController : MonoBehaviour, IGameEndingController
     {
         [Header("References")] 
-        [SerializeField] private MessageWindow messageWindow;
+        [SerializeField] private TVMessageWindow tvMessageWindow;
         
         private IDisksController _disksController;
         private int _amountToReach = 1;
@@ -29,8 +29,6 @@ namespace DVDNights
             _disksController.OnGoldDiskCreated += CheckGameEnding;
 
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
-
-            messageWindow.OnMessageAccepted += EjectDisk;
         }
 
         public void CheckGameEnding()
@@ -43,13 +41,14 @@ namespace DVDNights
                 return;
             }
             
-            messageWindow.SetMessage("GAME OVER!");
-            messageWindow.Display();
+            tvMessageWindow.OnMessageAccepted += EjectDisk;
+            tvMessageWindow.SetMessage("Error: Something went wrong.");
+            tvMessageWindow.Display();
         }
 
         private void EjectDisk()
         {
-            messageWindow.OnMessageAccepted -= EjectDisk;
+            tvMessageWindow.OnMessageAccepted -= EjectDisk;
             _tvNavigationController.OpenCloseButton.Press();
         }
     }

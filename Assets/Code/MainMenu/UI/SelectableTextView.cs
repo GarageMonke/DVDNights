@@ -28,7 +28,7 @@ namespace DVDNights
 
         public void Select()
         {
-            selectableText.color = selectedColor;
+            selectableText.color = Color.black;
             selectImage.color = selectedColor;
             selectImage.gameObject.SetActive(true);
             AudioManager.Instance.PlaySFX(audioClip, volume, pitch);
