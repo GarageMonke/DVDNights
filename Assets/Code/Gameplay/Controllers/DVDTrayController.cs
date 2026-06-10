@@ -6,15 +6,18 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class DVDLidController : MonoBehaviour, IDVDLidController
+    public class DVDTrayController : MonoBehaviour, IDVDTrayController
     {
+        [Header("References")]
+        [SerializeField] private DVDTrayInteractableObject dvdTrayInteractableObject;
+        
         [Header("Configuration")]
-        [SerializeField] private Transform diskLidTransform;
+        [SerializeField] private Transform diskTrayTransform;
         [SerializeField] private float destinationZPosition;
     
         [Header("Feedback")]
-        [SerializeField] private AudioClip openLidClip;
-        [SerializeField] private AudioClip closeLidClip;
+        [SerializeField] private AudioClip openTrayClip;
+        [SerializeField] private AudioClip closeTrayClip;
         
         private ITVNavigationController _tvNavigationController;
         private float _originalZPosition;
@@ -30,7 +33,7 @@ namespace DVDNights
 
         private void Awake()
         {
-            _originalZPosition = diskLidTransform.localPosition.z;
+            _originalZPosition = diskTrayTransform.localPosition.z;
             _canAnimate = true;
             _isOpened = false;
             InstallService();
@@ -38,7 +41,7 @@ namespace DVDNights
 
         private void InstallService()
         {
-            ServiceLocator.RegisterService<IDVDLidController>(this);
+            ServiceLocator.RegisterService<IDVDTrayController>(this);
         }
 
         private void Start()
@@ -48,6 +51,7 @@ namespace DVDNights
             _tvOpenCloseButton = _tvNavigationController.OpenCloseButton;
             
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
+            dvdTrayInteractableObject.DisableInteraction();
         }
 
         private void HandleLid()
@@ -81,29 +85,31 @@ namespace DVDNights
         
         private void OpenLid()
         {
-            diskLidTransform.DOKill();
+            diskTrayTransform.DOKill();
 
-            AudioManager.Instance.PlaySFX(openLidClip, 0.5f, randomizePitch: false);
-            diskLidTransform.DOLocalMoveZ(destinationZPosition, openLidClip.length * 0.85f).SetEase(Ease.InSine).OnComplete(() =>
+            AudioManager.Instance.PlaySFX(openTrayClip, 0.5f, randomizePitch: false);
+            diskTrayTransform.DOLocalMoveZ(destinationZPosition, openTrayClip.length * 0.85f).SetEase(Ease.InSine).OnComplete(() =>
             {
                 _isOpened = true;
                 _canAnimate = true;
                 OnLidOpened?.Invoke();
                 _tvOpenCloseButton.EnableButton();
+                dvdTrayInteractableObject.EnableInteraction();
             });
         }
         
         private void CloseLid()
         {
-            diskLidTransform.DOKill();
+            diskTrayTransform.DOKill();
 
-            AudioManager.Instance.PlaySFX(closeLidClip, 0.5f, randomizePitch: false);
-            diskLidTransform.DOLocalMoveZ(_originalZPosition, closeLidClip.length * 0.55f).SetEase(Ease.InOutSine).OnComplete(() =>
+            AudioManager.Instance.PlaySFX(closeTrayClip, 0.5f, randomizePitch: false);
+            diskTrayTransform.DOLocalMoveZ(_originalZPosition, closeTrayClip.length * 0.55f).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 _isOpened = false;
                 _canAnimate = true;
                 OnLidClosed?.Invoke();
                 _tvOpenCloseButton.EnableButton();
+                dvdTrayInteractableObject.DisableInteraction();
             });
         }
 
@@ -113,7 +119,7 @@ namespace DVDNights
         }
     }
     
-    public interface IDVDLidController
+    public interface IDVDTrayController
     {
         public bool IsLidOpened { get; }
         public Action OnLidOpened { get; set; }

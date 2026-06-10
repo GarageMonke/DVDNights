@@ -161,11 +161,14 @@ public class InteractionController : MonoBehaviour, IInteractionController
         }
 
         _currentHighlighted = interactableObject;
-        crosshairImage.color = detectedColor;
-        _currentHighlighted.Highlight();
-        TweenToSize(Vector2.one * 1.5f);
-        
-        _dialogController.DisplayDialog(_currentHighlighted.GetInteractionAction());
+
+        if (_currentHighlighted.IsEnabled)
+        {
+            crosshairImage.color = detectedColor;
+            _currentHighlighted.Highlight();
+            TweenToSize(Vector2.one * 1.5f);
+            _dialogController.DisplayDialog(_currentHighlighted.GetInteractionAction());
+        }
     }
 
     private void StopInteractionWithObject()

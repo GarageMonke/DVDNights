@@ -19,10 +19,12 @@ namespace DVDNights
         [SerializeField] private AudioClip loadingDVDAudioClip;
         public bool IsTVOn => _isTVOn;
         public bool HasDisk => _hasDisk;
+        public bool IsPlayingGame => _isPlayingGame;
         public int DiskId => _diskId;
 
         private bool _isTVOn;
         private bool _hasDisk;
+        private bool _isPlayingGame;
         private int _diskId;
         
         private ITVNavigationController _tvNavigationController;
@@ -67,6 +69,11 @@ namespace DVDNights
             }
         }
 
+        public void StartPlayingGame()
+        {
+            _isPlayingGame = true;
+        }
+
         private void TurnOnTv()
         {
             if (_hasDisk)
@@ -95,8 +102,10 @@ namespace DVDNights
     {
         public bool IsTVOn { get; }
         public bool HasDisk { get; }
+        public bool IsPlayingGame { get; }
         public int DiskId { get; }
         public void InsertDisk(int diskId);
         public void TurnOnOffTv();
+        public void StartPlayingGame();
     }
 }

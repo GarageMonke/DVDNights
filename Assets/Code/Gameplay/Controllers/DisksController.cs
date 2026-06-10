@@ -22,6 +22,7 @@ public class DisksController : MonoBehaviour, IDisksController
     private List<IBouncerDisk> _allRegisteredDisks;
     private IPointsController _pointsController;
     private IDiskLevelController _diskLevelController;
+    private ITVStateController _tvStateController;
     private int _disksRegistered;
     private DiskType[]  _mergeOrder;
     private IDiskFactory _diskFactory;
@@ -73,6 +74,7 @@ public class DisksController : MonoBehaviour, IDisksController
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
         
         _shopController = ServiceLocator.GetService<IShopController>();
+        _tvStateController = ServiceLocator.GetService<ITVStateController>();
         _shopController.OnShopOpened += StopAllDisksMoving;
         _shopController.OnShopClosed += CheckDisksToMerge;
         
@@ -88,6 +90,8 @@ public class DisksController : MonoBehaviour, IDisksController
         CreateDisk(DiskType.YELLOW);
         ResumeAllDisksMoving();
         CheckDisksToMerge();
+        
+        _tvStateController.StartPlayingGame();
     }
 
     public void CreateDisk(DiskType diskType)

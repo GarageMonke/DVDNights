@@ -1,6 +1,4 @@
-﻿using System;
-using CorePatterns.Managers;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -9,7 +7,8 @@ namespace DVDNights
     {
         [Header("Configuration")] 
         [SerializeField] private bool hasNavigation;
-        
+
+        [SerializeField] private bool _isEnabled = true;
         [Header("References")] 
         [SerializeField] private Outline outline;
         
@@ -17,11 +16,24 @@ namespace DVDNights
         [SerializeField] private AudioClip interactionAudioClip;
 
         private IOutlineController _outlineController;
-
+        
         public bool HasNavigation => hasNavigation;
         public AudioClip InteractionAudioClip => interactionAudioClip;
-        public abstract string GetInteractionAction();
+        public bool IsEnabled => _isEnabled;
+        
+        public void EnableInteraction()
+        {
+            _isEnabled = true;
+        }
 
+        public void DisableInteraction()
+        {
+            _isEnabled = false;
+            Unhighlight();
+        }
+
+        public abstract string GetInteractionAction();
+        
         public abstract void Interact();
 
         public abstract void StopInteraction();
@@ -50,13 +62,15 @@ namespace DVDNights
 
     public interface IInteractableObject
     {
+        public bool IsEnabled { get; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();
         public void Unhighlight();
         public bool HasNavigation { get; }
         public AudioClip InteractionAudioClip { get; }
-
+        public void EnableInteraction();
+        public void DisableInteraction();
         public string GetInteractionAction();
     }
 }
