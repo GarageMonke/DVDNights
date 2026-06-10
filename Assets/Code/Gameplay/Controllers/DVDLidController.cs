@@ -22,6 +22,7 @@ namespace DVDNights
         private bool _canAnimate;
         private bool _isOpened;
         private ITVButton _tvOpenCloseButton;
+        private ITVStateController _tvStateController;
 
         public bool IsLidOpened => _isOpened;
         public Action OnLidOpened { get; set; }
@@ -45,10 +46,22 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvNavigationController.OnOpenCloseButtonPressed += HandleLid;
             _tvOpenCloseButton = _tvNavigationController.OpenCloseButton;
+            
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
         }
 
         private void HandleLid()
         {
+            if (!_tvStateController.IsTVOn)
+            {
+                return;
+            }
+            
+            if (_tvStateController.HasDisk)
+            {
+                return;
+            }
+            
             if (!_canAnimate)
             {
                 return;

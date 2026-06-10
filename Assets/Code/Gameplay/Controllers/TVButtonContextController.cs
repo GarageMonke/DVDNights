@@ -9,6 +9,7 @@ namespace DVDNights
         private IDVDLidController _dvdLidController;
         private IShopController _shopController;
         private TVButton[] _tvButtons;
+        private ITVStateController _tvStateController;
 
         private void Awake()
         {
@@ -27,6 +28,7 @@ namespace DVDNights
             
             _dvdLidController = ServiceLocator.GetService<IDVDLidController>();
             _shopController = ServiceLocator.GetService<IShopController>();
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
         }
 
         public string GetTVButtonAction(int buttonId)
@@ -36,14 +38,20 @@ namespace DVDNights
                 return "NULL";
             }
             
+            _tvStateController ??= ServiceLocator.GetService<ITVStateController>();
             _dvdLidController ??= ServiceLocator.GetService<IDVDLidController>();
             _shopController ??= ServiceLocator.GetService<IShopController>();
+
+            if (!_tvStateController.IsTVOn)
+            {
+                return buttonId == 0 ? "Power On" : "Turn On to TV to Interact";
+            }
             
             switch (buttonId)
             {
                 //Power Button
                 case 0:
-                    return "Power";
+                    return "Power Off";
                 //Open/Close Button
                 case 1:
                     return _dvdLidController.IsLidOpened ? "Close" : "Open";

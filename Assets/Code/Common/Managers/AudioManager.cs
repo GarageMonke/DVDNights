@@ -87,17 +87,25 @@ namespace CorePatterns.Managers
             });
         }
 
-        public void StopOST()
+        public void StopOST(bool fadeOut = true)
         {
             _fadeTween?.Kill();
             
             if (ostSource.isPlaying)
             {
-                _fadeTween = ostSource.DOFade(0f, 0.5f).OnComplete(() =>
+                if (fadeOut)
+                {
+                    _fadeTween = ostSource.DOFade(0f, 0.5f).OnComplete(() =>
+                    {
+                        ostSource.Stop();
+                        ostSource.clip = null;
+                    });
+                }
+                else
                 {
                     ostSource.Stop();
                     ostSource.clip = null;
-                });
+                }
             }
         }
 

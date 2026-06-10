@@ -15,6 +15,7 @@ namespace DVDNights
       private int _currentIndex;
 
       private ITVNavigationController _tvNavigationController;
+      private ITVStateController _tvStateController;
 
       private void Awake()
       {
@@ -30,6 +31,7 @@ namespace DVDNights
       {
          SelectFirst();
          _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+         _tvStateController = ServiceLocator.GetService<ITVStateController>();
 
          _tvNavigationController.OnPreviousButtonPressed += PreviousSelection;
          _tvNavigationController.OnNextButtonPressed += NextSelection;
@@ -96,6 +98,16 @@ namespace DVDNights
 
       private void Submit()
       {
+         if (!_tvStateController.IsTVOn)
+         {
+            return;
+         }
+
+         if (!_tvStateController.HasDisk)
+         {
+            return;
+         }
+         
          switch (_currentIndex)
          {
             case 0:
