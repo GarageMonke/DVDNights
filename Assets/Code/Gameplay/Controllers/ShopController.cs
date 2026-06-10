@@ -128,6 +128,11 @@ namespace DVDNights
 
         public void OpenShop()
         {
+            if (_disksController.IsMerging)
+            {
+                return;
+            }
+            
             _navigationController.OnMenuButtonPressed -= OpenShop;
             SubscribeToEvents();
             _shopWindow.UpdateAvailablePoints(_pointsController.GetTotalPoints());

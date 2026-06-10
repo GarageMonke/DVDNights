@@ -27,9 +27,11 @@ public class DisksController : MonoBehaviour, IDisksController
     private IDiskFactory _diskFactory;
     private IShopController _shopController;
     private Sequence _mergeSequence;
+    private bool _isMerging;
 
     public int DisksRegistered => _disksRegistered;
     public Action OnGoldDiskCreated { get; set; }
+    public bool IsMerging => _isMerging;
     public List<IBouncerDisk> AllRegisteredDisks => _allRegisteredDisks;
 
     private void Awake()
@@ -78,7 +80,7 @@ public class DisksController : MonoBehaviour, IDisksController
         CreateDisk(DiskType.WHITE);
         CreateDisk(DiskType.WHITE);
         
-        CreateDisk(DiskType.MAGENTA);
+        //CreateDisk(DiskType.MAGENTA);
         CreateDisk(DiskType.MAGENTA);
         CreateDisk(DiskType.GREEN);
         CreateDisk(DiskType.GREEN);
@@ -175,6 +177,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
             if (disks.Count < GameProgression.DiscMergeAmount)
             {
+                _isMerging = false;
                 continue;
             }
             
@@ -183,6 +186,8 @@ public class DisksController : MonoBehaviour, IDisksController
                 .ToList();
 
             DiskType nextTier = GetNextTier(diskType);
+
+            _isMerging = true;
             
             if (nextTier == DiskType.GOLD)
             {
@@ -356,4 +361,6 @@ public interface IDisksController
     public void CreateDisk(DiskType diskType);
     public void BoostAllDisksSpeed();
     public void ResetAllDisksSpeed();
+    
+    public bool IsMerging { get; }
 }
