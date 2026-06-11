@@ -134,9 +134,32 @@ public class InteractionController : MonoBehaviour, IInteractionController
             return;
         }
         
+        if (_currentInteraction != null)
+        {
+            if (!_currentInteraction.IsEnabled)
+            {
+                return; 
+            }
+        }
+        
+        HandleInteraction(interactableObject);
+    }
+
+    private void HandleInteraction(IInteractableObject interactableObject)
+    {
+        if (interactableObject == null)
+        {
+            return;
+        }
+        
         _currentInteraction = interactableObject;
+
         _currentInteraction.Interact();
-        _currentHighlighted.Unhighlight();
+
+        if (_currentHighlighted != null)
+        {
+            _currentHighlighted.Unhighlight();
+        }
 
         if (_currentInteraction.HasNavigation)
         {
@@ -214,10 +237,16 @@ public class InteractionController : MonoBehaviour, IInteractionController
     {
         _isEnabled = false;
     }
+
+    public void ForceInteraction(IInteractableObject interactableObject)
+    {
+        HandleInteraction(interactableObject);
+    }
 }
 
 public interface IInteractionController
 {
     public void EnableInteractions();
     public void DisableInteractions();
+    public void ForceInteraction(IInteractableObject interactableObject);
 }

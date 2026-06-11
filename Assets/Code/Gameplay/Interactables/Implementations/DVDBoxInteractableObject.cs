@@ -1,4 +1,5 @@
 ﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,75 +9,130 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private DVDDiskInteractableObject dvdDiskInteractableObject;
+        [SerializeField] private TVInteractableObject tvInteractableObject;
+        [SerializeField] private Collider dvdBoxCollider;
         
         [Header("Configuration")] 
         [SerializeField] private Transform dvdDisk;
         [SerializeField] private Transform dvdBoxFace;
+        [SerializeField] private Transform dvdPathParent;
+        
+        [Header("Position-Vectors")]
         [SerializeField] private Vector3 clickDVDPosition;
+        [SerializeField] private Vector3 firstStepDVDPosition;
         [SerializeField] private Vector3 openDVDRotation;
-        [SerializeField] private Collider dvdBoxCollider;
+        [SerializeField] private Vector3[] dvdPathNodes;
+        
+        [Header("Feedback")]
         [SerializeField] private AudioClip openDVDBoxAudioClip;
         [SerializeField] private AudioClip closeDVDBoxAudioClip;
+        [SerializeField] private AudioClip DVDOnTrayAudioClip;
         
-        private bool _dvdTaken;
         private Sequence _openDvdBoxSequence;
-        private Vector3 _dvdDiskOriginPosition;
+        private IDVDTrayController _dvdTrayController;
+        private IInteractionController _interactionController;
+        private Vector3[] _dvdPathToTray;
+        private ICameraController _cameraController;
 
-        private void Awake()
+        private void Start()
         {
-            _dvdDiskOriginPosition = dvdDisk.localPosition;
+            _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
+            _dvdTrayController.OnTrayOpened += CheckInteractionStatus;
+            _dvdTrayController.OnTrayClosed += CheckInteractionStatus;
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _dvdPathToTray = CurveGenerator.GetCurvePoints(dvdPathNodes[0], dvdPathNodes[1], dvdPathNodes[2], 10);
+            _cameraController = ServiceLocator.GetService<ICameraController>();
+            CheckInteractionStatus();
         }
-        
+
+        private void CheckInteractionStatus()
+        {
+            if (_dvdTrayController.IsTrayOpened)
+            {
+                EnableInteraction();
+            }
+            else
+            {
+                DisableInteraction();
+            }
+        }
+
         public override string GetInteractionAction()
         {
-            return "Remove DVD";
+            return "Insert DVD";
         }
 
         public override void Interact()
         {
             DisableInteraction();
           
-            //_dvdTaken = true;
+            _interactionController.DisableInteractions();
             _openDvdBoxSequence?.Kill();
             _openDvdBoxSequence = DOTween.Sequence()
                 .AppendCallback(() =>
                 {
+                    _cameraController.DisableNavigation();
+                    _cameraController.RestoreCameraPositionAndRotation();
                     AudioManager.Instance.PlaySFX(openDVDBoxAudioClip, pitch: 1.2f);
                 })
                 .AppendInterval(openDVDBoxAudioClip.length * 0.5f)
-                .AppendCallback(() =>
-                {
-                    dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.Linear);
-                })
+                .Append(dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.Linear))
                 .AppendInterval(0.75f)
                 .AppendCallback(() =>
                 {
                     AudioManager.Instance.PlaySFX(InteractionAudioClip, pitch: 1.2f);
-                    dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.Linear)
-                        .OnComplete(() =>
-                        {
-                            //Add back again after testing
-                            //dvdBoxCollider.enabled = false;
-                            //dvdDiskInteractableObject.EnableInteraction();
-                        });
+                    dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.Linear);
                 })
                 .AppendInterval(0.75f)
+                .Append(dvdDisk.DOLocalMove(firstStepDVDPosition, 0.25f).SetEase(Ease.Linear))
+                .AppendInterval(0.3f)
                 .AppendCallback(() =>
                 {
-                    dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.Linear);
-                    EnableInteraction();
+                    dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+                    {
+                        AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
+                    });
+
                 })
-                .AppendInterval(0.5f)
                 .AppendCallback(() =>
                 {
-                    AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
-                    dvdDisk.localPosition = _dvdDiskOriginPosition;
-                });
+                    dvdDisk.parent = dvdPathParent;
+                    dvdDisk.DOLocalMove(dvdPathNodes[0], 1f).SetEase(Ease.InSine);
+                    dvdDisk.DOLocalRotate(new Vector3(180, 0, 0), 1f).SetEase(Ease.InSine);
+                })
+                .AppendInterval(1.1f)
+                .Append(dvdDisk.DOBlendableLocalRotateBy(new Vector3(0, 360 * 3, 0), 0.35f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.Linear))
+                .AppendInterval(0.5f)
+                .Append(dvdDisk.DOLocalPath(_dvdPathToTray, 2f, PathType.CatmullRom).SetEase(Ease.InOutSine)
+                    .OnWaypointChange(waypointIndex =>
+                    {
+                        if (waypointIndex == 3)
+                        {
+                            dvdDisk.DOLocalRotate(new Vector3(90, 0, 0), 0.25f).SetEase(Ease.OutSine);
+                        }
+
+                        if (waypointIndex == 10)
+                        {
+                            AudioManager.Instance.PlaySFX(DVDOnTrayAudioClip, pitch: 1f);
+                            dvdDisk.parent = _dvdTrayController.TrayTransform;
+                            _interactionController.EnableInteractions();
+                            _interactionController.ForceInteraction(tvInteractableObject);
+                        }
+                    }));
+
+
         }
 
         public override void StopInteraction()
         {
             //
+        }
+
+        private void OnDestroy()
+        {
+            _dvdTrayController.OnTrayOpened -= CheckInteractionStatus;
+            _dvdTrayController.OnTrayClosed -= CheckInteractionStatus;
         }
     }
 }

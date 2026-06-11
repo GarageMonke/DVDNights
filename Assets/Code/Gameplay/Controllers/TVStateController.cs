@@ -83,7 +83,7 @@ namespace DVDNights
             }
             
             tvScreenMesh.material = tvStaticMaterial;
-            AudioManager.Instance.PlayOST(staticAudioClip, 0.5f, true);
+            AudioManager.Instance.PlayOST(staticAudioClip, 0.002f, true);
         }
 
         private void TurnOffTv()

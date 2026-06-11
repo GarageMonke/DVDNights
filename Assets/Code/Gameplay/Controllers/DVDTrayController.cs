@@ -27,9 +27,10 @@ namespace DVDNights
         private ITVButton _tvOpenCloseButton;
         private ITVStateController _tvStateController;
 
-        public bool IsLidOpened => _isOpened;
-        public Action OnLidOpened { get; set; }
-        public Action OnLidClosed { get; set; }
+        public bool IsTrayOpened => _isOpened;
+        public Transform TrayTransform => diskTrayTransform;
+        public Action OnTrayOpened { get; set; }
+        public Action OnTrayClosed { get; set; }
 
         private void Awake()
         {
@@ -51,7 +52,6 @@ namespace DVDNights
             _tvOpenCloseButton = _tvNavigationController.OpenCloseButton;
             
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
-            dvdTrayInteractableObject.DisableInteraction();
         }
 
         private void HandleLid()
@@ -88,13 +88,12 @@ namespace DVDNights
             diskTrayTransform.DOKill();
 
             AudioManager.Instance.PlaySFX(openTrayClip, 0.5f, randomizePitch: false);
-            diskTrayTransform.DOLocalMoveZ(destinationZPosition, openTrayClip.length * 0.85f).SetEase(Ease.InSine).OnComplete(() =>
+            diskTrayTransform.DOLocalMoveZ(destinationZPosition, openTrayClip.length * 0.65f).SetEase(Ease.InSine).OnComplete(() =>
             {
                 _isOpened = true;
                 _canAnimate = true;
-                OnLidOpened?.Invoke();
+                OnTrayOpened?.Invoke();
                 _tvOpenCloseButton.EnableButton();
-                dvdTrayInteractableObject.EnableInteraction();
             });
         }
         
@@ -107,9 +106,8 @@ namespace DVDNights
             {
                 _isOpened = false;
                 _canAnimate = true;
-                OnLidClosed?.Invoke();
+                OnTrayClosed?.Invoke();
                 _tvOpenCloseButton.EnableButton();
-                dvdTrayInteractableObject.DisableInteraction();
             });
         }
 
@@ -121,9 +119,10 @@ namespace DVDNights
     
     public interface IDVDTrayController
     {
-        public bool IsLidOpened { get; }
-        public Action OnLidOpened { get; set; }
-        public Action OnLidClosed { get; set; }
+        public bool IsTrayOpened { get; }
+        public Transform TrayTransform { get; }
+        public Action OnTrayOpened { get; set; }
+        public Action OnTrayClosed { get; set; }
     }
 }
 

@@ -54,7 +54,7 @@ namespace DVDNights
                     return "Power Off";
                 //Open/Close Button
                 case 1:
-                    return _idvdTrayController.IsLidOpened ? "Close" : "Open";
+                    return _idvdTrayController.IsTrayOpened ? "Close" : "Open";
                 //Menu Button
                 case 2:
                     if (_shopController == null)

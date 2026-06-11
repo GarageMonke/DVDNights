@@ -125,7 +125,7 @@ namespace DVDNights
         public void RestoreCameraPositionAndRotation()
         {
             TweenToPosition(_initialCameraPosition);
-            TweenToRotation(_previousCameraRotation);
+            TweenToRotation(Quaternion.identity);
         }
 
         public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null)
