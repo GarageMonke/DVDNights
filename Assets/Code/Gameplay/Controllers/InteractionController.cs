@@ -148,7 +148,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
         if (!_currentInteraction.IsEnabled)
         {
-            _dialogController.HideDialog();
+            _currentInteraction = null;
+            ClearHighlight();
         }
     }
 

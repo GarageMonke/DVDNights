@@ -11,11 +11,21 @@ namespace DVDNights
         
         [Header("Configuration")] 
         [SerializeField] private Transform dvdDisk;
+        [SerializeField] private Transform dvdBoxFace;
         [SerializeField] private Vector3 clickDVDPosition;
+        [SerializeField] private Vector3 openDVDRotation;
         [SerializeField] private Collider dvdBoxCollider;
+        [SerializeField] private AudioClip openDVDBoxAudioClip;
+        [SerializeField] private AudioClip closeDVDBoxAudioClip;
         
         private bool _dvdTaken;
-        private Tween _clickTween;
+        private Sequence _openDvdBoxSequence;
+        private Vector3 _dvdDiskOriginPosition;
+
+        private void Awake()
+        {
+            _dvdDiskOriginPosition = dvdDisk.localPosition;
+        }
         
         public override string GetInteractionAction()
         {
@@ -25,15 +35,37 @@ namespace DVDNights
         public override void Interact()
         {
             DisableInteraction();
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, pitch: 1.2f);
-            _dvdTaken = true;
-            _clickTween?.Kill();
-            _clickTween = dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.Linear)
-                .OnComplete(()=>
+          
+            //_dvdTaken = true;
+            _openDvdBoxSequence?.Kill();
+            _openDvdBoxSequence = DOTween.Sequence()
+                .AppendCallback(() =>
                 {
-                    dvdBoxCollider.enabled = false;
-                    dvdDiskInteractableObject.EnableInteraction();
-                    dvdDisk.parent = null;
+                    AudioManager.Instance.PlaySFX(openDVDBoxAudioClip, pitch: 1.2f);
+                    dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.Linear);
+                })
+                .AppendInterval(0.75f)
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(InteractionAudioClip, pitch: 1.2f);
+                    dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.Linear)
+                        .OnComplete(() =>
+                        {
+                            //Add back again after testing
+                            //dvdBoxCollider.enabled = false;
+                            //dvdDiskInteractableObject.EnableInteraction();
+                        });
+                })
+                .AppendInterval(0.75f)
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
+                    dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.Linear);
+                    EnableInteraction();
+                })
+                .AppendCallback(() =>
+                {
+                    dvdDisk.localPosition = _dvdDiskOriginPosition;
                 });
         }
 
