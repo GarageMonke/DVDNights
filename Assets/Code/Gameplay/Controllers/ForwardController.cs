@@ -28,6 +28,7 @@ namespace DVDNights
         private bool _isForwarding;
         private IDisksController _disksController;
         private IDiskLevelController _diskLevelController;
+        private ITVStateController _tvStateController;
 
         private static readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
         private static readonly int DistortionStrength = Shader.PropertyToID("_DistortionStrength");
@@ -53,11 +54,15 @@ namespace DVDNights
             _tvNagivationController = ServiceLocator.GetService<ITVNavigationController>();
             _disksController = ServiceLocator.GetService<IDisksController>();
             _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
 
             _tvNagivationController.OnSubmitButtonPressed += AddPower;
             _tvNagivationController.OnNextButtonHeld += GoForward;
             _tvNagivationController.OnNextButtonReleased += StopForward;
             _forwardButton = _tvNagivationController.NextButton;
+
+            _currentPower = 100;
+            AddPower();
         }
 
         private void OnDestroy()
@@ -69,6 +74,16 @@ namespace DVDNights
 
         private void GoForward()
         {
+            if (!_tvStateController.IsPlayingGame)
+            {
+                return;
+            }
+            
+            if (_shopController.IsShopOpened)
+            {
+                return;
+            }
+            
             if (_currentPower <= 0)
             {
                 StopForward();

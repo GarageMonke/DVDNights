@@ -46,7 +46,6 @@ namespace DVDNights
             _outlinesController.DisableAllOutlines();
             _cameraController.EnableNavigation();
         }
-        
     }
 
     public interface IGameStartController

@@ -53,7 +53,7 @@ namespace DVDNights
 
         private IEnumerator StartRebuilding()
         {
-            int retries = 5;
+            int retries = 2;
             while (retries > 0)
             {
                 messageWindow.SetActive(true);
