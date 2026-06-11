@@ -145,6 +145,11 @@ public class InteractionController : MonoBehaviour, IInteractionController
             crosshairImage.gameObject.SetActive(false);
             _dialogController.HideDialog();
         }
+
+        if (!_currentInteraction.IsEnabled)
+        {
+            _dialogController.HideDialog();
+        }
     }
 
     private void HighlightObject(IInteractableObject interactableObject)
