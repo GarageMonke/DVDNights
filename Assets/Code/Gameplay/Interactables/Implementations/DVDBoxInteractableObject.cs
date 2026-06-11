@@ -42,6 +42,10 @@ namespace DVDNights
                 .AppendCallback(() =>
                 {
                     AudioManager.Instance.PlaySFX(openDVDBoxAudioClip, pitch: 1.2f);
+                })
+                .AppendInterval(openDVDBoxAudioClip.length * 0.5f)
+                .AppendCallback(() =>
+                {
                     dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.Linear);
                 })
                 .AppendInterval(0.75f)
@@ -59,12 +63,13 @@ namespace DVDNights
                 .AppendInterval(0.75f)
                 .AppendCallback(() =>
                 {
-                    AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
                     dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.Linear);
                     EnableInteraction();
                 })
+                .AppendInterval(0.5f)
                 .AppendCallback(() =>
                 {
+                    AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
                     dvdDisk.localPosition = _dvdDiskOriginPosition;
                 });
         }
