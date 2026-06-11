@@ -8,7 +8,6 @@ namespace DVDNights
     public class DVDBoxInteractableObject : InteractableObject
     {
         [Header("References")] 
-        [SerializeField] private DVDDiskInteractableObject dvdDiskInteractableObject;
         [SerializeField] private TVInteractableObject tvInteractableObject;
         [SerializeField] private Collider dvdBoxCollider;
         
@@ -33,6 +32,8 @@ namespace DVDNights
         private IInteractionController _interactionController;
         private Vector3[] _dvdPathToTray;
         private ICameraController _cameraController;
+        private IMainMenuController _tvMainMenuController;
+        private ITVStateController _tvStateController;
 
         private void Start()
         {
@@ -42,6 +43,8 @@ namespace DVDNights
             _interactionController = ServiceLocator.GetService<IInteractionController>();
             _dvdPathToTray = CurveGenerator.GetCurvePoints(dvdPathNodes[0], dvdPathNodes[1], dvdPathNodes[2], 10);
             _cameraController = ServiceLocator.GetService<ICameraController>();
+            _tvMainMenuController = ServiceLocator.GetService<IMainMenuController>();
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
             CheckInteractionStatus();
         }
 
@@ -76,19 +79,19 @@ namespace DVDNights
                     AudioManager.Instance.PlaySFX(openDVDBoxAudioClip, pitch: 1.2f);
                 })
                 .AppendInterval(openDVDBoxAudioClip.length * 0.5f)
-                .Append(dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.Linear))
+                .Append(dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.InSine))
                 .AppendInterval(0.75f)
                 .AppendCallback(() =>
                 {
                     AudioManager.Instance.PlaySFX(InteractionAudioClip, pitch: 1.2f);
-                    dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.Linear);
+                    dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.InBounce);
                 })
-                .AppendInterval(0.75f)
-                .Append(dvdDisk.DOLocalMove(firstStepDVDPosition, 0.25f).SetEase(Ease.Linear))
+                .AppendInterval(1f)
+                .Append(dvdDisk.DOLocalMove(firstStepDVDPosition, 0.25f).SetEase(Ease.InSine))
                 .AppendInterval(0.3f)
                 .AppendCallback(() =>
                 {
-                    dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+                    dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.InSine).OnComplete(() =>
                     {
                         AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
                     });
@@ -114,10 +117,11 @@ namespace DVDNights
 
                         if (waypointIndex == 10)
                         {
-                            AudioManager.Instance.PlaySFX(DVDOnTrayAudioClip, pitch: 1f);
+                            AudioManager.Instance.PlaySFX(DVDOnTrayAudioClip, volume: 0.5f, pitch: 1f);
                             dvdDisk.parent = _dvdTrayController.TrayTransform;
                             _interactionController.EnableInteractions();
                             _interactionController.ForceInteraction(tvInteractableObject);
+                            _tvStateController.InsertDisk(1);
                         }
                     }));
 

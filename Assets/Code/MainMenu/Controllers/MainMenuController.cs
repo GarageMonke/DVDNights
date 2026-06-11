@@ -6,6 +6,10 @@ namespace DVDNights
 {
    public class MainMenuController : MonoBehaviour, IMainMenuController
    {
+      [Header("References")] 
+      [SerializeField] private GameObject loadingContent;
+      [SerializeField]private GameObject mainMenuContent;
+     
       [Header("Menu")]
       [SerializeField] private SelectableTextView[] selectableTextViews;
 
@@ -133,9 +137,16 @@ namespace DVDNights
          _tvNavigationController.OnNextButtonPressed -= NextSelection;
          _tvNavigationController.OnSubmitButtonPressed -= Submit;
       }
+
+      public void DisplayMenu()
+      {
+         loadingContent.gameObject.SetActive(false);
+         mainMenuContent.gameObject.SetActive(true);
+      }
    }
 }
 
 public interface IMainMenuController
 {
+   public void DisplayMenu();
 }

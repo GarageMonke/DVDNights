@@ -1,5 +1,6 @@
 ﻿using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DVDNights
@@ -17,6 +18,7 @@ namespace DVDNights
         [Header("Feedback")] 
         [SerializeField] private AudioClip staticAudioClip;
         [SerializeField] private AudioClip loadingDVDAudioClip;
+        
         public bool IsTVOn => _isTVOn;
         public bool HasDisk => _hasDisk;
         public bool IsPlayingGame => _isPlayingGame;
@@ -28,6 +30,9 @@ namespace DVDNights
         private int _diskId;
         
         private ITVNavigationController _tvNavigationController;
+        private Sequence _readDiskSequence;
+        private IMainMenuController _tvMainMenuController;
+        private IDVDTrayController _dvdTrayController;
 
         private void Awake()
         {
@@ -43,11 +48,32 @@ namespace DVDNights
         {
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvNavigationController.OnPowerButtonPressed += TurnOnOffTv;
+            _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
         }
 
         public void InsertDisk(int diskId)
         {
             _diskId = diskId;
+            _dvdTrayController.OnTrayClosed += ReadDisk;
+        }
+
+        public void ReadDisk()
+        {
+            _dvdTrayController.OnTrayClosed -= ReadDisk;
+            _readDiskSequence?.Kill();
+            _readDiskSequence = DOTween.Sequence()
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.StopOST();
+                    tvScreenMesh.material = tvScreenMaterial;
+                    AudioManager.Instance.PlaySFX(loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
+                })
+                .AppendInterval(loadingDVDAudioClip.length)
+                .AppendCallback(() =>
+                {
+                    _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
+                    _tvMainMenuController.DisplayMenu();
+                });
         }
 
         public void TurnOnOffTv()
@@ -104,6 +130,7 @@ namespace DVDNights
         public bool HasDisk { get; }
         public bool IsPlayingGame { get; }
         public int DiskId { get; }
+        public void ReadDisk();
         public void InsertDisk(int diskId);
         public void TurnOnOffTv();
         public void StartPlayingGame();
