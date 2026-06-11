@@ -33,6 +33,7 @@ namespace DVDNights
         private Quaternion _previousCameraRotation;
         private Tween _currentMoveTween;
         private Tween _currentRotationTween;
+        private Tween _currentDelayEnableTween;
 
         public Camera Camera => mainCamera;
         public Vector3 OriginPosition => _initialCameraPosition;
@@ -82,6 +83,7 @@ namespace DVDNights
 
             // Pitch (X axis, up/down)
             _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
+            
             mainCamera.transform.localRotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
         }
 
@@ -92,9 +94,17 @@ namespace DVDNights
 
         public void EnableNavigation()
         {
-            _isEnabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            _currentDelayEnableTween?.Kill();
+            _currentDelayEnableTween = DOVirtual.DelayedCall
+            (0.5f,
+                () =>
+                {
+                    _isEnabled = true;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+            );
+           
         }
 
         public void DisableNavigation()
@@ -104,7 +114,6 @@ namespace DVDNights
             Cursor.visible = true;
         }
         
-
         public void UpdateCameraPositionAndRotation(Vector3 newCameraPosition, Vector3 newCameraRotation)
         {
             _previousCameraRotation = mainCamera.transform.localRotation;
@@ -131,9 +140,15 @@ namespace DVDNights
         public void TweenToRotation(Quaternion rotation, float duration = 1f)
         {
             _currentRotationTween?.Kill();
+            Vector3 targetEuler = rotation.eulerAngles;
+            
             _currentRotationTween = mainCamera.transform
                 .DOLocalRotate(rotation.eulerAngles, duration)
-                .SetEase(Ease.Linear);
+                .SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    _currentPitch = Mathf.DeltaAngle(0f, targetEuler.x);
+                    _currentYaw = Mathf.DeltaAngle(0f, targetEuler.y);
+                });;
         }
 
         public void Focus()

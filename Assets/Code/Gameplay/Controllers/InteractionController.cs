@@ -28,7 +28,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
     private Camera _camera;
 
     private bool _isEnabled;
-    private Tween _currentTween;
+    private Tween _crossHairTween;
 
     private bool _isInteracting;
 
@@ -40,7 +40,6 @@ public class InteractionController : MonoBehaviour, IInteractionController
     {
         InstallService();
     }
-    
 
     private void InstallService()
     {
@@ -193,8 +192,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
     
     private void TweenToSize(Vector2 targetSize)
     {
-        _currentTween?.Kill();
-        _currentTween = crosshairImage.transform
+        _crossHairTween?.Kill();
+        _crossHairTween = crosshairImage.transform
             .DOScale(targetSize, 0.25f)
             .SetEase(Ease.Linear);
     }
