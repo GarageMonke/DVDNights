@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CRTDiscCountorRainbow-Material
-  m_Shader: {fileID: 4800000, guid: 2e89ebbe54c70414992e667d0cbdae22, type: 3}
+  m_Name: CRTDiscCountorGolden-Material
+  m_Shader: {fileID: 4800000, guid: 91b491147cdce8e4cab80b5776ed51be, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -49,10 +49,14 @@ Material:
     - _RainbowSpeed: 0.66
     - _ScanlineDensity: 10
     - _ScanlineStrength: 0
+    - _ShineIntensity: 4
+    - _ShineSpeed: 2
     - _WhiteBrightness: 0.52
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GoldColor: {r: 1, g: 0.75, b: 0.14999998, a: 1}
+    - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _RainbowColor1: {r: 1, g: 0, b: 0, a: 1}
     - _RainbowColor2: {r: 1, g: 1, b: 0, a: 1}

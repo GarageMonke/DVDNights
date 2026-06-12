@@ -80,12 +80,12 @@ public class DisksController : MonoBehaviour, IDisksController
         
         //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);
-        CreateDisk(DiskType.CYAN);
-        CreateDisk(DiskType.YELLOW);
-        CreateDisk(DiskType.ORANGE);
-        CreateDisk(DiskType.RED);
-        CreateDisk(DiskType.GREEN);
-        CreateDisk(DiskType.MAGENTA);
+        // CreateDisk(DiskType.CYAN);
+        // CreateDisk(DiskType.YELLOW);
+        // CreateDisk(DiskType.ORANGE);
+        // CreateDisk(DiskType.RED);
+        // CreateDisk(DiskType.GREEN);
+        // CreateDisk(DiskType.MAGENTA);
         ResumeAllDisksMoving();
         CheckDisksToMerge();
         
