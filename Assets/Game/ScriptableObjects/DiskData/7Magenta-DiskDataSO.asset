@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diskType: 6
   diskMultiplier: 64
-  diskColor: {r: 1, g: 0, b: 0.8717556, a: 1}
+  diskColor: {r: 0.98803353, g: 0.56407976, b: 1, a: 1}
