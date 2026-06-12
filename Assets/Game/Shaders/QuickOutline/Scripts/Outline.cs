@@ -130,17 +130,20 @@ public class Outline : MonoBehaviour {
     needsUpdate = false;
   }
 
-  void OnEnable() {
-    foreach (var renderer in renderers) {
+  void OnEnable()
+  {
+      foreach (var renderer in renderers)
+      {
+          var materials = renderer.materials.ToList();
 
-      // Append outline shaders
-      var materials = renderer.sharedMaterials.ToList();
+          if (!materials.Contains(outlineMaskMaterial))
+              materials.Add(outlineMaskMaterial);
 
-      materials.Add(outlineMaskMaterial);
-      materials.Add(outlineFillMaterial);
+          if (!materials.Contains(outlineFillMaterial))
+              materials.Add(outlineFillMaterial);
 
-      renderer.materials = materials.ToArray();
-    }
+          renderer.materials = materials.ToArray();
+      }
   }
 
   void OnValidate() {
@@ -168,17 +171,22 @@ public class Outline : MonoBehaviour {
     }
   }
 
-  void OnDisable() {
-    foreach (var renderer in renderers) {
+  void OnDisable()
+  {
+      foreach (var renderer in renderers)
+      {
+          var materials = renderer.materials.ToList();
 
-      // Remove outline shaders
-      var materials = renderer.sharedMaterials.ToList();
+          materials.RemoveAll(m =>
+              m != null &&
+              (
+                  m.name.Contains("OutlineMask") ||
+                  m.name.Contains("OutlineFill")
+              )
+          );
 
-      materials.Remove(outlineMaskMaterial);
-      materials.Remove(outlineFillMaterial);
-
-      renderer.materials = materials.ToArray();
-    }
+          renderer.materials = materials.ToArray();
+      }
   }
 
   void OnDestroy() {
