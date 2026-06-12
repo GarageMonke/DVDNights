@@ -33,10 +33,12 @@ namespace DVDNights
         private Sequence _readDiskSequence;
         private IMainMenuController _tvMainMenuController;
         private IDVDTrayController _dvdTrayController;
+        private bool _isTesting;
 
         private void Awake()
         {
             InstallService();
+            _isTesting = true;
         }
 
         private void InstallService()
@@ -49,6 +51,7 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvNavigationController.OnPowerButtonPressed += TurnOnOffTv;
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
+            
         }
 
         public void InsertDisk(int diskId)
@@ -103,6 +106,14 @@ namespace DVDNights
 
         private void TurnOnTv()
         {
+            if (_isTesting)
+            {
+                _hasDisk = true;
+                _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
+                tvScreenMesh.material = tvScreenMaterial;
+                _tvMainMenuController.DisplayMenu();
+            }
+            
             if (_hasDisk)
             {
                 tvScreenMesh.material = tvScreenMaterial;

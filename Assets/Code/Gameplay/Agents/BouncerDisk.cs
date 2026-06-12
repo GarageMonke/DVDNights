@@ -103,7 +103,7 @@ namespace DVDNights
         private void InitializeSizes()
         {
             var areaBounds = bounceArea.GetComponent<MeshCollider>().bounds;
-            var logoBounds = GetComponent<SpriteRenderer>().bounds;
+            var logoBounds = spriteRenderer.bounds;
 
             _areaHalfSize = new Vector2(areaBounds.extents.x, areaBounds.extents.y);
             _logoHalfSize = new Vector2(logoBounds.extents.x, logoBounds.extents.y);
