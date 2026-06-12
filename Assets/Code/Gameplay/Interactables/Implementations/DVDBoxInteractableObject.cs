@@ -67,6 +67,11 @@ namespace DVDNights
 
         public override void Interact()
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+            
             DisableInteraction();
           
             _interactionController.DisableInteractions();
