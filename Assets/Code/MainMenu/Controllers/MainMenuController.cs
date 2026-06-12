@@ -142,6 +142,7 @@ namespace DVDNights
       {
          loadingContent.gameObject.SetActive(false);
          mainMenuContent.gameObject.SetActive(true);
+         SelectFirst();
       }
    }
 }

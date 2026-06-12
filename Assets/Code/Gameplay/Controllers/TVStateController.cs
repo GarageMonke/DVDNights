@@ -73,6 +73,7 @@ namespace DVDNights
                 {
                     _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
                     _tvMainMenuController.DisplayMenu();
+                    _hasDisk = true;
                 });
         }
 
