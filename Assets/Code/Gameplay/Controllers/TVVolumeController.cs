@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 
@@ -25,7 +26,6 @@ namespace DVDNights
             _tvNavigationController.OnVolumeDownButtonHeld += HoldVolumeDown;
             _tvNavigationController.OnVolumeUpButtonReleased += StopHold;
             _tvNavigationController.OnVolumeDownButtonReleased += StopHold;
-            SetVolume(50);
         }
 
         public void VolumeUp()

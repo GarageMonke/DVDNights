@@ -168,6 +168,7 @@ MonoBehaviour:
   channelType: 4
   sfxSource: {fileID: 1981034613}
   ostSource: {fileID: 597479222}
+  channelVolume: 50
 --- !u!1 &188506976
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +803,7 @@ MonoBehaviour:
   channelType: 1
   sfxSource: {fileID: 2122998163}
   ostSource: {fileID: 1689389582}
+  channelVolume: 50
 --- !u!1 &905069666
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +982,7 @@ MonoBehaviour:
   channelType: 2
   sfxSource: {fileID: 826253454}
   ostSource: {fileID: 2131539408}
+  channelVolume: 50
 --- !u!1 &1054889501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,6 +1485,7 @@ MonoBehaviour:
   channelType: 3
   sfxSource: {fileID: 905069668}
   ostSource: {fileID: 1054889503}
+  channelVolume: 50
 --- !u!1 &2085854648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1535,7 @@ MonoBehaviour:
   channelType: 0
   sfxSource: {fileID: 2104086537}
   ostSource: {fileID: 843551049}
+  channelVolume: 50
 --- !u!1 &2104086535
 GameObject:
   m_ObjectHideFlags: 0

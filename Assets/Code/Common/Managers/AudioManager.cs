@@ -62,6 +62,18 @@ namespace CorePatterns.Managers
             channel.PlayPreview(previewClip, volume);
         }
 
+        public void SetChannelVolume(AudioChannelType channelType, float volumeValue)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.SetChannelVolume(volumeValue);
+        }
+
+        public float GetChannelVolume(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            return channel.ChannelVolume;
+        }
+
         private AudioSourceChannel GetAudioSourceChannelByType(AudioChannelType audioChannelType)
         {
             switch (audioChannelType)

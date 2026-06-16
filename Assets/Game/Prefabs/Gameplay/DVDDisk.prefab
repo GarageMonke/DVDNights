@@ -138,7 +138,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4629151718297514326}
   bounceArea: {fileID: 0}
   audioClip: {fileID: 8300000, guid: 403f81ea06a9bd141a8371db61ec0359, type: 3}
-  volume: 0.1
+  volume: 1
   pitch: 1
   forcedCorner: 3
   visualizeCorners: 0

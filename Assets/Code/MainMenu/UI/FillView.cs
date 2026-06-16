@@ -20,7 +20,15 @@ namespace DVDNights
 
         public void UpdateFill(float fillAmount)
         {
-            if(fillAmount <= 0) return;
+            if (fillAmount <= 0)
+            {
+                fillAmount = 0;
+            }
+            
+            if (fillAmount >= _totalFill)
+            {
+                fillAmount = _totalFill;
+            }
             _currentFill = fillAmount;
             fillImage.fillAmount = _currentFill / _totalFill;
         }

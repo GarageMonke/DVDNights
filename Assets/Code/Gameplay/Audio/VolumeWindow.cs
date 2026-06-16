@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.Managers;
+﻿using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -17,23 +16,27 @@ namespace DVDNights
         private void Awake()
         {
             volumeFillView.InitializeView(100);
+            SetVolume((int)AudioManager.Instance.GetChannelVolume(audioChannelType));
         }
 
         public void VolumeUp()
         {
             volumeFillView.UpdateFill(volumeFillView.CurrentFill + 1);
             volumeText.text = volumeFillView.CurrentFill.ToString();
+            SetVolume((int)volumeFillView.CurrentFill);
         }
 
         public void VolumeDown()
         {
             volumeFillView.UpdateFill(volumeFillView.CurrentFill - 1);
             volumeText.text = volumeFillView.CurrentFill.ToString();
+            SetVolume((int)volumeFillView.CurrentFill);
         }
 
         public void SetVolume(int volume)
         {
             volumeFillView.UpdateFill(volume);
+            AudioManager.Instance.SetChannelVolume(audioChannelType, volume);
         }
     }
 
