@@ -45,7 +45,6 @@ namespace DVDNights
             }
             
             double cost = acquired * DiscBaseCost * Math.Pow(1.1, acquired + 1);
-            return 1;
             return (int)Math.Min(MaxPoints, cost);
         }
         
