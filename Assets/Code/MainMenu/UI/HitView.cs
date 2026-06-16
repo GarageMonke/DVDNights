@@ -12,12 +12,15 @@ namespace DVDNights
         [SerializeField] private CanvasGroup hitCanvasGroup;
         
         [Header("Configuration")]
-        [SerializeField] private Color borderColor;
         [SerializeField] private Color cornerColor;
-        public void InitializeView(string hitMessage, bool isCorner)
+        
+        public void InitializeView(string hitMessage, bool isCorner, DiskDataSO diskData)
         {
             hitText.text = hitMessage;
-            hitText.color = isCorner ? cornerColor : borderColor;
+
+            Color diskColor = diskData.DiskColor;
+            
+            hitText.color = isCorner ? cornerColor : diskColor;
             
             StartCoroutine(FloatAndFade());
         }
@@ -62,7 +65,7 @@ namespace DVDNights
 
     public interface IHitView
     {
-        public void InitializeView(string hitMessage, bool isCorner);
+        public void InitializeView(string hitMessage, bool isCorner, DiskDataSO diskData);
         public RectTransform GetRectTransform();
     }
 }
