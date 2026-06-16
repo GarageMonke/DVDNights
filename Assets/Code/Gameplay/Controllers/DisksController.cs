@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CorePatterns.Managers;
@@ -80,12 +81,12 @@ public class DisksController : MonoBehaviour, IDisksController
         
         //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);
-        // CreateDisk(DiskType.CYAN);
-        // CreateDisk(DiskType.YELLOW);
-        // CreateDisk(DiskType.ORANGE);
-        // CreateDisk(DiskType.RED);
-        // CreateDisk(DiskType.GREEN);
-        // CreateDisk(DiskType.MAGENTA);
+        CreateDisk(DiskType.CYAN);
+        CreateDisk(DiskType.YELLOW);
+        CreateDisk(DiskType.ORANGE);
+        CreateDisk(DiskType.RED);
+        CreateDisk(DiskType.GREEN);
+        CreateDisk(DiskType.MAGENTA);
         ResumeAllDisksMoving();
         CheckDisksToMerge();
         
@@ -96,6 +97,7 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         IBouncerDisk createdDisk = _diskFactory.CreateDisk(diskType, bounceArea.position);
         AddDisk(createdDisk);
+        createdDisk.LaunchDisc();
     }
 
     private void AddDisk(IBouncerDisk diskToAdd)
@@ -229,7 +231,7 @@ public class DisksController : MonoBehaviour, IDisksController
                         return;
                     }
                     
-                    AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                     float flashLength = flashAudioClip.length / 2f;
                     
                     _mergeSequence = DOTween.Sequence()
@@ -237,13 +239,13 @@ public class DisksController : MonoBehaviour, IDisksController
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .AppendCallback(() => 
                         {
-                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                         })
                         .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .AppendCallback(() => 
                         {
-                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                         })
                         .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
                         .AppendCallback(() => 
@@ -254,7 +256,7 @@ public class DisksController : MonoBehaviour, IDisksController
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .OnComplete(() =>
                         {
-                            AudioManager.Instance.PlaySFX(mergeAudioClip, 0.5f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, mergeAudioClip, 0.5f);
                             OnGoldDiskCreated?.Invoke();
                         });
                 });
@@ -286,7 +288,7 @@ public class DisksController : MonoBehaviour, IDisksController
                         return;
                     }
                     
-                    AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                     float flashLength = flashAudioClip.length / 2f;
                     
                     _mergeSequence = DOTween.Sequence()
@@ -294,13 +296,13 @@ public class DisksController : MonoBehaviour, IDisksController
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .AppendCallback(() => 
                         {
-                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                         })
                         .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .AppendCallback(() => 
                         {
-                            AudioManager.Instance.PlaySFX(flashAudioClip, 0.25f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, flashAudioClip, 0.25f);
                         })
                         .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
                         .AppendCallback(() => 
@@ -312,7 +314,7 @@ public class DisksController : MonoBehaviour, IDisksController
                         .Append(whiteFlashCanvasGroup.DOFade(0f, flashLength))
                         .OnComplete(() =>
                         {
-                            AudioManager.Instance.PlaySFX(mergeAudioClip, 0.5f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.TV, mergeAudioClip, 0.5f);
                             CheckDisksToMerge();
                         });
                 });

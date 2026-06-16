@@ -57,7 +57,6 @@ namespace DVDNights
             bounceArea = bouncingArea;
             _isMoving = false;
             InitializeSizes();
-            LaunchRandom();
         }
         
 
@@ -136,11 +135,15 @@ namespace DVDNights
             _velocity = _velocity.normalized * baseSpeed;
         }
 
-        private void LaunchRandom()
+        public void LaunchDisc()
         {
-            float x = Random.value > 0.5f ? 1f : -1f;
-            float y = Random.value > 0.5f ? 1f : -1f;
-            _velocity = new Vector2(x, y).normalized * baseSpeed;
+            float directionX = Random.Range(-1f, 1f);
+            float directionY = Random.Range(-1f, 1f);
+            
+            if (Mathf.Abs(directionX) < 0.2f) directionX = 0.2f * Mathf.Sign(directionX);
+            if (Mathf.Abs(directionY) < 0.2f) directionY = 0.2f * Mathf.Sign(directionY);
+            
+            _velocity = new Vector2(directionX, directionY).normalized * baseSpeed;
         }
 
         private void LaunchTowardCorner(CornerTarget corner)
@@ -392,5 +395,6 @@ namespace DVDNights
         public float BaseSpeed { get; set; }
         public void DestroyDisk();
         public void SetMoving(bool isMoving);
+        public void LaunchDisc();
     }
 }
