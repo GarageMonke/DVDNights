@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+﻿using System;
 using UnityEngine;
 
 namespace CorePatterns.Managers
@@ -7,14 +7,12 @@ namespace CorePatterns.Managers
     {
         public static AudioManager Instance { get; private set; }
 
-        [Header("Audio Source")]
-        [SerializeField] private AudioSource sfxSource;
-        [SerializeField] private AudioSource ostSource;
-        
-        private Tween _fadeTween;
-        private AudioClip _previousOSTClip;
-        private float _previousOstVolume;
-        
+        [Header("Channels")] [SerializeField] private AudioSourceChannel tvAudioChannel;
+        [SerializeField] private AudioSourceChannel turntableAudioChannel;
+        [SerializeField] private AudioSourceChannel stormAudioChannel;
+        [SerializeField] private AudioSourceChannel nonDiegeticAudioChannel;
+        [SerializeField] private AudioSourceChannel diegeticAudioChannel;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -24,120 +22,72 @@ namespace CorePatterns.Managers
             }
 
             Instance = this;
-            
-            if (!sfxSource)
-            {
-                sfxSource = gameObject.AddComponent<AudioSource>();
-                sfxSource.playOnAwake = false;
-            }
-            
-            if (!ostSource)
-            {
-                ostSource = gameObject.AddComponent<AudioSource>();
-                ostSource.playOnAwake = false;
-            }
         }
 
-        public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f, bool randomizePitch = false)
+        public void PlaySFX(AudioChannelType channelType, AudioClip clip, float volume = 1f, float pitch = 1f,
+            bool randomizePitch = false)
         {
-            if (!clip)
-            {
-                return;
-            }
-            
-            sfxSource.pitch = randomizePitch ? Random.Range(pitch - pitch * 0.1f, pitch + pitch * 0.1f) : pitch;
-            sfxSource.PlayOneShot(clip, volume);
-        }   
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.PlaySFX(clip, volume, pitch, randomizePitch);
+        }
+
+        public void PlayOST(AudioChannelType channelType, AudioClip newClip, float volume = 1f, bool loop = false,
+            float pitch = 1f)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.PlayOST(newClip, volume, loop, pitch);
+        }
+
+        public void StopOST(AudioChannelType channelType, bool fadeOut = true)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.StopOST(fadeOut);
+        }
         
-        public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false, float pitch = 1f)
+        public void PauseOST(AudioChannelType channelType)
         {
-            if (!newClip)
-            {
-                return;
-            }
-
-            if (newClip == ostSource.clip)
-            {
-                return;
-            }
-
-            _fadeTween?.Kill();
-            
-            if (!ostSource.isPlaying || !ostSource.clip)
-            {
-                ostSource.clip = newClip;
-                ostSource.pitch = pitch;
-                ostSource.loop = loop;
-                ostSource.volume = 0f;
-                ostSource.Play();
-
-                _fadeTween = ostSource.DOFade(volume, 2f);
-                return;
-            }
-            
-            ostSource.DOFade(0f, 3f).OnComplete(() =>
-            {
-                ostSource.Stop();
-                ostSource.clip = newClip;
-                ostSource.pitch = pitch;
-                ostSource.volume = volume;
-                ostSource.loop = loop;
-                ostSource.Play();
-                ostSource.DOFade(volume, 3f);
-            });
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.PauseOST();
         }
 
-        public void StopOST(bool fadeOut = true)
+        public void ResumeOST(AudioChannelType channelType)
         {
-            _fadeTween?.Kill();
-            
-            if (ostSource.isPlaying)
-            {
-                if (fadeOut)
-                {
-                    _fadeTween = ostSource.DOFade(0f, 0.5f).OnComplete(() =>
-                    {
-                        ostSource.Stop();
-                        ostSource.clip = null;
-                    });
-                }
-                else
-                {
-                    ostSource.Stop();
-                    ostSource.clip = null;
-                }
-            }
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.ResumeOST();
         }
 
-        public void PlayPreview(AudioClip previewClip, float volume = 1f)
+        public void PlayPreview(AudioChannelType channelType, AudioClip previewClip, float volume = 1f)
         {
-            if (!previewClip)
-            {
-                return;
-            }
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.PlayPreview(previewClip, volume);
+        }
 
-            
-            _fadeTween?.Kill();
-            
-            _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
+        private AudioSourceChannel GetAudioSourceChannelByType(AudioChannelType audioChannelType)
+        {
+            switch (audioChannelType)
             {
-                ostSource.Stop();
-                ostSource.clip = previewClip;
-                ostSource.volume = volume;
-                ostSource.Play();
-                
-                _fadeTween = ostSource.DOFade(volume, 1f).OnComplete(() =>
-                {
-                    // 4. Wait 10 seconds while preview plays
-                    DOVirtual.DelayedCall(25f, () =>
-                    {
-                        _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() =>
-                        {
-                            ostSource.Stop();
-                        });
-                    });
-                });
-            });
+                case AudioChannelType.TV:
+                    return tvAudioChannel;
+                case AudioChannelType.TURNTABLE:
+                    return turntableAudioChannel;
+                case AudioChannelType.STORM:
+                    return stormAudioChannel;
+                case AudioChannelType.NONDIEGETIC:
+                    return nonDiegeticAudioChannel;
+                case AudioChannelType.DIEGETIC:
+                    return diegeticAudioChannel;
+                default:
+                    return nonDiegeticAudioChannel;
+            }
         }
     }
+}
+
+public enum AudioChannelType
+{
+    TV,
+    TURNTABLE,
+    STORM,
+    NONDIEGETIC,
+    DIEGETIC
 }

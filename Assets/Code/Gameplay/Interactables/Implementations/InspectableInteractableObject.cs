@@ -24,13 +24,13 @@ namespace DVDNights
         public override void Interact()
         {
            _inspectionController.Inspect(inspectableDataSO);
-           AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 2.5f);
+           AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
         }
 
         public override void StopInteraction()
         {
             _inspectionController.StopInspection();
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 1.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
         }
     }
 }

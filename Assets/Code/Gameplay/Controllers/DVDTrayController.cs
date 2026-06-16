@@ -88,7 +88,7 @@ namespace DVDNights
         {
             diskTrayTransform.DOKill();
 
-            AudioManager.Instance.PlaySFX(openTrayClip, 0.5f, randomizePitch: false);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, openTrayClip, 0.5f, randomizePitch: false);
             diskTrayTransform.DOLocalMoveZ(destinationZPosition, openTrayClip.length * 0.65f).SetEase(Ease.InSine).OnComplete(() =>
             {
                 _isOpened = true;
@@ -102,7 +102,7 @@ namespace DVDNights
         {
             diskTrayTransform.DOKill();
 
-            AudioManager.Instance.PlaySFX(closeTrayClip, 0.5f, randomizePitch: false);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, closeTrayClip, 0.5f, randomizePitch: false);
             diskTrayTransform.DOLocalMoveZ(_originalZPosition, closeTrayClip.length * 0.55f).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 _isOpened = false;

@@ -16,11 +16,6 @@ namespace DVDNights
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color selectedColor;
         
-        [Header("Feedback")]
-        [SerializeField] private AudioClip audioClip;
-        [SerializeField] private float  volume = 0.1f;
-        [SerializeField] private float  pitch = 0.4f;
-
         private void Awake()
         {
             Unselect();
@@ -31,7 +26,6 @@ namespace DVDNights
             selectableText.color = Color.black;
             selectImage.color = selectedColor;
             selectImage.gameObject.SetActive(true);
-            AudioManager.Instance.PlaySFX(audioClip, volume, pitch);
         }
 
         public void Unselect()

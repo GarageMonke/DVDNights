@@ -81,14 +81,14 @@ namespace DVDNights
                 {
                     _cameraController.DisableNavigation();
                     _cameraController.RestoreCameraPositionAndRotation();
-                    AudioManager.Instance.PlaySFX(openDVDBoxAudioClip, pitch: 1.2f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, openDVDBoxAudioClip, pitch: 1.2f);
                 })
                 .AppendInterval(openDVDBoxAudioClip.length * 0.5f)
                 .Append(dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.InSine))
                 .AppendInterval(0.75f)
                 .AppendCallback(() =>
                 {
-                    AudioManager.Instance.PlaySFX(InteractionAudioClip, pitch: 1.2f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, pitch: 1.2f);
                     dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.InBounce);
                 })
                 .AppendInterval(1f)
@@ -98,7 +98,7 @@ namespace DVDNights
                 {
                     dvdBoxFace.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.InSine).OnComplete(() =>
                     {
-                        AudioManager.Instance.PlaySFX(closeDVDBoxAudioClip, pitch: 1.2f);
+                        AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, closeDVDBoxAudioClip, pitch: 1.2f);
                     });
 
                 })
@@ -122,7 +122,7 @@ namespace DVDNights
 
                         if (waypointIndex == 10)
                         {
-                            AudioManager.Instance.PlaySFX(DVDOnTrayAudioClip, volume: 0.5f, pitch: 1f);
+                            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, DVDOnTrayAudioClip, volume: 0.5f, pitch: 1f);
                             dvdDisk.parent = _dvdTrayController.TrayTransform;
                             _interactionController.EnableInteractions();
                             _interactionController.ForceInteraction(tvInteractableObject);

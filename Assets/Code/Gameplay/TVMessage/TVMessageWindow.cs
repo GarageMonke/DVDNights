@@ -65,7 +65,7 @@ namespace DVDNights
             
             canvasGroup.alpha = 1;
             messageWindow.SetActive(true);
-            AudioManager.Instance.PlaySFX(audioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip);
         }
     }
 

@@ -42,7 +42,7 @@ namespace DVDNights
                 OverrideShadeMaterial(shadeMaterial);
             }
             
-            AudioManager.Instance.PlaySFX(toPlay, volume: 0.5f, pitch: 1.25f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, toPlay, volume: 0.5f, pitch: 1.25f);
         }
 
         private void OverrideShadeMaterial(Material newMaterial)

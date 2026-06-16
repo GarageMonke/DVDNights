@@ -85,7 +85,7 @@ public class TVButton : MonoBehaviour, ITVButton, IPointerDownHandler, IPointerU
         transform.DOKill();
         transform.DOLocalMoveZ(destinationZPosition, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            AudioManager.Instance.PlaySFX(feedbackClip, volume, pitch, randomizePitch: false);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, feedbackClip, volume, pitch, randomizePitch: false);
 
             if (!canBeHeld)
             {

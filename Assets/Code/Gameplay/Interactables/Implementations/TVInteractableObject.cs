@@ -32,7 +32,7 @@ namespace DVDNights
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
             _tvNavigationController.EnableButtons();
             _mouseLayoutController.DisplayRegularLayout();
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 2.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
         }
 
         public override void StopInteraction()
@@ -42,7 +42,7 @@ namespace DVDNights
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
             _mouseLayoutController.HideMouseLayout();
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 1.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
         }
     }
 }

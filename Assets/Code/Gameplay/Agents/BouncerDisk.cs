@@ -334,13 +334,13 @@ namespace DVDNights
         private void PlayRegularFeedback()
         {
             float updatedPitch = pitch + GameFeel.ForwardPitch;
-            AudioManager.Instance.PlaySFX(audioClip, volume, updatedPitch, true);
+            AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip, volume, updatedPitch, true);
         }
         
         private void PlaySpecialFeedback()
         {
             float updatedPitch = pitch + pitch * 1.5f + GameFeel.ForwardPitch;
-            AudioManager.Instance.PlaySFX(audioClip, volume, updatedPitch, true);
+            AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip, volume, updatedPitch, true);
         }
 
         private void OnDestroy()

@@ -95,14 +95,14 @@ namespace DVDNights
                 return;
             }
             
-            AudioManager.Instance.PlaySFX(startForwardingClip, volume: 0.1f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, startForwardingClip, volume: 0.1f);
             GameFeel.ForwardPitch = _diskLevelController.DiskFFMultLevel * 0.2f;
             float forwardPitch = 0.8f + GameFeel.ForwardPitch;
             
             _tween?.Kill();
             _tween = DOVirtual.DelayedCall(startForwardingClip.length, () => 
             {
-                AudioManager.Instance.PlayOST(forwardingClip, volume: 0.1f, loop: true, pitch: forwardPitch);
+                AudioManager.Instance.PlayOST(AudioChannelType.DIEGETIC, forwardingClip, volume: 0.1f, loop: true, pitch: forwardPitch);
             });
             
             _isForwarding = true;
@@ -177,8 +177,8 @@ namespace DVDNights
                 return;
             }
             
-            AudioManager.Instance.StopOST();
-            AudioManager.Instance.PlaySFX(stopForwardingClip, 0.1f);
+            AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, stopForwardingClip, 0.1f);
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
             ResetForwardShader();

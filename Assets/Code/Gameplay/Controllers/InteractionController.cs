@@ -199,7 +199,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         }
     }
 
-    private void StopInteractionWithObject()
+    public void StopInteractionWithObject()
     {
         if (_currentInteraction == null)
         {
@@ -249,4 +249,5 @@ public interface IInteractionController
     public void EnableInteractions();
     public void DisableInteractions();
     public void ForceInteraction(IInteractableObject interactableObject);
+    public void StopInteractionWithObject();
 }

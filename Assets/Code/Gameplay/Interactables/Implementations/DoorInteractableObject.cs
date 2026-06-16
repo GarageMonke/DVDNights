@@ -47,7 +47,7 @@ namespace DVDNights
 
         private void Open()
         {
-            AudioManager.Instance.PlaySFX(InteractionAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip);
             _isTweening = true;
             _handleTweener?.Kill();
             _handleTweener = handleTransform.DOLocalRotate(openHandleAngle, 0.15f).SetEase(openEase);
@@ -66,7 +66,7 @@ namespace DVDNights
 
         private void Close()
         {
-            AudioManager.Instance.PlaySFX(closeAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, closeAudioClip);
             _isTweening = true;
             
             _handleTweener?.Kill();

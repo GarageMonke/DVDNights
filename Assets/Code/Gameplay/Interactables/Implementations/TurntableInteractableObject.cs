@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
@@ -29,14 +30,14 @@ namespace DVDNights
             Unhighlight();
             _cameraController.TweenToPosition(cameraLockPosition, 0.5f, ()=> _trackSelectorController.OpenTrackSelector());
             _cameraController.TweenToRotation(Quaternion.Euler(cameraLockRotation), 0.5f);
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 2.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
         }
 
         public override void StopInteraction()
         {
             Highlight();
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
-            AudioManager.Instance.PlaySFX(InteractionAudioClip, volume: 1f, pitch: 1.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
             _trackSelectorController.CloseTrackSelector();
         }
     }

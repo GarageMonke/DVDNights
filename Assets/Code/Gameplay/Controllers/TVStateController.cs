@@ -67,9 +67,9 @@ namespace DVDNights
             _readDiskSequence = DOTween.Sequence()
                 .AppendCallback(() =>
                 {
-                    AudioManager.Instance.StopOST();
+                    AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC);
                     tvScreenMesh.material = tvScreenMaterial;
-                    AudioManager.Instance.PlaySFX(loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
                 })
                 .AppendInterval(loadingDVDAudioClip.length)
                 .AppendCallback(() =>
@@ -121,13 +121,13 @@ namespace DVDNights
             }
             
             tvScreenMesh.material = tvStaticMaterial;
-            AudioManager.Instance.PlayOST(staticAudioClip, 0.002f, true);
+            AudioManager.Instance.PlayOST(AudioChannelType.DIEGETIC, staticAudioClip, 0.002f, true);
         }
 
         private void TurnOffTv()
         {
             tvScreenMesh.material = tvOffMaterial;
-            AudioManager.Instance.StopOST(fadeOut: false);
+            AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC, fadeOut: false);
         }
 
         private void OnDestroy()

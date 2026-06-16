@@ -79,7 +79,7 @@ namespace Code.Gameplay.Misc
         private void PlayRandomThunder()
         {
             int randomIndex = Random.Range(0, thunderAudioClips.Length);
-            AudioManager.Instance.PlaySFX(thunderAudioClips[randomIndex]);
+            AudioManager.Instance.PlaySFX(AudioChannelType.STORM, thunderAudioClips[randomIndex]);
         }
     }
 }

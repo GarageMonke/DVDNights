@@ -28,13 +28,13 @@ namespace DVDNights
         
         public void PlayRain()
         {
-            AudioManager.Instance.PlayOST(rainAudioClip, volume: 1f, loop: true);
+            AudioManager.Instance.PlayOST(AudioChannelType.STORM, rainAudioClip, volume: 1f, loop: true);
             _thunderCooldownRoutine ??= StartCoroutine(StartThunderCooldown());
         }
 
         public void StopRain()
         {
-            AudioManager.Instance.StopOST();
+            AudioManager.Instance.StopOST(AudioChannelType.STORM);
             StopCoroutine(_thunderCooldownRoutine);
             _thunderCooldownRoutine = null;
         }
