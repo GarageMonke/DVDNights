@@ -97,7 +97,11 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         IBouncerDisk createdDisk = _diskFactory.CreateDisk(diskType, bounceArea.position);
         AddDisk(createdDisk);
-        createdDisk.LaunchDisc();
+
+        if (diskType != DiskType.GOLD)
+        {
+            createdDisk.LaunchDisc();
+        }
     }
 
     private void AddDisk(IBouncerDisk diskToAdd)
