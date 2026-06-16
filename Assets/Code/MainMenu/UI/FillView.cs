@@ -10,7 +10,9 @@ namespace DVDNights
         
         private float _totalFill;
         private float _currentFill;
-        
+
+        public float CurrentFill => _currentFill;
+
         public void InitializeView(float totalFill)
         {
             _totalFill = totalFill;
@@ -18,6 +20,7 @@ namespace DVDNights
 
         public void UpdateFill(float fillAmount)
         {
+            if(fillAmount <= 0) return;
             _currentFill = fillAmount;
             fillImage.fillAmount = _currentFill / _totalFill;
         }
@@ -25,6 +28,7 @@ namespace DVDNights
 
     public interface IFillView
     {
+        public float CurrentFill { get; }
         public void InitializeView(float totalFill);
         public void UpdateFill(float fillAmount);
     }
