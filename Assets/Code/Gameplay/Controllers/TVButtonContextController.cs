@@ -92,10 +92,10 @@ namespace DVDNights
                     return "Play/Pause";
                 //Volume Down Button
                 case 7:
-                    return "Volume Up";
+                    return "Volume Down";
                 //Volume Up Button
                 case 8:
-                    return "Volume Down";
+                    return "Volume Up";
             }
 
             return "NULL";

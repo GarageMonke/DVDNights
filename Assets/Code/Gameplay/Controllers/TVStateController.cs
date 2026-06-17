@@ -38,7 +38,7 @@ namespace DVDNights
         private void Awake()
         {
             InstallService();
-            _isTesting = true;
+            _isTesting = false;
         }
 
         private void InstallService()
@@ -51,7 +51,6 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvNavigationController.OnPowerButtonPressed += TurnOnOffTv;
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
-            
         }
 
         public void InsertDisk(int diskId)
