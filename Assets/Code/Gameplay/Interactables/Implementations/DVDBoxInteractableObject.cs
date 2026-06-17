@@ -53,10 +53,12 @@ namespace DVDNights
             if (_dvdTrayController.IsTrayOpened)
             {
                 EnableInteraction();
+                IgnoreNavigation(true);
             }
             else
             {
                 DisableInteraction();
+                IgnoreNavigation(false);
             }
         }
 

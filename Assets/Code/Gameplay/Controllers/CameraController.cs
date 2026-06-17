@@ -128,7 +128,7 @@ namespace DVDNights
             TweenToRotation(Quaternion.identity);
         }
 
-        public void TweenToPosition(Vector3 position, float duration = 10f, Action callback = null)
+        public void TweenToPosition(Vector3 position, float duration = 2f, Action callback = null)
         {
             _currentMoveTween?.Kill();
             _currentMoveTween = mainCamera.transform

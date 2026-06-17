@@ -102,8 +102,17 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private void HandleRaycast()
     {
-        Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+        Ray ray;
 
+        if (_isInteracting)
+        {
+            ray = _camera.ScreenPointToRay(Input.mousePosition);
+        }
+        else
+        {
+            ray = new Ray(_camera.transform.position, _camera.transform.forward);
+        }
+  
         if (Physics.Raycast(ray, out RaycastHit hit, _interactionRange, _interactableLayer))
         {
             if (hit.collider.TryGetComponent(out IInteractableObject interactable))
@@ -129,9 +138,12 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private void InteractWithObject(IInteractableObject interactableObject)
     {
-        if (_isInteracting)
+        if (!interactableObject.HasIgnoreNavigation)
         {
-            return;
+            if (_isInteracting)
+            {
+                return;
+            }
         }
         
         if (_currentInteraction != null)
@@ -178,11 +190,14 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     private void HighlightObject(IInteractableObject interactableObject)
     {
-        if (_isInteracting)
+        if (!interactableObject.HasIgnoreNavigation)
         {
-            return;
+            if (_isInteracting)
+            {
+                return;
+            }
         }
-        
+
         if (_currentHighlighted != null && _currentHighlighted != interactableObject)
         {
             _currentHighlighted.Unhighlight();

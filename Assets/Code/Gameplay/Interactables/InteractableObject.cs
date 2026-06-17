@@ -16,11 +16,13 @@ namespace DVDNights
         [SerializeField] private AudioClip interactionAudioClip;
 
         private IOutlineController _outlineController;
-        
+        private bool _hasIgnoreNavigation;
+
         public bool HasNavigation => hasNavigation;
         public AudioClip InteractionAudioClip => interactionAudioClip;
         public bool IsEnabled => _isEnabled;
-        
+        public bool HasIgnoreNavigation => _hasIgnoreNavigation;
+
         public void EnableInteraction()
         {
             _isEnabled = true;
@@ -33,7 +35,11 @@ namespace DVDNights
         }
 
         public abstract string GetInteractionAction();
-        
+        public void IgnoreNavigation(bool ignore)
+        {
+            _hasIgnoreNavigation = ignore;
+        }
+
         public abstract void Interact();
 
         public abstract void StopInteraction();
@@ -63,6 +69,7 @@ namespace DVDNights
     public interface IInteractableObject
     {
         public bool IsEnabled { get; }
+        public bool HasIgnoreNavigation { get; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();
@@ -72,5 +79,6 @@ namespace DVDNights
         public void EnableInteraction();
         public void DisableInteraction();
         public string GetInteractionAction();
+        public void IgnoreNavigation(bool ignore);
     }
 }

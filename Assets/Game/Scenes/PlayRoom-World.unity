@@ -20426,7 +20426,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.30554187, y: 0.10808623, z: 0.20000005}
-  m_Center: {x: 0.46065325, y: 1.0240436, z: -1.58}
+  m_Center: {x: 0.43, y: 1.0240436, z: -1.58}
 --- !u!1 &1333053570
 GameObject:
   m_ObjectHideFlags: 0
@@ -382447,6 +382447,7 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 6979722673794559550}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  dvdBoxInteractableObject: {fileID: 1293801515}
 --- !u!65 &6991500540147518240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -383245,15 +383246,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2259706801816878727, guid: 04296fe0a5e375a409625aa72c7d24bb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4909969
+      value: 0.406
       objectReference: {fileID: 0}
     - target: {fileID: 2259706801816878727, guid: 04296fe0a5e375a409625aa72c7d24bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99873126
+      value: 0.998
       objectReference: {fileID: 0}
     - target: {fileID: 2259706801816878727, guid: 04296fe0a5e375a409625aa72c7d24bb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.517
+      value: -1.527
       objectReference: {fileID: 0}
     - target: {fileID: 2259706801816878727, guid: 04296fe0a5e375a409625aa72c7d24bb, type: 3}
       propertyPath: m_LocalRotation.w

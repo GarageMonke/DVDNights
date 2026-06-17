@@ -22,6 +22,7 @@ namespace DVDNights
         public bool IsTVOn => _isTVOn;
         public bool HasDisk => _hasDisk;
         public bool IsPlayingGame => _isPlayingGame;
+        public bool IsDiskOnTray => _diskId > 0;
         public int DiskId => _diskId;
 
         private bool _isTVOn;
@@ -140,6 +141,7 @@ namespace DVDNights
         public bool IsTVOn { get; }
         public bool HasDisk { get; }
         public bool IsPlayingGame { get; }
+        public bool IsDiskOnTray { get; }
         public int DiskId { get; }
         public void ReadDisk();
         public void InsertDisk(int diskId);
