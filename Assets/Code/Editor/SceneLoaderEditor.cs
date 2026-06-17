@@ -46,9 +46,27 @@ public class SceneLoaderEditor : EditorWindow
             string path = AssetDatabase.GUIDToAssetPath(guid);
             string sceneName = Path.GetFileNameWithoutExtension(path);
 
-            if (GUILayout.Button(sceneName))
+            Rect rect = GUILayoutUtility.GetRect(
+                new GUIContent(sceneName),
+                GUI.skin.button
+            );
+
+            GUI.Box(rect, sceneName, GUI.skin.button);
+
+            Event e = Event.current;
+
+            if (e.type == EventType.MouseUp && rect.Contains(e.mousePosition))
             {
-                LoadScene(path);
+                if (e.button == 2)
+                {
+                    LoadScene(path);
+                }
+                else if (e.button == 0)
+                {
+                    LoadSceneAdditive(path);
+                }
+
+                e.Use();
             }
         }
 
@@ -56,6 +74,14 @@ public class SceneLoaderEditor : EditorWindow
     }
 
     private void LoadScene(string scenePath)
+    {
+        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+        }
+    }
+    
+    private void LoadSceneAdditive(string scenePath)
     {
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
