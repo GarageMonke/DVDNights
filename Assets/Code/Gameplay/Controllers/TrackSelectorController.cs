@@ -17,10 +17,13 @@ namespace DVDNights
         private int _currentTrackIndex = 0;
         private int _previousTrackIndex = -1;
         private bool _shouldPlayFromStart;
+        private bool _isPlayingTrack;
 
         private IMouseLayoutController _mouseLayoutController;
         private ICameraController _cameraController;
         private IInteractionController _interactionController;
+
+        public bool IsPlayingTrack => _isPlayingTrack;
 
         private void Awake()
         {
@@ -42,16 +45,18 @@ namespace DVDNights
 
         public void OpenTrackSelector()
         {
+            AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE, fadeDuration: 0f);
             DisplayTrack();
             trackSelectionWindow.Display();
             trackSelectionWindow.OnNextTrackRequested += NextTrack;
             trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
             trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
+            trackSelectionWindow.OnExitTrackRequested += ExitTrackSelection;
             _mouseLayoutController.DisplayRegularLayout();
-            AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE);
             _cameraController.Unfocus();
         }
 
+     
         private void DisplayTrack()
         {
             DeleteTrack();
@@ -99,7 +104,7 @@ namespace DVDNights
             }
             
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
-            
+            _isPlayingTrack = true;
             _interactionController.StopInteractionWithObject();
         }
 
@@ -125,11 +130,9 @@ namespace DVDNights
             _mouseLayoutController.HideMouseLayout();
             trackSelectionWindow.Hide();
             _cameraController.Focus();
-            
-            PlaySelectedTrack();
         }
 
-        private void PlaySelectedTrack()
+        public void PlaySelectedTrack()
         {
             if (_shouldPlayFromStart)
             {
@@ -140,12 +143,21 @@ namespace DVDNights
             
             AudioManager.Instance.ResumeOST(AudioChannelType.TURNTABLE);
         }
+        
+        private void ExitTrackSelection()
+        {
+            _isPlayingTrack = false;
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
+            _interactionController.StopInteractionWithObject();
+        }
     }
 
     public interface ITrackSelectionController
     {
+        public bool IsPlayingTrack { get; }
         public void OpenTrackSelector();
         public void CloseTrackSelector();
-        
+        public void PlaySelectedTrack();
+
     }
 }

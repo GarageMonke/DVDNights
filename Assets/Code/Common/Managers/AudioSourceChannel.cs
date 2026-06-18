@@ -112,11 +112,11 @@ public class AudioSourceChannel : MonoBehaviour
         });
     }
     
-    public void PauseOST()
+    public void PauseOST(float fadeDuration = 2f)
     {
         _fadeTween?.Kill();
         
-        ostSource.DOFade(0f, 2f).OnComplete(() =>
+        ostSource.DOFade(0f, fadeDuration).OnComplete(() =>
         {
             ostSource.Pause();
         });

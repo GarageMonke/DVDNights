@@ -15,16 +15,19 @@ namespace DVDNights
         [SerializeField] private Button nextTrackButton;
         [SerializeField] private Button previousTrackButton;
         [SerializeField] private Button selectTrackButton;
+        [SerializeField] private Button exitTrackButton;
         
         public Action OnNextTrackRequested { get; set; }
         public Action OnPreviousTrackRequested { get; set; }
         public Action OnSelectTrackRequested { get; set; }
+        public Action OnExitTrackRequested { get; set; }
         
         private void Awake()
         {
             nextTrackButton.onClick.AddListener(RequestNextTrack);
             previousTrackButton.onClick.AddListener(RequestPreviousTrack);
             selectTrackButton.onClick.AddListener(RequestSelectTrack);
+            exitTrackButton.onClick.AddListener(RequestExitTrack);
         }
 
         private void RequestNextTrack()
@@ -40,6 +43,11 @@ namespace DVDNights
         private void RequestSelectTrack()
         {
             OnSelectTrackRequested?.Invoke();
+        }
+        
+        private void RequestExitTrack()
+        {
+            OnExitTrackRequested?.Invoke();
         }
 
         public void UpdateTrackInfo(string trackTitle, string coverArt, string composer)
@@ -61,6 +69,8 @@ namespace DVDNights
         public Action OnNextTrackRequested { get; set; }
         public Action OnPreviousTrackRequested { get; set; }
         public Action OnSelectTrackRequested { get; set; }
+        public Action OnExitTrackRequested { get; set; }
+        
         public void UpdateTrackInfo(string trackTitle, string coverArt, string composer);
     }
 }

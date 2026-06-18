@@ -44,10 +44,10 @@ namespace CorePatterns.Managers
             channel.StopOST(fadeOut);
         }
         
-        public void PauseOST(AudioChannelType channelType)
+        public void PauseOST(AudioChannelType channelType, float fadeDuration = 2f)
         {
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
-            channel.PauseOST();
+            channel.PauseOST(fadeDuration);
         }
 
         public void ResumeOST(AudioChannelType channelType)
