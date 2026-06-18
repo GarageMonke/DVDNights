@@ -85,6 +85,7 @@ namespace DVDNights
                     _cameraController.RestoreCameraPositionAndRotation();
                     AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, openDVDBoxAudioClip, pitch: 1.2f);
                 })
+                //Open Box
                 .AppendInterval(openDVDBoxAudioClip.length * 0.5f)
                 .Append(dvdBoxFace.DOLocalRotate(openDVDRotation, 0.5f).SetEase(Ease.InSine))
                 .AppendInterval(0.75f)
@@ -93,6 +94,7 @@ namespace DVDNights
                     AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, pitch: 1.2f);
                     dvdDisk.DOLocalMove(clickDVDPosition, 0.5f).SetEase(Ease.InBounce);
                 })
+                //Take out DVD
                 .AppendInterval(1f)
                 .Append(dvdDisk.DOLocalMove(firstStepDVDPosition, 0.25f).SetEase(Ease.InSine))
                 .AppendInterval(0.3f)
@@ -104,16 +106,20 @@ namespace DVDNights
                     });
 
                 })
+                //Grab DVD
                 .AppendCallback(() =>
                 {
                     dvdDisk.parent = dvdPathParent;
                     dvdDisk.DOLocalMove(dvdPathNodes[0], 1f).SetEase(Ease.InSine);
                     dvdDisk.DOLocalRotate(new Vector3(180, 0, 0), 1f).SetEase(Ease.InSine);
+                    dvdDisk.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 })
+                //Spin DVD
                 .AppendInterval(1.1f)
                 .Append(dvdDisk.DOBlendableLocalRotateBy(new Vector3(0, 360 * 3, 0), 0.35f, RotateMode.FastBeyond360)
                     .SetEase(Ease.Linear))
                 .AppendInterval(0.5f)
+                //Go to Tray
                 .Append(dvdDisk.DOLocalPath(_dvdPathToTray, 2f, PathType.CatmullRom).SetEase(Ease.InOutSine)
                     .OnWaypointChange(waypointIndex =>
                     {
