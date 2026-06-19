@@ -15,6 +15,7 @@ namespace DVDNights
 
         [Header("Rotation Settings")]
         [SerializeField] private float _mouseSensitivity = 2f;
+        [SerializeField] private bool _mouseYClamp;
 
         [Header("X Axis (Pitch - Up/Down)")]
         [SerializeField] private float _minPitchAngle = -30f;
@@ -79,7 +80,14 @@ namespace DVDNights
             float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
 
             // Yaw (Y axis, left/right)
-            _currentYaw   = Mathf.Clamp(_currentYaw + mouseX, _minYawAngle, _maxYawAngle);
+            if (_mouseYClamp)
+            {
+                _currentYaw = Mathf.Clamp(_currentYaw + mouseX, _minYawAngle, _maxYawAngle);
+            }
+            else
+            {
+                _currentYaw += mouseX;
+            }
 
             // Pitch (X axis, up/down)
             _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);

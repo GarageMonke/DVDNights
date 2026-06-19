@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92ef0dbb7cc54f32a424f351f2e15115, type: 3}
-  m_Name: Picture04-InspectableDataSO
+  m_Name: SirenofDamnationLust-InspectableDataSO
   m_EditorClassIdentifier: 
   inspectableObject: {fileID: 2094666091731319892, guid: bd70aebb390255f439a25db2e7eaf3ce, type: 3}
   inspectableTitle: Siren of Damnation Lust
