@@ -2580,13 +2580,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265031447}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.15304591, y: -0.6903456, z: 0.15304591, w: 0.6903456}
   m_LocalPosition: {x: -0.053, y: 0.1, z: -0.724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1345171483}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -90, z: 0}
 --- !u!114 &265031451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4624,6 +4624,37 @@ MonoBehaviour:
   previousTrackButton: {fileID: 617483001}
   selectTrackButton: {fileID: 1830639657}
   exitTrackButton: {fileID: 130785393}
+--- !u!1 &608494040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 608494041}
+  m_Layer: 6
+  m_Name: VinylToTurntable-01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &608494041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608494040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.593, y: 0.649, z: 0.141}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1758666994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &617482999
 GameObject:
   m_ObjectHideFlags: 0
@@ -8805,7 +8836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1183448451}
   m_Layer: 6
-  m_Name: VinylToTurntable-01
+  m_Name: VinylToTurntable-00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8820,7 +8851,7 @@ Transform:
   m_GameObject: {fileID: 1183448450}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.915, y: 0.23754542, z: 0.141}
+  m_LocalPosition: {x: -0.905, y: 0.23754542, z: 0.141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25532,6 +25563,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1183448451}
+  - {fileID: 608494041}
   - {fileID: 367730781}
   - {fileID: 676420048}
   m_Father: {fileID: 2061118749}
@@ -36683,16 +36715,19 @@ MonoBehaviour:
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
   vinylCase: {fileID: 1844412742006626222}
   vinyl: {fileID: 3252684145540389713}
-  vinylStartPosition: {x: -0.90343225, y: 0.23754542, z: 0.30165273}
   vinylToTurntablePath:
-  - {x: -0.915, y: 0.23754542, z: 0.141}
+  - {x: -0.89, y: 0.2375454, z: 0.018}
+  - {x: -0.593, y: 0.649, z: 0.141}
+  - {x: -0.915, y: 0.649, z: 0.018}
   - {x: -0.0115, y: 0.233, z: 0.018}
   - {x: -0.0115, y: 0.023, z: 0.018}
   vinylCasePath:
   - {x: -0.8931, y: 0.038, z: 0.4477}
   - {x: -0.8931, y: -0.1, z: 0.4477}
   - {x: -0.8931, y: -0.38, z: 0.4477}
-  vinylCasePreparePosition: {x: -0.90343225, y: 0.23754542, z: 0.30165273}
+  vinylCaseStartPosition: {x: -0.8931, y: -0.091, z: 0.25}
+  vinylCaseStartRotation: {x: 90, y: 0, z: 90}
+  vinylCasePreparePosition: {x: -0.90343225, y: 0.23754542, z: 0.3016527}
   vinylCaseFirstPosition: {x: -0.8931, y: 0.23754542, z: 0.4477}
   head: {fileID: 1830702432}
   headLockRotation: {x: 0, y: 30, z: 8}
@@ -36702,6 +36737,7 @@ MonoBehaviour:
   removeHeadOnVinylAudioClip: {fileID: 8300000, guid: 7ea905ee431509a4e9f7fd63cd0e33ce, type: 3}
   cameraLockPosition: {x: -1, y: -0.15, z: -0.5}
   cameraLockRotation: {x: 25, y: -90, z: 0}
+  cameraReleaseRotation: {x: 25, y: -85, z: 0}
 --- !u!1001 &2070046385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39358,7 +39394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &53020261872275971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54401,14 +54437,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43804793197984768}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.517301, y: 0.4820785, z: -0.4820785, w: -0.517301}
-  m_LocalPosition: {x: -0.8931, y: 0.23754542, z: 0.4477}
-  m_LocalScale: {x: 0.909091, y: 1.818182, z: 0.9090909}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.8931, y: -0.091, z: 0.25}
+  m_LocalScale: {x: 0.909091, y: 2, z: 0.9090909}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3252684145540389713}
   m_Father: {fileID: 2061118749}
-  m_LocalEulerAnglesHint: {x: 90, y: 360, z: 86.528}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
 --- !u!23 &1846577318281455860
 MeshRenderer:
   m_ObjectHideFlags: 0
