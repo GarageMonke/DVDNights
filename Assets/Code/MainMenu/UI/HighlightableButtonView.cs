@@ -36,9 +36,7 @@ namespace DVDNights
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            highlightImage.gameObject.SetActive(false);
-            buttonText.color = _originalTextHighlightColor;
-            buttonText.fontStyle = _originalFontStyle;
+           Unhighlight();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -52,6 +50,18 @@ namespace DVDNights
             highlightImage.color = _originalImageHighlightColor;
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
+        }
+
+        private void Unhighlight()
+        {
+            highlightImage.gameObject.SetActive(false);
+            buttonText.color = _originalTextHighlightColor;
+            buttonText.fontStyle = _originalFontStyle;
+        }
+        
+        private void OnDisable()
+        {
+            Unhighlight();
         }
     }
 

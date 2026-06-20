@@ -225,12 +225,12 @@ public class InteractionController : MonoBehaviour, IInteractionController
         {
             return;
         }
-
-        _currentInteraction.StopInteraction();
-        _currentInteraction = null;
+        
         _isInteracting = false;
         crosshairImage.gameObject.SetActive(true);
         _cameraController.EnableNavigation();
+        _currentInteraction.StopInteraction();
+        _currentInteraction = null;
         _dialogController.HideDialog();
     }
     

@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.Providers.Implementations;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
@@ -21,8 +22,8 @@ namespace DVDNights
 
         private IMouseLayoutController _mouseLayoutController;
         private ICameraController _cameraController;
-        private IInteractionController _interactionController;
 
+        public Action OnTrackSelectionCloseRequested { get; set; }
         public bool IsPlayingTrack => _isPlayingTrack;
 
         private void Awake()
@@ -40,7 +41,6 @@ namespace DVDNights
         {
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
             _cameraController = ServiceLocator.GetService<ICameraController>();
-            _interactionController = ServiceLocator.GetService<IInteractionController>();
         }
 
         public void OpenTrackSelector()
@@ -105,7 +105,7 @@ namespace DVDNights
             
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
             _isPlayingTrack = true;
-            _interactionController.StopInteractionWithObject();
+            OnTrackSelectionCloseRequested?.Invoke();
         }
 
         private void DeleteTrack()
@@ -148,12 +148,13 @@ namespace DVDNights
         {
             _isPlayingTrack = false;
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
-            _interactionController.StopInteractionWithObject();
+            OnTrackSelectionCloseRequested?.Invoke();
         }
     }
 
     public interface ITrackSelectionController
     {
+        public Action OnTrackSelectionCloseRequested { get; set; }
         public bool IsPlayingTrack { get; }
         public void OpenTrackSelector();
         public void CloseTrackSelector();
