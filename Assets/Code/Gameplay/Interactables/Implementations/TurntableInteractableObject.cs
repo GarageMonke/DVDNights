@@ -16,6 +16,12 @@ namespace DVDNights
         [SerializeField] private Vector3 vinylCaseStartRotation;
         [SerializeField] private Vector3 vinylCasePreparePosition;
         [SerializeField] private Vector3 vinylCaseFirstPosition;
+
+        [Header("PlayVinyl-Feedback")] 
+        [SerializeField] private AudioClip grabVinylCaseAudioClip;
+        [SerializeField] private AudioClip vinylOutOfSleeveAudioClip;
+        [SerializeField] private AudioClip vinylAirSpinAudioClip;
+        [SerializeField] private AudioClip vinylOnTurntableAudioClip;
         
         [Header("Head-Sequence")] 
         [SerializeField] private Transform head;
@@ -97,45 +103,53 @@ namespace DVDNights
             _spinningSequence = DOTween.Sequence()
                 .AppendInterval(0.5f)
                 .AppendCallback(() => { vinylCase.gameObject.SetActive(true); })
-                .Append(vinylCase.DOLocalMove(vinylCasePreparePosition, 0.75f).SetEase(Ease.OutExpo)
-                    .OnComplete(() => { vinyl.parent = transform; }))
-                .AppendInterval(0.8f)
                 .AppendCallback(() =>
                 {
-                    vinyl.DOLocalMove(_vinylPathToTurntable[0], 1f).SetEase(Ease.InSine);
-                    vinylCase.DOLocalMove(vinylCaseFirstPosition, 1f).SetEase(Ease.OutSine);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOutOfSleeveAudioClip, volume: 1f, pitch: 0.75f);
+                    vinylCase.DOLocalMove(vinylCasePreparePosition, grabVinylCaseAudioClip.length).SetEase(Ease.OutExpo)
+                        .OnComplete(() => { vinyl.parent = transform; });
+                })
+                .AppendInterval(grabVinylCaseAudioClip.length)
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOutOfSleeveAudioClip, volume: 1f, pitch: 1f);
+                    vinyl.DOLocalMove(_vinylPathToTurntable[0], 0.65f).SetEase(Ease.InSine);
+                    vinylCase.DOLocalMove(vinylCaseFirstPosition, 0.65f).SetEase(Ease.OutSine);
                 })
                 .AppendInterval(1f)
                 .AppendCallback(() =>
                     {
-                        vinylCase.DOLocalPath(_vinylCasePath, 10f, PathType.CatmullRom).SetEase(Ease.OutElastic).OnWaypointChange(waypointIndex =>
+                        vinylCase.DOLocalPath(_vinylCasePath, 8f, PathType.CatmullRom).SetEase(Ease.OutElastic).OnWaypointChange(waypointIndex =>
                         {
-                            if (waypointIndex == 5)
+                            if (waypointIndex == 3)
                             {
                                 vinylCase.gameObject.SetActive(false);
                             }
                         });
                         
+                        AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylAirSpinAudioClip, volume: 1f, pitch: 1.5f);
                         vinyl.DOBlendableLocalRotateBy(new Vector3(0, 0, -360), 0.5f, RotateMode.FastBeyond360)
-                            .SetEase(Ease.Linear);
+                            .SetEase(Ease.Linear).OnComplete(
+                                ()=>  vinyl.DOLocalRotate(new Vector3(0, 0, 0), 1.25f).SetEase(Ease.OutSine));
                     }
                     )
                 .AppendInterval(0.6f)
                 .AppendCallback(() =>
                 {
-                    vinyl.DOLocalPath(_vinylPathToTurntable, 2f, PathType.CatmullRom).SetEase(Ease.InOutSine)
+                    vinyl.DOLocalPath(_vinylPathToTurntable, 1.75f, PathType.CatmullRom).SetEase(Ease.InOutSine)
                         .OnWaypointChange(waypointIndex =>
                         {
                             if (waypointIndex == 5)
                             {
-                                vinyl.DOLocalRotate(new Vector3(0, 0, 0), 0.35f).SetEase(Ease.OutSine);
+                                //vinyl.DOLocalRotate(new Vector3(0, 0, 0), 0.35f).SetEase(Ease.OutSine);
                             }
                             
                             if (waypointIndex == 10)
                             {
-                                //AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, DVDOnTrayAudioClip, volume: 0.5f, pitch: 1f);
+                                AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOnTurntableAudioClip, volume: 1f, pitch: 1f);
+                                StartSpinning();
                             }
-                        }).OnComplete(StartSpinning);
+                        });
                 });
 
         }

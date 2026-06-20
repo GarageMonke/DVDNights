@@ -36729,6 +36729,10 @@ MonoBehaviour:
   vinylCaseStartRotation: {x: 90, y: 0, z: 90}
   vinylCasePreparePosition: {x: -0.90343225, y: 0.23754542, z: 0.3016527}
   vinylCaseFirstPosition: {x: -0.8931, y: 0.23754542, z: 0.4477}
+  grabVinylCaseAudioClip: {fileID: 8300000, guid: 408c22372f481cd4c86eba2ae08182ab, type: 3}
+  vinylOutOfSleeveAudioClip: {fileID: 8300000, guid: 513b581827d42d940aecba11e51ac837, type: 3}
+  vinylAirSpinAudioClip: {fileID: 8300000, guid: de613937c3ca23d49a25b72446fe340e, type: 3}
+  vinylOnTurntableAudioClip: {fileID: 8300000, guid: 6160757324a894b4a9f0eb2982543b7e, type: 3}
   head: {fileID: 1830702432}
   headLockRotation: {x: 0, y: 30, z: 8}
   headFreeRotation: {x: 0, y: 0, z: 0}
@@ -39394,7 +39398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &53020261872275971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -370350,7 +370354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d04782099760f3c46bfbbbe2ffa7ffc2, type: 2}
+  - {fileID: 2100000, guid: e1d23309ee122004a9ac512086eaa774, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372810,7 +372814,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d04782099760f3c46bfbbbe2ffa7ffc2, type: 2}
+  - {fileID: 2100000, guid: 176be3caae3e445418f5e8fbaea1e776, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
