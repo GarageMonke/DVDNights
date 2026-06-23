@@ -1,9 +1,10 @@
 ﻿using CorePatterns.Managers;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DVDNights
 {
-    public class LampInteractableObject : InteractableObject
+    public class LampInteractableObject : InteractableObject, ICorruptibleObject
     {
         [Header("References")] 
         [SerializeField] private Light lampLight;
@@ -17,8 +18,22 @@ namespace DVDNights
         [SerializeField] private Material shadeEmissiveMaterial;
         [SerializeField] private Material shadeMaterial;
 
-        private bool _isOn;
+        [Header("Flicker Settings")] 
+        [SerializeField] private AudioClip flickeringAudioClip;
+        [SerializeField] private float minIntensity = 0.015f;
+        [SerializeField] private float maxIntensity = 1.5f;
+        [SerializeField] private float minStepTime = 0.02f;
+        [SerializeField] private float maxStepTime = 0.1f;
 
+        private bool _isOn;
+        private bool _isCorrupted;
+        private Sequence _flickerSequence;
+        private float _thresholdIntensity;
+
+        private void Awake()
+        {
+            _thresholdIntensity = (minIntensity + maxIntensity) / 2f;
+        }
         public override string GetInteractionAction()
         {
             return _isOn ? "Turn Off" : "Turn On";
@@ -38,6 +53,11 @@ namespace DVDNights
             }
             else
             {
+                if (_isCorrupted)
+                {
+                    ClearCorruption();
+                }
+                
                 toPlay = turnOffLampAudioClip;
                 OverrideShadeMaterial(shadeMaterial);
             }
@@ -50,12 +70,74 @@ namespace DVDNights
             Material[] mats = lampRenderer.materials;
             mats[1] = new Material(newMaterial);
             lampRenderer.materials = mats;
-            
         }
 
         public override void StopInteraction()
         {
             //
+        }
+
+        public void Corrupt()
+        {
+            _isCorrupted = true;
+            StartFlicker();
+        }
+
+        public void ClearCorruption()
+        {
+            _isCorrupted = false;
+            StopFlicker();
+        }
+
+        public bool CanBeCorrupted()
+        {
+            return _isOn;
+        }
+        
+        private void StartFlicker()
+        {
+            StopFlicker();
+
+            _flickerSequence = DOTween.Sequence();
+
+            _flickerSequence.SetLoops(-1, LoopType.Restart);
+
+            _flickerSequence.AppendCallback(() =>
+            {
+                float targetIntensity = Random.Range(minIntensity, maxIntensity);
+                
+                float duration = Random.Range(minStepTime, maxStepTime);
+
+                lampLight.DOIntensity(targetIntensity, duration)
+                    .SetEase(Ease.Flash).OnComplete(() =>
+                    {
+                        if (targetIntensity > _thresholdIntensity)
+                        {
+                            float playSfx = Random.value;
+                            if (playSfx >= 0.6f)
+                            {
+                                AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, flickeringAudioClip, volume: 0.05f,
+                                    pitch: 1f);
+                            }
+                        }
+                    });
+            });
+            
+            _flickerSequence.AppendInterval(Random.Range(minStepTime, maxStepTime));
+        }
+
+        private void StopFlicker()
+        {
+            if (_flickerSequence != null && _flickerSequence.IsActive())
+            {
+                _flickerSequence.Kill();
+                _flickerSequence = null;
+            }
+
+            if (lampLight)
+            {
+                lampLight.DOKill();
+            }
         }
     }
 }

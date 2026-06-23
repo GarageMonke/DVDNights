@@ -42,7 +42,7 @@ namespace DVDNights
         {
             foreach (Transform wind in curtainPanels)
             {
-                wind.DOLocalRotate(new Vector3(0f, 0f, -12f), 0.25f).SetEase(Ease.OutBack);
+                wind.DOLocalRotate(new Vector3(0f, 0f, -45f), 0.25f).SetEase(Ease.OutBack);
             }
             
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
