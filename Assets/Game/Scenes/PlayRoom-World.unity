@@ -405188,11 +405188,16 @@ MonoBehaviour:
   _isEnabled: 1
   outline: {fileID: 8918280150175745896}
   interactionAudioClip: {fileID: 8300000, guid: f765815a7bc3a1f43b4e92727db21454, type: 3}
-  openAngle: {x: 0, y: -90, z: 0}
+  minOpenAngle: {x: 0, y: -10, z: 0}
+  maxOpenAngle: {x: 0, y: -90, z: 0}
   openHandleAngle: {x: 0, y: 0, z: -35}
   openEase: 8
   closeEase: 9
   closeAudioClip: {fileID: 8300000, guid: 4c02738719a063f4d9e4ff7f82ebd1d0, type: 3}
+  squeakAudioClips:
+  - {fileID: 8300000, guid: 9adabc383dcb56f4a8e8c68296c3563c, type: 3}
+  - {fileID: 8300000, guid: e7e8e8f13b1c5484883ff52e6892970f, type: 3}
+  - {fileID: 8300000, guid: 3fae3d17504349048ba3a5d0d6f4d4e1, type: 3}
   handleTransform: {fileID: 64240812078819425}
 --- !u!65 &8918280150175745898
 BoxCollider:
