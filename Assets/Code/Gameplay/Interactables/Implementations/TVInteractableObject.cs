@@ -42,10 +42,10 @@ namespace DVDNights
             {
                 if (_hasBeenHitOnce)
                 {
-                    return "Strike Again";
+                    return "Smack Again";
                 }
                 
-                return "Strike";
+                return "Smack";
             }
             
             return "TV";
