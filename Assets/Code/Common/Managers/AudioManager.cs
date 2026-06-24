@@ -12,6 +12,7 @@ namespace CorePatterns.Managers
         [SerializeField] private AudioSourceChannel stormAudioChannel;
         [SerializeField] private AudioSourceChannel nonDiegeticAudioChannel;
         [SerializeField] private AudioSourceChannel diegeticAudioChannel;
+        [SerializeField] private AudioSourceChannel doorAudioChannel;
 
         private void Awake()
         {
@@ -88,6 +89,8 @@ namespace CorePatterns.Managers
                     return nonDiegeticAudioChannel;
                 case AudioChannelType.DIEGETIC:
                     return diegeticAudioChannel;
+                case AudioChannelType.DOOR:
+                    return doorAudioChannel;
                 default:
                     return nonDiegeticAudioChannel;
             }
@@ -101,5 +104,6 @@ public enum AudioChannelType
     TURNTABLE,
     STORM,
     NONDIEGETIC,
-    DIEGETIC
+    DIEGETIC,
+    DOOR
 }

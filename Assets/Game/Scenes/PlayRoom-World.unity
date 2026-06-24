@@ -391355,12 +391355,27 @@ MonoBehaviour:
   openHandleAngle: {x: 0, y: 0, z: -35}
   openEase: 8
   closeEase: 9
+  handleTransform: {fileID: 64240812078819425}
   closeAudioClip: {fileID: 8300000, guid: 4c02738719a063f4d9e4ff7f82ebd1d0, type: 3}
   squeakAudioClips:
   - {fileID: 8300000, guid: 9adabc383dcb56f4a8e8c68296c3563c, type: 3}
   - {fileID: 8300000, guid: e7e8e8f13b1c5484883ff52e6892970f, type: 3}
   - {fileID: 8300000, guid: 3fae3d17504349048ba3a5d0d6f4d4e1, type: 3}
-  handleTransform: {fileID: 64240812078819425}
+  slowKnocksAudioClips:
+  - {fileID: 8300000, guid: 71ff68f46fe787e458d193995a46b9c2, type: 3}
+  - {fileID: 8300000, guid: d8d41900907ef9c49bc91b7e084a8afe, type: 3}
+  fastKnocksAudioClips:
+  - {fileID: 8300000, guid: 5cdeb76ce0c6cdb4eabd335c273104f1, type: 3}
+  - {fileID: 8300000, guid: c11c2bd42d690b749a1840a76a6996fb, type: 3}
+  - {fileID: 8300000, guid: 359f0bb90b4049f4ab902e29ccf2d65f, type: 3}
+  bruteKnocksAudioClips:
+  - {fileID: 8300000, guid: 6ebf693f8d048ad4fb5713c6a1b96907, type: 3}
+  - {fileID: 8300000, guid: 29008808643b74e4395f6a1a2f834661, type: 3}
+  - {fileID: 8300000, guid: d20ed3fd4e89da4478632853f7e22f66, type: 3}
+  - {fileID: 8300000, guid: 386120fdbde41e348a70b91bd063c90c, type: 3}
+  - {fileID: 8300000, guid: fbf09f49cfa5fc9488d0e8ba73ebfb98, type: 3}
+  - {fileID: 8300000, guid: 70b6635e920b2c94fa835e40eafe760b, type: 3}
+  - {fileID: 8300000, guid: 0e34982cde6539344ac4b76081b2c30e, type: 3}
 --- !u!65 &8918280150175745898
 BoxCollider:
   m_ObjectHideFlags: 0

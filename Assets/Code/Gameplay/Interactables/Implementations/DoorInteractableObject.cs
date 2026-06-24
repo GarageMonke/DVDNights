@@ -1,26 +1,35 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
     public class DoorInteractableObject : InteractableObject, ICorruptibleObject
     {
-        [Header("Configuration")] 
+        [Header("Open/Close-Sequence")] 
         [SerializeField] private Vector3 minOpenAngle;
         [SerializeField] private Vector3 maxOpenAngle;
         [SerializeField] private Vector3 openHandleAngle;
         [SerializeField] private Ease openEase;
         [SerializeField] private Ease closeEase;
+        [SerializeField] private Transform handleTransform;
+        
+        [Header("Feedback")]
         [SerializeField] private AudioClip closeAudioClip;
         [SerializeField] private AudioClip[] squeakAudioClips;
-        [SerializeField] private Transform handleTransform;
+        [SerializeField] private AudioClip[] slowKnocksAudioClips;
+        [SerializeField] private AudioClip[] fastKnocksAudioClips;
+        [SerializeField] private AudioClip[] bruteKnocksAudioClips;
 
         private bool _isOpen;
         private bool _isTweening;
         private Tweener _doorTweener;
         private Tweener _handleTweener;
         private bool _isCorrupted;
+        private int _lastCorruptionIndex;
+        private Sequence _knockingSequence;
 
         private void Awake()
         {
@@ -59,7 +68,7 @@ namespace DVDNights
 
         private void Open()
         {
-            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, InteractionAudioClip);
             _isTweening = true;
             _handleTweener?.Kill();
             _handleTweener = handleTransform.DOLocalRotate(openHandleAngle, 0.15f).SetEase(openEase);
@@ -78,7 +87,7 @@ namespace DVDNights
         {
             int randomSqueakClip = Random.Range(0, squeakAudioClips.Length);
             AudioClip squeakClip = squeakAudioClips[randomSqueakClip];
-            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, squeakClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, squeakClip);
             Vector3 randomOpenAngle = new Vector3(0, Random.Range(minOpenAngle.y, maxOpenAngle.y), 0);
             _isTweening = true;
             _handleTweener?.Kill();
@@ -102,7 +111,7 @@ namespace DVDNights
                 ClearCorruption();
             }
             
-            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, closeAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, closeAudioClip);
             _isTweening = true;
             
             _handleTweener?.Kill();
@@ -126,7 +135,99 @@ namespace DVDNights
         public void Corrupt()
         {
             _isCorrupted = true;
-            Squeak();
+            int corruptionIndex = Random.Range(0, 3);
+
+            while (corruptionIndex == _lastCorruptionIndex)
+            {
+                corruptionIndex = Random.Range(0, 3);
+            }
+
+            _lastCorruptionIndex = corruptionIndex;
+
+            switch (corruptionIndex)
+            {
+                case 0:
+                    Squeak();
+                    return;
+                case 1:
+                    SlowKnocking();
+                    return;
+                case 2:
+                    HardKnocking();
+                    return;
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SlowKnocking();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                HardKnocking();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                KnockDoor();
+            }
+        }
+
+        public void KnockDoor()
+        {
+            int randomKnockingClip = Random.Range(0, fastKnocksAudioClips.Length);
+            AudioClip knockingClip = fastKnocksAudioClips[randomKnockingClip];
+            AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, knockingClip);
+        }
+
+        private void SlowKnocking()
+        {
+            int randomKnockingClip = Random.Range(0, slowKnocksAudioClips.Length);
+            AudioClip knockingClip = slowKnocksAudioClips[randomKnockingClip];
+            AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, knockingClip);
+        }
+        
+        private void HardKnocking()
+        {
+            PlayKnockingSequence(5f);
+        }
+
+        private void PlayKnockingSequence(float intensity)
+        {
+            _knockingSequence?.Kill();
+            _knockingSequence = DOTween.Sequence();
+
+            float rot = Mathf.Lerp(0.8f, 8f, intensity);
+            float dur = Mathf.Lerp(0.10f, 0.06f, intensity);
+            int vibrato = Mathf.RoundToInt(Mathf.Lerp(2f, 8f, intensity));
+
+            for (int i = 0; i < bruteKnocksAudioClips.Length; i++)
+            {
+                float interval = bruteKnocksAudioClips[i].length * 0.925f;
+                int index = i;
+
+                _knockingSequence.AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, bruteKnocksAudioClips[index]);
+                    transform.DOPunchRotation(
+                        new Vector3(0, rot, 0),
+                        dur,
+                        vibrato
+                    );
+                    
+                  handleTransform.DOPunchRotation(
+                        openHandleAngle,
+                        interval,
+                        vibrato);
+                });
+                
+               
+
+                _knockingSequence.AppendInterval(interval);
+            }
         }
 
         public void ClearCorruption()
