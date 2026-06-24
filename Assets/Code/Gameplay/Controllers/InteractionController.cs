@@ -233,7 +233,12 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentInteraction = null;
         _dialogController.HideDialog();
     }
-    
+
+    public void SetCurrentInteraction(IInteractableObject interactableObject)
+    {
+        _currentInteraction = interactableObject;
+    }
+
     private void TweenToSize(Vector2 targetSize)
     {
         _crossHairTween?.Kill();
@@ -265,4 +270,5 @@ public interface IInteractionController
     public void DisableInteractions();
     public void ForceInteraction(IInteractableObject interactableObject);
     public void StopInteractionWithObject();
+    public void SetCurrentInteraction(IInteractableObject interactableObject);
 }

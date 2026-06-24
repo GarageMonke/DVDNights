@@ -41,6 +41,11 @@ namespace DVDNights
             _hasIgnoreNavigation = ignore;
         }
 
+        public void SetHasNavigation(bool overrideHasNavigation)
+        {
+            hasNavigation = overrideHasNavigation;
+        }
+
         public abstract void Interact();
 
         public abstract void StopInteraction();
@@ -81,5 +86,6 @@ namespace DVDNights
         public void DisableInteraction();
         public string GetInteractionAction();
         public void IgnoreNavigation(bool ignore);
+        public void SetHasNavigation(bool hasNavigation);
     }
 }

@@ -32,8 +32,9 @@ namespace DVDNights
         
         private ITVNavigationController _tvNavigationController;
         private Sequence _readDiskSequence;
-        private IMainMenuController _tvMainMenuController;
         private IDVDTrayController _dvdTrayController;
+        private IMainMenuController _tvMainMenuController;
+        private IInteractionController _interactionController;
         private bool _isTesting;
 
         private void Awake()
@@ -67,13 +68,15 @@ namespace DVDNights
             _readDiskSequence = DOTween.Sequence()
                 .AppendCallback(() =>
                 {
-                    AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC);
                     tvScreenMesh.material = tvScreenMaterial;
-                    AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
+                    AudioManager.Instance.StopOST(AudioChannelType.TV);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.TV, loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
                 })
                 .AppendInterval(loadingDVDAudioClip.length)
                 .AppendCallback(() =>
                 {
+                    _interactionController ??= ServiceLocator.GetService<IInteractionController>();
+                    _interactionController.SetCurrentInteraction(_tvNavigationController.TVInteractableObject);
                     _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
                     _tvMainMenuController.DisplayMenu();
                     _hasDisk = true;
@@ -104,30 +107,39 @@ namespace DVDNights
             _isPlayingGame = true;
         }
 
+        public void PlayStatic(bool isCorrupted = false)
+        {
+            tvScreenMesh.material = tvStaticMaterial;
+            float volume = isCorrupted ? 0.5f : 0.025f;
+            AudioManager.Instance.PlayOST(AudioChannelType.TV, staticAudioClip, volume, true);
+        }
+
+        public void StrikeTV()
+        {
+            AudioManager.Instance.StopOST(AudioChannelType.TV, fadeOut: false);
+            TurnOnTv();
+        }
+
         private void TurnOnTv()
         {
             if (_isTesting)
             {
                 _hasDisk = true;
-                _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
                 tvScreenMesh.material = tvScreenMaterial;
-                _tvMainMenuController.DisplayMenu();
             }
             
-            if (_hasDisk)
+            tvScreenMesh.material = tvScreenMaterial;
+           
+            if (!_hasDisk)
             {
-                tvScreenMesh.material = tvScreenMaterial;
-                return;
+                PlayStatic();
             }
-            
-            tvScreenMesh.material = tvStaticMaterial;
-            AudioManager.Instance.PlayOST(AudioChannelType.DIEGETIC, staticAudioClip, 0.002f, true);
         }
 
         private void TurnOffTv()
         {
             tvScreenMesh.material = tvOffMaterial;
-            AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC, fadeOut: false);
+            AudioManager.Instance.StopOST(AudioChannelType.TV, fadeOut: false);
         }
 
         private void OnDestroy()
@@ -147,5 +159,7 @@ namespace DVDNights
         public void InsertDisk(int diskId);
         public void TurnOnOffTv();
         public void StartPlayingGame();
+        public void PlayStatic(bool isCorrupted = false);
+        public void StrikeTV();
     }
 }

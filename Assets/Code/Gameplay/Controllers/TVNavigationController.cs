@@ -1,13 +1,16 @@
 ﻿using System;
 using CorePatterns.ServiceLocator;
+using DVDNights;
 using UnityEngine;
 
 namespace DVDNights
 {
     public class TVNavigationController : MonoBehaviour, ITVNavigationController
     {
+        [SerializeField] private TVInteractableObject tvInteractableObject;
         [SerializeField] private TVButton[] tvButtons;
-        
+
+        public TVInteractableObject TVInteractableObject => tvInteractableObject;
         public ITVButton PowerButton => tvButtons[0];
         public ITVButton OpenCloseButton => tvButtons[1];
         public ITVButton MenuButton =>  tvButtons[2];
@@ -166,6 +169,7 @@ namespace DVDNights
 
 public interface ITVNavigationController
 {
+    public TVInteractableObject TVInteractableObject { get; }
     public ITVButton PowerButton { get; }
     public ITVButton OpenCloseButton { get; }
     public ITVButton MenuButton { get; }

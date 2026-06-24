@@ -11804,6 +11804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ac6137c0f54a24983f1d182fdb4279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tvInteractableObject: {fileID: 543450651938090012}
   tvButtons:
   - {fileID: 8550424698138556384}
   - {fileID: 7329241222668155541}
