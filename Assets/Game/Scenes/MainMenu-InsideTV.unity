@@ -1507,8 +1507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationVector: {x: 0, y: 0, z: 2}
-  frameSkip: 0
   smoothSpeed: 5
+  isEnabled: 1
 --- !u!1001 &1923583425
 PrefabInstance:
   m_ObjectHideFlags: 0

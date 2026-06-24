@@ -141,8 +141,9 @@ namespace DVDNights
       public void DisplayMenu()
       {
          loadingContent.gameObject.SetActive(false);
-         mainMenuContent.gameObject.SetActive(true);
-         SelectFirst();
+         SceneDataManager.Instance.OpenScene(gameSceneDataSO);
+         // mainMenuContent.gameObject.SetActive(true);
+         // SelectFirst();
       }
    }
 }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace CorePatterns.Scenes
@@ -6,7 +9,7 @@ namespace CorePatterns.Scenes
     public class SceneDataManager : MonoBehaviour
     {
         public static SceneDataManager Instance { get; private set; }
-        
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -17,39 +20,68 @@ namespace CorePatterns.Scenes
 
             Instance = this;
         }
-
-        public void OpenScene(SceneDataSO sceneDataToOpen)
+        
+        public void OpenScene(SceneDataSO sceneDataToOpen, Action onComplete = null)
         {
-            CloseScenes(sceneDataToOpen.SceneDataToClose);
-            OpenSingleScene(sceneDataToOpen);
-            OpenDependantScenes(sceneDataToOpen.SceneDataToOpen);
+            StartCoroutine(OpenSceneRoutine(sceneDataToOpen, onComplete));
         }
 
-        private void CloseScenes(SceneDataSO[] sceneDataToClose)
+        private IEnumerator OpenSceneRoutine(SceneDataSO sceneDataToOpen, Action onComplete)
+        {
+            //Unload scenes first
+            yield return CloseScenes(sceneDataToOpen.SceneDataToClose);
+
+            //Collect all load operations (main + dependants)
+            var operations = new List<AsyncOperation>();
+
+            AsyncOperation mainOp = LoadScene(sceneDataToOpen);
+            if (mainOp != null) operations.Add(mainOp);
+
+            foreach (SceneDataSO dep in sceneDataToOpen.SceneDataToOpen)
+            {
+                AsyncOperation depOp = LoadScene(dep);
+                if (depOp != null) operations.Add(depOp);
+            }
+
+            //Wait for all of them to finish
+            foreach (AsyncOperation op in operations)
+            {
+                yield return op;
+            }
+            
+            yield return null;
+            onComplete?.Invoke();
+        }
+
+        private IEnumerator CloseScenes(SceneDataSO[] sceneDataToClose)
         {
             foreach (SceneDataSO sceneData in sceneDataToClose)
             {
-                SceneManager.UnloadSceneAsync(sceneData.SceneName);
-            }
-        }
-        
-        private void OpenDependantScenes(SceneDataSO[] sceneDataToOpen)
-        {
-            foreach (SceneDataSO sceneData in sceneDataToOpen)
-            {
-                OpenSingleScene(sceneData);
+                if (!IsSceneLoaded(sceneData.SceneName)) continue;
+
+                yield return SceneManager.UnloadSceneAsync(sceneData.SceneName);
             }
         }
 
-        private void OpenSingleScene(SceneDataSO sceneDataToOpen)
+        private AsyncOperation LoadScene(SceneDataSO sceneData)
         {
-            if (sceneDataToOpen.OpenAdditive)
+            if (IsSceneLoaded(sceneData.SceneName))
             {
-                SceneManager.LoadSceneAsync(sceneDataToOpen.SceneName, LoadSceneMode.Additive);
-                return;
+                Debug.Log($"[SceneDataManager] Scene '{sceneData.SceneName}' is already loaded. Skipping.");
+                return null;
             }
 
-            SceneManager.LoadSceneAsync(sceneDataToOpen.SceneName);
+            LoadSceneMode mode = sceneData.OpenAdditive
+                ? LoadSceneMode.Additive
+                : LoadSceneMode.Single;
+
+            return SceneManager.LoadSceneAsync(sceneData.SceneName, mode);
+        }
+
+        private bool IsSceneLoaded(string sceneName)
+        {
+            Scene scene = SceneManager.GetSceneByName(sceneName);
+            return scene.IsValid() && scene.isLoaded;
         }
     }
 }
