@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class LampInteractableObject : InteractableObject, ICorruptibleObject
+    public class LampInteractableObject : CorruptibleInteractableObject
     {
         [Header("References")] 
         [SerializeField] private Light lampLight;
@@ -26,7 +26,6 @@ namespace DVDNights
         [SerializeField] private float maxStepTime = 0.1f;
 
         private bool _isOn;
-        private bool _isCorrupted;
         private Sequence _flickerSequence;
         private float _thresholdIntensity;
 
@@ -77,19 +76,19 @@ namespace DVDNights
             //
         }
 
-        public void Corrupt()
+        public override void Corrupt()
         {
             _isCorrupted = true;
             StartFlicker();
         }
 
-        public void ClearCorruption()
+        public override void ClearCorruption()
         {
             _isCorrupted = false;
             StopFlicker();
         }
 
-        public bool CanBeCorrupted()
+        public override bool CanBeCorrupted()
         {
             return _isOn;
         }

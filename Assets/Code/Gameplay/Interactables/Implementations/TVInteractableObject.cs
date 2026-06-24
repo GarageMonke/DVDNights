@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
@@ -8,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class TVInteractableObject : InteractableObject, ICorruptibleObject
+    public class TVInteractableObject : CorruptibleInteractableObject
     {
         [Header("Configuration")]
         [SerializeField] private Vector3 cameraLockPosition;
@@ -22,7 +21,6 @@ namespace DVDNights
         private IMouseLayoutController _mouseLayoutController;
         private ITVStateController _tvStateController;
         private IForwardController _forwardController;
-        private bool _isCorrupted;
         private bool _isInteractingWithTv;
         private bool _hasBeenHitOnce;
         private Sequence _strikeSequence;
@@ -101,14 +99,14 @@ namespace DVDNights
             _isInteractingWithTv = false;
         }
 
-        public void Corrupt()
+        public override void Corrupt()
         {
             _isCorrupted = true;
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
         }
 
-        public void ClearCorruption()
+        public override void ClearCorruption()
         {
             _strikeSequence?.Kill();
             _strikeSequence = DOTween.Sequence()
@@ -140,7 +138,7 @@ namespace DVDNights
             yield return new WaitForEndOfFrame();
         }
 
-        public bool CanBeCorrupted()
+        public override bool CanBeCorrupted()
         {
             return _tvStateController.IsTVOn && _tvStateController.IsPlayingGame && !_isInteractingWithTv;
         }

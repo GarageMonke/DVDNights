@@ -1,12 +1,11 @@
-﻿using System;
-using CorePatterns.Managers;
+﻿using CorePatterns.Managers;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class DoorInteractableObject : InteractableObject, ICorruptibleObject
+    public class DoorInteractableObject : CorruptibleInteractableObject
     {
         [Header("Open/Close-Sequence")] 
         [SerializeField] private Vector3 minOpenAngle;
@@ -27,7 +26,6 @@ namespace DVDNights
         private bool _isTweening;
         private Tweener _doorTweener;
         private Tweener _handleTweener;
-        private bool _isCorrupted;
         private int _lastCorruptionIndex;
         private Sequence _knockingSequence;
 
@@ -132,7 +130,7 @@ namespace DVDNights
             
         }
 
-        public void Corrupt()
+        public override void Corrupt()
         {
             _isCorrupted = true;
             int corruptionIndex = Random.Range(0, 3);
@@ -229,13 +227,8 @@ namespace DVDNights
                 _knockingSequence.AppendInterval(interval);
             }
         }
-
-        public void ClearCorruption()
-        {
-            _isCorrupted = false;
-        }
-
-        public bool CanBeCorrupted()
+        
+        public override bool CanBeCorrupted()
         {
             return !_isOpen && !_isCorrupted;
         }
