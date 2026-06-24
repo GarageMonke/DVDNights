@@ -41,7 +41,7 @@ namespace DVDNights
         {
             InstallService();
         }
-
+        
         private void InstallService()
         {
             forwardFillView.InitializeView(100);
@@ -162,7 +162,7 @@ namespace DVDNights
             forwardMaterial.SetFloat(ScanlineOpacity, opacity);
         }
 
-        private void ResetForwardShader()
+        public void ResetForwardShader()
         {
             powerView.SetActive(false);
             forwardMaterial.SetFloat(ScrollSpeed, 0);
@@ -181,7 +181,6 @@ namespace DVDNights
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, stopForwardingClip, 0.1f);
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
-            ResetForwardShader();
         }
 
         private void Update()
@@ -220,9 +219,23 @@ namespace DVDNights
                 StopForward();
             }
         }
+
+        public void FlickerForward()
+        {
+            forwardMaterial = _tvStateController.TVScreenMaterial;
+            var speed = 500f;
+            var distortion = 0.1f;
+            var opacity = 0.05f;
+
+            forwardMaterial.SetFloat(ScrollSpeed, speed);
+            forwardMaterial.SetFloat(DistortionStrength, distortion);
+            forwardMaterial.SetFloat(ScanlineOpacity, opacity);
+        }
     }
 
     public interface IForwardController
     {
+        public void FlickerForward();
+        public void ResetForwardShader();
     }
 }

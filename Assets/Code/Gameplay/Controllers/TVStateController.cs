@@ -23,6 +23,7 @@ namespace DVDNights
         public bool HasDisk => _hasDisk;
         public bool IsPlayingGame => _isPlayingGame;
         public bool IsDiskOnTray => _diskId > 0;
+        public Material TVScreenMaterial => tvScreenMesh.material;
         public int DiskId => _diskId;
 
         private bool _isTVOn;
@@ -40,7 +41,7 @@ namespace DVDNights
         private void Awake()
         {
             InstallService();
-            _isTesting = false;
+            _isTesting = true;
         }
 
         private void InstallService()
@@ -117,7 +118,7 @@ namespace DVDNights
         public void StrikeTV()
         {
             AudioManager.Instance.StopOST(AudioChannelType.TV, fadeOut: false);
-            TurnOnTv();
+            tvScreenMesh.material = tvScreenMaterial;
         }
 
         private void TurnOnTv()
@@ -126,6 +127,8 @@ namespace DVDNights
             {
                 _hasDisk = true;
                 tvScreenMesh.material = tvScreenMaterial;
+                _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
+                _tvMainMenuController.DisplayMenu();
             }
             
             tvScreenMesh.material = tvScreenMaterial;
@@ -154,6 +157,7 @@ namespace DVDNights
         public bool HasDisk { get; }
         public bool IsPlayingGame { get; }
         public bool IsDiskOnTray { get; }
+        public Material TVScreenMaterial { get; }
         public int DiskId { get; }
         public void ReadDisk();
         public void InsertDisk(int diskId);

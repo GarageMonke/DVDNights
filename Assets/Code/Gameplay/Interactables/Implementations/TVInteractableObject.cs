@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
@@ -10,13 +12,20 @@ namespace DVDNights
     {
         [Header("Configuration")]
         [SerializeField] private Vector3 cameraLockPosition;
+        
+        [Header("Feedback")]
+        [SerializeField] private AudioClip strikeTVAudioClip;
+        [SerializeField] private AudioClip TVHummingAudioClip;
 
         ICameraController _cameraController;
         private ITVNavigationController _tvNavigationController;
         private IMouseLayoutController _mouseLayoutController;
         private ITVStateController _tvStateController;
+        private IForwardController _forwardController;
         private bool _isCorrupted;
         private bool _isInteractingWithTv;
+        private bool _hasBeenHitOnce;
+        private Sequence _strikeSequence;
 
         private void Start()
         {
@@ -24,10 +33,21 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
+            _forwardController = ServiceLocator.GetService<IForwardController>();
         }
 
         public override string GetInteractionAction()
         {
+            if (_isCorrupted)
+            {
+                if (_hasBeenHitOnce)
+                {
+                    return "Strike Again";
+                }
+                
+                return "Strike";
+            }
+            
             return "TV";
         }
 
@@ -44,7 +64,15 @@ namespace DVDNights
         {
             if (_isCorrupted)
             {
-                ClearCorruption();
+                if (_hasBeenHitOnce)
+                {
+                    ClearCorruption();
+                }
+                else
+                {
+                    FirstStrike();
+                }
+                
                 return;
             }
             
@@ -82,9 +110,34 @@ namespace DVDNights
 
         public void ClearCorruption()
         {
+            _strikeSequence?.Kill();
+            _strikeSequence = DOTween.Sequence()
+                .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.05f).SetEase(Ease.Flash).OnComplete(
+                    ()=>  SetHasNavigation(true)));
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, strikeTVAudioClip, volume: 0.65f, pitch: 1f);
+            _forwardController.ResetForwardShader();
             _isCorrupted = false;
+            _hasBeenHitOnce = false;
+            AudioManager.Instance.StopOST(AudioChannelType.TV);
+        }
+
+        private void FirstStrike()
+        {
+            _hasBeenHitOnce = true;
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, strikeTVAudioClip, volume: 0.65f, pitch: 1f);
             _tvStateController.StrikeTV();
-            DOVirtual.DelayedCall(0.25f, () => SetHasNavigation(true));
+            _forwardController ??= ServiceLocator.GetService<IForwardController>();
+            _forwardController.FlickerForward();
+            float strikeAngle = Random.Range(-6, 7);
+            _strikeSequence?.Kill();
+            _strikeSequence = DOTween.Sequence()
+                .Append(transform.DOLocalRotate(new Vector3(0, strikeAngle, 0), 0.05f).SetEase(Ease.Flash));
+            AudioManager.Instance.PlayOST(AudioChannelType.TV, TVHummingAudioClip, volume: 0.65f, pitch: 1f, loop: true);
+        }
+
+        private IEnumerator FirstStrikeRoutine()
+        {
+            yield return new WaitForEndOfFrame();
         }
 
         public bool CanBeCorrupted()
