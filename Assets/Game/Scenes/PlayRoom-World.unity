@@ -1038,7 +1038,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1297608647}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1297608648}
   bookCollider: {fileID: 103709507}
   pullDistance: 0.65
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1706329637}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1706329638}
   bookCollider: {fileID: 181293433}
   pullDistance: 0.65
@@ -4528,7 +4528,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 589953098}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1202127631}
   bookCollider: {fileID: 272955997}
   pullDistance: 0.65
@@ -6199,7 +6199,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 2076801523}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 2076801524}
   bookCollider: {fileID: 495478645}
   pullDistance: 0.65
@@ -13387,7 +13387,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1279432742}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1279432745}
   bookCollider: {fileID: 1279432737}
   pullDistance: 0.65
@@ -13431,7 +13431,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1279432743}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1279432746}
   bookCollider: {fileID: 1279432739}
   pullDistance: 0.65
@@ -13475,7 +13475,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1279432744}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1279432747}
   bookCollider: {fileID: 1279432741}
   pullDistance: 0.65
@@ -32935,7 +32935,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1385488902}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1385488903}
   bookCollider: {fileID: 1385488901}
   pullDistance: 0.65
@@ -36518,7 +36518,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1699047903}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1699047904}
   bookCollider: {fileID: 1699047902}
   pullDistance: 0.65
@@ -39626,7 +39626,7 @@ MonoBehaviour:
   hasNavigation: 0
   _isEnabled: 0
   outline: {fileID: 1752775871}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
   bookRigidbody: {fileID: 1752775872}
   bookCollider: {fileID: 1752775870}
   pullDistance: 0.65
@@ -43986,7 +43986,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147985611346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 

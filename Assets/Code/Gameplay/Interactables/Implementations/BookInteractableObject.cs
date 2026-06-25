@@ -89,14 +89,15 @@ namespace DVDNights
                     transform.DOLocalRotate(_originRotation.eulerAngles, 1.5f).SetEase(Ease.OutSine);
                 }
             }))
-            .Append(transform.DOLocalPath(pathToShelf, 1f, PathType.CatmullRom).SetEase(Ease.InOutSine))
+            .Append(transform.DOLocalPath(pathToShelf, 1f, PathType.CatmullRom).SetEase(Ease.InOutSine)
             .OnWaypointChange(waypointIndex =>
             {
-                if (waypointIndex == 1)
+                if (waypointIndex == 2)
                 {
-                    transform.DOLocalRotate(_originRotation.eulerAngles, 1.5f).SetEase(Ease.OutSine);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, InteractionAudioClip, volume: 0.75f, pitch: 1f);
                 }
-            }).OnComplete(() =>
+                
+            })).OnComplete(() =>
             {
                 _isInShelf = true;
                 _isCorrupted = false;
