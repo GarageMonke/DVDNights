@@ -101,7 +101,6 @@ namespace DVDNights
             {
                 _isInShelf = true;
                 _isCorrupted = false;
-                Debug.Log("Book arrived to shelf");
             });
         }
 
