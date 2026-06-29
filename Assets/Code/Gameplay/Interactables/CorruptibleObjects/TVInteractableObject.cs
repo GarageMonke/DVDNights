@@ -101,20 +101,20 @@ namespace DVDNights
 
         public override void Corrupt()
         {
-            _isCorrupted = true;
+            base.Corrupt();
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
         }
 
         public override void ClearCorruption()
         {
+            base.ClearCorruption();
             _strikeSequence?.Kill();
             _strikeSequence = DOTween.Sequence()
                 .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.05f).SetEase(Ease.Flash).OnComplete(
                     ()=>  SetHasNavigation(true)));
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, strikeTVAudioClip, volume: 0.65f, pitch: 1f);
             _forwardController.ResetForwardShader();
-            _isCorrupted = false;
             _hasBeenHitOnce = false;
             AudioManager.Instance.StopOST(AudioChannelType.TV);
         }

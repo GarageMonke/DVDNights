@@ -78,13 +78,13 @@ namespace DVDNights
 
         public override void Corrupt()
         {
-            _isCorrupted = true;
+            base.Corrupt();
             StartFlicker();
         }
 
         public override void ClearCorruption()
         {
-            _isCorrupted = false;
+            base.ClearCorruption();
             StopFlicker();
         }
 

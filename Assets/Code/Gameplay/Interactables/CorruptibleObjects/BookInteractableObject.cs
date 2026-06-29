@@ -23,7 +23,6 @@ namespace DVDNights
         [SerializeField] private AudioClip hitGroundAudioClip;
         
         private bool _isInShelf;
-        private bool _isCorrupted;
 
         private Vector3 _originPosition;
         private Quaternion _originRotation;
@@ -66,8 +65,8 @@ namespace DVDNights
 
         public override void Corrupt()
         {
+            base.Corrupt();
             ThrowBook();
-            _isCorrupted = true;
         }
 
         public override void ClearCorruption()

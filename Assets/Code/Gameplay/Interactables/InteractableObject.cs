@@ -55,7 +55,7 @@ namespace DVDNights
             Unhighlight();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             _outlineController = ServiceLocator.GetService<IOutlineController>();
             _outlineController.RegisterOutline(outline);
