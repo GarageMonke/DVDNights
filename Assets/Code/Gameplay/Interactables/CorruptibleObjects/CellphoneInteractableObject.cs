@@ -64,7 +64,7 @@ namespace DVDNights
                 
                 if (_currentRings % 2 == 0)
                 {
-                    _sanityController.TakeSanityImmediate(2f);
+                    _sanityController.TakeSanityImmediate(SanityType.MID);
                     PlayWrongSequence();
                     return;
                 }
@@ -119,7 +119,7 @@ namespace DVDNights
             _callSequence.AppendInterval(unansweredSound.length);
             _callSequence.AppendCallback(() =>
             {
-                _sanityController.TakeSanityImmediate(2f);
+                _sanityController.TakeSanityImmediate(SanityType.HIGH);
                 ClearCorruption();
             });
         }

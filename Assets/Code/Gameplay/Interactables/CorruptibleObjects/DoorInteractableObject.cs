@@ -1,4 +1,5 @@
 ﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -28,12 +29,22 @@ namespace DVDNights
         private Tweener _handleTweener;
         private int _lastCorruptionIndex;
         private Sequence _knockingSequence;
+        private Sequence _corruptionSequence;
+        private bool _isFault;
+        private ISanityController _sanityController;
+
 
         private void Awake()
         {
             _isOpen = false;
         }
-        
+
+        protected override void Start()
+        {
+            base.Start();
+            _sanityController = ServiceLocator.GetService<ISanityController>();
+        }
+
         public override string GetInteractionAction()
         {
             if (_isTweening)
@@ -66,6 +77,11 @@ namespace DVDNights
 
         private void Open()
         {
+            if (_isCorrupted && _isFault)
+            {
+                _sanityController.TakeSanityImmediate(SanityType.MID);
+            }
+            
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, InteractionAudioClip);
             _isTweening = true;
             _handleTweener?.Kill();
@@ -151,6 +167,19 @@ namespace DVDNights
             }
         }
 
+        private void PlayCorruptionSequence()
+        {
+            _isFault = true;
+            _corruptionSequence?.Kill();
+            _corruptionSequence = DOTween.Sequence();
+            _corruptionSequence.AppendInterval(5f);
+            _corruptionSequence.AppendCallback(() =>
+            {
+                _isFault = false;
+            });
+
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -216,8 +245,6 @@ namespace DVDNights
                         interval,
                         vibrato);
                 });
-                
-               
 
                 _knockingSequence.AppendInterval(interval);
             }
