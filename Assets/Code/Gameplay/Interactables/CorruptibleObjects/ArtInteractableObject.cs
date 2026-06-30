@@ -18,7 +18,7 @@ namespace DVDNights
         
         public override string GetInteractionAction()
         {
-            return "Erase curse";
+            return "Remove corruption";
         }
 
         public override void Interact()
