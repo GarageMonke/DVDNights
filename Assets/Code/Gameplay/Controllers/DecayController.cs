@@ -168,7 +168,7 @@ namespace DVDNights
         
         private float GetNextDecayInterval()
         {
-            return 10f;
+            return 15f;
             float t = Mathf.InverseLerp(0, 8, _corruptedObjects.Count);
             return Mathf.Lerp(_naturalDecayMaxInterval, _naturalDecayMinInterval, t);
         }

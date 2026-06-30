@@ -9,13 +9,15 @@ namespace DVDNights
         private float _currentSanity;
         private float _maxSanity;
         
-        private const float DefaultSanityThreshold = 0.1f;
+        private const float DefaultSanityThreshold = 0.05f;
 
         public Action OnAllSanityLost { get; set; }
 
         private void Awake()
         {
             ServiceLocator.RegisterService<ISanityController>(this);
+            _currentSanity = 100f;
+            _maxSanity = _currentSanity;
         }
 
         public void GainSanity()
@@ -27,7 +29,7 @@ namespace DVDNights
             
             _currentSanity += DefaultSanityThreshold;
             
-            Debug.Log("<color=green>[GainSanity] Current sanity: </color>" + _currentSanity);
+            Debug.Log("<color=green>[GainSanity]</color> Current sanity: " + _currentSanity);
         }
 
         public void LoseSanity(int multiplier)
@@ -35,7 +37,7 @@ namespace DVDNights
             float sanityToLose = DefaultSanityThreshold * multiplier;
             TakeSanityImmediate(sanityToLose);
             
-            Debug.Log("<color=red>[LoseSanity] Current sanity: </color>" + _currentSanity);
+            Debug.Log("<color=red>[LoseSanity]</color> Current sanity: " + _currentSanity);
         }
 
         public void TakeSanityImmediate(float sanityToTake)

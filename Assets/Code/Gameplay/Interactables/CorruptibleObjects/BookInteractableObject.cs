@@ -61,6 +61,7 @@ namespace DVDNights
 
         public override void ClearCorruption()
         {
+            base.ClearCorruption();
             Vector3[] pathToControlPoint = CurveGenerator.GetCurvePoints(transform.localPosition, returnControlPosition, returnControlPosition, 5);
             Vector3[] pathToShelf = CurveGenerator.GetCurvePoints(returnControlPosition, _originPosition, _originPosition, 5);
             

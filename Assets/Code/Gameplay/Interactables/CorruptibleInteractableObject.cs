@@ -14,7 +14,7 @@ namespace DVDNights
         public string ObjectId => objectId;
         
         protected bool _isCorrupted;
-        private IDecayController _decayController;
+        protected IDecayController _decayController;
 
         protected override void Start()
         {
