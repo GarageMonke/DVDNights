@@ -5,15 +5,16 @@ namespace DVDNights
 {
     public abstract class InteractableObject : MonoBehaviour, IInteractableObject
     {
-        [Header("Configuration")] [SerializeField]
-        private bool hasNavigation;
+        [Header("Configuration")] 
+        [SerializeField] private bool hasNavigation;
 
         [SerializeField] private bool _isEnabled = true;
 
-        [Header("References")] [SerializeField]
-        private Outline outline;
+        [Header("References")] 
+        [SerializeField] private Outline outline;
 
-        [Header("Feedback")] [SerializeField] private AudioClip interactionAudioClip;
+        [Header("Feedback")] 
+        [SerializeField] private AudioClip interactionAudioClip;
 
         private IOutlineController _outlineController;
         private bool _hasIgnoreNavigation;
