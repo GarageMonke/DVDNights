@@ -166,8 +166,6 @@ public class InteractionController : MonoBehaviour, IInteractionController
         
         _currentInteraction = interactableObject;
 
-        _currentInteraction.Interact();
-
         if (_currentHighlighted != null)
         {
             _currentHighlighted.Unhighlight();
@@ -180,6 +178,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
             crosshairImage.gameObject.SetActive(false);
             _dialogController.HideDialog();
         }
+        
+        _currentInteraction.Interact();
 
         if (!_currentInteraction.IsEnabled)
         {

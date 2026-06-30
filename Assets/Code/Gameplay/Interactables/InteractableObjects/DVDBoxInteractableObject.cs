@@ -141,11 +141,6 @@ namespace DVDNights
 
         }
 
-        public override void StopInteraction()
-        {
-            //
-        }
-
         private void OnDestroy()
         {
             _dvdTrayController.OnTrayOpened -= CheckInteractionStatus;

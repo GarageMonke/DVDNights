@@ -125,11 +125,6 @@ namespace DVDNights
             });
         }
 
-        public override void StopInteraction()
-        {
-            
-        }
-
         public override void Corrupt()
         {
             _isCorrupted = true;

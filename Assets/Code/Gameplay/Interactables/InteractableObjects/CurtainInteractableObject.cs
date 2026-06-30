@@ -59,10 +59,5 @@ namespace DVDNights
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
             _rainController.StopRain();
         }
-
-        public override void StopInteraction()
-        {
-            //
-        }
     }
 }

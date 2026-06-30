@@ -42,11 +42,6 @@ namespace DVDNights
          
         public override string GetInteractionAction()
         {
-            if (_isCorrupted)
-            {
-                return "";
-            }
-            
             return "Return book to shelf";
         }
 
@@ -56,11 +51,6 @@ namespace DVDNights
             {
                 ClearCorruption();
             }
-        }
-
-        public override void StopInteraction()
-        {
-           
         }
 
         public override void Corrupt()

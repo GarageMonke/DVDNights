@@ -23,7 +23,6 @@ namespace DVDNights
             _decayController.RegisterCorruptibleObject(this);
         }
         
-
         public virtual void Corrupt()
         {
             _isCorrupted = true;
@@ -35,7 +34,10 @@ namespace DVDNights
             _isCorrupted = false;
         }
 
-        public abstract bool CanBeCorrupted();
+        public virtual bool CanBeCorrupted()
+        {
+            return !_isCorrupted;
+        }
 
         private IEnumerator StartCooldownRoutine()
         {

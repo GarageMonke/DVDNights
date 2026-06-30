@@ -35,7 +35,6 @@ namespace DVDNights
             _inspectionController.StopInspection();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, inspectionAudioClip, volume: 1f, pitch: 1.5f);
         }
-        
     }
 
     public interface IInspectableObject

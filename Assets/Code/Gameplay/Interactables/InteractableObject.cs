@@ -49,7 +49,10 @@ namespace DVDNights
 
         public abstract void Interact();
 
-        public abstract void StopInteraction();
+        public virtual void StopInteraction()
+        {
+            //
+        }
 
         private void Awake()
         {

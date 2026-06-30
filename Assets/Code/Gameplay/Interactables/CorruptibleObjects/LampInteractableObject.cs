@@ -70,12 +70,7 @@ namespace DVDNights
             mats[1] = new Material(newMaterial);
             lampRenderer.materials = mats;
         }
-
-        public override void StopInteraction()
-        {
-            //
-        }
-
+        
         public override void Corrupt()
         {
             base.Corrupt();

@@ -4,7 +4,7 @@ namespace DVDNights
 {
     public abstract class CorruptibleInspectableObject : CorruptibleInteractableObject
     {
-        [Header("References")]
+        [Header("Inspectable-References")]
         [SerializeField] private InspectableObject inspectableObject;
         
         public override string GetInteractionAction()
@@ -38,7 +38,7 @@ namespace DVDNights
 
         public override bool CanBeCorrupted()
         {
-            return _isCorrupted;
+            return !_isCorrupted;
         }
 
         protected abstract void InteractWithCorruption();

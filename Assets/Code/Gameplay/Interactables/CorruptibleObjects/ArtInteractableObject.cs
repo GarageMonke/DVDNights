@@ -2,27 +2,46 @@
 
 namespace DVDNights
 {
-    public class ArtInteractableObject : CorruptibleInspectableObject
+    public class ArtInteractableObject : CorruptibleInteractableObject
     {
-        protected override void InteractWithCorruption()
+        [Header("Art-Configuration")]
+        [SerializeField] private ArtPictureType artPictureType;
+        [SerializeField] private MeshRenderer artRenderer;
+
+        private Material _originalMaterial;
+
+        private void Awake()
         {
-            if (!_isCorrupted)
+            _originalMaterial = artRenderer.material;
+            DisableInteraction();
+        }
+        
+        public override string GetInteractionAction()
+        {
+            return "Erase curse";
+        }
+
+        public override void Interact()
+        {
+            if (_isCorrupted)
             {
-                return;
+                ClearCorruption();
             }
-            
-            ClearCorruption();
+        }
+        
+        public override void Corrupt()
+        {
+            base.Corrupt();
+            artRenderer.material = null;
+            EnableInteraction();
         }
 
         public override void ClearCorruption()
         {
             base.ClearCorruption();
-            
+            DisableInteraction();
+            artRenderer.material = _originalMaterial;
         }
-
-        protected override string GetCorruptedAction()
-        {
-            return "Something is wrong...";
-        }
+        
     }
 }
