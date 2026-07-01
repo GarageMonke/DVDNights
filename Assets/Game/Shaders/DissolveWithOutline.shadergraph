@@ -22,9 +22,6 @@
             "m_Id": "5b8d1c8801f946728d5da130fec385ca"
         },
         {
-            "m_Id": "3f6b601be33d45f9b4a8b0d2c5b23fc2"
-        },
-        {
             "m_Id": "6705cdb89b9e48448619b291995aae71"
         },
         {
@@ -1157,36 +1154,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty",
-    "m_ObjectId": "3f6b601be33d45f9b4a8b0d2c5b23fc2",
-    "m_Guid": {
-        "m_GuidSerialized": "dbc4eb05-1f55-45f8-9c5e-6f9b8eaec64d"
-    },
-    "m_Name": "DissolveTexture",
-    "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "DissolveTexture",
-    "m_DefaultReferenceName": "_DissolveTexture",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_UseCustomSlotLabel": false,
-    "m_CustomSlotLabel": "",
-    "m_DismissedVersion": 0,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "m_SerializedTexture": "",
-        "m_Guid": ""
-    },
-    "isMainTexture": false,
-    "useTilingAndOffset": false,
-    "m_Modifiable": true,
-    "m_DefaultType": 0
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "40649c9a80f54ef1ac4f1a7981c083dc",
     "m_Id": 0,
@@ -1544,10 +1511,10 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 1.0,
-    "m_FloatType": 0,
+    "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
-        "y": 1.0
+        "y": 10.0
     }
 }
 
@@ -1574,9 +1541,6 @@
         },
         {
             "m_Id": "5b8d1c8801f946728d5da130fec385ca"
-        },
-        {
-            "m_Id": "3f6b601be33d45f9b4a8b0d2c5b23fc2"
         },
         {
             "m_Id": "6705cdb89b9e48448619b291995aae71"
