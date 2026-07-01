@@ -11740,6 +11740,8 @@ MonoBehaviour:
   incomingCallMaterial: {fileID: 2100000, guid: 9deba48e2262ead44bee71b734eaaa20, type: 2}
   blackScreenMaterial: {fileID: 2100000, guid: db1b4944aa4d78f40a2ad26fd99c761a, type: 2}
   incomingCallColor: {r: 1, g: 1, b: 1, a: 1}
+  wrongCallColor: {r: 1, g: 0, b: 0, a: 1}
+  successColor: {r: 0, g: 0.78039217, b: 0.08627451, a: 1}
   idleColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   callSound: {fileID: 8300000, guid: bbf002012ac545c448568650ab58a925, type: 3}
   endSound: {fileID: 8300000, guid: 3da7697b7d4e9264fb466bf90fc8bc37, type: 3}

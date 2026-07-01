@@ -11,6 +11,8 @@ namespace DVDNights
 {
     public class CellphoneInteractableObject : CorruptibleInteractableObject
     {
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+
         [Header("References")] 
         [SerializeField] private MeshRenderer phoneRenderer;
         [SerializeField] private MeshRenderer screenRenderer;
@@ -20,6 +22,8 @@ namespace DVDNights
         [SerializeField] private Material incomingCallMaterial;
         [SerializeField] private Material blackScreenMaterial;
         [SerializeField] private Color incomingCallColor;
+        [SerializeField] private Color wrongCallColor;
+        [SerializeField] private Color successColor;
         [SerializeField] private Color idleColor;
         
         [Header("Audio-Feedback")]
@@ -73,7 +77,7 @@ namespace DVDNights
                     return;
                 }
                 
-                ClearCorruption();
+                PlaySuccessSequence();
             }
         }
 
@@ -88,6 +92,7 @@ namespace DVDNights
         public override void ClearCorruption()
         {
             base.ClearCorruption();
+            ChangeScreenColor(incomingCallColor);
             _callSequence?.Kill();
             TurnOff();
             DisableInteraction();
@@ -123,13 +128,34 @@ namespace DVDNights
             _callSequence.AppendInterval(unansweredSound.length);
             _callSequence.AppendCallback(() =>
             {
-                _sanityController.TakeSanityImmediate(PenaltyType.HIGH);
+                _sanityController.TakeSanityImmediate(PenaltyType.EXTREME);
                 ClearCorruption();
             });
+        }
+        
+        private void PlaySuccessSequence()
+        {
+            ChangeScreenColor(successColor);
+            _callSequence?.Kill();
+            _callSequence = DOTween.Sequence().SetLoops(4).OnComplete(
+                ()=> DOVirtual.DelayedCall(endSound.length, ClearCorruption));
+            _callSequence.AppendInterval(InteractionAudioClip.length);
+            _callSequence.AppendCallback(() =>
+            {
+                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, endSound);
+            });
+            _callSequence.AppendInterval(endSound.length / 2f);
+        }
+
+        private void ChangeScreenColor(Color toChangeColor)
+        {
+            Material material = phoneRenderer.material; 
+            material.SetColor(EmissionColor, toChangeColor);
         }
 
         private void PlayWrongSequence()
         {
+            ChangeScreenColor(wrongCallColor);
             AudioClip randomAudioClip = wrongCallProvider.GetRandomElement();
 
             if (_previousAudioClip)
