@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3b480daec1f4167a5ac90f8714a0173, type: 3}
-  m_Name: CorruptedArtMaterial-Provider
+  m_Name: Giant-CorruptedArtMaterial-Provider
   m_EditorClassIdentifier: 
   assignedElements:
-  - Id: 
-    Value: {fileID: 0}
+  - Id: 1
+    Value: {fileID: 2100000, guid: 6b8c6ab81e53be248b7725b8763f2839, type: 2}
+  - Id: 2
+    Value: {fileID: 2100000, guid: df257ad15d6ad4b4fb480a1de3608e49, type: 2}
+  - Id: 3
+    Value: {fileID: 2100000, guid: b3160f61a054285499739d0380683c2b, type: 2}
+  identification: 0

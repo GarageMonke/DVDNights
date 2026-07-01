@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b480daec1f4167a5ac90f8714a0173, type: 3}
+  m_Name: 9-16-CorruptedArtMaterial-Provider
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: 1
+    Value: {fileID: 2100000, guid: b99599970f8deb443807fafd7853a18c, type: 2}
+  - Id: 2
+    Value: {fileID: 2100000, guid: 0f92a4cee894bcf4db0cc599c1ea4afd, type: 2}
+  - Id: 3
+    Value: {fileID: 2100000, guid: 8b65ebfeb853fa74d82f6440fe2bcf77, type: 2}
+  - Id: 4
+    Value: {fileID: 2100000, guid: 5df2efa1abd0f97488bdfb90cba63776, type: 2}
+  - Id: 5
+    Value: {fileID: 2100000, guid: 3925cc5bc8f6fd642b5b31b05d2de1bc, type: 2}
+  - Id: 6
+    Value: {fileID: 2100000, guid: 550589837a9bb56438c63a27030261de, type: 2}
+  identification: 5

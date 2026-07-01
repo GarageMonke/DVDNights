@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using CorePatterns.ServiceLocator;
+using TossBoss.Providers.Engine.Implementations.Materials;
+using UnityEngine;
 
 namespace DVDNights
 {
@@ -9,11 +11,18 @@ namespace DVDNights
         [SerializeField] private MeshRenderer artRenderer;
 
         private Material _originalMaterial;
+        private IArtCorruptionController _artCorruptionController;
 
         private void Awake()
         {
             _originalMaterial = artRenderer.material;
             DisableInteraction();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            _artCorruptionController = ServiceLocator.GetService<IArtCorruptionController>();
         }
         
         public override string GetInteractionAction()
@@ -32,7 +41,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
-            artRenderer.material = null;
+            artRenderer.material = _artCorruptionController.GetArtMaterialByType(artPictureType);
             EnableInteraction();
         }
 

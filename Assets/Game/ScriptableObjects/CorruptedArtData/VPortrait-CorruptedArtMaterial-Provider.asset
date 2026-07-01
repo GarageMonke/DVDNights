@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b480daec1f4167a5ac90f8714a0173, type: 3}
+  m_Name: VPortrait-CorruptedArtMaterial-Provider
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: 1
+    Value: {fileID: 2100000, guid: a4c44de9ff2b8794aa61bdc26e6763de, type: 2}
+  - Id: 2
+    Value: {fileID: 2100000, guid: 04610ec63c908f447b71dac68c76cd21, type: 2}
+  - Id: 3
+    Value: {fileID: 2100000, guid: 4e6ae77843b4e1c4b89c007648a70774, type: 2}
+  - Id: 4
+    Value: {fileID: 2100000, guid: ff6b75d89b510c14eab4e5eebf5934de, type: 2}
+  identification: 1
