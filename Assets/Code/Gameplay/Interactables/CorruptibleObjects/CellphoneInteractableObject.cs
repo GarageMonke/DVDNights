@@ -137,7 +137,7 @@ namespace DVDNights
         {
             ChangeScreenColor(successColor);
             _callSequence?.Kill();
-            _callSequence = DOTween.Sequence().SetLoops(4).OnComplete(
+            _callSequence = DOTween.Sequence().SetLoops(3).OnComplete(
                 ()=> DOVirtual.DelayedCall(endSound.length, ClearCorruption));
             _callSequence.AppendInterval(InteractionAudioClip.length);
             _callSequence.AppendCallback(() =>
