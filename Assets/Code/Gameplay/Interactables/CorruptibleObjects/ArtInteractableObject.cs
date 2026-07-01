@@ -1,21 +1,24 @@
 ﻿using CorePatterns.ServiceLocator;
-using TossBoss.Providers.Engine.Implementations.Materials;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DVDNights
 {
     public class ArtInteractableObject : CorruptibleInteractableObject
     {
+        private static readonly int Dissolve = Shader.PropertyToID("_Dissolve");
+
         [Header("Art-Configuration")]
         [SerializeField] private ArtPictureType artPictureType;
-        [SerializeField] private MeshRenderer artRenderer;
+        [SerializeField] private MeshRenderer corruptedArtRenderer;
 
-        private Material _originalMaterial;
+        private Material _corruptionMaterialInstance;
         private IArtCorruptionController _artCorruptionController;
+        private Tweener _dissolveTween;
 
         private void Awake()
         {
-            _originalMaterial = artRenderer.material;
+            _corruptionMaterialInstance = corruptedArtRenderer.material;
             DisableInteraction();
         }
 
@@ -41,7 +44,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
-            artRenderer.material = _artCorruptionController.GetArtMaterialByType(artPictureType);
+            corruptedArtRenderer.material = _artCorruptionController.GetArtMaterialByType(artPictureType);
             EnableInteraction();
         }
 
@@ -49,7 +52,31 @@ namespace DVDNights
         {
             base.ClearCorruption();
             DisableInteraction();
-            artRenderer.material = _originalMaterial;
+            corruptedArtRenderer.material = _corruptionMaterialInstance;
+        }
+
+        private void DisplayCorruption()
+        {
+            
+        }
+
+        private void HideCorruption()
+        {
+            
+        }
+        
+        public void Fade(bool fadeIn)
+        {
+            _dissolveTween?.Kill();
+
+            float targetValue = fadeIn ? 0f : 1f;
+
+            _dissolveTween = DOTween.To(
+                    () => _corruptionMaterialInstance.GetFloat(Dissolve),
+                    x => _corruptionMaterialInstance.SetFloat(Dissolve, x),
+                    targetValue,
+                    1f)
+                .SetEase(Ease.InOutSine);
         }
         
     }

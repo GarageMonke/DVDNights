@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BLOODY-_fedrw-916
-  m_Shader: {fileID: -6465566751694194690, guid: 1cb12c8401ebb0c4291ffac52d9f7d66, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: aa3732c67727b09488b2b39e3c064cfa, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,9 +25,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 7a4056c70b80ad94fae23a20949118e9, type: 3}
-        m_Scale: {x: 4, y: 3}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 4ad0778e58993d74c89f9ac6903b17dd, type: 3}
+        m_Scale: {x: 4.3, y: 3}
+        m_Offset: {x: -0.015, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -45,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DissolveTexture:
-        m_Texture: {fileID: 2800000, guid: 60f0c9fab7506a7418817d0ae44c1066, type: 3}
+        m_Texture: {fileID: 2800000, guid: 28a4e5d8df0e0084cb430b83eb789d9f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -53,9 +53,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7a4056c70b80ad94fae23a20949118e9, type: 3}
-        m_Scale: {x: 4, y: 3}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 4ad0778e58993d74c89f9ac6903b17dd, type: 3}
+        m_Scale: {x: 4.3, y: 3}
+        m_Offset: {x: -0.015, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -102,8 +102,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Dissolve: 0
-    - _DissolveWeight: 1
+    - _Dissolve: 1
+    - _DissolveWeight: 3
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -112,6 +112,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0.5
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.025
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -130,6 +131,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 1, g: 0.13546647, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 4, g: 3, b: 0, a: 0}
   m_BuildTextureStacks: []
