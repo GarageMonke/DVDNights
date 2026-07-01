@@ -11,14 +11,17 @@ namespace DVDNights
         [Header("Art-Configuration")]
         [SerializeField] private ArtPictureType artPictureType;
         [SerializeField] private MeshRenderer corruptedArtRenderer;
-
-        private Material _corruptionMaterialInstance;
+        
         private IArtCorruptionController _artCorruptionController;
         private Tweener _dissolveTween;
 
         private void Awake()
         {
-            _corruptionMaterialInstance = corruptedArtRenderer.material;
+            if (corruptedArtRenderer == null)
+            {
+                Debug.LogError("Object with null renderer " + gameObject.name);
+            }
+    
             DisableInteraction();
         }
 
@@ -44,38 +47,40 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
-            corruptedArtRenderer.material = _artCorruptionController.GetArtMaterialByType(artPictureType);
+            DisplayCorruption();
+            corruptedArtRenderer.material = new Material(_artCorruptionController.GetArtMaterialByType(artPictureType));
             EnableInteraction();
         }
 
         public override void ClearCorruption()
         {
             base.ClearCorruption();
+            HideCorruption();
             DisableInteraction();
-            corruptedArtRenderer.material = _corruptionMaterialInstance;
         }
 
         private void DisplayCorruption()
         {
-            
+            Fade(true);
         }
 
         private void HideCorruption()
         {
-            
+            Fade(false);
         }
-        
-        public void Fade(bool fadeIn)
+
+        private void Fade(bool fadeIn)
         {
             _dissolveTween?.Kill();
 
             float targetValue = fadeIn ? 0f : 1f;
+            float duration = fadeIn ? 1f : 3f;
 
             _dissolveTween = DOTween.To(
-                    () => _corruptionMaterialInstance.GetFloat(Dissolve),
-                    x => _corruptionMaterialInstance.SetFloat(Dissolve, x),
+                    () =>  corruptedArtRenderer.material.GetFloat(Dissolve),
+                    x =>  corruptedArtRenderer.material.SetFloat(Dissolve, x),
                     targetValue,
-                    1f)
+                    duration)
                 .SetEase(Ease.InOutSine);
         }
         
