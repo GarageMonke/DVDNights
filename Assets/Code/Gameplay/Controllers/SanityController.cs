@@ -51,9 +51,10 @@ namespace DVDNights
             }
         }
 
-        public void TakeSanityImmediate(SanityType sanityToTake)
+        public void TakeSanityImmediate(PenaltyType penaltyToTake)
         {
-            _currentSanity -= GetSanityAmountByType(sanityToTake);
+            Debug.Log("<color=red>[PENALTY] : -</color>" + GetSanityAmountByType(penaltyToTake));
+            _currentSanity -= GetSanityAmountByType(penaltyToTake);
 
             if (_currentSanity <= 0)
             {
@@ -62,17 +63,17 @@ namespace DVDNights
             }
         }
 
-        private float GetSanityAmountByType(SanityType sanityType)
+        private float GetSanityAmountByType(PenaltyType penaltyType)
         {
-            switch (sanityType)
+            switch (penaltyType)
             {
-                case SanityType.LOW:
+                case PenaltyType.LOW:
                     return 1f;
-                case SanityType.MID:
+                case PenaltyType.MID:
                     return 2f;
-                case SanityType.HIGH:
+                case PenaltyType.HIGH:
                     return 5f;
-                case SanityType.EXTREME:
+                case PenaltyType.EXTREME:
                     return 10f;
             }
 
@@ -85,11 +86,11 @@ namespace DVDNights
         public Action OnAllSanityLost { get; set; }
         public void GainSanity();
         public void LoseSanity(int multiplier);
-        public void TakeSanityImmediate(SanityType sanityType);
+        public void TakeSanityImmediate(PenaltyType penaltyType);
     }
 }
 
-public enum SanityType
+public enum PenaltyType
 {
     LOW,
     MID,

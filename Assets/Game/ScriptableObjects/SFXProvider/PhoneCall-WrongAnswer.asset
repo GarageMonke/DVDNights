@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae13b73ed487c846a80c59f6b6889a3, type: 3}
+  m_Name: PhoneCall-WrongAnswer
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: 1
+    Value: {fileID: 8300000, guid: 5c50b481fcba49c4bb7c6f9645646d35, type: 3}
+  - Id: 2
+    Value: {fileID: 8300000, guid: bd5039a63a1ef3a4d97860933f7cc688, type: 3}
+  - Id: 3
+    Value: {fileID: 8300000, guid: d82ed27e805548f4499d86ffd703fc41, type: 3}
+  - Id: 4
+    Value: {fileID: 8300000, guid: 6030a748cb603f44ba1b83b23f1f010a, type: 3}
+  - Id: 5
+    Value: {fileID: 8300000, guid: d6e576d7ac4a494449773d47fb025ddb, type: 3}
+  - Id: 6
+    Value: {fileID: 8300000, guid: 3cbc6b5346f19fe42aa875346b75c02c, type: 3}

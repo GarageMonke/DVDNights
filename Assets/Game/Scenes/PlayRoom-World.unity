@@ -11742,9 +11742,9 @@ MonoBehaviour:
   incomingCallColor: {r: 1, g: 1, b: 1, a: 1}
   idleColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   callSound: {fileID: 8300000, guid: bbf002012ac545c448568650ab58a925, type: 3}
-  wrongSound: {fileID: 8300000, guid: b68c09d88648edf48a32f44978fb0ba1, type: 3}
   endSound: {fileID: 8300000, guid: 3da7697b7d4e9264fb466bf90fc8bc37, type: 3}
   unansweredSound: {fileID: 8300000, guid: b4c8c596b8b6ed342a8dc865632fc4ff, type: 3}
+  wrongCallProvider: {fileID: 11400000, guid: 44c3a69d1586e654fa16bacc6ee66891, type: 2}
 --- !u!65 &1164119052
 BoxCollider:
   m_ObjectHideFlags: 0

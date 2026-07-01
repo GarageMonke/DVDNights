@@ -32,6 +32,7 @@ namespace DVDNights
         private Sequence _corruptionSequence;
         private bool _isFault;
         private ISanityController _sanityController;
+        private PenaltyType _penaltyType;
 
 
         private void Awake()
@@ -43,6 +44,7 @@ namespace DVDNights
         {
             base.Start();
             _sanityController = ServiceLocator.GetService<ISanityController>();
+            DisableInteraction();
         }
 
         public override string GetInteractionAction()
@@ -61,6 +63,11 @@ namespace DVDNights
 
         public override void Interact()
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+            
             if (_isTweening)
             {
                 return;
@@ -77,9 +84,12 @@ namespace DVDNights
 
         private void Open()
         {
+            DisableInteraction();
             if (_isCorrupted && _isFault)
             {
-                _sanityController.TakeSanityImmediate(SanityType.MID);
+                _isFault = false;
+                _corruptionSequence?.Kill();
+                _sanityController.TakeSanityImmediate(_penaltyType);
             }
             
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, InteractionAudioClip);
@@ -94,11 +104,13 @@ namespace DVDNights
                 _isTweening = false;
                 _handleTweener?.Kill();
                 _handleTweener = handleTransform.DOLocalRotate(Vector3.zero, 0.15f).SetEase(closeEase);
+                EnableInteraction();
             });
         }
         
         private void Squeak()
         {
+            DisableInteraction();
             int randomSqueakClip = Random.Range(0, squeakAudioClips.Length);
             AudioClip squeakClip = squeakAudioClips[randomSqueakClip];
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, squeakClip);
@@ -114,12 +126,15 @@ namespace DVDNights
                 _isTweening = false;
                 _handleTweener?.Kill();
                 _handleTweener = handleTransform.DOLocalRotate(Vector3.zero, 0.15f).SetEase(closeEase);
+                EnableInteraction();
             });
         }
 
 
         private void Close()
         {
+            DisableInteraction();
+            
             if (_isCorrupted)
             {
                 ClearCorruption();
@@ -159,10 +174,16 @@ namespace DVDNights
                     Squeak();
                     return;
                 case 1:
+                    EnableInteraction();
                     SlowKnocking();
+                    PlayCorruptionSequence();
+                    _penaltyType = PenaltyType.MID;
                     return;
                 case 2:
+                    EnableInteraction();
                     HardKnocking();
+                    PlayCorruptionSequence();
+                    _penaltyType = PenaltyType.EXTREME;
                     return;
             }
         }
@@ -182,19 +203,9 @@ namespace DVDNights
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                SlowKnocking();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                HardKnocking();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                KnockDoor();
+                Corrupt();
             }
         }
 

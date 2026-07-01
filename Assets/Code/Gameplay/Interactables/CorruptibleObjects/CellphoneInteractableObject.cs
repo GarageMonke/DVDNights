@@ -1,4 +1,5 @@
 ﻿using CorePatterns.Managers;
+using CorePatterns.Providers.Implementations;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using Unity.VisualScripting;
@@ -13,6 +14,7 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private MeshRenderer phoneRenderer;
         [SerializeField] private MeshRenderer screenRenderer;
+      
         
         [Header("Corrupt-Configuration")]
         [SerializeField] private Material incomingCallMaterial;
@@ -22,18 +24,20 @@ namespace DVDNights
         
         [Header("Audio-Feedback")]
         [SerializeField] private AudioClip callSound;
-        [SerializeField] private AudioClip wrongSound;
         [SerializeField] private AudioClip endSound;
         [SerializeField] private AudioClip unansweredSound;
+        [SerializeField] private AudioClipProvider wrongCallProvider;
 
         private int _currentRings;
         private Sequence _callSequence;
         private ISanityController _sanityController;
+        private AudioClip _previousAudioClip;
 
         private void Awake()
         {
             TurnOff();
             DisableInteraction();
+            wrongCallProvider.InitializeProvider();
         }
 
         protected override void Start()
@@ -64,7 +68,7 @@ namespace DVDNights
                 
                 if (_currentRings % 2 == 0)
                 {
-                    _sanityController.TakeSanityImmediate(SanityType.MID);
+                    _sanityController.TakeSanityImmediate(PenaltyType.MID);
                     PlayWrongSequence();
                     return;
                 }
@@ -119,22 +123,32 @@ namespace DVDNights
             _callSequence.AppendInterval(unansweredSound.length);
             _callSequence.AppendCallback(() =>
             {
-                _sanityController.TakeSanityImmediate(SanityType.HIGH);
+                _sanityController.TakeSanityImmediate(PenaltyType.HIGH);
                 ClearCorruption();
             });
         }
 
         private void PlayWrongSequence()
         {
+            AudioClip randomAudioClip = wrongCallProvider.GetRandomElement();
+
+            if (_previousAudioClip)
+            {
+                while (randomAudioClip.name == _previousAudioClip.name)
+                {
+                    randomAudioClip = wrongCallProvider.GetRandomElement();
+                }
+            }
+
             _callSequence?.Kill();
             _callSequence = DOTween.Sequence();
-            _callSequence.AppendInterval(InteractionAudioClip.length + 1.5f);
+            _callSequence.AppendInterval(InteractionAudioClip.length);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, wrongSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, randomAudioClip);
                 ShakePhone();
             });
-            _callSequence.AppendInterval(wrongSound.length);
+            _callSequence.AppendInterval(randomAudioClip.length);
             _callSequence.AppendCallback(() =>
             {
                 AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, endSound);
