@@ -67,7 +67,7 @@ namespace DVDNights
         {
             if (_isCorrupted)
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, InteractionAudioClip);
                 DisableInteraction();
                 
                 if (_currentRings % 2 == 0)
@@ -118,12 +118,12 @@ namespace DVDNights
             _callSequence.AppendInterval(0.25f);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, unansweredSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, unansweredSound);
             });
             _callSequence.AppendInterval(unansweredSound.length);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, unansweredSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, unansweredSound);
             });
             _callSequence.AppendInterval(unansweredSound.length);
             _callSequence.AppendCallback(() =>
@@ -142,7 +142,7 @@ namespace DVDNights
             _callSequence.AppendInterval(InteractionAudioClip.length);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, endSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, endSound);
             });
             _callSequence.AppendInterval(endSound.length / 2f);
         }
@@ -171,13 +171,13 @@ namespace DVDNights
             _callSequence.AppendInterval(InteractionAudioClip.length);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, randomAudioClip);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, randomAudioClip);
                 ShakePhone();
             });
             _callSequence.AppendInterval(randomAudioClip.length);
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, endSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, endSound);
                 ShakePhone();
             });
             _callSequence.AppendInterval(endSound.length);
@@ -189,11 +189,11 @@ namespace DVDNights
             _callSequence?.Kill();
             _currentRings = 0;
 
-            _callSequence = DOTween.Sequence().SetLoops(3).OnComplete(UnansweredCall);
+            _callSequence = DOTween.Sequence().SetLoops(13).OnComplete(UnansweredCall);
 
             _callSequence.AppendCallback(() =>
             {
-                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, callSound);
+                AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, callSound);
                 _currentRings++;
                 Debug.Log("[Ring] " + _currentRings); 
                 ShakePhone();
