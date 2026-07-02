@@ -11583,6 +11583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   artMaterialProviderHandler: {fileID: 11400000, guid: 927822dc8a5d1844ca574ac99ac08ab1, type: 2}
+  cleanCorruptionAudioProvider: {fileID: 11400000, guid: 57d37b4a936fec643a269837dd3c2e6b, type: 2}
 --- !u!1 &1034952732
 GameObject:
   m_ObjectHideFlags: 0
