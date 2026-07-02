@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class TurntableInteractableObject : InteractableObject
+    public class TurntableInteractableObject : CorruptibleInteractableObject
     {
         [Header("PlayVinyl-Sequence")] 
         [SerializeField] private Transform vinylCase;
@@ -22,6 +22,7 @@ namespace DVDNights
         [SerializeField] private AudioClip vinylOutOfSleeveAudioClip;
         [SerializeField] private AudioClip vinylAirSpinAudioClip;
         [SerializeField] private AudioClip vinylOnTurntableAudioClip;
+        [SerializeField] private AudioClip fixTurntableAudioClip;
         
         [Header("Head-Sequence")] 
         [SerializeField] private Transform head;
@@ -49,8 +50,9 @@ namespace DVDNights
         private Vector3[] _vinylCasePath;
 
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _trackSelectorController = ServiceLocator.GetService<ITrackSelectionController>();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
@@ -65,6 +67,12 @@ namespace DVDNights
 
         public override void Interact()
         {
+            if (_isCorrupted)
+            {
+                ClearCorruption();
+                return;
+            }
+            
             Unhighlight();
             _interactionController.DisableInteractions();
             _trackSelectorController.OnTrackSelectionCloseRequested += PlayVinyl;
@@ -76,6 +84,26 @@ namespace DVDNights
             {
                 StopSpinning();
             }
+        }
+
+        public override void Corrupt()
+        {
+            base.Corrupt();
+            SetHasNavigation(false);
+            AudioManager.Instance.DistortAudio(AudioChannelType.TURNTABLE);
+        }
+
+        public override void ClearCorruption()
+        {
+            base.ClearCorruption();
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, fixTurntableAudioClip, volume: 1f, pitch: 2f);          
+            SetHasNavigation(true);
+            AudioManager.Instance.ClearDistortedAudio(AudioChannelType.TURNTABLE);
+        }
+
+        public override bool CanBeCorrupted()
+        {
+            return _trackSelectorController.IsPlayingTrack && _isSpinning;
         }
 
         public override void StopInteraction()
@@ -179,6 +207,7 @@ namespace DVDNights
             .AppendInterval(readingVinylAudioClip.length)
             .AppendCallback(() =>
             {
+                _isSpinning = true;
                 _trackSelectorController.PlaySelectedTrack();
             });
         }
@@ -196,6 +225,7 @@ namespace DVDNights
                 .AppendInterval(removeHeadOnVinylAudioClip.length)
                 .AppendCallback(() =>
                 {
+                    _isSpinning = false;
                     _vinylRotateTransform.DisableRotation();
                 });
             

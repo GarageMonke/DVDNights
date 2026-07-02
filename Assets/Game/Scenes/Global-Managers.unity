@@ -168,7 +168,12 @@ MonoBehaviour:
   channelType: 4
   sfxSource: {fileID: 1981034613}
   ostSource: {fileID: 597479222}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 100
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &178968279
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +223,12 @@ MonoBehaviour:
   channelType: 6
   sfxSource: {fileID: 1720885710}
   ostSource: {fileID: 1182182930}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 100
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &188506976
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +395,12 @@ MonoBehaviour:
   channelType: 5
   sfxSource: {fileID: 1725039345}
   ostSource: {fileID: 1795398367}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 100
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &540830778
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +922,12 @@ MonoBehaviour:
   channelType: 1
   sfxSource: {fileID: 2122998163}
   ostSource: {fileID: 1689389582}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 30
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: TurnTable-Distortion
+  lowPassParameter: TurnTable-LowPassCutoff
 --- !u!1 &905069666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1106,12 @@ MonoBehaviour:
   channelType: 2
   sfxSource: {fileID: 826253454}
   ostSource: {fileID: 2131539408}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 100
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &1054889501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,7 +2130,12 @@ MonoBehaviour:
   channelType: 3
   sfxSource: {fileID: 905069668}
   ostSource: {fileID: 1054889503}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 50
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &2085854648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,7 +2185,12 @@ MonoBehaviour:
   channelType: 0
   sfxSource: {fileID: 2104086537}
   ostSource: {fileID: 843551049}
+  mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
   channelVolume: 50
+  hauntedDistortion: 70
+  hauntedLowPass: 2500
+  distortionParameter: Distortio
+  lowPassParameter: LowPassCutof
 --- !u!1 &2104086535
 GameObject:
   m_ObjectHideFlags: 0

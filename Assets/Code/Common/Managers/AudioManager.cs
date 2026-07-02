@@ -75,6 +75,18 @@ namespace CorePatterns.Managers
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
             return channel.ChannelVolume;
         }
+        
+        public void DistortAudio(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.PlayDistortedAudio();
+        }
+
+        public void ClearDistortedAudio(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.ClearDistortedAudio();
+        }
 
         private AudioSourceChannel GetAudioSourceChannelByType(AudioChannelType audioChannelType)
         {

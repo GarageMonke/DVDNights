@@ -46328,7 +46328,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: aeaa43de93095584c9278d01c72a898a, type: 2}
     - target: {fileID: 919132149155446097, guid: 263262ebefe30b541b89095af2925670, type: 3}
       propertyPath: m_Name
-      value: Turntables
+      value: Turntable-InteractableObject
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 263262ebefe30b541b89095af2925670, type: 3}
       propertyPath: m_Layer
@@ -54374,6 +54374,7 @@ MonoBehaviour:
   vinylOutOfSleeveAudioClip: {fileID: 8300000, guid: 513b581827d42d940aecba11e51ac837, type: 3}
   vinylAirSpinAudioClip: {fileID: 8300000, guid: de613937c3ca23d49a25b72446fe340e, type: 3}
   vinylOnTurntableAudioClip: {fileID: 8300000, guid: 6160757324a894b4a9f0eb2982543b7e, type: 3}
+  fixTurntableAudioClip: {fileID: 8300000, guid: 499910c774c6d0e4096b3c5556d1df77, type: 3}
   head: {fileID: 1830702432}
   headLockRotation: {x: 0, y: 30, z: 8}
   headFreeRotation: {x: 0, y: 0, z: 0}

@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioSourceChannel : MonoBehaviour
 {
@@ -8,14 +9,28 @@ public class AudioSourceChannel : MonoBehaviour
 
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource ostSource;
+    [SerializeField] private AudioMixer mixer;
 
     [SerializeField, Range(0f, 100f)] private float channelVolume = 50f;
 
+    
+    [Header("Distortion-Configuration")]
+    [SerializeField] private float hauntedDistortion = 70f;
+    [SerializeField] private float hauntedLowPass = 2500f;
+    [SerializeField] private string distortionParameter = "Distortion";
+    [SerializeField] private string lowPassParameter = "LowPassCutoff";
+    
     public float ChannelVolume => channelVolume;
+    
+    private float _previousDistortion;
+    private float _previousLowPass;
+    private Tween _distortionTween;
     
     private Tween _fadeTween;
     private AudioClip _previousOSTClip;
     private float _previousOstVolume;
+    
+    private bool _isDistorted;
 
     private void Awake()
     {
@@ -148,6 +163,59 @@ public class AudioSourceChannel : MonoBehaviour
                 ostSource.clip = null;
             }
         }
+    }
+
+    public void PlayDistortedAudio()
+    {
+        if (_isDistorted)
+        {
+            return;
+        }
+
+        _isDistorted = true;
+
+        mixer.GetFloat(distortionParameter, out _previousDistortion);
+        mixer.GetFloat(lowPassParameter, out _previousLowPass);
+
+        _distortionTween?.Kill();
+
+        float startDistortion = _previousDistortion;
+        float startLowPass = _previousLowPass;
+        float randomDuration = Random.Range(1f, 3f);
+        
+        _distortionTween = DOVirtual.Float(0f, 1f, randomDuration, t =>
+        {
+            float distortion = Mathf.Lerp(
+                startDistortion,
+                hauntedDistortion,
+                t);
+
+            float lowPass = Mathf.Lerp(
+                startLowPass,
+                hauntedLowPass,
+                t);
+
+            mixer.SetFloat(distortionParameter, distortion);
+            mixer.SetFloat(lowPassParameter, lowPass);
+
+            // subtle pitch wobble
+            ostSource.pitch = 1f + Mathf.Sin(Time.time * 4f) * 0.02f;
+            randomDuration = Random.Range(1f, 3f);
+        }).SetLoops(-1);
+    }
+
+    public void ClearDistortedAudio()
+    {
+        if (!_isDistorted)
+        {
+            return;
+        }
+
+        _isDistorted = false;
+        _distortionTween?.Kill();
+        mixer.ClearFloat(distortionParameter);
+        mixer.ClearFloat(lowPassParameter);
+        ostSource.pitch = 1f;
     }
 
     public void PlayPreview(AudioClip previewClip, float volume = 1f)
