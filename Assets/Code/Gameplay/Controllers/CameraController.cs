@@ -46,6 +46,7 @@ namespace DVDNights
         private DepthOfField _depthOfField;
         private IInteractionController _interactionController;
         private Tweener _fovTween;
+        private Tween _enableInteractionTween;
 
         private void Awake()
         {
@@ -84,12 +85,21 @@ namespace DVDNights
             {
                 return;
             }
+
+            if (!_isEnabled)
+            {
+                return;
+            }
             
+            _enableInteractionTween?.Kill();
             _fovTween?.Kill();
 
             _fovTween = mainCamera
-                .DOFieldOfView(60, 0.75f)
-                .SetEase(Ease.InOutSine);
+                .DOFieldOfView(60, 0.5f)
+                .SetEase(Ease.InOutSine).OnComplete(() =>
+                {
+                    _enableInteractionTween = DOVirtual.DelayedCall(0.25f,()=> _interactionController.EnableInteractions());
+                });
         }
 
         private void ZoomIn(InputAction.CallbackContext context)
@@ -99,8 +109,16 @@ namespace DVDNights
                 return;
             }
             
+            if (!_isEnabled)
+            {
+                return;
+            }
+            
+            _enableInteractionTween?.Kill();
+            _interactionController.DisableInteractions();
+            
             _fovTween = mainCamera
-                .DOFieldOfView(25, 0.75f)
+                .DOFieldOfView(25, 0.5f)
                 .SetEase(Ease.InOutSine);
         }
 
