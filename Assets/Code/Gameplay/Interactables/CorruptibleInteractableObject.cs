@@ -7,11 +7,9 @@ namespace DVDNights
 {
     public abstract  class CorruptibleInteractableObject : InteractableObject, ICorruptibleObject
     {
-        [SerializeField] private string objectId;
-
         public Action<string> OnCooldownFinished { get; set; }
         
-        public string ObjectId => objectId;
+        public string ObjectId => gameObject.name;
         
         protected bool _isCorrupted;
         protected IDecayController _decayController;
@@ -30,7 +28,7 @@ namespace DVDNights
 
         public virtual void ClearCorruption()
         {
-            _decayController.ClearObject(objectId);
+            _decayController.ClearObject(ObjectId);
             _isCorrupted = false;
         }
 
@@ -42,7 +40,7 @@ namespace DVDNights
         private IEnumerator StartCooldownRoutine()
         {
             yield return new WaitForSeconds(300f);
-            OnCooldownFinished?.Invoke(objectId);
+            OnCooldownFinished?.Invoke(ObjectId);
         }
         
         public void CooldownObject()

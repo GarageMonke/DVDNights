@@ -55,23 +55,21 @@ namespace DVDNights
         {
             base.Corrupt();
             DisplayCorruption();
-            corruptedArtRenderer.material = new Material(_artCorruptionController.GetArtMaterialByType(artPictureType));
-            EnableInteraction();
         }
 
         public override void ClearCorruption()
         {
             base.ClearCorruption();
             HideCorruption();
-            DisableInteraction();
         }
 
         private void DisplayCorruption()
         {
             _dissolveTween?.Kill();
             float targetValue = 0f;
-            float duration = 1f;
+            float duration = 2f;
             
+            corruptedArtRenderer.material = new Material(_artCorruptionController.GetArtMaterialByType(artPictureType));
             corruptedArtRenderer.material.SetFloat(OutlineThickness, 0f);
 
             _dissolveTween = DOTween.To(
@@ -79,11 +77,12 @@ namespace DVDNights
                     x => corruptedArtRenderer.material.SetFloat(Dissolve, x),
                     targetValue,
                     duration)
-                .SetEase(Ease.InOutSine);
+                .SetEase(Ease.InOutSine).OnComplete(EnableInteraction);
         }
 
         private void HideCorruption()
         {
+            DisableInteraction();
             _dissolveTween?.Kill();
 
             corruptedArtRenderer.material.SetFloat(OutlineThickness, _originalOutlineThickness);

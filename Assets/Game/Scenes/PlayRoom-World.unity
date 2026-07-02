@@ -544,8 +544,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -620,7 +620,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 26962606}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_16
   artPictureType: 3
   corruptedArtRenderer: {fileID: 891934562}
 --- !u!23 &60041156 stripped
@@ -838,7 +837,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1297608647}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_10
   bookRigidbody: {fileID: 1297608648}
   bookCollider: {fileID: 103709507}
   pullDistance: 0.65
@@ -893,13 +891,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128438513}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.007853894, w: 0.9999692}
-  m_LocalPosition: {x: 0, y: 0, z: 0.009999991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8382229658815381397}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.9}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &128438515
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1396,8 +1394,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -1547,7 +1545,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 179625280}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_04
   artPictureType: 6
   corruptedArtRenderer: {fileID: 2084961092}
 --- !u!114 &181293432
@@ -1566,7 +1563,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1706329637}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_9
   bookRigidbody: {fileID: 1706329638}
   bookCollider: {fileID: 181293433}
   pullDistance: 0.65
@@ -4716,7 +4712,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 589953098}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_6
   bookRigidbody: {fileID: 1202127631}
   bookCollider: {fileID: 272955997}
   pullDistance: 0.65
@@ -5793,8 +5788,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -5944,7 +5939,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 429240732}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_19
   artPictureType: 6
   corruptedArtRenderer: {fileID: 302652048}
 --- !u!1 &450044260
@@ -6113,8 +6107,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -6189,7 +6183,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 450308642}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_07
   artPictureType: 3
   corruptedArtRenderer: {fileID: 1230026624}
 --- !u!1 &457804562
@@ -6357,7 +6350,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 2076801523}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_2
   bookRigidbody: {fileID: 2076801524}
   bookCollider: {fileID: 495478645}
   pullDistance: 0.65
@@ -8509,8 +8501,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -8585,7 +8577,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 639967257}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_09
   artPictureType: 3
   corruptedArtRenderer: {fileID: 769961573}
 --- !u!1 &661084735
@@ -9302,66 +9293,12 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
-  precomputeOutline: 1
-  bakeKeys:
-  - {fileID: 3800675369104540174, guid: ed9095fb3707a494c80aff1e257534dd, type: 3}
-  bakeValues:
-  - data:
-    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
-    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
-    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
-    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.70710677, y: -0.70710677, z: 0}
-    - {x: 0.70710677, y: -0.70710677, z: 0}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.70710677, y: 0.70710677, z: 0}
-    - {x: -0.70710677, y: 0.70710677, z: 0}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.70710677, y: -0.70710677, z: 0}
-    - {x: 0.70710677, y: 0.70710677, z: 0}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.70710677, y: 0.70710677, z: 0}
-    - {x: -0.70710677, y: -0.70710677, z: 0}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
-    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
-    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
-    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
-    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
-    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
-    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
-    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!65 &721432575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9453,7 +9390,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 721432573}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_05
   artPictureType: 5
   corruptedArtRenderer: {fileID: 1897960629}
 --- !u!1 &731617510
@@ -10608,8 +10544,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -10684,7 +10620,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 890086327}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_15
   artPictureType: 3
   corruptedArtRenderer: {fileID: 882149393}
 --- !u!1 &891934560
@@ -10984,7 +10919,7 @@ MonoBehaviour:
   jitterAmount: 0.05
   jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -11133,7 +11068,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 963621241}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: MechaCat-Poster
   artPictureType: 5
   corruptedArtRenderer: {fileID: 1112038576}
 --- !u!1 &971375409
@@ -12111,7 +12045,7 @@ MonoBehaviour:
   jitterAmount: 0.05
   jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -12260,7 +12194,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1118556497}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: YamiNoFuin-Poster
   artPictureType: 5
   corruptedArtRenderer: {fileID: 696066279}
 --- !u!1 &1123801273
@@ -12882,6 +12815,258 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1001 &1150062970
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 543450653388855707}
+    m_Modifications:
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.499535
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5467564
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.1069195
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98824537
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.014926479
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.018520305
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.15101454
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -2.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -17.344
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.156
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 1718945022075052274, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: outline
+      value: 
+      objectReference: {fileID: 1150062973}
+    - target: {fileID: 1718945022075052274, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: _isEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980870523991099505, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2951346969361778256, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751456323530394414, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0690ab7d0d570ae45ad70818760ed582, type: 2}
+    - target: {fileID: 7133778814716596907, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0135
+      objectReference: {fileID: 0}
+    - target: {fileID: 7133778814716596907, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.21333322
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: m_Name
+      value: PhotographHorizontal-2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1150062975}
+    - targetCorrespondingSourceObject: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1150062974}
+    - targetCorrespondingSourceObject: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1150062973}
+  m_SourcePrefab: {fileID: 100100000, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+--- !u!4 &1150062971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 37196739316905255, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+  m_PrefabInstance: {fileID: 1150062970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1150062972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+  m_PrefabInstance: {fileID: 1150062970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1150062973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150062972}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hatchTexture: {fileID: 2800000, guid: 67456b520c975b5429f07d033e31fb2f, type: 3}
+  noiseTexture: {fileID: 2800000, guid: f412974d87e996548ac9462540b999d7, type: 3}
+  hatchScale: 25
+  noiseStrength: 2
+  updateRate: 4
+  scrollX: 1
+  scrollY: 20
+  jitterAmount: 0.05
+  jitterScale: 15
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  outlineWidth: 15
+  precomputeOutline: 1
+  bakeKeys:
+  - {fileID: 3800675369104540174, guid: ed9095fb3707a494c80aff1e257534dd, type: 3}
+  bakeValues:
+  - data:
+    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
+    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
+    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
+    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.70710677, y: -0.70710677, z: 0}
+    - {x: 0.70710677, y: -0.70710677, z: 0}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.70710677, y: 0.70710677, z: 0}
+    - {x: -0.70710677, y: 0.70710677, z: 0}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.70710677, y: -0.70710677, z: 0}
+    - {x: 0.70710677, y: 0.70710677, z: 0}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.70710677, y: 0.70710677, z: 0}
+    - {x: -0.70710677, y: -0.70710677, z: 0}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
+    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: 0.40824828, z: 0.81649655}
+    - {x: 0.5773502, y: 0.5773503, z: 0.5773503}
+    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: 0.5773502, y: -0.5773503, z: 0.5773503}
+    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.40824828, y: -0.40824828, z: 0.81649655}
+    - {x: -0.5773503, y: -0.57735026, z: 0.57735026}
+    - {x: -0.5773503, y: 0.57735026, z: 0.57735026}
+    - {x: -0.40824828, y: 0.40824828, z: 0.81649655}
+--- !u!65 &1150062974
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150062972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10989148, y: 0.31033146, z: 0.43038678}
+  m_Center: {x: 0.03229105, y: 0.15516573, z: 0.21519318}
+--- !u!114 &1150062975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150062972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acac0f8303be44e1804bd06bf6d908e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasNavigation: 0
+  _isEnabled: 0
+  outline: {fileID: 1150062973}
+  interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  artPictureType: 2
+  corruptedArtRenderer: {fileID: 1315310619}
 --- !u!1 &1158562421
 GameObject:
   m_ObjectHideFlags: 0
@@ -13116,7 +13301,7 @@ MonoBehaviour:
   jitterAmount: 0.05
   jitterScale: 15
   outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -13137,7 +13322,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1164119050}
   interactionAudioClip: {fileID: 8300000, guid: 909140a3ef41b20439069b186b4a5593, type: 3}
-  objectId: Cellphone
   phoneRenderer: {fileID: 1164119048}
   screenRenderer: {fileID: 60041156}
   incomingCallMaterial: {fileID: 2100000, guid: 9deba48e2262ead44bee71b734eaaa20, type: 2}
@@ -13545,8 +13729,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -13621,7 +13805,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1193559314}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_03
   artPictureType: 5
   corruptedArtRenderer: {fileID: 223062942}
 --- !u!54 &1202127631
@@ -14517,8 +14700,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -14668,7 +14851,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1272546670}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_20
   artPictureType: 6
   corruptedArtRenderer: {fileID: 1798186404}
 --- !u!1 &1279432726 stripped
@@ -14737,7 +14919,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1279432742}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_5
   bookRigidbody: {fileID: 1279432745}
   bookCollider: {fileID: 1279432737}
   pullDistance: 0.65
@@ -14782,7 +14963,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1279432743}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_3
   bookRigidbody: {fileID: 1279432746}
   bookCollider: {fileID: 1279432739}
   pullDistance: 0.65
@@ -14827,7 +15007,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1279432744}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_1
   bookRigidbody: {fileID: 1279432747}
   bookCollider: {fileID: 1279432741}
   pullDistance: 0.65
@@ -33962,6 +34141,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!23 &1315310619 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2230221082283567350, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+  m_PrefabInstance: {fileID: 1150062970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1333053570
 GameObject:
   m_ObjectHideFlags: 0
@@ -34416,7 +34600,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1385488902}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_8
   bookRigidbody: {fileID: 1385488903}
   bookCollider: {fileID: 1385488901}
   pullDistance: 0.65
@@ -36507,8 +36690,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -36658,7 +36841,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1526008938}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_21
   artPictureType: 6
   corruptedArtRenderer: {fileID: 704913627}
 --- !u!1001 &1531062114
@@ -37906,8 +38088,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -37982,7 +38164,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1664828559}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_17
   artPictureType: 3
   corruptedArtRenderer: {fileID: 1241495530}
 --- !u!1 &1690166443
@@ -38083,7 +38264,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1699047903}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_7
   bookRigidbody: {fileID: 1699047904}
   bookCollider: {fileID: 1699047902}
   pullDistance: 0.65
@@ -41192,7 +41372,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1752775871}
   interactionAudioClip: {fileID: 8300000, guid: 2fe02f29d8c0d1f468ee9a69ef878110, type: 3}
-  objectId: Book_4
   bookRigidbody: {fileID: 1752775872}
   bookCollider: {fileID: 1752775870}
   pullDistance: 0.65
@@ -42796,8 +42975,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -42947,7 +43126,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1767646275}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_11
   artPictureType: 3
   corruptedArtRenderer: {fileID: 2035608019}
 --- !u!1 &1772096880
@@ -44193,8 +44371,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -44269,7 +44447,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 1900415685}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_13
   artPictureType: 4
   corruptedArtRenderer: {fileID: 1234841674}
 --- !u!1 &1928075110
@@ -46018,7 +46195,6 @@ MonoBehaviour:
   _isEnabled: 1
   outline: {fileID: 2053097222}
   interactionAudioClip: {fileID: 8300000, guid: 740d7c36f350540439249d7ec7075d8d, type: 3}
-  objectId: Lamp
   lampLight: {fileID: 1827512613}
   turnOnLampAudioClip: {fileID: 8300000, guid: e62ee1e26cf8d734bbdc3b241a43cff6, type: 3}
   turnOffLampAudioClip: {fileID: 8300000, guid: 99829057f7ac01c4c95ab9912708f173, type: 3}
@@ -56434,8 +56610,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -56585,7 +56761,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 2119884241}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_14
   artPictureType: 0
   corruptedArtRenderer: {fileID: 144455978}
 --- !u!1 &2128215049
@@ -56646,8 +56821,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -56797,7 +56972,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 2128215051}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_10
   artPictureType: 3
   corruptedArtRenderer: {fileID: 761321738}
 --- !u!1 &2145121373
@@ -58287,7 +58461,6 @@ MonoBehaviour:
   _isEnabled: 1
   outline: {fileID: 543450651938090011}
   interactionAudioClip: {fileID: 8300000, guid: 5f592251a5610c54fa1040dee47aa584, type: 3}
-  objectId: TV
   cameraLockPosition: {x: 0, y: 0, z: -0.34}
   strikeTVAudioClip: {fileID: 8300000, guid: 499910c774c6d0e4096b3c5556d1df77, type: 3}
   TVHummingAudioClip: {fileID: 8300000, guid: 963c26526f2b0984b95793ba5c0b4b5b, type: 3}
@@ -58341,6 +58514,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8536657049708475401}
+  - {fileID: 1150062971}
   - {fileID: 7053858834802124496}
   m_Father: {fileID: 762154408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59096,38 +59270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -17.455
       objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.156
+    - target: {fileID: 1718945022075052274, guid: e8130f253343c5f429fb74412110aaee, type: 3}
+      propertyPath: _isEnabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 639638706933855025, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 4751456323530394414, guid: e8130f253343c5f429fb74412110aaee, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: d2e94713cbbfa004292920598e1c9971, type: 2}
     - target: {fileID: 7844565784708114436, guid: e8130f253343c5f429fb74412110aaee, type: 3}
       propertyPath: m_Name
       value: PhotographHorizontal-1
@@ -60027,8 +60173,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -60111,7 +60257,7 @@ Transform:
   m_GameObject: {fileID: 6277596496286362596}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000033909448, y: 0.31276044, z: -0.000000016587094, w: -0.9498321}
-  m_LocalPosition: {x: 1.436, y: 0.737, z: -0.471}
+  m_LocalPosition: {x: 1.317, y: 0.727, z: -0.574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60297,7 +60443,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: outlineColor.g
-      value: 0.8862745
+      value: 0.88666916
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2617447134222868947, guid: e8fc1ae882cfefe4c8dd5be7b2dd9226, type: 3}
       propertyPath: precomputeOutline
@@ -60963,7 +61113,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 2820914339973560795}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Rabbid-Poster
   artPictureType: 6
   corruptedArtRenderer: {fileID: 2355947612059344343}
 --- !u!33 &2832333296715033194
@@ -61217,8 +61366,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -61340,8 +61489,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -377399,7 +377548,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 3034454538620980216}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_06
   artPictureType: 6
   corruptedArtRenderer: {fileID: 255044304}
 --- !u!23 &6112768776975248417
@@ -377741,8 +377889,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -377817,7 +377965,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 6461254367752280289}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_12
   artPictureType: 4
   corruptedArtRenderer: {fileID: 1376810198}
 --- !u!65 &6461254367752280291
@@ -391407,8 +391554,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -391483,7 +391630,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 7171494655180442262}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_08
   artPictureType: 3
   corruptedArtRenderer: {fileID: 395587284}
 --- !u!4 &7182217484160576481
@@ -391708,7 +391854,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 3123089074076645062}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_02
   artPictureType: 6
   corruptedArtRenderer: {fileID: 1211882589}
 --- !u!4 &7790222026472908544
@@ -391941,7 +392086,7 @@ Transform:
   m_GameObject: {fileID: 6297920007237922740}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000019750717, y: 0.8522023, z: 0.000000032169734, w: 0.5232125}
-  m_LocalPosition: {x: 1.3981092, y: 0.7309971, z: -0.41892493}
+  m_LocalPosition: {x: 1.333, y: 0.7209971, z: -0.429}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -392054,14 +392199,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 543450653388855707}
     m_Modifications:
+    - target: {fileID: 3758745440304064510, guid: 0e578c1599d2cd746800801645825155, type: 3}
+      propertyPath: _isEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3775949705246386685, guid: 0e578c1599d2cd746800801645825155, type: 3}
       propertyPath: m_Name
       value: PhotographVertical-1
       objectReference: {fileID: 0}
-    - target: {fileID: 4576618013867173544, guid: 0e578c1599d2cd746800801645825155, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 04610ec63c908f447b71dac68c76cd21, type: 2}
     - target: {fileID: 6246483047568775055, guid: 0e578c1599d2cd746800801645825155, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.12149325
@@ -393825,8 +393970,8 @@ MonoBehaviour:
   scrollY: 20
   jitterAmount: 0.05
   jitterScale: 15
-  outlineMode: 3
-  outlineColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   outlineWidth: 15
   precomputeOutline: 1
   bakeKeys:
@@ -393901,7 +394046,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 8382229658815381400}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_18
   artPictureType: 5
   corruptedArtRenderer: {fileID: 128438515}
 --- !u!23 &8393454858419854215
@@ -394079,7 +394223,6 @@ MonoBehaviour:
   _isEnabled: 0
   outline: {fileID: 2362699303561962897}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  objectId: Picture_01
   artPictureType: 5
   corruptedArtRenderer: {fileID: 1007551841}
 --- !u!33 &8529179890017851377
@@ -407547,7 +407690,6 @@ MonoBehaviour:
   _isEnabled: 1
   outline: {fileID: 8918280150175745896}
   interactionAudioClip: {fileID: 8300000, guid: f765815a7bc3a1f43b4e92727db21454, type: 3}
-  objectId: Door
   minOpenAngle: {x: 0, y: -10, z: 0}
   maxOpenAngle: {x: 0, y: -90, z: 0}
   openHandleAngle: {x: 0, y: 0, z: -35}
