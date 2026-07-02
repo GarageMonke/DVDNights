@@ -37,7 +37,7 @@ namespace DVDNights
         private void PrepareRoom()
         {
             _outlinesController.EnableAllOutlines();
-            mainFadeInOutBlack.FadeOut(1f, Ease.Linear, OpenEyes);
+            mainFadeInOutBlack.FadeOut(3f, Ease.Linear, OpenEyes);
         }
 
         private void OpenEyes()
