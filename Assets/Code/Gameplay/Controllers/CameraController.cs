@@ -2,6 +2,7 @@
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -12,6 +13,7 @@ namespace DVDNights
         [Header("Camera Reference")]
         [SerializeField] private Camera mainCamera;
         [SerializeField] private Volume postProcessing;
+        [SerializeField] private InputActionSO zoomInputActionSO;
 
         [Header("Rotation Settings")]
         [SerializeField] private float _mouseSensitivity = 2f;
@@ -36,10 +38,14 @@ namespace DVDNights
         private Tween _currentRotationTween;
         private Tween _currentDelayEnableTween;
 
+        private InputAction _zoomInputAction;
+
         public Camera Camera => mainCamera;
         public Vector3 OriginPosition => _initialCameraPosition;
         
         private DepthOfField _depthOfField;
+        private IInteractionController _interactionController;
+        private Tweener _fovTween;
 
         private void Awake()
         {
@@ -52,6 +58,10 @@ namespace DVDNights
             {
                 mainCamera = Camera.main;
             }
+
+            _zoomInputAction = zoomInputActionSO.GetInputAction();
+            _zoomInputAction.performed += ZoomIn;
+            _zoomInputAction.canceled += ZoomOut;
             
             DisableNavigation();
             _initialCameraPosition = mainCamera.transform.localPosition;
@@ -62,7 +72,37 @@ namespace DVDNights
 
             ServiceLocator.RegisterService<ICameraController>(this);
         }
-        
+
+        private void Start()
+        {
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+        }
+
+        private void ZoomOut(InputAction.CallbackContext context)
+        {
+            if (_interactionController.IsInteracting)
+            {
+                return;
+            }
+            
+            _fovTween?.Kill();
+
+            _fovTween = mainCamera
+                .DOFieldOfView(60, 0.75f)
+                .SetEase(Ease.InOutSine);
+        }
+
+        private void ZoomIn(InputAction.CallbackContext context)
+        {
+            if (_interactionController.IsInteracting)
+            {
+                return;
+            }
+            
+            _fovTween = mainCamera
+                .DOFieldOfView(25, 0.75f)
+                .SetEase(Ease.InOutSine);
+        }
 
         private void Update()
         {
@@ -167,6 +207,12 @@ namespace DVDNights
         public void Unfocus()
         {
             _depthOfField.active = true;
+        }
+
+        private void OnDestroy()
+        {
+            _zoomInputAction.performed -= ZoomIn;
+            _zoomInputAction.canceled -= ZoomOut;
         }
     }
 

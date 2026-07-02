@@ -1,6 +1,4 @@
-﻿
-using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
 using UnityEngine;
@@ -35,6 +33,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
     private InputAction _interactInputAction;
     private InputAction _stopInteractionInputAction;
     private IDialogController _dialogController;
+
+    public bool IsInteracting => _isInteracting;
 
     private void Awake()
     {
@@ -266,6 +266,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
 public interface IInteractionController
 {
+    public bool IsInteracting { get; }
     public void EnableInteractions();
     public void DisableInteractions();
     public void ForceInteraction(IInteractableObject interactableObject);

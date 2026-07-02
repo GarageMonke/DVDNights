@@ -13119,7 +13119,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.61956507
+      value: -0.34018803
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13127,7 +13127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.49459
+      value: -1.546714
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -44103,6 +44103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 265031449}
   postProcessing: {fileID: 810528310}
+  zoomInputActionSO: {fileID: 11400000, guid: ab2b8bcc0e866334a9ffd30a8b33b903, type: 2}
   _mouseSensitivity: 2
   _mouseYClamp: 0
   _minPitchAngle: -60
