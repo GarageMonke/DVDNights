@@ -36,15 +36,19 @@ namespace DVDNights
 
         private void PrepareRoom()
         {
-            _outlinesController.EnableAllOutlines();
+            _outlinesController.DisableAllOutlines();
             mainFadeInOutBlack.FadeOut(3f, Ease.Linear, OpenEyes);
         }
 
         private void OpenEyes()
         {
-            _interactionController.EnableInteractions();
-            _outlinesController.DisableAllOutlines();
             _cameraController.EnableNavigation();
+            
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                _interactionController.EnableInteractions();
+            });
+
         }
     }
 
