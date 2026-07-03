@@ -76,15 +76,26 @@ namespace DVDNights
                 
                 elapsed += durationPerStroke;
             }
-            
+
             _writingSequence.AppendCallback(() =>
             {
                 base.Corrupt();
                 
-                pencil.DOLocalMove(_originalPosition, 1f)
+                pencil.DOLocalMove(writingStartPosition, durationPerStroke)
+                    .SetEase(Ease.InOutSine);
+
+                pencil.DOLocalRotate(writingStartRotation, durationPerStroke)
+                    .SetEase(Ease.InOutSine);
+            });
+
+            _writingSequence.AppendInterval(0.3f);
+            
+            _writingSequence.AppendCallback(() =>
+            {
+                pencil.DOLocalRotate(_originalRotation, 0.5f)
                     .SetEase(Ease.InOutSine);
                 
-                pencil.DOLocalRotate(_originalRotation, 1f)
+                pencil.DOLocalMove(_originalPosition, 0.5f)
                     .SetEase(Ease.InOutSine);
             });
         }
