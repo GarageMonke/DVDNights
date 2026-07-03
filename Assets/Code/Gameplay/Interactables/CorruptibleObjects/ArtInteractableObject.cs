@@ -16,11 +16,11 @@ namespace DVDNights
         [SerializeField] private MeshRenderer corruptedArtRenderer;
 
 
-        private IArtCorruptionController _artCorruptionController;
+        protected IArtCorruptionController _artCorruptionController;
         private float _originalOutlineThickness;
         private Tweener _dissolveTween;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (corruptedArtRenderer == null)
             {
@@ -86,7 +86,7 @@ namespace DVDNights
             _dissolveTween?.Kill();
 
             corruptedArtRenderer.material.SetFloat(OutlineThickness, _originalOutlineThickness);
-            AudioClip fadeAudioClip = _artCorruptionController.GetAudioClip();
+            AudioClip fadeAudioClip = _artCorruptionController.GetCleanCorruptionAudioClip();
 
             float targetValue = 1f;
             float duration = fadeAudioClip.length;

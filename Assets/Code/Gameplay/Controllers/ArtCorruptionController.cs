@@ -10,6 +10,7 @@ namespace DVDNights
          [Header("References")]
          [SerializeField] private MaterialProviderHandler artMaterialProviderHandler;
          [SerializeField] private AudioClipProvider cleanCorruptionAudioProvider;
+         [SerializeField] private AudioClipProvider drawingCorruptionAudioProvider;
 
          private void Awake()
          {
@@ -20,6 +21,7 @@ namespace DVDNights
          {
              artMaterialProviderHandler.InitializeProviderHandler();
              cleanCorruptionAudioProvider.InitializeProvider();
+             drawingCorruptionAudioProvider.InitializeProvider();
              ServiceLocator.RegisterService<IArtCorruptionController>(this);
          }
 
@@ -28,15 +30,21 @@ namespace DVDNights
              return artMaterialProviderHandler.GetRandomElementById(artType);
          }
 
-         public AudioClip GetAudioClip()
+         public AudioClip GetCleanCorruptionAudioClip()
          {
              return cleanCorruptionAudioProvider.GetRandomElement();
+         }
+
+         public AudioClip GetDrawingAudioClip()
+         {
+             return drawingCorruptionAudioProvider.GetRandomElement();
          }
     }
 
     public interface IArtCorruptionController
     {
         public Material GetArtMaterialByType(ArtPictureType artType);
-        public AudioClip GetAudioClip();
+        public AudioClip GetCleanCorruptionAudioClip();
+        public AudioClip GetDrawingAudioClip();
     }
 }

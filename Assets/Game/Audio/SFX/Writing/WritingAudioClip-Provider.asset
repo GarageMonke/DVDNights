@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae13b73ed487c846a80c59f6b6889a3, type: 3}
+  m_Name: WritingAudioClip-Provider
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: 1
+    Value: {fileID: 8300000, guid: 5872b760450cb1a4d96c1be15f34db33, type: 3}
+  - Id: 2
+    Value: {fileID: 8300000, guid: 9e72c4716a979634eb7448147d0b467d, type: 3}
+  - Id: 3
+    Value: {fileID: 8300000, guid: 17dd6f023592e214a8064ea79c263894, type: 3}
+  - Id: 4
+    Value: {fileID: 8300000, guid: accb2dd491b9fcd4690da2cad7656d93, type: 3}
+  - Id: 5
+    Value: {fileID: 8300000, guid: a95f8734600852e449e59969e8f91ab2, type: 3}
+  - Id: 6
+    Value: {fileID: 8300000, guid: 719c94c6a2de0f143a17fe302069b4ed, type: 3}
+  - Id: 7
+    Value: {fileID: 8300000, guid: f41aa4ab5717a9445a8a1a1857ceb609, type: 3}
+  - Id: 8
+    Value: {fileID: 8300000, guid: accb2dd491b9fcd4690da2cad7656d93, type: 3}
