@@ -17,6 +17,7 @@ namespace DVDNights
         [SerializeField] private Vector3 writingStartRotation;
 
         private Vector3 _originalPosition;
+        private Vector3 _controlPosition;
         private Vector3 _originalRotation;
         private Sequence _writingSequence;
         private bool _drawn;
@@ -25,6 +26,7 @@ namespace DVDNights
         {
             _originalPosition = pencil.localPosition;
             _originalRotation = pencil.localRotation.eulerAngles;
+            _controlPosition = writingStartPosition + new Vector3(0, height / 2f, 0);
             _drawn = false;
         }
         public override void Corrupt()
@@ -40,14 +42,13 @@ namespace DVDNights
             
             _writingSequence.AppendCallback(() =>
             {
-                pencil.DOLocalMove(writingStartPosition, 1f)
-                    .SetEase(Ease.InOutSine);
-                
-                pencil.DOLocalRotate(writingStartRotation, 1f)
-                    .SetEase(Ease.InOutSine);
+                pencil.DOLocalMove(_controlPosition, 1f).SetEase(Ease.InOutSine);
+                pencil.DOLocalRotate(writingStartRotation, 1f).SetEase(Ease.InOutSine);
             });
 
             _writingSequence.AppendInterval(1.25f);
+            
+            _writingSequence.Append(pencil.DOLocalMove(writingStartPosition, 0.2f).SetEase(Ease.InOutSine));
             
             float elapsed = 0;
 
@@ -81,22 +82,16 @@ namespace DVDNights
             {
                 base.Corrupt();
                 
-                pencil.DOLocalMove(writingStartPosition, durationPerStroke)
-                    .SetEase(Ease.InOutSine);
-
-                pencil.DOLocalRotate(writingStartRotation, durationPerStroke)
-                    .SetEase(Ease.InOutSine);
+                pencil.DOLocalMove(_controlPosition, durationPerStroke).SetEase(Ease.InOutSine);
+                pencil.DOLocalRotate(writingStartRotation, durationPerStroke).SetEase(Ease.InOutSine);
             });
 
             _writingSequence.AppendInterval(0.3f);
             
             _writingSequence.AppendCallback(() =>
             {
-                pencil.DOLocalRotate(_originalRotation, 0.5f)
-                    .SetEase(Ease.InOutSine);
-                
-                pencil.DOLocalMove(_originalPosition, 0.5f)
-                    .SetEase(Ease.InOutSine);
+                pencil.DOLocalRotate(_originalRotation, 0.5f).SetEase(Ease.InOutSine);
+                pencil.DOLocalMove(_originalPosition, 0.5f).SetEase(Ease.InOutSine);
             });
         }
 
