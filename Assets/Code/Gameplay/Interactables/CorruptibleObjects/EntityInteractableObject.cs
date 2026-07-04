@@ -8,6 +8,12 @@ namespace DVDNights
     public class EntityInteractableObject : CorruptibleInteractableObject
     {
         [SerializeField] private Volume volume;
+        [SerializeField] private Animator animatorController;
+
+        private const string IdleCorner = "Idle-Corner";
+        private const string IdleSneaking = "Idle-Sneaking";
+        private const string IdleTopDoor = "Idle-TopDoor";
+        private const string IdleTopDoorIdle = "Idle-TopDoorIdle";
 
         private Bloom _bloom;
         private Tween _bloomTween;
@@ -38,6 +44,21 @@ namespace DVDNights
         public override void Unhighlight()
         {
             BloomOut(0.25f);
+        }
+
+        public void PlayAnimationClip()
+        {
+            Highlight();
+            animatorController.speed = 0;
+            animatorController.Play(IdleTopDoor);
+
+            DOVirtual.DelayedCall(1f, PlayJumpScare);
+        }
+
+        private void PlayJumpScare()
+        {
+            animatorController.speed = 1;
+            animatorController.Play(IdleTopDoor);
         }
 
         private void TweenBloom(float targetIntensity, float duration)

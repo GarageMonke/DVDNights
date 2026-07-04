@@ -31,7 +31,7 @@ namespace DVDNights
             _availableObjects = new Dictionary<string, ICorruptibleObject>();
             _corruptedTickInterval = new WaitForSeconds(CorruptedTickInterval);
             _tickCoroutine = StartCoroutine(CorruptedTickRoutine());
-            _decayCoroutine = StartCoroutine(DecayRoutine());
+            //_decayCoroutine = StartCoroutine(DecayRoutine());
         }
         
         private void Start()
