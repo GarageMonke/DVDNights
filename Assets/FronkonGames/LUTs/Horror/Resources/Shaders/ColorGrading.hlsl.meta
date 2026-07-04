@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8e0a74b3a0efe9243b770df46674aacd
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 280345
+  packageName: 'LUTs: Horror'
+  packageVersion: 3.0.1
+  assetPath: Assets/FronkonGames/LUTs/Horror/Resources/Shaders/ColorGrading.hlsl
+  uploadId: 886566

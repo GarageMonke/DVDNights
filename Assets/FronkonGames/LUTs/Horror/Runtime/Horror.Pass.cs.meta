@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e28b02313820cf24fbf628292f5f52db
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 280345
+  packageName: 'LUTs: Horror'
+  packageVersion: 3.0.1
+  assetPath: Assets/FronkonGames/LUTs/Horror/Runtime/Horror.Pass.cs
+  uploadId: 886566

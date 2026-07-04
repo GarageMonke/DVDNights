@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 08b91b1b55a8e5844bacc8b7480fd79f
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 280345
+  packageName: 'LUTs: Horror'
+  packageVersion: 3.0.1
+  assetPath: Assets/FronkonGames/LUTs/Horror/Runtime/FronkonGames.LUTs.Horror.asmdef
+  uploadId: 886566

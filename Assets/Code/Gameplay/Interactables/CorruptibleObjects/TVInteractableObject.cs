@@ -11,6 +11,8 @@ namespace DVDNights
     {
         [Header("Configuration")]
         [SerializeField] private Vector3 cameraLockPosition;
+        [SerializeField] private Light interactionLight;
+        [SerializeField] private float interactionLightIntensity;
         
         [Header("Feedback")]
         [SerializeField] private AudioClip strikeTVAudioClip;
@@ -25,8 +27,9 @@ namespace DVDNights
         private bool _hasBeenHitOnce;
         private Sequence _strikeSequence;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
@@ -77,6 +80,9 @@ namespace DVDNights
             Unhighlight();
             _cameraController.TweenToPosition(cameraLockPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
+
+            interactionLight.DOKill();
+            interactionLight.DOIntensity(interactionLightIntensity, 0.5f).SetEase(Ease.Linear);
             _tvNavigationController.EnableButtons();
             _mouseLayoutController.DisplayRegularLayout();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
@@ -94,9 +100,12 @@ namespace DVDNights
             _tvNavigationController.DisableButtons();
             _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
             _cameraController.TweenToRotation(Quaternion.identity, 0.5f);
+            interactionLight.DOKill();
+            interactionLight.DOIntensity(0f, 0.5f).SetEase(Ease.Linear);
             _mouseLayoutController.HideMouseLayout();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
             _isInteractingWithTv = false;
+            _isInteractingWithTv = true;
         }
 
         public override void Corrupt()

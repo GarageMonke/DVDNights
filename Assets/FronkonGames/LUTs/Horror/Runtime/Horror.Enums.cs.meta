@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e7eb1ba0e1e1d2d44a6273fea0849d6d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 280345
+  packageName: 'LUTs: Horror'
+  packageVersion: 3.0.1
+  assetPath: Assets/FronkonGames/LUTs/Horror/Runtime/Horror.Enums.cs
+  uploadId: 886566
