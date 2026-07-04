@@ -120,6 +120,16 @@ namespace DVDNights
             _flickerSequence.AppendInterval(Random.Range(minStepTime, maxStepTime));
         }
 
+        public void SetLampIntensity(float intensity)
+        {
+            lampLight.intensity = intensity;
+        }
+
+        private void RestoreLampIntensity()
+        {
+            lampLight.intensity = maxIntensity;
+        }
+
         private void StopFlicker()
         {
             if (_flickerSequence != null && _flickerSequence.IsActive())
