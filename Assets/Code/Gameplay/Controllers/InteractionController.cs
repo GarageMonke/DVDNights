@@ -207,10 +207,16 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
         if (_currentHighlighted.IsEnabled)
         {
-            crosshairImage.color = detectedColor;
+            if (_currentHighlighted.HasCrossHairHint)
+            {
+                crosshairImage.color = detectedColor;
+                TweenToSize(Vector2.one * 1.5f);
+            }
+          
             _currentHighlighted.Highlight();
-            TweenToSize(Vector2.one * 1.5f);
-            _dialogController.DisplayDialog(_currentHighlighted.GetInteractionAction());
+            
+            string interactionAction = _currentHighlighted.GetInteractionAction();
+            _dialogController.DisplayDialog(interactionAction);
         }
     }
 

@@ -25,6 +25,11 @@ namespace DVDNights
 
         public void DisplayDialog(string dialog)
         {
+            if (string.IsNullOrEmpty(dialog))
+            {
+                return;
+            }
+
             _dialogWindow.Display();
             _dialogWindow.UpdateDialog(dialog);
         }

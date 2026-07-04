@@ -9,6 +9,7 @@ namespace DVDNights
         [SerializeField] private bool hasNavigation;
 
         [SerializeField] private bool _isEnabled = true;
+        [SerializeField] private bool _hasCrossHairHint = true;
 
         [Header("References")] 
         [SerializeField] private Outline outline;
@@ -23,6 +24,7 @@ namespace DVDNights
         public AudioClip InteractionAudioClip => interactionAudioClip;
         public bool IsEnabled => _isEnabled;
         public bool HasIgnoreNavigation => _hasIgnoreNavigation;
+        public bool HasCrossHairHint => _hasCrossHairHint;
 
         public void EnableInteraction()
         {
@@ -61,17 +63,30 @@ namespace DVDNights
 
         protected virtual void Start()
         {
-            _outlineController = ServiceLocator.GetService<IOutlineController>();
-            _outlineController.RegisterOutline(outline);
+            if (outline)
+            {
+                _outlineController = ServiceLocator.GetService<IOutlineController>();
+                _outlineController.RegisterOutline(outline);
+            }
         }
 
-        public void Highlight()
+        public virtual void Highlight()
         {
+            if (!outline)
+            {
+                return;
+            }
+            
             outline.enabled = true;
         }
 
-        public void Unhighlight()
+        public virtual void Unhighlight()
         {
+            if (!outline)
+            {
+                return;
+            }
+            
             outline.enabled = false;
         }
     }
@@ -80,6 +95,7 @@ namespace DVDNights
     {
         public bool IsEnabled { get; }
         public bool HasIgnoreNavigation { get; }
+        public bool HasCrossHairHint { get; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();
