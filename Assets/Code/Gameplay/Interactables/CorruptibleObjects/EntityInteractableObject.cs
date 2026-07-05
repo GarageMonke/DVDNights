@@ -48,15 +48,15 @@ namespace DVDNights
 
         public void PlayAnimationClip()
         {
-            Highlight();
             animatorController.speed = 0;
             animatorController.Play(IdleTopDoor);
 
-            DOVirtual.DelayedCall(1f, PlayJumpScare);
+            DOVirtual.DelayedCall(0.8f, PlayJumpScare);
         }
 
         private void PlayJumpScare()
         {
+            Highlight();
             animatorController.speed = 1;
             animatorController.Play(IdleTopDoor);
         }

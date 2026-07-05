@@ -1,10 +1,14 @@
 using Code.TestOnly;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
 using UnityEngine;
 
 public class TrailerHandler : MonoBehaviour
 {
+    [Header("Debug")] 
+    [SerializeField] private bool playTrailer;
+    
     [Header("References")] 
     [SerializeField] private Camera trailerCamera;
     [SerializeField] private GameObject trailerCameraLight;
@@ -18,7 +22,7 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private DecoyGameRulesInteractableObject decoyGameRulesInteractableObject;
     [SerializeField] private Light roomLight;
     
-    [Header("Configuration")]
+    [Header("Camera-Configuration")]
     [SerializeField] private CameraPositionData originalCameraPositionData;
     [SerializeField] private CameraPositionData originalLightPositionData;
     [SerializeField] private CameraPositionData originalLampLightPositionData;
@@ -28,12 +32,18 @@ public class TrailerHandler : MonoBehaviour
 
 
     private Sequence _cameraSequence;
+    private IInteractionController _interactionController;
+    
 
-    private void Awake()
+    private void Start()
     {
-        ResetCamera();
-        
-        lampInteractableObject.Interact();
+        if (playTrailer)
+        {
+            ResetCamera();
+            lampInteractableObject.Interact();
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _interactionController.DisableInteractions();
+        }
     }
 
     private void ResetCamera()
@@ -67,7 +77,7 @@ public class TrailerHandler : MonoBehaviour
         {
             SetCameraShoot(8);
             drawingInteractableObject.Corrupt();
-            lampInteractableObject.SetLampIntensity(0.5f);
+            lampInteractableObject.SetLampIntensity(0.3f);
             trailerCameraLight.SetActive(false);
         }
 

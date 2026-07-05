@@ -262,6 +262,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
     public void DisableInteractions()
     {
         _isEnabled = false;
+        ClearHighlight();
     }
 
     public void ForceInteraction(IInteractableObject interactableObject)
