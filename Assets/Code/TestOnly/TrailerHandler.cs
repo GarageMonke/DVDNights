@@ -1,3 +1,4 @@
+using System;
 using Code.TestOnly;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
@@ -32,6 +33,7 @@ public class TrailerHandler : MonoBehaviour
 
 
     private Sequence _cameraSequence;
+    private Tweener _fovTween;
     private IInteractionController _interactionController;
     
 
@@ -83,14 +85,21 @@ public class TrailerHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            SetCameraShoot(9);
+            SetCameraShoot(9, () =>
+            {
+                entityInteractableObject.PlayAnimationClip();
+                DOVirtual.DelayedCall(0.65f, ()=>
+                _fovTween = trailerCamera
+                    .DOFieldOfView(0f, 0.4f)
+                    .SetEase(Ease.InExpo));
+            });
+            
             trailerCameraLight.SetActive(true);
-            entityInteractableObject.PlayAnimationClip();
             roomLight.transform.localPosition = new Vector3(originalLightPositionData.cameraPosition.x, originalLightPositionData.cameraPosition.y, -0.8f);
         }
     }
 
-    private void SetCameraShoot(int index)
+    private void SetCameraShoot(int index, Action onCompleteCallback = null)
     {
         CameraPositionData cameraPositionData = cameraPositionsData[index];
         trailerCamera.transform.localPosition = cameraPositionData.cameraPosition;
@@ -104,7 +113,7 @@ public class TrailerHandler : MonoBehaviour
             {
                 trailerCamera.transform.DOLocalMove(cameraPositionData.cameraTargetPosition, cameraPositionData.timeToPosition).SetEase(Ease.InOutSine);
                 trailerCamera.transform.DOLocalRotate(cameraPositionData.cameraTargetRotation, cameraPositionData.timeToRotation).SetEase(Ease.InOutSine);
-            });
+            }).OnComplete(()=> onCompleteCallback?.Invoke());
         }
     }
 }
