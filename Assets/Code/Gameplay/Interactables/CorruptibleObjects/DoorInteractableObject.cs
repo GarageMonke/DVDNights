@@ -112,9 +112,17 @@ namespace DVDNights
         {
             DisableInteraction();
             int randomSqueakClip = Random.Range(0, squeakAudioClips.Length);
+            
+            //Trailer ONLY
+            randomSqueakClip = 2;
+            
             AudioClip squeakClip = squeakAudioClips[randomSqueakClip];
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, squeakClip);
             Vector3 randomOpenAngle = new Vector3(0, Random.Range(minOpenAngle.y, maxOpenAngle.y), 0);
+            
+            //Trailer ONLY
+            randomOpenAngle = new Vector3(0, -20, 0);
+            
             _isTweening = true;
             _handleTweener?.Kill();
             _handleTweener = handleTransform.DOLocalRotate(openHandleAngle, 0.15f).SetEase(openEase);
@@ -167,6 +175,10 @@ namespace DVDNights
             }
 
             _lastCorruptionIndex = corruptionIndex;
+            
+            //Trailer ONLY
+            Squeak();
+            return;
 
             switch (corruptionIndex)
             {

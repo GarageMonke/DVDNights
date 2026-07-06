@@ -13,6 +13,10 @@ public class TrailerHandler : MonoBehaviour
     [Header("References")] 
     [SerializeField] private Camera trailerCamera;
     [SerializeField] private GameObject trailerCameraLight;
+    [SerializeField] private Light roomLight;
+    [SerializeField] private Light doorLight;
+    
+    [Header("Interactables")]
     [SerializeField] private BookInteractableObject bookInteractableObject;
     [SerializeField] private DoorInteractableObject doorInteractableObject;
     [SerializeField] private CellphoneInteractableObject cellphoneInteractableObject;
@@ -21,7 +25,7 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private EntityInteractableObject entityInteractableObject;
     [SerializeField] private TurntableInteractableObject turntableInteractableObject;
     [SerializeField] private DecoyGameRulesInteractableObject decoyGameRulesInteractableObject;
-    [SerializeField] private Light roomLight;
+    [SerializeField] private TVInteractableObject tvInteractableObject;
     
     [Header("Camera-Configuration")]
     [SerializeField] private CameraPositionData originalCameraPositionData;
@@ -33,7 +37,7 @@ public class TrailerHandler : MonoBehaviour
 
 
     private Sequence _cameraSequence;
-    private Tweener _fovTween;
+    private Tweener _trailerTween;
     private IInteractionController _interactionController;
     
 
@@ -45,6 +49,7 @@ public class TrailerHandler : MonoBehaviour
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
             _interactionController.DisableInteractions();
+            doorLight.enabled = false;
         }
     }
 
@@ -53,6 +58,8 @@ public class TrailerHandler : MonoBehaviour
         trailerCamera.transform.localPosition = originalCameraPositionData.cameraPosition;
         trailerCamera.transform.localRotation = Quaternion.Euler(originalCameraPositionData.cameraRotation);
         roomLight.transform.localPosition = originalLightPositionData.cameraPosition;
+        doorLight.enabled = false;
+        trailerCameraLight.SetActive(true);
     }
 
     private void Update()
@@ -65,14 +72,28 @@ public class TrailerHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             SetCameraShoot(0);
-            trailerCameraLight.SetActive(true);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SetCameraShoot(1);
             decoyGameRulesInteractableObject.SlipTroughDoor();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetCameraShoot(3);
+            tvInteractableObject.Corrupt();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SetCameraShoot(4);
+            doorInteractableObject.Corrupt();
             trailerCameraLight.SetActive(true);
+            doorLight.enabled = true;
+            DOVirtual.DelayedCall(2f, ()=>
+                doorInteractableObject.Interact());
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))
@@ -89,12 +110,11 @@ public class TrailerHandler : MonoBehaviour
             {
                 entityInteractableObject.PlayAnimationClip();
                 DOVirtual.DelayedCall(0.65f, ()=>
-                _fovTween = trailerCamera
+                _trailerTween = trailerCamera
                     .DOFieldOfView(0f, 0.4f)
                     .SetEase(Ease.InExpo));
             });
             
-            trailerCameraLight.SetActive(true);
             roomLight.transform.localPosition = new Vector3(originalLightPositionData.cameraPosition.x, originalLightPositionData.cameraPosition.y, -0.8f);
         }
     }

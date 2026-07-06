@@ -113,6 +113,7 @@ namespace DVDNights
             base.Corrupt();
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
+            _hasBeenHitOnce = true;
         }
 
         public override void ClearCorruption()
