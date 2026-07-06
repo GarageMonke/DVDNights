@@ -132,6 +132,11 @@ namespace DVDNights
                 ClearCorruption();
             });
         }
+
+        public void MutePhone()
+        {
+            _callSequence?.Kill();
+        }
         
         private void PlaySuccessSequence()
         {

@@ -45,6 +45,8 @@ public class TrailerHandler : MonoBehaviour
     private ITVStateController _tvStateController;
     private IGameEndingController _gameEndingController;
 
+    private int _internalDiscSequence;
+
 
     private void Start()
     {
@@ -63,6 +65,7 @@ public class TrailerHandler : MonoBehaviour
 
     private void ResetCamera()
     {
+        _cameraSequence?.Kill();
         trailerCamera.transform.localPosition = originalCameraPositionData.cameraPosition;
         trailerCamera.transform.localRotation = Quaternion.Euler(originalCameraPositionData.cameraRotation);
         roomLight.transform.localPosition = originalLightPositionData.cameraPosition;
@@ -73,6 +76,8 @@ public class TrailerHandler : MonoBehaviour
         doorLight.enabled = false;
         trailerCameraLight.SetActive(true);
         lampInteractableObject.ClearCorruption();
+        _disksController = ServiceLocator.GetService<IDisksController>();
+        _disksController?.MuteAllDiscs();
     }
 
     private void PlayTrailerSequences()
@@ -87,16 +92,28 @@ public class TrailerHandler : MonoBehaviour
         _trailerSequence.AppendInterval(3);
         _trailerSequence.AppendCallback(PlayTake03);
         _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendCallback(PlayTake02);
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake04);
         _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendCallback(ResetCamera);
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake05);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(3);
+        _trailerSequence.AppendCallback(ResetCamera);
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake06);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(5);
+        _trailerSequence.AppendCallback(ResetCamera);
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake07);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(6);
+        _trailerSequence.AppendCallback(ResetCamera);
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake08);
         _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendCallback(ResetCamera);
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake09);
     }
 
@@ -227,9 +244,22 @@ public class TrailerHandler : MonoBehaviour
 
     private void PlayTake02()
     {
+        _internalDiscSequence++;
         ResetShoot();
         SetCameraShoot(3);
-        OneWhiteDisc();
+        
+        switch (_internalDiscSequence)
+        {
+            case 1:
+                OneWhiteDisc();
+                break;
+            case 2:
+                ColorDiscs();
+                break;
+            case 3:
+                GoldenDisc();
+                break;
+        }
     }
 
     private void PlayTake03()
@@ -259,6 +289,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake06()
     {
+        cellphoneInteractableObject.MutePhone();
         ResetShoot();
         SetCameraShoot(6);
         DOVirtual.DelayedCall(1f, ()=>
