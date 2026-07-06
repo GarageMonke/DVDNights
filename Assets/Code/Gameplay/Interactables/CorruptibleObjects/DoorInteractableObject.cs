@@ -142,8 +142,7 @@ namespace DVDNights
         {
             Close();
         }
-
-
+        
         private void Close()
         {
             DisableInteraction();

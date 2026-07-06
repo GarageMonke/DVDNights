@@ -12296,7 +12296,7 @@ Transform:
   m_GameObject: {fileID: 936447173}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7411046, z: -0, w: 0.67138964}
-  m_LocalPosition: {x: 5.7, y: 2.4, z: -0.26}
+  m_LocalPosition: {x: 5.7, y: 2.4, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12561,6 +12561,7 @@ MonoBehaviour:
   turntableInteractableObject: {fileID: 2061118753}
   decoyGameRulesInteractableObject: {fileID: 245931827}
   tvInteractableObject: {fileID: 543450651938090012}
+  artInteractableObject: {fileID: 2119884246}
   originalCameraPositionData:
     cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}
@@ -12628,27 +12629,27 @@ MonoBehaviour:
     cameraTargetRotation: {x: 90, y: 25, z: 0}
     timeToPosition: 5
     timeToRotation: 5
+  - cameraPosition: {x: 1.15, y: 0.95, z: -2.5}
+    cameraRotation: {x: 0, y: -90, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: 1.1, y: 0.95, z: -2.5}
+    cameraTargetRotation: {x: 0, y: -90, z: 0}
+    timeToPosition: 3
+    timeToRotation: 3
   - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}
     playTween: 1
     cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
-    cameraTargetRotation: {x: 332.53, y: 180.4, z: 0.000000007517709}
-    timeToPosition: 0.5
-    timeToRotation: 0.5
-  - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
-    cameraRotation: {x: 0, y: 0, z: 0}
-    playTween: 1
-    cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
-    cameraTargetRotation: {x: 332.53, y: 180.4, z: 0.000000007517709}
-    timeToPosition: 0.5
-    timeToRotation: 0.5
+    cameraTargetRotation: {x: 0, y: -15, z: 0}
+    timeToPosition: 1
+    timeToRotation: 0.75
   - cameraPosition: {x: -0.95591503, y: 0.5, z: 0.19178471}
     cameraRotation: {x: 82.372856, y: 13.163989, z: 358.29843}
     playTween: 1
     cameraTargetPosition: {x: -0.95591503, y: 0.3, z: 0.19178471}
     cameraTargetRotation: {x: 82.372856, y: 13.163989, z: 358.29843}
-    timeToPosition: 7
-    timeToRotation: 7
+    timeToPosition: 4
+    timeToRotation: 4
   - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}
     playTween: 1
@@ -13332,14 +13333,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018665830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6903456, y: 0.15304585, z: -0.15304585, w: 0.6903456}
-  m_LocalPosition: {x: 0.884173, y: -0.25, z: -0.05}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.053, y: 0.1, z: -0.724}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2077060426}
   m_Father: {fileID: 963047211}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -25}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1018665833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40448,9 +40449,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tvScreenMesh: {fileID: 2170810949659493853}
+  tvLedMesh: {fileID: 2170810949659493856}
   tvOffMaterial: {fileID: 2100000, guid: fd233bba0d50e7d4094e96a80ddb5e4a, type: 2}
   tvScreenMaterial: {fileID: 2100000, guid: 27adabc1d87a83041bb5d43d920cdb34, type: 2}
   tvStaticMaterial: {fileID: 2100000, guid: d617073a8f37b304f824de29f9360a0d, type: 2}
+  tvLedMaterial: {fileID: 2100000, guid: 87dde7f584a34054eab0c70501d9eed6, type: 2}
   staticAudioClip: {fileID: 8300000, guid: 95c563965dc7f494eb58cbe99126b227, type: 3}
   loadingDVDAudioClip: {fileID: 8300000, guid: 63a9841c29128c245b36568202d38f45, type: 3}
 --- !u!1 &1691217875
@@ -61601,6 +61604,10 @@ PrefabInstance:
       propertyPath: holdThreshold
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2622075959875515918, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 87dde7f584a34054eab0c70501d9eed6, type: 2}
     - target: {fileID: 2766526169908236507, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
       propertyPath: outline
       value: 
@@ -61907,6 +61914,11 @@ GameObject:
 --- !u!4 &2170810949659493855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2134639808875680646, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
+  m_PrefabInstance: {fileID: 2170810949659493852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2170810949659493856 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2622075959875515918, guid: 97bf8a5c040c4a84291818c25e6d1e78, type: 3}
   m_PrefabInstance: {fileID: 2170810949659493852}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &2181695955173807468

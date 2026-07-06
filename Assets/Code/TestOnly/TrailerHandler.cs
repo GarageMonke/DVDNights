@@ -26,6 +26,7 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private TurntableInteractableObject turntableInteractableObject;
     [SerializeField] private DecoyGameRulesInteractableObject decoyGameRulesInteractableObject;
     [SerializeField] private TVInteractableObject tvInteractableObject;
+    [SerializeField] private ArtInteractableObject artInteractableObject;
     
     [Header("Camera-Configuration")]
     [SerializeField] private CameraPositionData originalCameraPositionData;
@@ -119,11 +120,26 @@ public class TrailerHandler : MonoBehaviour
             cellphoneInteractableObject.Corrupt();
         }
         
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ResetShoot();
+            SetCameraShoot(6);
+            DOVirtual.DelayedCall(1f, ()=>
+                artInteractableObject.Corrupt());
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ResetShoot();
+            lampInteractableObject.Corrupt();
+            DOVirtual.DelayedCall(2f, ()=>  SetCameraShoot(7, null, Ease.OutExpo));
+            drawingInteractableObject.Corrupt();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             ResetShoot();
             SetCameraShoot(8);
-            drawingInteractableObject.Corrupt();
             lampInteractableObject.SetLampIntensity(0.3f);
             trailerCameraLight.SetActive(false);
         }
@@ -144,7 +160,7 @@ public class TrailerHandler : MonoBehaviour
         }
     }
 
-    private void SetCameraShoot(int index, Action onCompleteCallback = null)
+    private void SetCameraShoot(int index, Action onCompleteCallback = null, Ease ease = Ease.InOutSine)
     {
         CameraPositionData cameraPositionData = cameraPositionsData[index];
         trailerCamera.transform.localPosition = cameraPositionData.cameraPosition;
@@ -156,9 +172,18 @@ public class TrailerHandler : MonoBehaviour
             _cameraSequence = DOTween.Sequence();
             _cameraSequence.AppendCallback(() =>
             {
-                trailerCamera.transform.DOLocalMove(cameraPositionData.cameraTargetPosition, cameraPositionData.timeToPosition).SetEase(Ease.InOutSine);
-                trailerCamera.transform.DOLocalRotate(cameraPositionData.cameraTargetRotation, cameraPositionData.timeToRotation).SetEase(Ease.InOutSine);
-            }).OnComplete(()=> onCompleteCallback?.Invoke());
+                trailerCamera.transform
+                    .DOLocalMove(cameraPositionData.cameraTargetPosition, cameraPositionData.timeToPosition)
+                    .SetEase(ease);
+                trailerCamera.transform
+                    .DOLocalRotate(cameraPositionData.cameraTargetRotation, cameraPositionData.timeToRotation)
+                    .SetEase(ease);
+            });
+            _cameraSequence.AppendInterval(cameraPositionData.timeToPosition);
+            _cameraSequence.AppendCallback(() =>
+            {
+                onCompleteCallback?.Invoke();
+            });
         }
     }
 }
