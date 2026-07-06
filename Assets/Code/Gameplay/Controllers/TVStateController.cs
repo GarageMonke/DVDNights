@@ -9,11 +9,13 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private MeshRenderer tvScreenMesh;
+        [SerializeField] private MeshRenderer tvLedMesh;
         
         [Header("Configuration")]
         [SerializeField] private Material tvOffMaterial;
         [SerializeField] private Material tvScreenMaterial;
         [SerializeField] private Material tvStaticMaterial;
+        [SerializeField] private Material tvLedMaterial;
 
         [Header("Feedback")] 
         [SerializeField] private AudioClip staticAudioClip;
@@ -29,6 +31,7 @@ namespace DVDNights
         private bool _isTVOn;
         private bool _hasDisk;
         private bool _isPlayingGame;
+        private bool _isTesting;
         private int _diskId;
         
         private ITVNavigationController _tvNavigationController;
@@ -36,7 +39,6 @@ namespace DVDNights
         private IDVDTrayController _dvdTrayController;
         private IMainMenuController _tvMainMenuController;
         private IInteractionController _interactionController;
-        private bool _isTesting;
 
         private void Awake()
         {
@@ -110,6 +112,7 @@ namespace DVDNights
 
         public void PlayStatic(bool isCorrupted = false)
         {
+            tvLedMesh.material = tvOffMaterial;
             tvScreenMesh.material = tvStaticMaterial;
             float volume = isCorrupted ? 0.5f : 0.025f;
             AudioManager.Instance.PlayOST(AudioChannelType.TV, staticAudioClip, volume, true);
@@ -132,6 +135,7 @@ namespace DVDNights
             }
             
             tvScreenMesh.material = tvScreenMaterial;
+            tvLedMesh.material = tvOffMaterial;
            
             if (!_hasDisk)
             {
@@ -142,6 +146,7 @@ namespace DVDNights
         private void TurnOffTv()
         {
             tvScreenMesh.material = tvOffMaterial;
+            tvLedMesh.material = tvLedMaterial;
             AudioManager.Instance.StopOST(AudioChannelType.TV, fadeOut: false);
         }
 
