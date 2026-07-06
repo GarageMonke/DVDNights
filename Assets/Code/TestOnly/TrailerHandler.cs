@@ -58,8 +58,13 @@ public class TrailerHandler : MonoBehaviour
         trailerCamera.transform.localPosition = originalCameraPositionData.cameraPosition;
         trailerCamera.transform.localRotation = Quaternion.Euler(originalCameraPositionData.cameraRotation);
         roomLight.transform.localPosition = originalLightPositionData.cameraPosition;
+    }
+
+    private void ResetShoot()
+    {
         doorLight.enabled = false;
         trailerCameraLight.SetActive(true);
+        lampInteractableObject.ClearCorruption();
     }
 
     private void Update()
@@ -71,33 +76,46 @@ public class TrailerHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
+            ResetShoot();
             SetCameraShoot(0);
+            turntableInteractableObject.ForceSpinning();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            ResetShoot();
             SetCameraShoot(1);
             decoyGameRulesInteractableObject.SlipTroughDoor();
         }
         
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ResetShoot();
+            SetCameraShoot(2);
+            lampInteractableObject.Corrupt();
+        }
+        
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
+            ResetShoot();
             SetCameraShoot(3);
             tvInteractableObject.Corrupt();
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            ResetShoot();
             SetCameraShoot(4);
             doorInteractableObject.Corrupt();
             trailerCameraLight.SetActive(true);
             doorLight.enabled = true;
-            DOVirtual.DelayedCall(2f, ()=>
-                doorInteractableObject.Interact());
+            DOVirtual.DelayedCall(3.5f, ()=>
+                doorInteractableObject.ForceClose());
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
+            ResetShoot();
             SetCameraShoot(8);
             drawingInteractableObject.Corrupt();
             lampInteractableObject.SetLampIntensity(0.3f);
@@ -106,6 +124,7 @@ public class TrailerHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
+            ResetShoot();
             SetCameraShoot(9, () =>
             {
                 entityInteractableObject.PlayAnimationClip();

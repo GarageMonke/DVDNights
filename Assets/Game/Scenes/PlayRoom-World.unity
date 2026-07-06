@@ -11655,7 +11655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2835471238189054716, guid: 9577c00e3e52c134a97ac0fdf37994c6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7412920916034641597, guid: 9577c00e3e52c134a97ac0fdf37994c6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11722,7 +11722,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856131959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92facc7f3a4aad74f9bc1acb609b0749, type: 3}
   m_Name: 
@@ -56814,7 +56814,7 @@ MonoBehaviour:
   outline: {fileID: 2061118751}
   interactionAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
   vinylCase: {fileID: 1844412742006626222}
-  vinyl: {fileID: 3252684145540389713}
+  vinyl: {fileID: 856131958}
   vinylToTurntablePath:
   - {x: -0.89, y: 0.2375454, z: 0.018}
   - {x: -0.593, y: 0.649, z: 0.141}

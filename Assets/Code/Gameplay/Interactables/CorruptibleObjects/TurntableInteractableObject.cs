@@ -67,6 +67,8 @@ namespace DVDNights
 
         public override void Interact()
         {
+            //Trailer Only
+            
             if (_isCorrupted)
             {
                 ClearCorruption();
@@ -180,6 +182,12 @@ namespace DVDNights
                         });
                 });
 
+        }
+
+        public void ForceSpinning()
+        {
+            _vinylRotateTransform = vinyl.GetComponent<RotateTransform>();
+            StartSpinning();
         }
 
         private void StartSpinning()

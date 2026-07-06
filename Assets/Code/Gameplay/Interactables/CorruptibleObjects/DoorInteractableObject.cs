@@ -138,6 +138,11 @@ namespace DVDNights
             });
         }
 
+        public void ForceClose()
+        {
+            Close();
+        }
+
 
         private void Close()
         {
