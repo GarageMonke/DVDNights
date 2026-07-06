@@ -195,7 +195,6 @@ namespace DVDNights
             {
                 AudioManager.Instance.PlaySFX(AudioChannelType.PHONE, callSound);
                 _currentRings++;
-                Debug.Log("[Ring] " + _currentRings); 
                 ShakePhone();
             });
             

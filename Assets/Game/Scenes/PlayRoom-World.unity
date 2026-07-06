@@ -12592,14 +12592,14 @@ MonoBehaviour:
     playTween: 0
     cameraTargetPosition: {x: -1.0763351, y: -0.2, z: -0.95}
     cameraTargetRotation: {x: 27.113, y: 318.7, z: 359.801}
-    timeToPosition: 0.5
+    timeToPosition: 2
     timeToRotation: 0.5
   - cameraPosition: {x: 1.5138776, y: 1.0502825, z: -1.4331692}
     cameraRotation: {x: 40.18887, y: 219.79129, z: 359.74088}
     playTween: 0
     cameraTargetPosition: {x: 0, y: 0, z: 0}
     cameraTargetRotation: {x: 0, y: 0, z: 0}
-    timeToPosition: 0.5
+    timeToPosition: 2
     timeToRotation: 0.5
   - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}

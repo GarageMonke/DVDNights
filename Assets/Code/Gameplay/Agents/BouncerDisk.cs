@@ -46,7 +46,8 @@ namespace DVDNights
         public DiskDataSO DiskDataSO => _diskDataSO;
 
         private IBounceFeedbackController _bounceFeedbackController;
-        
+        private float _originalVolume;
+
         public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea)
         {
             _diskDataSO = diskData;
@@ -61,6 +62,7 @@ namespace DVDNights
             _bounceFeedbackController.ListenToBouncer(this);
             bounceArea = bouncingArea;
             _isMoving = false;
+            _originalVolume = volume;
             InitializeSizes();
         }
         
@@ -149,6 +151,16 @@ namespace DVDNights
             if (Mathf.Abs(directionY) < 0.2f) directionY = 0.2f * Mathf.Sign(directionY);
             
             _velocity = new Vector2(directionX, directionY).normalized * baseSpeed;
+        }
+
+        public void MuteDisc()
+        {
+            volume = 0;
+        }
+
+        public void UnmuteDisc()
+        {
+            volume = _originalVolume;
         }
 
         private void LaunchTowardCorner(CornerTarget corner)
@@ -401,5 +413,7 @@ namespace DVDNights
         public void DestroyDisk();
         public void SetMoving(bool isMoving);
         public void LaunchDisc();
+        public void MuteDisc();
+        public void UnmuteDisc();
     }
 }

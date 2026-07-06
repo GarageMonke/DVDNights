@@ -77,29 +77,27 @@ public class TrailerHandler : MonoBehaviour
 
     private void PlayTrailerSequences()
     {
+        _trailerSequence?.Kill();
         _trailerSequence = DOTween.Sequence();
         _trailerSequence.AppendCallback(PlayTake00);
-        _trailerSequence.AppendInterval(GetTakeTime(0));
-        _trailerSequence.AppendCallback(PlayTake01);
-        _trailerSequence.AppendInterval(GetTakeTime(1));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(GetTakeTime(2));
+        _trailerSequence.AppendInterval(8);
+        _trailerSequence.AppendCallback(PlayTake01);
+        _trailerSequence.AppendInterval(3);
         _trailerSequence.AppendCallback(PlayTake03);
-        _trailerSequence.AppendInterval(GetTakeTime(3));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake04);
-        _trailerSequence.AppendInterval(GetTakeTime(4));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake05);
-        _trailerSequence.AppendInterval(GetTakeTime(5));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake06);
-        _trailerSequence.AppendInterval(GetTakeTime(6));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake07);
-        _trailerSequence.AppendInterval(GetTakeTime(7));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake08);
-        _trailerSequence.AppendInterval(GetTakeTime(8));
+        _trailerSequence.AppendInterval(4);
         _trailerSequence.AppendCallback(PlayTake09);
-        _trailerSequence.AppendInterval(GetTakeTime(9));
-       
-       
     }
 
     private void Update()
@@ -230,8 +228,8 @@ public class TrailerHandler : MonoBehaviour
     private void PlayTake02()
     {
         ResetShoot();
-        SetCameraShoot(2);
-        lampInteractableObject.Corrupt();
+        SetCameraShoot(3);
+        OneWhiteDisc();
     }
 
     private void PlayTake03()

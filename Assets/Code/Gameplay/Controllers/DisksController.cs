@@ -33,6 +33,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
     public int DisksRegistered => _disksRegistered;
     public Action OnGoldDiskCreated { get; set; }
+
     public bool IsMerging => _isMerging;
     public List<IBouncerDisk> AllRegisteredDisks => _allRegisteredDisks;
 
@@ -201,7 +202,23 @@ public class DisksController : MonoBehaviour, IDisksController
             return;
         }
     }
+
+    public void MuteAllDiscs()
+    {
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            disk.MuteDisc();
+        }
+    }
     
+    public void UnmuteAllDiscs()
+    {
+        foreach (IBouncerDisk disk in _allRegisteredDisks)
+        {
+            disk.UnmuteDisc();
+        }
+    }
+
     private void PlayGoldenMergeAnimation()
     {
         _mergeSequence?.Kill();
@@ -364,6 +381,8 @@ public interface IDisksController
     public void ResumeAllDisksMoving();
     public void RemoveAllDisks();
     public void CheckDisksToMerge();
-    
+
+    public void MuteAllDiscs();
+    public void UnmuteAllDiscs();
     public bool IsMerging { get; }
 }

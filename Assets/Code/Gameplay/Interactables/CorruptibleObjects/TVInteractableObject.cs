@@ -23,6 +23,7 @@ namespace DVDNights
         private IMouseLayoutController _mouseLayoutController;
         private ITVStateController _tvStateController;
         private IForwardController _forwardController;
+        private IDisksController _disksController;
         private bool _isInteractingWithTv;
         private bool _hasBeenHitOnce;
         private Sequence _strikeSequence;
@@ -35,6 +36,7 @@ namespace DVDNights
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _forwardController = ServiceLocator.GetService<IForwardController>();
+            _disksController = ServiceLocator.GetService<IDisksController>();
         }
 
         public override string GetInteractionAction()
@@ -111,6 +113,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
+            _disksController.MuteAllDiscs();
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
             _hasBeenHitOnce = true;
@@ -127,6 +130,7 @@ namespace DVDNights
             _forwardController.ResetForwardShader();
             _hasBeenHitOnce = false;
             AudioManager.Instance.StopOST(AudioChannelType.TV);
+            _disksController.UnmuteAllDiscs();
         }
 
         private void FirstStrike()
