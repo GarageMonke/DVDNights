@@ -51,6 +51,12 @@ namespace DVDNights
         {
             _diskDataSO = diskData;
             spriteRenderer.color = diskData.DiskColor;
+
+            if (diskData.DiskMaterial)
+            {
+                spriteRenderer.material = diskData.DiskMaterial;
+            }
+            
             _bounceFeedbackController = ServiceLocator.GetService<IBounceFeedbackController>();
             _bounceFeedbackController.ListenToBouncer(this);
             bounceArea = bouncingArea;

@@ -124,6 +124,12 @@ namespace DVDNights
             tvScreenMesh.material = tvScreenMaterial;
         }
 
+        public void RemoveDisk()
+        {
+            _hasDisk = false;
+            _diskId = -1;
+        }
+
         private void TurnOnTv()
         {
             if (_isTesting)
@@ -170,5 +176,6 @@ namespace DVDNights
         public void StartPlayingGame();
         public void PlayStatic(bool isCorrupted = false);
         public void StrikeTV();
+        public void RemoveDisk();
     }
 }

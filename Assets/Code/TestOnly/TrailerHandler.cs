@@ -42,6 +42,7 @@ public class TrailerHandler : MonoBehaviour
     private IDisksController _disksController;
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
+    private IGameEndingController _gameEndingController;
 
 
     private void Start()
@@ -51,8 +52,8 @@ public class TrailerHandler : MonoBehaviour
             ResetCamera();
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
-            _pointsController = ServiceLocator.GetService<IPointsController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
+            _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
         }
@@ -140,26 +141,29 @@ public class TrailerHandler : MonoBehaviour
         {
             ResetShoot();
             SetCameraShoot(3);
-            DOVirtual.DelayedCall(0.5f, () =>
+            DOVirtual.DelayedCall(0.1f, () =>
             {
+                _pointsController = ServiceLocator.GetService<IPointsController>();
                 _pointsController.UpdatePoints(4292026);
                 _disksController = ServiceLocator.GetService<IDisksController>();
                 _disksController.RemoveAllDisks();
                 _disksController.CreateDisk(DiskType.MAGENTA);
                 _disksController.CreateDisk(DiskType.MAGENTA);
-                _disksController.CreateDisk(DiskType.MAGENTA);
-            });
-            
-            DOVirtual.DelayedCall(0.6f, ()=>
-            {
-                _disksController = ServiceLocator.GetService<IDisksController>();
                 _disksController.ResumeAllDisksMoving();
             });
             
-            DOVirtual.DelayedCall(1.2f, ()=>
+            DOVirtual.DelayedCall(1.25f, () =>
             {
                 _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.CreateDisk(DiskType.MAGENTA);
+                _disksController.ResumeAllDisksMoving();
                 _disksController.CheckDisksToMerge();
+            });
+            
+            DOVirtual.DelayedCall(8f, () =>
+            {
+                _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
+                _gameEndingController.EjectDisk();
             });
         }
       

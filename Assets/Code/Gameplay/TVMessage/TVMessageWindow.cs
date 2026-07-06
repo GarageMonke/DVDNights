@@ -53,6 +53,7 @@ namespace DVDNights
 
         private IEnumerator StartRebuilding()
         {
+            canvasGroup.alpha = 0;
             int retries = 2;
             while (retries > 0)
             {
@@ -63,6 +64,7 @@ namespace DVDNights
                 retries--;
             }
             
+            yield return new WaitForEndOfFrame();
             canvasGroup.alpha = 1;
             messageWindow.SetActive(true);
             AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip);

@@ -1,4 +1,5 @@
 ﻿using CorePatterns.ServiceLocator;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DVDNights
@@ -12,6 +13,7 @@ namespace DVDNights
         private int _amountToReach = 1;
         private int _goldAmount;
         private ITVNavigationController _tvNavigationController;
+        private ITVStateController _tvStateController;
 
         private void Awake()
         {
@@ -29,6 +31,7 @@ namespace DVDNights
             _disksController.OnGoldDiskCreated += CheckGameEnding;
 
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
         }
 
         public void CheckGameEnding()
@@ -41,20 +44,28 @@ namespace DVDNights
                 return;
             }
             
+            DOVirtual.DelayedCall(0.75f, DisplayMessage);
+        }
+
+        private void DisplayMessage()
+        {
             tvMessageWindow.OnMessageAccepted += EjectDisk;
             tvMessageWindow.SetMessage("Error: Something went wrong.");
             tvMessageWindow.Display();
         }
 
-        private void EjectDisk()
+        public void EjectDisk()
         {
             tvMessageWindow.OnMessageAccepted -= EjectDisk;
+            _tvStateController.RemoveDisk();
             _tvNavigationController.OpenCloseButton.Press();
+            _tvStateController.PlayStatic();
         }
     }
 
     public interface IGameEndingController
     {
         public void CheckGameEnding();
+        public void EjectDisk();
     }
 }
