@@ -73,23 +73,15 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
-        
         _shopController = ServiceLocator.GetService<IShopController>();
         _tvStateController = ServiceLocator.GetService<ITVStateController>();
-        _shopController.OnShopOpened += StopAllDisksMoving;
-        _shopController.OnShopClosed += CheckDisksToMerge;
+        // _shopController.OnShopOpened += StopAllDisksMoving;
+        // _shopController.OnShopClosed += CheckDisksToMerge;
         
         //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);
-        // CreateDisk(DiskType.CYAN);
-        // CreateDisk(DiskType.YELLOW);
-        // CreateDisk(DiskType.ORANGE);
-        // CreateDisk(DiskType.RED);
-        // CreateDisk(DiskType.GREEN);
-        // CreateDisk(DiskType.MAGENTA);
         ResumeAllDisksMoving();
         CheckDisksToMerge();
-        
         _tvStateController.StartPlayingGame();
     }
 
@@ -103,7 +95,7 @@ public class DisksController : MonoBehaviour, IDisksController
             createdDisk.LaunchDisc();
         }
     }
-
+    
     private void AddDisk(IBouncerDisk diskToAdd)
     {
         DiskDataSO diskData = diskToAdd.DiskDataSO;
@@ -146,7 +138,7 @@ public class DisksController : MonoBehaviour, IDisksController
         existingDisks.RemoveRange(0, quantity);
     }
     
-    private void RemoveAllDisks()
+    public void RemoveAllDisks()
     {
         foreach (IBouncerDisk disk in _allRegisteredDisks)
         {
@@ -175,7 +167,7 @@ public class DisksController : MonoBehaviour, IDisksController
         }
     }
 
-    private void CheckDisksToMerge()
+    public void CheckDisksToMerge()
     {
         ResumeAllDisksMoving();
         
@@ -341,7 +333,7 @@ public class DisksController : MonoBehaviour, IDisksController
         }
     }
     
-    private void ResumeAllDisksMoving()
+    public void ResumeAllDisksMoving()
     {
         foreach (IBouncerDisk disk in _allRegisteredDisks)
         {
@@ -369,6 +361,9 @@ public interface IDisksController
     public void CreateDisk(DiskType diskType);
     public void BoostAllDisksSpeed();
     public void ResetAllDisksSpeed();
+    public void ResumeAllDisksMoving();
+    public void RemoveAllDisks();
+    public void CheckDisksToMerge();
     
     public bool IsMerging { get; }
 }

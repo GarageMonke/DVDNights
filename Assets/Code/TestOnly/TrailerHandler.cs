@@ -39,7 +39,10 @@ public class TrailerHandler : MonoBehaviour
     private Sequence _cameraSequence;
     private Tweener _trailerTween;
     private IInteractionController _interactionController;
-    
+    private IDisksController _disksController;
+    private IPointsController _pointsController;
+    private ITVStateController _tvStateController;
+
 
     private void Start()
     {
@@ -48,6 +51,8 @@ public class TrailerHandler : MonoBehaviour
             ResetCamera();
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
         }
@@ -73,7 +78,91 @@ public class TrailerHandler : MonoBehaviour
         {
             ResetCamera();
         }
-
+        
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ResetShoot();
+            SetCameraShoot(3);
+            _tvStateController.TurnOnOffTv();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            ResetShoot();
+            SetCameraShoot(3);
+            DOVirtual.DelayedCall(0.25f, () =>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.CreateDisk(DiskType.WHITE);
+                _disksController.CreateDisk(DiskType.WHITE);
+            });
+        
+            DOVirtual.DelayedCall(0.5f, ()=>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.ResumeAllDisksMoving();
+            });
+            
+            DOVirtual.DelayedCall(1.2f, ()=>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.CheckDisksToMerge();
+            });
+        }
+        
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            ResetShoot();
+            SetCameraShoot(3);
+            
+            _pointsController.UpdatePoints(8012026);
+            
+            DOVirtual.DelayedCall(0.25f, () =>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.RemoveAllDisks();
+                _disksController.CreateDisk(DiskType.WHITE);
+                _disksController.CreateDisk(DiskType.CYAN);
+                _disksController.CreateDisk(DiskType.YELLOW);
+                _disksController.CreateDisk(DiskType.ORANGE);
+                _disksController.CreateDisk(DiskType.RED);
+                _disksController.CreateDisk(DiskType.GREEN);
+            });
+            
+            DOVirtual.DelayedCall(0.5f, ()=>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.ResumeAllDisksMoving();
+            });
+        }
+        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ResetShoot();
+            SetCameraShoot(3);
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                _pointsController.UpdatePoints(4292026);
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.RemoveAllDisks();
+                _disksController.CreateDisk(DiskType.MAGENTA);
+                _disksController.CreateDisk(DiskType.MAGENTA);
+                _disksController.CreateDisk(DiskType.MAGENTA);
+            });
+            
+            DOVirtual.DelayedCall(0.6f, ()=>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.ResumeAllDisksMoving();
+            });
+            
+            DOVirtual.DelayedCall(1.2f, ()=>
+            {
+                _disksController = ServiceLocator.GetService<IDisksController>();
+                _disksController.CheckDisksToMerge();
+            });
+        }
+      
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             ResetShoot();

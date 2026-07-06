@@ -2,7 +2,6 @@ using System;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace DVDNights
