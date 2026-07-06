@@ -12427,7 +12427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &941949369
 Transform:
   m_ObjectHideFlags: 0
@@ -12621,13 +12621,13 @@ MonoBehaviour:
     cameraTargetRotation: {x: -10, y: 180, z: 5}
     timeToPosition: 6
     timeToRotation: 6
-  - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
-    cameraRotation: {x: 0, y: 0, z: 0}
+  - cameraPosition: {x: 0.884173, y: -0.25, z: -0.05}
+    cameraRotation: {x: 90, y: 25, z: 0}
     playTween: 1
-    cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
-    cameraTargetRotation: {x: 332.53, y: 180.4, z: 0.000000007517709}
-    timeToPosition: 0.5
-    timeToRotation: 0.5
+    cameraTargetPosition: {x: 0.884173, y: -0.2, z: -0.05}
+    cameraTargetRotation: {x: 90, y: 25, z: 0}
+    timeToPosition: 5
+    timeToRotation: 5
   - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}
     playTween: 1
@@ -13332,14 +13332,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018665830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9961947, z: 0.08715578, w: 0}
-  m_LocalPosition: {x: -0.053, y: -0.6, z: -1.75}
+  m_LocalRotation: {x: 0.6903456, y: 0.15304585, z: -0.15304585, w: 0.6903456}
+  m_LocalPosition: {x: 0.884173, y: -0.25, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2077060426}
   m_Father: {fileID: 963047211}
-  m_LocalEulerAnglesHint: {x: -10, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -25}
 --- !u!114 &1018665833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15351,15 +15351,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.34018803
+      value: -0.87835985
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0313067
+      value: 0.6713067
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.546714
+      value: -1.2893648
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b3b3a37e04eb0a48b093853a658d6f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -46751,7 +46751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1934585304
 Transform:
   m_ObjectHideFlags: 0

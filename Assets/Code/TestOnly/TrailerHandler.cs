@@ -35,7 +35,6 @@ public class TrailerHandler : MonoBehaviour
     [Header("Shoots-Data")]
     [SerializeField] private CameraPositionData[] cameraPositionsData;
 
-
     private Sequence _cameraSequence;
     private Tweener _trailerTween;
     private IInteractionController _interactionController;
@@ -107,10 +106,17 @@ public class TrailerHandler : MonoBehaviour
             ResetShoot();
             SetCameraShoot(4);
             doorInteractableObject.Corrupt();
-            trailerCameraLight.SetActive(true);
             doorLight.enabled = true;
             DOVirtual.DelayedCall(3.5f, ()=>
                 doorInteractableObject.ForceClose());
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ResetShoot();
+            SetCameraShoot(5);
+            trailerCameraLight.SetActive(false);
+            cellphoneInteractableObject.Corrupt();
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha8))
