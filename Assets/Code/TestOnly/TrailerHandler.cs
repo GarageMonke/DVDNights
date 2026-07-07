@@ -324,7 +324,6 @@ public class TrailerHandler : MonoBehaviour
     private void PlayTake06()
     {
         ResetCamera();
-        cellphoneInteractableObject.MutePhone();
         ResetShoot();
         SetCameraShoot(6);
         DOVirtual.DelayedCall(1f, ()=>
@@ -446,6 +445,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void FastForwardDiscs()
     {
+        cellphoneInteractableObject.MutePhone();
         IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
         diskLevelController.DiskFFDrainRateLevel = GameProgression.GetFFMaxLevel();
         diskLevelController.DiskFFMultLevel = GameProgression.GetFFMaxLevel();
