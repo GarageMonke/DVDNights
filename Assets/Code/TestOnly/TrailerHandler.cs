@@ -55,17 +55,17 @@ public class TrailerHandler : MonoBehaviour
             ResetCamera();
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
-            _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
-            DOVirtual.DelayedCall(1f, PlayTrailerSequences);
+            PlayTrailerSequences();
         }
     }
 
     private void ResetCamera()
     {
         _cameraSequence?.Kill();
+        trailerCamera.transform.DOKill();
         trailerCamera.transform.localPosition = originalCameraPositionData.cameraPosition;
         trailerCamera.transform.localRotation = Quaternion.Euler(originalCameraPositionData.cameraRotation);
         roomLight.transform.localPosition = originalLightPositionData.cameraPosition;
@@ -73,6 +73,7 @@ public class TrailerHandler : MonoBehaviour
 
     private void ResetShoot()
     {
+        _cameraSequence?.Kill();
         doorLight.enabled = false;
         trailerCameraLight.SetActive(true);
         lampInteractableObject.ClearCorruption();
@@ -82,38 +83,30 @@ public class TrailerHandler : MonoBehaviour
 
     private void PlayTrailerSequences()
     {
+        _internalDiscSequence = 0;
         _trailerSequence?.Kill();
         _trailerSequence = DOTween.Sequence();
+        _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake00);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(2f);
         _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(8);
+        _trailerSequence.AppendInterval(6f);
         _trailerSequence.AppendCallback(PlayTake01);
-        _trailerSequence.AppendInterval(3);
+        _trailerSequence.AppendInterval(3f);
         _trailerSequence.AppendCallback(PlayTake03);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(4f);
         _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(4);
+        _trailerSequence.AppendInterval(4f);
         _trailerSequence.AppendCallback(PlayTake04);
-        _trailerSequence.AppendInterval(4);
-        _trailerSequence.AppendCallback(ResetCamera);
-        _trailerSequence.AppendInterval(1f);
+        _trailerSequence.AppendInterval(4.5f);
         _trailerSequence.AppendCallback(PlayTake05);
-        _trailerSequence.AppendInterval(3);
-        _trailerSequence.AppendCallback(ResetCamera);
-        _trailerSequence.AppendInterval(1f);
+        _trailerSequence.AppendInterval(3f);
         _trailerSequence.AppendCallback(PlayTake06);
-        _trailerSequence.AppendInterval(5);
-        _trailerSequence.AppendCallback(ResetCamera);
-        _trailerSequence.AppendInterval(1f);
+        _trailerSequence.AppendInterval(5f);
         _trailerSequence.AppendCallback(PlayTake07);
-        _trailerSequence.AppendInterval(6);
-        _trailerSequence.AppendCallback(ResetCamera);
-        _trailerSequence.AppendInterval(1f);
+        _trailerSequence.AppendInterval(3);
         _trailerSequence.AppendCallback(PlayTake08);
-        _trailerSequence.AppendInterval(4);
-        _trailerSequence.AppendCallback(ResetCamera);
-        _trailerSequence.AppendInterval(1f);
+        _trailerSequence.AppendInterval(3);
         _trailerSequence.AppendCallback(PlayTake09);
     }
 
@@ -230,6 +223,7 @@ public class TrailerHandler : MonoBehaviour
 
     private void PlayTake00()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(0);
         turntableInteractableObject.ForceSpinning();
@@ -237,6 +231,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake01()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(1);
         decoyGameRulesInteractableObject.SlipTroughDoor();
@@ -245,6 +240,8 @@ public class TrailerHandler : MonoBehaviour
     private void PlayTake02()
     {
         _internalDiscSequence++;
+        
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(3);
         
@@ -260,10 +257,17 @@ public class TrailerHandler : MonoBehaviour
                 GoldenDisc();
                 break;
         }
+
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            _disksController = ServiceLocator.GetService<IDisksController>();
+            _disksController.UnmuteAllDiscs();
+        });
     }
 
     private void PlayTake03()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(3);
         tvInteractableObject.Corrupt();
@@ -271,16 +275,19 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake04()
     {
+        decoyGameRulesInteractableObject.gameObject.SetActive(false);
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(4);
         doorInteractableObject.Corrupt();
         doorLight.enabled = true;
-        DOVirtual.DelayedCall(3.5f, ()=>
+        DOVirtual.DelayedCall(4f, ()=>
             doorInteractableObject.ForceClose());
     }
 
     private void PlayTake05()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(5);
         trailerCameraLight.SetActive(false);
@@ -289,6 +296,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake06()
     {
+        ResetCamera();
         cellphoneInteractableObject.MutePhone();
         ResetShoot();
         SetCameraShoot(6);
@@ -298,6 +306,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake07()
     {
+        ResetCamera();
         ResetShoot();
         lampInteractableObject.Corrupt();
         DOVirtual.DelayedCall(2f, ()=>  SetCameraShoot(7, null, Ease.OutExpo));
@@ -306,6 +315,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake08()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(8);
         lampInteractableObject.SetLampIntensity(0.3f);
@@ -314,6 +324,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake09()
     {
+        ResetCamera();
         ResetShoot();
         SetCameraShoot(9, () =>
         {
@@ -331,6 +342,7 @@ public class TrailerHandler : MonoBehaviour
     {
         ResetShoot();
         SetCameraShoot(3);
+        _tvStateController = ServiceLocator.GetService<ITVStateController>();
         _tvStateController.TurnOnOffTv();
     }
 
