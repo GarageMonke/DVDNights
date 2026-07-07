@@ -44,12 +44,15 @@ public class TrailerHandler : MonoBehaviour
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
     private IGameEndingController _gameEndingController;
+    private Vector3 _trailerCameraOriginalPosition;
 
     private int _internalDiscSequence;
 
 
     private void Start()
     {
+        _trailerCameraOriginalPosition = trailerCamera.transform.localPosition;
+        
         if (playTrailer)
         {
             ResetCamera();
@@ -464,6 +467,17 @@ public class TrailerHandler : MonoBehaviour
         {
             _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
             _gameEndingController.EjectDisk();
+            _cameraSequence?.Kill();
+            _cameraSequence = DOTween.Sequence();
+            _cameraSequence.AppendCallback(() =>
+            {
+                trailerCamera.transform
+                    .DOLocalMove(_trailerCameraOriginalPosition, 3f)
+                    .SetEase(Ease.InOutSine);
+                trailerCamera.transform
+                    .DOLocalRotate(Vector3.zero, 3f)
+                    .SetEase(Ease.InOutSine);
+            });
         });
     }
 }
