@@ -114,7 +114,7 @@ public class TrailerHandler : MonoBehaviour
         _trailerSequence.AppendCallback(PlayTake06);
         _trailerSequence.AppendInterval(5f);
         _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(8f);
+        _trailerSequence.AppendInterval(11f);
         _trailerSequence.AppendCallback(PlayTake07);
         _trailerSequence.AppendInterval(3f);
         _trailerSequence.AppendCallback(PlayTake08);
@@ -251,7 +251,6 @@ public class TrailerHandler : MonoBehaviour
         ResetShoot();
         SetCameraShoot(3);
         
-        
         switch (_internalDiscSequence)
         {
             case 1:
@@ -321,7 +320,7 @@ public class TrailerHandler : MonoBehaviour
         ResetCamera();
         ResetShoot();
         lampInteractableObject.Corrupt();
-        DOVirtual.DelayedCall(2f, ()=>  SetCameraShoot(7, null, Ease.OutExpo));
+        DOVirtual.DelayedCall(2f, ()=> SetCameraShoot(7, null, Ease.OutExpo));
         drawingInteractableObject.Corrupt();
     }
     
@@ -360,16 +359,7 @@ public class TrailerHandler : MonoBehaviour
         lampInteractableObject.SetLampIntensity(0.2f);
         trailerCameraLight.SetActive(false);
     }
-
-    private void FastForwardDiscs()
-    {
-        IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-        diskLevelController.DiskFFDrainRateLevel = GameProgression.GetFFMaxLevel();
-        diskLevelController.DiskFFMultLevel = GameProgression.GetFFMaxLevel();
-        ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
-        tvNavigationController.OnNextButtonHeld?.Invoke();
-        DOVirtual.DelayedCall(5f, () => tvNavigationController.OnNextButtonReleased?.Invoke());
-    }
+    
 
     private void OneWhiteDisc()
     {
@@ -383,6 +373,10 @@ public class TrailerHandler : MonoBehaviour
     {
         ResetShoot();
         SetCameraShoot(3);
+        
+        IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+        diskLevelController.DiskBorderBonusLevel = 6;
+        
         DOVirtual.DelayedCall(0.25f, () =>
         {
             _disksController = ServiceLocator.GetService<IDisksController>();
@@ -408,6 +402,9 @@ public class TrailerHandler : MonoBehaviour
         ResetShoot();
         SetCameraShoot(3);
         
+        IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+        diskLevelController.DiskBorderBonusLevel = 15;
+        
         _pointsController = ServiceLocator.GetService<IPointsController>();
         _pointsController.UpdatePoints(8012026);
             
@@ -428,6 +425,16 @@ public class TrailerHandler : MonoBehaviour
             _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.ResumeAllDisksMoving();
         });
+    }
+    
+    private void FastForwardDiscs()
+    {
+        IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+        diskLevelController.DiskFFDrainRateLevel = GameProgression.GetFFMaxLevel();
+        diskLevelController.DiskFFMultLevel = GameProgression.GetFFMaxLevel();
+        ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+        tvNavigationController.OnNextButtonHeld?.Invoke();
+        DOVirtual.DelayedCall(5f, () => tvNavigationController.OnNextButtonReleased?.Invoke());
     }
     
     private void GoldenDisc()
