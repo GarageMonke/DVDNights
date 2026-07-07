@@ -28,10 +28,12 @@ namespace DVDNights
         private bool _isOn;
         private Sequence _flickerSequence;
         private float _thresholdIntensity;
+        private float _originalIntensity;
 
         private void Awake()
         {
             _thresholdIntensity = (minIntensity + maxIntensity) / 2f;
+            _originalIntensity = lampLight.intensity;
         }
         public override string GetInteractionAction()
         {
@@ -125,9 +127,9 @@ namespace DVDNights
             lampLight.intensity = intensity;
         }
 
-        private void RestoreLampIntensity()
+        public void RestoreLampIntensity()
         {
-            lampLight.intensity = maxIntensity;
+            lampLight.intensity = _originalIntensity;
         }
 
         private void StopFlicker()

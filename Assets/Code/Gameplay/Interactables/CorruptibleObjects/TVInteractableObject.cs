@@ -113,6 +113,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
+            _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.MuteAllDiscs();
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
@@ -130,6 +131,7 @@ namespace DVDNights
             _forwardController.ResetForwardShader();
             _hasBeenHitOnce = false;
             AudioManager.Instance.StopOST(AudioChannelType.TV);
+            _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.UnmuteAllDiscs();
         }
 

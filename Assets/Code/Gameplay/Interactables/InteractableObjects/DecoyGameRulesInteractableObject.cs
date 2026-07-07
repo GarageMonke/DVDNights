@@ -41,8 +41,8 @@ namespace DVDNights
 
         public override void Interact()
         {
-            gameObject.SetActive(false);
             realGameRules.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }

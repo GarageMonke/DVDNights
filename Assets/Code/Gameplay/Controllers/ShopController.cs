@@ -97,7 +97,6 @@ namespace DVDNights
                     }
                     _pointsController.UpdatePoints(currentPoints - itemCost);
                     _diskLevelController.DiskFFBonusLevel += 1;
-                    Debug.Log(_diskLevelController.DiskFFBonusLevel);
                     break;
                 //FF Mult Level
                 case 4:

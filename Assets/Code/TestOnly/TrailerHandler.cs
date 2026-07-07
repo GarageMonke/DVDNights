@@ -95,18 +95,30 @@ public class TrailerHandler : MonoBehaviour
         _trailerSequence.AppendInterval(3f);
         _trailerSequence.AppendCallback(PlayTake03);
         _trailerSequence.AppendInterval(4f);
+        _trailerSequence.AppendCallback(()=>
+        {
+            _tvStateController.StrikeTV();
+            PlayTake10();
+        });
+        _trailerSequence.AppendInterval(5f);
         _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(4f);
+        _trailerSequence.AppendInterval(8f);
         _trailerSequence.AppendCallback(PlayTake04);
-        _trailerSequence.AppendInterval(4.5f);
+        _trailerSequence.AppendInterval(5f);
+        _trailerSequence.AppendCallback(PlayTake02);
+        _trailerSequence.AppendInterval(8f);
         _trailerSequence.AppendCallback(PlayTake05);
-        _trailerSequence.AppendInterval(3f);
+        _trailerSequence.AppendInterval(5f);
+        _trailerSequence.AppendCallback(PlayTake02);
+        _trailerSequence.AppendInterval(8f);
         _trailerSequence.AppendCallback(PlayTake06);
         _trailerSequence.AppendInterval(5f);
+        _trailerSequence.AppendCallback(PlayTake02);
+        _trailerSequence.AppendInterval(8f);
         _trailerSequence.AppendCallback(PlayTake07);
-        _trailerSequence.AppendInterval(3);
+        _trailerSequence.AppendInterval(3f);
         _trailerSequence.AppendCallback(PlayTake08);
-        _trailerSequence.AppendInterval(3);
+        _trailerSequence.AppendInterval(4f);
         _trailerSequence.AppendCallback(PlayTake09);
     }
 
@@ -188,12 +200,6 @@ public class TrailerHandler : MonoBehaviour
         }
     }
 
-    private float GetTakeTime(int takeIndex)
-    {
-        CameraPositionData cameraPositionData = cameraPositionsData[takeIndex];
-        return cameraPositionData.timeToPosition;
-    }
-
     private void SetCameraShoot(int index, Action onCompleteCallback = null, Ease ease = Ease.InOutSine)
     {
         CameraPositionData cameraPositionData = cameraPositionsData[index];
@@ -245,15 +251,22 @@ public class TrailerHandler : MonoBehaviour
         ResetShoot();
         SetCameraShoot(3);
         
+        
         switch (_internalDiscSequence)
         {
             case 1:
                 OneWhiteDisc();
                 break;
             case 2:
-                ColorDiscs();
+                WhiteFusionDisc();
                 break;
             case 3:
+                ColorDiscs();
+                break;
+            case 4:
+                FastForwardDiscs();
+                break;
+            case 5:
                 GoldenDisc();
                 break;
         }
@@ -275,13 +288,12 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake04()
     {
-        decoyGameRulesInteractableObject.gameObject.SetActive(false);
         ResetCamera();
         ResetShoot();
         SetCameraShoot(4);
         doorInteractableObject.Corrupt();
         doorLight.enabled = true;
-        DOVirtual.DelayedCall(4f, ()=>
+        DOVirtual.DelayedCall(4.5f, ()=>
             doorInteractableObject.ForceClose());
     }
 
@@ -328,6 +340,7 @@ public class TrailerHandler : MonoBehaviour
         ResetShoot();
         SetCameraShoot(9, () =>
         {
+            lampInteractableObject.RestoreLampIntensity();
             entityInteractableObject.PlayAnimationClip();
             DOVirtual.DelayedCall(0.65f, ()=>
                 _trailerTween = trailerCamera
@@ -336,6 +349,26 @@ public class TrailerHandler : MonoBehaviour
         });
             
         roomLight.transform.localPosition = new Vector3(originalLightPositionData.cameraPosition.x, originalLightPositionData.cameraPosition.y, -0.8f);
+    }
+    
+    private void PlayTake10()
+    {
+        decoyGameRulesInteractableObject.Interact();
+        ResetCamera();
+        ResetShoot();
+        SetCameraShoot(10);
+        lampInteractableObject.SetLampIntensity(0.2f);
+        trailerCameraLight.SetActive(false);
+    }
+
+    private void FastForwardDiscs()
+    {
+        IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+        diskLevelController.DiskFFDrainRateLevel = GameProgression.GetFFMaxLevel();
+        diskLevelController.DiskFFMultLevel = GameProgression.GetFFMaxLevel();
+        ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+        tvNavigationController.OnNextButtonHeld?.Invoke();
+        DOVirtual.DelayedCall(5f, () => tvNavigationController.OnNextButtonReleased?.Invoke());
     }
 
     private void OneWhiteDisc()
@@ -354,7 +387,6 @@ public class TrailerHandler : MonoBehaviour
         {
             _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.CreateDisk(DiskType.WHITE);
-            _disksController.CreateDisk(DiskType.WHITE);
         });
         
         DOVirtual.DelayedCall(0.5f, ()=>
@@ -363,8 +395,9 @@ public class TrailerHandler : MonoBehaviour
             _disksController.ResumeAllDisksMoving();
         });
             
-        DOVirtual.DelayedCall(1.2f, ()=>
+        DOVirtual.DelayedCall(2.5f, ()=>
         {
+            _disksController.CreateDisk(DiskType.WHITE);
             _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.CheckDisksToMerge();
         });
@@ -374,7 +407,8 @@ public class TrailerHandler : MonoBehaviour
     {
         ResetShoot();
         SetCameraShoot(3);
-            
+        
+        _pointsController = ServiceLocator.GetService<IPointsController>();
         _pointsController.UpdatePoints(8012026);
             
         DOVirtual.DelayedCall(0.25f, () =>
@@ -395,7 +429,7 @@ public class TrailerHandler : MonoBehaviour
             _disksController.ResumeAllDisksMoving();
         });
     }
-
+    
     private void GoldenDisc()
     {
         ResetShoot();
@@ -403,7 +437,7 @@ public class TrailerHandler : MonoBehaviour
         DOVirtual.DelayedCall(0.1f, () =>
         {
             _pointsController = ServiceLocator.GetService<IPointsController>();
-            _pointsController.UpdatePoints(4292026);
+            _pointsController.UpdatePoints(1222024);
             _disksController = ServiceLocator.GetService<IDisksController>();
             _disksController.RemoveAllDisks();
             _disksController.CreateDisk(DiskType.MAGENTA);

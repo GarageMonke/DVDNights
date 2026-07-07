@@ -177,6 +177,7 @@ namespace DVDNights
                 return;
             }
             
+            ResetForwardShader();
             AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC);
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, stopForwardingClip, 0.1f);
             _isForwarding = false;
