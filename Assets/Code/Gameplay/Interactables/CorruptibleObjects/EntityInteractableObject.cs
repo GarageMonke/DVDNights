@@ -46,11 +46,16 @@ namespace DVDNights
             BloomOut(0.25f);
         }
 
+        public void ShowEntity()
+        {
+            animatorController.speed = 0;
+            animatorController.Play(IdleTopDoor);
+        }
+
         public void PlayAnimationClip()
         {
             animatorController.speed = 0;
             animatorController.Play(IdleTopDoor);
-
             DOVirtual.DelayedCall(0.8f, PlayJumpScare);
         }
 

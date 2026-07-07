@@ -3,6 +3,7 @@ using Code.TestOnly;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
+using UnityEditor;
 using UnityEngine;
 
 public class TrailerHandler : MonoBehaviour
@@ -51,16 +52,8 @@ public class TrailerHandler : MonoBehaviour
 
     private void Start()
     {
-        _trailerCameraOriginalPosition = trailerCamera.transform.localPosition;
-        
         if (playTrailer)
         {
-            ResetCamera();
-            lampInteractableObject.Interact();
-            _interactionController = ServiceLocator.GetService<IInteractionController>();
-            _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
-            _interactionController.DisableInteractions();
-            doorLight.enabled = false;
             PlayTrailerSequences();
         }
     }
@@ -89,6 +82,17 @@ public class TrailerHandler : MonoBehaviour
         _internalDiscSequence = 0;
         _trailerSequence?.Kill();
         _trailerSequence = DOTween.Sequence();
+        _trailerSequence.AppendInterval(2f);
+        _trailerSequence.AppendCallback(() =>
+        {
+            ResetCamera();
+            _trailerCameraOriginalPosition = trailerCamera.transform.localPosition;
+            lampInteractableObject.Interact();
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
+            _interactionController.DisableInteractions();
+            doorLight.enabled = false;
+        });
         _trailerSequence.AppendInterval(1f);
         _trailerSequence.AppendCallback(PlayTake00);
         _trailerSequence.AppendInterval(2f);
@@ -123,6 +127,14 @@ public class TrailerHandler : MonoBehaviour
         _trailerSequence.AppendCallback(PlayTake08);
         _trailerSequence.AppendInterval(4f);
         _trailerSequence.AppendCallback(PlayTake09);
+        _trailerSequence.AppendInterval(3f);
+        _trailerSequence.AppendCallback(() =>
+        {
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
+        });
+
     }
 
     private void Update()
@@ -248,6 +260,7 @@ public class TrailerHandler : MonoBehaviour
 
     private void PlayTake02()
     {
+        lampInteractableObject.RestoreLampIntensity();
         _internalDiscSequence++;
         
         ResetCamera();
@@ -333,6 +346,7 @@ public class TrailerHandler : MonoBehaviour
         ResetShoot();
         SetCameraShoot(8);
         lampInteractableObject.SetLampIntensity(0.3f);
+        entityInteractableObject.ShowEntity();
         trailerCameraLight.SetActive(false);
     }
     
