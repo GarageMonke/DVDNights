@@ -3,6 +3,7 @@ using System.Collections;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DVDNights
 {
@@ -10,10 +11,13 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private FadeInOutBlack mainFadeInOutBlack;
+        [SerializeField] private InputActionSO clickActionSO;
+        [SerializeField] private GameObject wakeUpView;
 
         private IOutlineController _outlinesController;
         private ICameraController _cameraController;
         private IInteractionController _interactionController;
+        private InputAction _clickAction;
 
         private void Awake()
         {
@@ -22,6 +26,8 @@ namespace DVDNights
 
         private void InstallService()
         {
+            _clickAction = clickActionSO.GetInputAction();
+            _clickAction.performed += PrepareRoom;
            ServiceLocator.RegisterService<IGameStartController>(this);
         }
 
@@ -30,14 +36,14 @@ namespace DVDNights
             _outlinesController = ServiceLocator.GetService<IOutlineController>();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
-            
-            PrepareRoom();
         }
 
-        private void PrepareRoom()
+        private void PrepareRoom(InputAction.CallbackContext context)
         {
+            _clickAction.performed -= PrepareRoom;
+            wakeUpView.SetActive(false);
             _outlinesController.DisableAllOutlines();
-            mainFadeInOutBlack.FadeOut(3f, Ease.Linear, OpenEyes);
+            mainFadeInOutBlack.FadeOut(2f, Ease.Linear, OpenEyes);
         }
 
         private void OpenEyes()
@@ -49,6 +55,11 @@ namespace DVDNights
                 _interactionController.EnableInteractions();
             });
 
+        }
+
+        private void OnDestroy()
+        {
+            _clickAction.performed -= PrepareRoom;
         }
     }
 
