@@ -31,7 +31,7 @@ namespace DVDNights
             _availableObjects = new Dictionary<string, ICorruptibleObject>();
             _corruptedTickInterval = new WaitForSeconds(CorruptedTickInterval);
             _tickCoroutine = StartCoroutine(CorruptedTickRoutine());
-            //_decayCoroutine = StartCoroutine(DecayRoutine());
+            _decayCoroutine = StartCoroutine(DecayRoutine());
         }
         
         private void Start()
@@ -168,6 +168,7 @@ namespace DVDNights
         
         private float GetNextDecayInterval()
         {
+            return 1f;
             float t = Mathf.InverseLerp(0, 8, _corruptedObjects.Count);
             return Mathf.Lerp(_naturalDecayMaxInterval, _naturalDecayMinInterval, t);
         }

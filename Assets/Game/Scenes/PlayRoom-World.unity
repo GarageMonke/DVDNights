@@ -5347,7 +5347,7 @@ MonoBehaviour:
   _isEnabled: 1
   _hasCrossHairHint: 0
   outline: {fileID: 0}
-  interactionAudioClip: {fileID: 0}
+  interactionAudioClip: {fileID: 8300000, guid: 0a0a15994f808a74886c83413231602d, type: 3}
   volume: {fileID: 374587604}
   animatorController: {fileID: 246485464}
 --- !u!95 &246485464 stripped
@@ -9554,6 +9554,8 @@ Transform:
   m_Children:
   - {fileID: 1935418733}
   - {fileID: 1851961466}
+  - {fileID: 2119417560}
+  - {fileID: 963047211}
   m_Father: {fileID: 147319810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639967251
@@ -12602,14 +12604,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963047210}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1018665831}
   - {fileID: 1061874036}
-  m_Father: {fileID: 1345171483}
+  m_Father: {fileID: 628679762}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963047212
 MonoBehaviour:
@@ -36530,7 +36532,6 @@ Transform:
   - {fileID: 374587603}
   - {fileID: 1621835710}
   - {fileID: 1419852354}
-  - {fileID: 963047211}
   m_Father: {fileID: 687647545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1346040009
@@ -59462,6 +59463,153 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105149362}
   m_CullTransparentMesh: 1
+--- !u!1 &2119417559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119417560}
+  - component: {fileID: 2119417561}
+  m_Layer: 0
+  m_Name: Sequence-Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2119417560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119417559}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628679762}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119417561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119417559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f58c65366a24d8e80623c788f64e476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameCamera: {fileID: 265031449}
+  roomLight: {fileID: 7928479909364072989}
+  cameraPositionsData:
+  - cameraPosition: {x: -1.0763351, y: -0.2, z: -0.95}
+    cameraRotation: {x: 27.113, y: 318.7, z: 359.801}
+    playTween: 0
+    cameraTargetPosition: {x: -1.0763351, y: -0.2, z: -0.95}
+    cameraTargetRotation: {x: 27.113, y: 318.7, z: 359.801}
+    timeToPosition: 2
+    timeToRotation: 0.5
+  - cameraPosition: {x: 1.5138776, y: 1.0502825, z: -1.4331692}
+    cameraRotation: {x: 40.18887, y: 219.79129, z: 359.74088}
+    playTween: 0
+    cameraTargetPosition: {x: 0, y: 0, z: 0}
+    cameraTargetRotation: {x: 0, y: 0, z: 0}
+    timeToPosition: 2
+    timeToRotation: 0.5
+  - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraTargetRotation: {x: 332.53, y: 180.4, z: 0.000000007517709}
+    timeToPosition: 0.5
+    timeToRotation: 0.5
+  - cameraPosition: {x: 0, y: 0, z: -0.34}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 0
+    cameraTargetPosition: {x: 0, y: 0, z: -0.34}
+    cameraTargetRotation: {x: 0, y: 0, z: -5}
+    timeToPosition: 4
+    timeToRotation: 4
+  - cameraPosition: {x: -0.053, y: -0.6, z: -1.175}
+    cameraRotation: {x: -10, y: 180, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: -0.6, z: -1.3}
+    cameraTargetRotation: {x: -10, y: 180, z: 5}
+    timeToPosition: 6
+    timeToRotation: 6
+  - cameraPosition: {x: 0.884173, y: -0.25, z: -0.05}
+    cameraRotation: {x: 90, y: 25, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: 0.884173, y: -0.2, z: -0.05}
+    cameraTargetRotation: {x: 90, y: 25, z: 0}
+    timeToPosition: 5
+    timeToRotation: 5
+  - cameraPosition: {x: 1.15, y: 0.95, z: -2.5}
+    cameraRotation: {x: 0, y: -90, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: 1.1, y: 0.95, z: -2.5}
+    cameraTargetRotation: {x: 0, y: -90, z: 0}
+    timeToPosition: 3
+    timeToRotation: 3
+  - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraTargetRotation: {x: 0, y: -15, z: 0}
+    timeToPosition: 1
+    timeToRotation: 0.75
+  - cameraPosition: {x: -0.95591503, y: 0.5, z: 0.19178471}
+    cameraRotation: {x: 82.372856, y: 13.163989, z: 358.29843}
+    playTween: 1
+    cameraTargetPosition: {x: -0.95591503, y: 0.3, z: 0.19178471}
+    cameraTargetRotation: {x: 82.372856, y: 13.163989, z: 358.29843}
+    timeToPosition: 4
+    timeToRotation: 4
+  - cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: 0.1, z: -0.724}
+    cameraTargetRotation: {x: -57, y: 180.4, z: 0.000000007517709}
+    timeToPosition: 0.5
+    timeToRotation: 0.5
+  - cameraPosition: {x: -0.588, y: -0.13, z: 0.275}
+    cameraRotation: {x: 90, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.588, y: -0.13, z: 0.105}
+    cameraTargetRotation: {x: 90, y: 0, z: 0}
+    timeToPosition: 5
+    timeToRotation: 5
+  - cameraPosition: {x: -0.053, y: 0.1, z: -3.36}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: 0.1, z: -1.08}
+    cameraTargetRotation: {x: 0, y: 0, z: 35}
+    timeToPosition: 20
+    timeToRotation: 20
+  - cameraPosition: {x: 0, y: -0.21, z: -2.69}
+    cameraRotation: {x: 0, y: 180, z: 0}
+    playTween: 0
+    cameraTargetPosition: {x: -0.03, y: -0.21, z: -2.6}
+    cameraTargetRotation: {x: 0, y: 180, z: 0}
+    timeToPosition: 6
+    timeToRotation: 6
+  entityInteractableObject: {fileID: 246485463}
+  originalLightPositionData:
+    cameraPosition: {x: 0.01047787, y: 2.024, z: -0.45}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 0
+    cameraTargetPosition: {x: 0, y: 0, z: 0}
+    cameraTargetRotation: {x: 0, y: 0, z: 0}
+    timeToPosition: 1
+    timeToRotation: 1
 --- !u!1 &2119884239
 GameObject:
   m_ObjectHideFlags: 0

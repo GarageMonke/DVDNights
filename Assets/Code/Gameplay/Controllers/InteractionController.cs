@@ -265,6 +265,12 @@ public class InteractionController : MonoBehaviour, IInteractionController
         ClearHighlight();
     }
 
+    public void StopAllInteractions()
+    {
+        DisableInteractions();
+        crosshairImage.gameObject.SetActive(false);
+    }
+
     public void ForceInteraction(IInteractableObject interactableObject)
     {
         HandleInteraction(interactableObject);
@@ -276,6 +282,7 @@ public interface IInteractionController
     public bool IsInteracting { get; }
     public void EnableInteractions();
     public void DisableInteractions();
+    public void StopAllInteractions();
     public void ForceInteraction(IInteractableObject interactableObject);
     public void StopInteractionWithObject();
     public void SetCurrentInteraction(IInteractableObject interactableObject);

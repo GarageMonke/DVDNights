@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using CorePatterns.Managers;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -64,6 +65,7 @@ namespace DVDNights
             Highlight();
             animatorController.speed = 1;
             animatorController.Play(IdleTopDoor);
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, 1f);
         }
 
         private void TweenBloom(float targetIntensity, float duration)

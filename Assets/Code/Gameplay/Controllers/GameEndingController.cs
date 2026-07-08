@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class GameEndingController : MonoBehaviour, IGameEndingController
+    public class GameChapterController : MonoBehaviour, IGameChapterController
     {
         [Header("References")] 
         [SerializeField] private TVMessageWindow tvMessageWindow;
         
         private IDisksController _disksController;
-        private int _amountToReach = 1;
+        private int _amountToReach = 3;
         private int _goldAmount;
         private ITVNavigationController _tvNavigationController;
         private ITVStateController _tvStateController;
@@ -22,7 +22,7 @@ namespace DVDNights
 
         private void InstallService()
         {
-            ServiceLocator.RegisterService<IGameEndingController>(this);
+            ServiceLocator.RegisterService<IGameChapterController>(this);
         }
 
         private void Start()
@@ -39,8 +39,9 @@ namespace DVDNights
             _disksController.OnGoldDiskCreated -= CheckGameEnding;
             _goldAmount++;
 
-            if (_goldAmount != _amountToReach)
+            if (_goldAmount == _amountToReach)
             {
+                //Play game ending
                 return;
             }
             
@@ -50,7 +51,7 @@ namespace DVDNights
         private void DisplayMessage()
         {
             tvMessageWindow.OnMessageAccepted += EjectDisk;
-            tvMessageWindow.SetMessage("Error: Something went wrong.");
+            tvMessageWindow.SetMessage("Congratulations! Golden Disc obtained!.");
             tvMessageWindow.Display();
         }
 
@@ -63,7 +64,7 @@ namespace DVDNights
         }
     }
 
-    public interface IGameEndingController
+    public interface IGameChapterController
     {
         public void CheckGameEnding();
         public void EjectDisk();

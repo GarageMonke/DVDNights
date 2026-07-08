@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.TestOnly
+namespace DVDNights
 {
     [Serializable]
     public class CameraPositionData

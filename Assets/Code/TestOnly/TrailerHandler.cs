@@ -1,5 +1,4 @@
 using System;
-using Code.TestOnly;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
@@ -45,7 +44,7 @@ public class TrailerHandler : MonoBehaviour
     private IDisksController _disksController;
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
-    private IGameEndingController _gameEndingController;
+    private IGameChapterController _gameChapterController;
     private IRainController _rainController;
     private Vector3 _trailerCameraOriginalPosition;
 
@@ -91,7 +90,7 @@ public class TrailerHandler : MonoBehaviour
             _trailerCameraOriginalPosition = trailerCamera.transform.localPosition;
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
-            _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
+            _gameChapterController = ServiceLocator.GetService<IGameChapterController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
         });
@@ -371,6 +370,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake09()
     {
+        entityInteractableObject.ShowEntity();
         ResetCamera();
         ResetShoot();
         SetCameraShoot(9, () =>
@@ -510,8 +510,8 @@ public class TrailerHandler : MonoBehaviour
             
         DOVirtual.DelayedCall(8f, () =>
         {
-            _gameEndingController = ServiceLocator.GetService<IGameEndingController>();
-            _gameEndingController.EjectDisk();
+            _gameChapterController = ServiceLocator.GetService<IGameChapterController>();
+            _gameChapterController.EjectDisk();
             _cameraSequence?.Kill();
             _cameraSequence = DOTween.Sequence();
             _cameraSequence.AppendCallback(() =>

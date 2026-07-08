@@ -8,20 +8,26 @@ namespace DVDNights
     {
         private float _currentSanity;
         private float _maxSanity;
+        private bool _isEnabled;
         
-        private const float DefaultSanityThreshold = 0.05f;
+        private const float DefaultSanityThreshold = 0.1f;
 
         public Action OnAllSanityLost { get; set; }
 
         private void Awake()
         {
             ServiceLocator.RegisterService<ISanityController>(this);
-            _currentSanity = 100f;
+            _currentSanity = 1f;
             _maxSanity = _currentSanity;
         }
 
         public void GainSanity()
         {
+            if (!IsEnabled())
+            {
+                return;
+            }
+            
             if (_currentSanity >= _maxSanity)
             {
                 return;
@@ -34,6 +40,11 @@ namespace DVDNights
 
         public void LoseSanity(int multiplier)
         {
+            if (!IsEnabled())
+            {
+                return;
+            }
+            
             float sanityToLose = DefaultSanityThreshold * multiplier;
             TakeSanityImmediate(sanityToLose);
             
@@ -42,10 +53,16 @@ namespace DVDNights
 
         private void TakeSanityImmediate(float sanityToLose)
         {
+            if (!IsEnabled())
+            {
+                return;
+            }
+            
             _currentSanity -= sanityToLose;
 
             if (_currentSanity <= 0)
             {
+                SequenceManager.Instance.PlayGameOverSequence();
                 OnAllSanityLost?.Invoke();
                 _currentSanity = 0;
             }
@@ -53,6 +70,11 @@ namespace DVDNights
 
         public void TakeSanityImmediate(PenaltyType penaltyToTake)
         {
+            if (!IsEnabled())
+            {
+                return;
+            }
+            
             Debug.Log("<color=red>[PENALTY] : -</color>" + GetSanityAmountByType(penaltyToTake));
             _currentSanity -= GetSanityAmountByType(penaltyToTake);
 
@@ -78,6 +100,11 @@ namespace DVDNights
             }
 
             return 1f;
+        }
+        
+        private bool IsEnabled()
+        {
+            return _currentSanity > 0;
         }
     }
 
