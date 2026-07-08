@@ -43,7 +43,7 @@ namespace DVDNights
         private void Awake()
         {
             InstallService();
-            _isTesting = true;
+            _isTesting = false;
         }
 
         private void InstallService()

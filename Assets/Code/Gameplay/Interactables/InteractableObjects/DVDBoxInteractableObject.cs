@@ -35,8 +35,9 @@ namespace DVDNights
         private IMainMenuController _tvMainMenuController;
         private ITVStateController _tvStateController;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
             _dvdTrayController.OnTrayOpened += CheckInteractionStatus;
             _dvdTrayController.OnTrayClosed += CheckInteractionStatus;

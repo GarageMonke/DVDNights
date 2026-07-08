@@ -28,6 +28,7 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private DecoyGameRulesInteractableObject decoyGameRulesInteractableObject;
     [SerializeField] private TVInteractableObject tvInteractableObject;
     [SerializeField] private ArtInteractableObject artInteractableObject;
+    [SerializeField] private DVDBoxInteractableObject dvdBoxInteractableObject;
     
     [Header("Camera-Configuration")]
     [SerializeField] private CameraPositionData originalCameraPositionData;
@@ -45,6 +46,7 @@ public class TrailerHandler : MonoBehaviour
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
     private IGameEndingController _gameEndingController;
+    private IRainController _rainController;
     private Vector3 _trailerCameraOriginalPosition;
 
     private int _internalDiscSequence;
@@ -93,47 +95,55 @@ public class TrailerHandler : MonoBehaviour
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
         });
-        _trailerSequence.AppendInterval(1f);
-        _trailerSequence.AppendCallback(PlayTake00);
+        
         _trailerSequence.AppendInterval(2f);
-        _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(6f);
-        _trailerSequence.AppendCallback(PlayTake01);
-        _trailerSequence.AppendInterval(3f);
-        _trailerSequence.AppendCallback(PlayTake03);
-        _trailerSequence.AppendInterval(4f);
-        _trailerSequence.AppendCallback(()=>
-        {
-            _tvStateController.StrikeTV();
-            PlayTake10();
-        });
-        _trailerSequence.AppendInterval(5f);
-        _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(8f);
-        _trailerSequence.AppendCallback(PlayTake04);
-        _trailerSequence.AppendInterval(5f);
-        _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(8f);
-        _trailerSequence.AppendCallback(PlayTake05);
-        _trailerSequence.AppendInterval(5f);
-        _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(8f);
-        _trailerSequence.AppendCallback(PlayTake06);
-        _trailerSequence.AppendInterval(5f);
-        _trailerSequence.AppendCallback(PlayTake02);
-        _trailerSequence.AppendInterval(11f);
-        _trailerSequence.AppendCallback(PlayTake07);
-        _trailerSequence.AppendInterval(3f);
-        _trailerSequence.AppendCallback(PlayTake08);
-        _trailerSequence.AppendInterval(4f);
-        _trailerSequence.AppendCallback(PlayTake09);
-        _trailerSequence.AppendInterval(3f);
-        _trailerSequence.AppendCallback(() =>
-        {
-#if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
-#endif
-        });
+        _trailerSequence.AppendCallback(OpenDVDBox);
+        
+//        
+//         _trailerSequence.AppendCallback(PlayTake00);
+//         _trailerSequence.AppendInterval(2f);
+//         _trailerSequence.AppendCallback(PlayTake02);
+//         _trailerSequence.AppendInterval(6f);
+//         _trailerSequence.AppendCallback(PlayTake01);
+//         _trailerSequence.AppendInterval(3f);
+//         _trailerSequence.AppendCallback(PlayTake03);
+//         _trailerSequence.AppendInterval(4f);
+//         _trailerSequence.AppendCallback(()=>
+//         {
+//             _tvStateController.StrikeTV();
+//             PlayTake10();
+//         });
+//         _trailerSequence.AppendInterval(5f);
+//         _trailerSequence.AppendCallback(PlayTake02);
+//         _trailerSequence.AppendInterval(8f);
+//         _trailerSequence.AppendCallback(PlayTake04);
+//         _trailerSequence.AppendInterval(5f);
+//         _trailerSequence.AppendCallback(PlayTake02);
+//         _trailerSequence.AppendInterval(8f);
+//         _trailerSequence.AppendCallback(PlayTake05);
+//         _trailerSequence.AppendInterval(5f);
+//         _trailerSequence.AppendCallback(PlayTake02);
+//         _trailerSequence.AppendInterval(8f);
+//         _trailerSequence.AppendCallback(PlayTake06);
+//         _trailerSequence.AppendInterval(5f);
+//         _trailerSequence.AppendCallback(PlayTake02);
+//         _trailerSequence.AppendInterval(11f);
+//         _trailerSequence.AppendCallback(PlayTake07);
+//         _trailerSequence.AppendInterval(3f);
+//         _trailerSequence.AppendCallback(PlayTake08);
+//         _trailerSequence.AppendInterval(4f);
+//         _trailerSequence.AppendCallback(PlayTake09);
+//         _trailerSequence.AppendInterval(3f);
+
+            //Cryptic Messages
+            // _trailerSequence.AppendInterval(1f);
+            // _trailerSequence.AppendCallback(PlayTake02);
+            // _trailerSequence.AppendInterval(0.1f);
+            // _trailerSequence.AppendCallback(CrypticMessages);
+            
+            //Knocking Door
+            // _trailerSequence.AppendInterval(4f);
+            // _trailerSequence.AppendCallback(PlayTake12);
 
     }
 
@@ -311,6 +321,16 @@ public class TrailerHandler : MonoBehaviour
         DOVirtual.DelayedCall(4.5f, ()=>
             doorInteractableObject.ForceClose());
     }
+    
+    private void PlayTake12()
+    {
+        ResetCamera();
+        ResetShoot();
+        SetCameraShoot(12);
+        doorInteractableObject.Corrupt();
+        doorLight.enabled = true;
+    }
+
 
     private void PlayTake05()
     {
@@ -374,6 +394,17 @@ public class TrailerHandler : MonoBehaviour
         SetCameraShoot(10);
         lampInteractableObject.SetLampIntensity(0.2f);
         trailerCameraLight.SetActive(false);
+    }
+
+    private void PlayTake11()
+    {
+        lampInteractableObject.Interact();
+        _tvStateController = ServiceLocator.GetService<ITVStateController>();
+        _tvStateController.PlayStatic();
+        _rainController = ServiceLocator.GetService<IRainController>();
+        _rainController.PlayRain();
+        ResetShoot();
+        SetCameraShoot(11);
     }
     
 
@@ -492,6 +523,126 @@ public class TrailerHandler : MonoBehaviour
                     .DOLocalRotate(Vector3.zero, 3f)
                     .SetEase(Ease.InOutSine);
             });
+        });
+    }
+
+    private void CrypticMessages()
+    {
+        ResetShoot();
+        SetCameraShoot(3);
+        _disksController = ServiceLocator.GetService<IDisksController>();
+        _disksController.RemoveAllDisks();
+        
+        IMessageWindow tvMessageWindow = ServiceLocator.GetService<IMessageWindow>();
+        IShopController shopController = ServiceLocator.GetService<IShopController>();
+        DOVirtual.DelayedCall(0.5f, ()=>
+        {
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _pointsController.UpdatePoints(1812022);
+            tvMessageWindow = ServiceLocator.GetService<IMessageWindow>();
+            tvMessageWindow.SetMessage("There's no exit.");
+            tvMessageWindow.Display();
+        });
+        
+        DOVirtual.DelayedCall(2f, ()=>
+        {
+            tvMessageWindow.Hide();
+        });
+            
+        DOVirtual.DelayedCall(2.5f, ()=>
+        {
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _pointsController.UpdatePoints(666);
+            tvMessageWindow.SetMessage("DO NOT OPEN THE DOOR.");
+            tvMessageWindow.Display();
+        });
+        
+        DOVirtual.DelayedCall(3.5f, ()=>
+        {
+            tvMessageWindow.Hide();
+        });
+            
+        DOVirtual.DelayedCall(4f, ()=>
+        {
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _pointsController.UpdatePoints(4292026);
+            tvMessageWindow.SetMessage("DO NOT LET THEM IN.");
+            tvMessageWindow.Display();
+        });
+        
+        DOVirtual.DelayedCall(5f, ()=>
+        {
+            tvMessageWindow.Hide();
+        });
+            
+        DOVirtual.DelayedCall(5.5f, ()=>
+        {
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _pointsController.UpdatePoints(4292026);
+            shopController.OpenShop();
+        });
+    }
+    
+    private void Shop()
+    {
+        ResetShoot();
+        SetCameraShoot(3);
+        IShopController shopController = ServiceLocator.GetService<IShopController>();
+        ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+        DOVirtual.DelayedCall(0.5f, ()=>
+        {
+            _pointsController = ServiceLocator.GetService<IPointsController>();
+            _pointsController.UpdatePoints(1812022);
+            IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
+            diskLevelController.DiskBorderBonusLevel = 12;
+            diskLevelController.DiskCornerBonusLevel = 10;
+            diskLevelController.DiskFFBonusLevel = 5;
+            diskLevelController.DiskFFDrainRateLevel = 8;
+            diskLevelController.DiskFFMultLevel = 6;
+            shopController.OpenShop();
+           
+        });
+        
+        DOVirtual.DelayedCall(0.65f, ()=>
+        {
+            shopController.MoveToNext();
+            tvNavigationController.NextButton.Press();
+        });
+            
+        DOVirtual.DelayedCall(1.3f, ()=>
+        {
+            shopController.MoveToNext();
+            tvNavigationController.NextButton.Press();
+        });
+                
+        DOVirtual.DelayedCall(1.95f, ()=>
+        {
+            shopController.MoveToNext();
+            tvNavigationController.NextButton.Press();
+        });
+        
+        DOVirtual.DelayedCall(3, ()=>
+        {
+            shopController.SelectItem();
+            tvNavigationController.SubmitButton.Press();
+        });
+    }
+
+    private void OpenDVDBox()
+    {
+        ResetShoot();
+        
+        decoyGameRulesInteractableObject.Interact();
+        ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+        tvNavigationController.PowerButton.Press();
+        DOVirtual.DelayedCall(2, ()=>
+        {
+            tvNavigationController.OpenCloseButton.Press();
+        });
+    
+        DOVirtual.DelayedCall(6, ()=>
+        {
+            dvdBoxInteractableObject.Interact();
         });
     }
 }

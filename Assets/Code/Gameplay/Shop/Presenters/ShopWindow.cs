@@ -21,6 +21,7 @@ namespace DVDNights
         private int _availablePoints;
         
         public Action<int> OnItemPurchased { get; set; }
+        
 
         private void Start()
         {

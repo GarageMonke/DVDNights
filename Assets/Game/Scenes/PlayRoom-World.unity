@@ -5459,7 +5459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &265031449
 Camera:
   m_ObjectHideFlags: 0
@@ -10899,7 +10899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &742266905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11473,7 +11473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &799396395
 Transform:
   m_ObjectHideFlags: 0
@@ -12517,7 +12517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &963047211
 Transform:
   m_ObjectHideFlags: 0
@@ -12562,6 +12562,7 @@ MonoBehaviour:
   decoyGameRulesInteractableObject: {fileID: 245931827}
   tvInteractableObject: {fileID: 543450651938090012}
   artInteractableObject: {fileID: 2119884246}
+  dvdBoxInteractableObject: {fileID: 1293801515}
   originalCameraPositionData:
     cameraPosition: {x: -0.053, y: 0.1, z: -0.724}
     cameraRotation: {x: 0, y: 0, z: 0}
@@ -12664,6 +12665,20 @@ MonoBehaviour:
     cameraTargetRotation: {x: 90, y: 0, z: 0}
     timeToPosition: 5
     timeToRotation: 5
+  - cameraPosition: {x: -0.053, y: 0.1, z: -3.36}
+    cameraRotation: {x: 0, y: 0, z: 0}
+    playTween: 1
+    cameraTargetPosition: {x: -0.053, y: 0.1, z: -1.08}
+    cameraTargetRotation: {x: 0, y: 0, z: 35}
+    timeToPosition: 20
+    timeToRotation: 20
+  - cameraPosition: {x: 0, y: -0.21, z: -2.69}
+    cameraRotation: {x: 0, y: 180, z: 0}
+    playTween: 0
+    cameraTargetPosition: {x: -0.03, y: -0.21, z: -2.6}
+    cameraTargetRotation: {x: 0, y: 180, z: 0}
+    timeToPosition: 6
+    timeToRotation: 6
 --- !u!1 &963621239
 GameObject:
   m_ObjectHideFlags: 0
@@ -13341,7 +13356,7 @@ Transform:
   m_GameObject: {fileID: 1018665830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.053, y: 0.1, z: -0.724}
+  m_LocalPosition: {x: -0, y: 0.1, z: -0.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -46314,7 +46329,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851961465}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e62f2d2d96ef4a3ab75f6882276aa86e, type: 3}
   m_Name: 

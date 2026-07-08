@@ -22,6 +22,11 @@ namespace DVDNights
 
         private ITVNavigationController _tvNavigationController;
 
+        private void Awake()
+        {
+            ServiceLocator.RegisterService<IMessageWindow>(this);
+        }
+
         private void Start()
         {
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();

@@ -113,15 +113,13 @@ namespace DVDNights
             DisableInteraction();
             int randomSqueakClip = Random.Range(0, squeakAudioClips.Length);
             
-            //Trailer ONLY
-            randomSqueakClip = 2;
-            
             AudioClip squeakClip = squeakAudioClips[randomSqueakClip];
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, squeakClip);
             Vector3 randomOpenAngle = new Vector3(0, Random.Range(minOpenAngle.y, maxOpenAngle.y), 0);
             
             //Trailer ONLY
-            randomOpenAngle = new Vector3(0, -20, 0);
+            //randomOpenAngle = new Vector3(0, -20, 0);
+            //randomSqueakClip = 2;
             
             _isTweening = true;
             _handleTweener?.Kill();
@@ -181,8 +179,9 @@ namespace DVDNights
             _lastCorruptionIndex = corruptionIndex;
             
             //Trailer ONLY
-            Squeak();
-            return;
+            //Squeak();
+            //HardKnocking();
+            //return;
 
             switch (corruptionIndex)
             {
@@ -262,7 +261,7 @@ namespace DVDNights
                 {
                     AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, bruteKnocksAudioClips[index]);
                     transform.DOPunchRotation(
-                        new Vector3(0, rot, 0),
+                        new Vector3(0, 0.8f, 0),
                         dur,
                         vibrato
                     );

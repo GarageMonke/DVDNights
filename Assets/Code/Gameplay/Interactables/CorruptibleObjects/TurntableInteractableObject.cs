@@ -67,8 +67,6 @@ namespace DVDNights
 
         public override void Interact()
         {
-            //Trailer Only
-            
             if (_isCorrupted)
             {
                 ClearCorruption();
