@@ -9,7 +9,7 @@ namespace DVDNights
     {
         [Header("References")]
         [SerializeField] private Button button;
-        [SerializeField] private TextMeshProUGUI buttonText;
+        [SerializeField] protected TextMeshProUGUI buttonText;
         [SerializeField] private Image highlightImage;
         
         [Header("Configuration")]
@@ -20,46 +20,51 @@ namespace DVDNights
         private Color _originalTextHighlightColor; 
         private FontStyles _originalFontStyle;
         
-        private void Awake()
+        protected virtual void Awake()
         {
             _originalImageHighlightColor = highlightImage.color;
             _originalTextHighlightColor =  buttonText.color;
             _originalFontStyle = buttonText.fontStyle;
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            highlightImage.gameObject.SetActive(true);
-            buttonText.color = highlightTextColor;
-            buttonText.fontStyle = highlightFontStyle;
+            Highlight();
         }
 
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
            Unhighlight();
         }
 
-        public void OnPointerDown(PointerEventData eventData)
+        public virtual void OnPointerDown(PointerEventData eventData)
         {
             highlightImage.color = Color.grey;
             buttonText.color = _originalTextHighlightColor;
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        public virtual void OnPointerUp(PointerEventData eventData)
         {
             highlightImage.color = _originalImageHighlightColor;
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
         }
 
-        private void Unhighlight()
+        protected virtual void Highlight()
+        {
+            highlightImage.gameObject.SetActive(true);
+            buttonText.color = highlightTextColor;
+            buttonText.fontStyle = highlightFontStyle;
+        }
+
+        protected virtual void Unhighlight()
         {
             highlightImage.gameObject.SetActive(false);
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
         }
         
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             Unhighlight();
         }
