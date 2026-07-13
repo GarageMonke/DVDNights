@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class ForwardController : MonoBehaviour, IForwardController
+    public class FastForwardController : MonoBehaviour, IFastForwardController
     {
         [Header("References")] 
         [SerializeField] private GameObject powerView;
@@ -45,7 +45,7 @@ namespace DVDNights
         private void InstallService()
         {
             forwardFillView.InitializeView(100);
-            ServiceLocator.RegisterService<IForwardController>(this);
+            ServiceLocator.RegisterService<IFastForwardController>(this);
         }
 
         private void Start()
@@ -234,7 +234,7 @@ namespace DVDNights
         }
     }
 
-    public interface IForwardController
+    public interface IFastForwardController
     {
         public void FlickerForward();
         public void ResetForwardShader();

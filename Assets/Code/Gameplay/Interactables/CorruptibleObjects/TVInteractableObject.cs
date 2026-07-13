@@ -22,7 +22,7 @@ namespace DVDNights
         private ITVNavigationController _tvNavigationController;
         private IMouseLayoutController _mouseLayoutController;
         private ITVStateController _tvStateController;
-        private IForwardController _forwardController;
+        private IFastForwardController _fastForwardController;
         private IDisksController _disksController;
         private bool _isInteractingWithTv;
         private bool _hasBeenHitOnce;
@@ -35,7 +35,7 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
-            _forwardController = ServiceLocator.GetService<IForwardController>();
+            _fastForwardController = ServiceLocator.GetService<IFastForwardController>();
             _disksController = ServiceLocator.GetService<IDisksController>();
         }
 
@@ -128,7 +128,7 @@ namespace DVDNights
                 .Append(transform.DOLocalRotate(new Vector3(0, 0, 0), 0.05f).SetEase(Ease.Flash).OnComplete(
                     ()=>  SetHasNavigation(true)));
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, strikeTVAudioClip, volume: 0.65f, pitch: 1f);
-            _forwardController.ResetForwardShader();
+            _fastForwardController.ResetForwardShader();
             _hasBeenHitOnce = false;
             AudioManager.Instance.StopOST(AudioChannelType.TV);
             _disksController = ServiceLocator.GetService<IDisksController>();
@@ -140,8 +140,8 @@ namespace DVDNights
             _hasBeenHitOnce = true;
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, strikeTVAudioClip, volume: 0.65f, pitch: 1f);
             _tvStateController.StrikeTV();
-            _forwardController ??= ServiceLocator.GetService<IForwardController>();
-            _forwardController.FlickerForward();
+            _fastForwardController ??= ServiceLocator.GetService<IFastForwardController>();
+            _fastForwardController.FlickerForward();
             float strikeAngle = Random.Range(-6, 7);
             _strikeSequence?.Kill();
             _strikeSequence = DOTween.Sequence()

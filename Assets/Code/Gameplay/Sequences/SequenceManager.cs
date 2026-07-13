@@ -54,7 +54,7 @@ namespace DVDNights
             DisableInput();
             entityInteractableObject.ShowEntity();
             
-            SetCameraShoot(9, () =>
+            SetCameraShoot(0, () =>
             {
                 entityInteractableObject.PlayAnimationClip();
                 DOVirtual.DelayedCall(0.65f, () =>
