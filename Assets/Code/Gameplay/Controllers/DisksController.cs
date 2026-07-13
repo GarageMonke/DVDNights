@@ -76,8 +76,8 @@ public class DisksController : MonoBehaviour, IDisksController
         _diskFactory = ServiceLocator.GetService<IDiskFactory>();
         _shopController = ServiceLocator.GetService<IShopController>();
         _tvStateController = ServiceLocator.GetService<ITVStateController>();
-        // _shopController.OnShopOpened += StopAllDisksMoving;
-        // _shopController.OnShopClosed += CheckDisksToMerge;
+        _shopController.OnShopOpened += StopAllDisksMoving;
+        _shopController.OnShopClosed += CheckDisksToMerge;
         
         //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);

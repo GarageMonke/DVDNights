@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 
 namespace DVDNights
@@ -27,6 +28,12 @@ namespace DVDNights
         {
             base.Highlight();
             buttonText.font = highlightTextFont;
+        }
+        
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            base.OnPointerUp(eventData);
+            Highlight();
         }
     }
 }

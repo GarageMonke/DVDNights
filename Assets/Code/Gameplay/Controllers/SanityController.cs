@@ -17,7 +17,7 @@ namespace DVDNights
         private void Awake()
         {
             ServiceLocator.RegisterService<ISanityController>(this);
-            _currentSanity = 1f;
+            _currentSanity = 100f;
             _maxSanity = _currentSanity;
         }
 
