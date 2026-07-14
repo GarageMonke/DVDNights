@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
@@ -27,6 +28,7 @@ namespace DVDNights
         public bool IsDiskOnTray => _diskId > 0;
         public Material TVScreenMaterial => tvScreenMesh.material;
         public int DiskId => _diskId;
+        public Action OnDiskRead { get; set; }
 
         private bool _isTVOn;
         private bool _hasDisk;
@@ -39,6 +41,7 @@ namespace DVDNights
         private IDVDTrayController _dvdTrayController;
         private IMainMenuController _tvMainMenuController;
         private IInteractionController _interactionController;
+        private IGameProgressionController _gameProgressionController;
 
         private void Awake()
         {
@@ -73,7 +76,7 @@ namespace DVDNights
                 {
                     tvScreenMesh.material = tvScreenMaterial;
                     AudioManager.Instance.StopOST(AudioChannelType.TV);
-                    AudioManager.Instance.PlaySFX(AudioChannelType.TV, loadingDVDAudioClip, volume: 0.5f, pitch: 1f);
+                    AudioManager.Instance.PlaySFX(AudioChannelType.TV, loadingDVDAudioClip, volume: 1f, pitch: 1f);
                 })
                 .AppendInterval(loadingDVDAudioClip.length)
                 .AppendCallback(() =>
@@ -83,6 +86,8 @@ namespace DVDNights
                     _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
                     _tvMainMenuController.DisplayMenu();
                     _hasDisk = true;
+                    _gameProgressionController ??= ServiceLocator.GetService<IGameProgressionController>();
+                    _gameProgressionController?.ScheduleRulesDelivery();
                 });
         }
 
@@ -168,6 +173,7 @@ namespace DVDNights
         public bool HasDisk { get; }
         public bool IsPlayingGame { get; }
         public bool IsDiskOnTray { get; }
+        public Action OnDiskRead { get; set; }
         public Material TVScreenMaterial { get; }
         public int DiskId { get; }
         public void ReadDisk();

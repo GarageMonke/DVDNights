@@ -1,4 +1,5 @@
 ﻿using System;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -12,10 +13,16 @@ namespace DVDNights
         [SerializeField] private GameRulesInteractableObject[] decoyGameRulesInteractableObjects;
         
         private int _currentDeliveryIndex;
+        private IGameProgressionController _gameProgressionController;
 
-        private void Start()
+        private void Awake()
         {
-            DeliverNextRuleSet();
+            InstallService();
+        }
+
+        private void InstallService()
+        {
+            ServiceLocator.RegisterService<IDeliveryController>(this);
         }
 
         private void LoadDeliveredObjects()
@@ -51,7 +58,10 @@ namespace DVDNights
 
         public void DeliverNextRuleSet()
         {
-            decoyGameRulesInteractableObjects[_currentDeliveryIndex].SlipTroughDoor();
+            GameRulesInteractableObject gameRulesInteractableObject = decoyGameRulesInteractableObjects[_currentDeliveryIndex];
+            gameRulesInteractableObject.SlipTroughDoor();
+            _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
+            _gameProgressionController.SetLastDeliveredRules(gameRulesInteractableObject);
         }
     }
 

@@ -19,16 +19,20 @@ namespace DVDNights
         
         [Header("Rules-Window")]
         [SerializeField] private RulesWindow rulesWindow;
+        [SerializeField] private AudioClip acknowledgeAudioClip;
 
+        public Action OnRulesAcknowledge;
         private Sequence _slipSequence;
         private bool _isInDesktop;
         private ICameraController _cameraController;
+        private IInteractionController _interactionController;
 
         protected override void Start()
         {
             base.Start();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             rulesWindow.OnRulesAcknowledge += AcknowledgeRules;
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
         }
 
         public override string GetInteractionAction()
@@ -48,23 +52,45 @@ namespace DVDNights
                 transform.DOLocalMove(targetPosition, slipAudioClip.length);
                 transform.DOLocalRotate(targetRotation, slipAudioClip.length);
             });
+            _slipSequence.AppendInterval(1f);
+            _slipSequence.AppendCallback(() =>
+            {
+                _interactionController.StopInteractionWithObject();
+            });
+            _slipSequence.AppendInterval(0.5f);
+            _slipSequence.AppendCallback(() =>
+            {
+                Quaternion targetLookRotation = Quaternion.LookRotation(transform.position - _cameraController.Camera.transform.position);
+                _cameraController.TweenToRotation(targetLookRotation);
+            });
+            _slipSequence.AppendInterval(1f);
+            _slipSequence.AppendCallback(() =>
+            {
+                _cameraController.DisableNavigation();
+            });
         }
 
         public override void Interact()
         {
-            if (!_isInDesktop)
-            {
-                TeleportRulesToDesktop();
-            }
-            
             rulesWindow.Display();
             _cameraController.DisableNavigation();
+            _interactionController.DisableInteractions();
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, volume: 1f, randomizePitch: true);
         }
 
         public void AcknowledgeRules()
         {
             _cameraController.EnableNavigation();
+            _interactionController.EnableInteractions();
+            
+            if (_isInDesktop)
+            {
+                return;
+            }
+
+            TeleportRulesToDesktop();
+            OnRulesAcknowledge?.Invoke();
+            AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, acknowledgeAudioClip, volume: 1f);
         }
 
         public void TeleportRulesToDesktop()

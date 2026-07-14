@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;

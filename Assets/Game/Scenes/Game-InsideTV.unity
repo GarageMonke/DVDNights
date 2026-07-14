@@ -4000,7 +4000,7 @@ GameObject:
   - component: {fileID: 1301942705}
   - component: {fileID: 1301942706}
   m_Layer: 0
-  m_Name: GameEnding-Controller
+  m_Name: GameProgression-Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
