@@ -16,6 +16,10 @@ namespace DVDNights
         [SerializeField] private Transform dvdBoxFace;
         [SerializeField] private Transform dvdPathParent;
         
+        [Header("Desktop-Configuration")] 
+        [SerializeField] private Vector3 dvdBoxDesktopPosition;
+        [SerializeField] private Vector3 dvdBoxDesktopRotation;
+        
         [Header("Position-Vectors")]
         [SerializeField] private Vector3 clickDVDPosition;
         [SerializeField] private Vector3 firstStepDVDPosition;
@@ -34,6 +38,7 @@ namespace DVDNights
         private ICameraController _cameraController;
         private IMainMenuController _tvMainMenuController;
         private ITVStateController _tvStateController;
+        private bool _isInDesktop;
 
         protected override void Start()
         {
@@ -65,6 +70,11 @@ namespace DVDNights
 
         public override string GetInteractionAction()
         {
+            if (_isInDesktop)
+            {
+                return "Take DVD Box";
+            }
+            
             return "Insert DVD";
         }
 
@@ -72,6 +82,12 @@ namespace DVDNights
         {
             if (!IsEnabled)
             {
+                return;
+            }
+
+            if (!_isInDesktop)
+            {
+                TeleportDvdBoxToDesktop();
                 return;
             }
             
@@ -138,9 +154,15 @@ namespace DVDNights
                             _tvStateController.InsertDisk(1);
                         }
                     }));
-
-
         }
+        
+        public void TeleportDvdBoxToDesktop()
+        {
+            transform.localPosition = dvdBoxDesktopPosition;
+            transform.localRotation = Quaternion.Euler(dvdBoxDesktopRotation);
+            _isInDesktop = true;
+        }
+
 
         private void OnDestroy()
         {

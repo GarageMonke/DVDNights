@@ -152,7 +152,7 @@ public class DisksController : MonoBehaviour, IDisksController
 
     public void BoostAllDisksSpeed()
     {
-        float updatedSpeed = GameProgression.DiscBaseSpeed * GameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
+        float updatedSpeed = BounceGameProgression.DiscBaseSpeed * BounceGameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
         
         foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
         {
@@ -164,7 +164,7 @@ public class DisksController : MonoBehaviour, IDisksController
     {
         foreach (IBouncerDisk existingDisk in _allRegisteredDisks)
         {
-            existingDisk.BaseSpeed = GameProgression.DiscBaseSpeed;
+            existingDisk.BaseSpeed = BounceGameProgression.DiscBaseSpeed;
         }
     }
 
@@ -176,14 +176,14 @@ public class DisksController : MonoBehaviour, IDisksController
         {
             List<IBouncerDisk> disks = _registeredDisks[diskType];
 
-            if (disks.Count < GameProgression.DiscMergeAmount)
+            if (disks.Count < BounceGameProgression.DiscMergeAmount)
             {
                 _isMerging = false;
                 continue;
             }
             
             List<IBouncerDisk> disksToMerge = disks
-                .Take(GameProgression.DiscMergeAmount)
+                .Take(BounceGameProgression.DiscMergeAmount)
                 .ToList();
 
             DiskType nextTier = GetNextTier(diskType);
@@ -296,7 +296,7 @@ public class DisksController : MonoBehaviour, IDisksController
                 {
                     completed++;
 
-                    if (completed < GameProgression.DiscMergeAmount)
+                    if (completed < BounceGameProgression.DiscMergeAmount)
                     {
                         return;
                     }
@@ -320,7 +320,7 @@ public class DisksController : MonoBehaviour, IDisksController
                         .Append(whiteFlashCanvasGroup.DOFade(1f, flashLength))
                         .AppendCallback(() => 
                         {
-                            RemoveDisksByQuantity(fromTier, GameProgression.DiscMergeAmount);
+                            RemoveDisksByQuantity(fromTier, BounceGameProgression.DiscMergeAmount);
                             CreateDisk(nextTier);
                             ResumeAllDisksMoving();
                         })

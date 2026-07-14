@@ -35,11 +35,11 @@ namespace DVDNights
             float duration = 1f;
             float elapsed = 0f;
             Vector3 startPos = transform.localPosition;
-            float tickInterval = 1f / GameFeel.TvFrameRate;
+            float tickInterval = 1f / BounceGameFeel.TvFrameRate;
 
             while (elapsed < duration)
             {
-                if (GameFeel.IgnoreTvFrameRate)
+                if (BounceGameFeel.IgnoreTvFrameRate)
                 {
                     elapsed += Time.deltaTime;
                 }
@@ -53,7 +53,7 @@ namespace DVDNights
                 transform.localPosition = startPos + Vector3.up * (50f * t);
                 hitCanvasGroup.alpha = t < 0.5f ? 1f : 1f - ((t - 0.5f) / 0.5f);
 
-                if (GameFeel.IgnoreTvFrameRate)
+                if (BounceGameFeel.IgnoreTvFrameRate)
                     yield return null;
                 else
                     yield return new WaitForSeconds(tickInterval);

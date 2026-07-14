@@ -78,7 +78,7 @@ public class PointsController : MonoBehaviour, IPointsController
         _pointsTween = DOTween.To(() => _visualPoints, x => _visualPoints = x, _points, 0.5f)
             .OnUpdate(() =>
             {
-                if (GameFeel.IgnoreTvFrameRate)
+                if (BounceGameFeel.IgnoreTvFrameRate)
                 {
                     scoreText.text = "POINTS: " + _visualPoints.ToString("D10");
                 }
@@ -126,9 +126,9 @@ public class PointsController : MonoBehaviour, IPointsController
             return 0;
         }
         
-        double totalMultiplier = GameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) * diskData.DiskMultiplier;
+        double totalMultiplier = BounceGameProgression.GetBorderBonusMult(_diskLevelController.DiskBorderBonusLevel) * diskData.DiskMultiplier;
         
-        double amountToAdd = GameProgression.DiscBaseBorderPoints * totalMultiplier;
+        double amountToAdd = BounceGameProgression.DiscBaseBorderPoints * totalMultiplier;
         
         return Mathf.Max(1, (int)amountToAdd);
     }
@@ -140,9 +140,9 @@ public class PointsController : MonoBehaviour, IPointsController
             return 0;
         }
         
-        double totalMultiplier = GameProgression.GetBorderBonusMult(_diskLevelController.DiskCornerBonusLevel) * diskData.DiskMultiplier;
+        double totalMultiplier = BounceGameProgression.GetBorderBonusMult(_diskLevelController.DiskCornerBonusLevel) * diskData.DiskMultiplier;
         
-        double amountToAdd = GameProgression.DiscBaseCornerPoints * totalMultiplier;
+        double amountToAdd = BounceGameProgression.DiscBaseCornerPoints * totalMultiplier;
         
         return Mathf.Max(1, (int)amountToAdd);
     }

@@ -69,7 +69,7 @@ namespace DVDNights
                     break;
                 //Disk Base Bonus Level
                 case 1:
-                    if (_diskLevelController.DiskBorderBonusLevel == GameProgression.GetBonusMaxLevel())
+                    if (_diskLevelController.DiskBorderBonusLevel == BounceGameProgression.GetBonusMaxLevel())
                     {
                         //Purchase Failed
                         break;
@@ -80,7 +80,7 @@ namespace DVDNights
                     break;
                 //Disk Corner Bonus Level
                 case 2:
-                    if (_diskLevelController.DiskCornerBonusLevel == GameProgression.GetBonusMaxLevel())
+                    if (_diskLevelController.DiskCornerBonusLevel == BounceGameProgression.GetBonusMaxLevel())
                     {
                         //Purchase Failed
                         break;
@@ -90,7 +90,7 @@ namespace DVDNights
                     break;
                 //FF Bonus Level
                 case 3:
-                    if (_diskLevelController.DiskFFBonusLevel == GameProgression.GetFFMaxLevel())
+                    if (_diskLevelController.DiskFFBonusLevel == BounceGameProgression.GetFFMaxLevel())
                     {
                         //Purchase Failed
                         break;
@@ -100,7 +100,7 @@ namespace DVDNights
                     break;
                 //FF Mult Level
                 case 4:
-                    if (_diskLevelController.DiskFFMultLevel == GameProgression.GetFFMaxLevel())
+                    if (_diskLevelController.DiskFFMultLevel == BounceGameProgression.GetFFMaxLevel())
                     {
                         //Purchase Failed
                         break;
@@ -110,7 +110,7 @@ namespace DVDNights
                     break;
                 //FF Drain Rate
                 case 5:
-                    if (_diskLevelController.DiskFFDrainRateLevel == GameProgression.GetFFMaxLevel())
+                    if (_diskLevelController.DiskFFDrainRateLevel == BounceGameProgression.GetFFMaxLevel())
                     {
                         //Purchase Failed
                         break;

@@ -80,7 +80,7 @@ namespace DVDNights
                 return;
             }
 
-            if (GameFeel.IgnoreTvFrameRate)
+            if (BounceGameFeel.IgnoreTvFrameRate)
             {
                 Move();
                 SpinDisk();
@@ -89,12 +89,12 @@ namespace DVDNights
 
             _frameCounter++;
             
-            if (_frameCounter > GameFeel.TvFrameRate)
+            if (_frameCounter > BounceGameFeel.TvFrameRate)
             {
                 _frameCounter = 0;
         
                 // Simulate all skipped frames at once
-                int framesToSimulate = GameFeel.TvFrameRate + 1;
+                int framesToSimulate = BounceGameFeel.TvFrameRate + 1;
                 for (int i = 0; i < framesToSimulate; i++)
                 {
                     SimulateMove();
@@ -207,9 +207,9 @@ namespace DVDNights
                 worldPos.y - bounceArea.position.y
             );
 
-            if (!GameFeel.IgnoreTvFrameRate)
+            if (!BounceGameFeel.IgnoreTvFrameRate)
             {
-                localPos += _velocity * (Time.deltaTime * GameFeel.TvFrameRate);
+                localPos += _velocity * (Time.deltaTime * BounceGameFeel.TvFrameRate);
             }
             else
             {
@@ -353,13 +353,13 @@ namespace DVDNights
 
         private void PlayRegularFeedback()
         {
-            float updatedPitch = pitch + GameFeel.ForwardPitch;
+            float updatedPitch = pitch + BounceGameFeel.ForwardPitch;
             AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip, volume, updatedPitch, true);
         }
         
         private void PlaySpecialFeedback()
         {
-            float updatedPitch = pitch + pitch * 1.5f + GameFeel.ForwardPitch;
+            float updatedPitch = pitch + pitch * 1.5f + BounceGameFeel.ForwardPitch;
             AudioManager.Instance.PlaySFX(AudioChannelType.TV, audioClip, volume, updatedPitch, true);
         }
 

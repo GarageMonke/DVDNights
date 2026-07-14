@@ -24,7 +24,7 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private DrawingInteractableObject drawingInteractableObject;
     [SerializeField] private EntityInteractableObject entityInteractableObject;
     [SerializeField] private TurntableInteractableObject turntableInteractableObject;
-    [SerializeField] private DecoyGameRulesInteractableObject decoyGameRulesInteractableObject;
+    [SerializeField] private GameRulesInteractableObject gameRulesInteractableObject;
     [SerializeField] private TVInteractableObject tvInteractableObject;
     [SerializeField] private ArtInteractableObject artInteractableObject;
     [SerializeField] private DVDBoxInteractableObject dvdBoxInteractableObject;
@@ -44,7 +44,7 @@ public class TrailerHandler : MonoBehaviour
     private IDisksController _disksController;
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
-    private IGameChapterController _gameChapterController;
+    private IGameProgressionController _gameProgressionController;
     private IRainController _rainController;
     private Vector3 _trailerCameraOriginalPosition;
 
@@ -90,7 +90,7 @@ public class TrailerHandler : MonoBehaviour
             _trailerCameraOriginalPosition = trailerCamera.transform.localPosition;
             lampInteractableObject.Interact();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
-            _gameChapterController = ServiceLocator.GetService<IGameChapterController>();
+            _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
         });
@@ -264,7 +264,7 @@ public class TrailerHandler : MonoBehaviour
         ResetCamera();
         ResetShoot();
         SetCameraShoot(1);
-        decoyGameRulesInteractableObject.SlipTroughDoor();
+        gameRulesInteractableObject.SlipTroughDoor();
     }
 
     private void PlayTake02()
@@ -388,7 +388,7 @@ public class TrailerHandler : MonoBehaviour
     
     private void PlayTake10()
     {
-        decoyGameRulesInteractableObject.Interact();
+        gameRulesInteractableObject.Interact();
         ResetCamera();
         ResetShoot();
         SetCameraShoot(10);
@@ -478,8 +478,8 @@ public class TrailerHandler : MonoBehaviour
     {
         cellphoneInteractableObject.MutePhone();
         IDiskLevelController diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-        diskLevelController.DiskFFDrainRateLevel = GameProgression.GetFFMaxLevel();
-        diskLevelController.DiskFFMultLevel = GameProgression.GetFFMaxLevel();
+        diskLevelController.DiskFFDrainRateLevel = BounceGameProgression.GetFFMaxLevel();
+        diskLevelController.DiskFFMultLevel = BounceGameProgression.GetFFMaxLevel();
         ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
         tvNavigationController.OnNextButtonHeld?.Invoke();
         DOVirtual.DelayedCall(5f, () => tvNavigationController.OnNextButtonReleased?.Invoke());
@@ -510,8 +510,8 @@ public class TrailerHandler : MonoBehaviour
             
         DOVirtual.DelayedCall(8f, () =>
         {
-            _gameChapterController = ServiceLocator.GetService<IGameChapterController>();
-            _gameChapterController.EjectDisk();
+            _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
+            _gameProgressionController.EjectDisk();
             _cameraSequence?.Kill();
             _cameraSequence = DOTween.Sequence();
             _cameraSequence.AppendCallback(() =>
@@ -632,7 +632,7 @@ public class TrailerHandler : MonoBehaviour
     {
         ResetShoot();
         
-        decoyGameRulesInteractableObject.Interact();
+        gameRulesInteractableObject.Interact();
         ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
         tvNavigationController.PowerButton.Press();
         DOVirtual.DelayedCall(2, ()=>

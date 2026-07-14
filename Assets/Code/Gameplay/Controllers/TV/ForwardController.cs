@@ -96,8 +96,8 @@ namespace DVDNights
             }
             
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, startForwardingClip, volume: 0.1f);
-            GameFeel.ForwardPitch = _diskLevelController.DiskFFMultLevel * 0.2f;
-            float forwardPitch = 0.8f + GameFeel.ForwardPitch;
+            BounceGameFeel.ForwardPitch = _diskLevelController.DiskFFMultLevel * 0.2f;
+            float forwardPitch = 0.8f + BounceGameFeel.ForwardPitch;
             
             _tween?.Kill();
             _tween = DOVirtual.DelayedCall(startForwardingClip.length, () => 
@@ -108,7 +108,7 @@ namespace DVDNights
             _isForwarding = true;
             _disksController.BoostAllDisksSpeed();
             powerView.SetActive(true);
-            forwardLevelText.text = "X" + GameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
+            forwardLevelText.text = "X" + BounceGameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
             SetForwardShader();
         }
 
@@ -188,7 +188,7 @@ namespace DVDNights
         {
             if (_isForwarding)
             {
-                float drain = GameProgression.GetFFDrainRate(_diskLevelController.DiskFFDrainRateLevel) * Time.deltaTime;
+                float drain = BounceGameProgression.GetFFDrainRate(_diskLevelController.DiskFFDrainRateLevel) * Time.deltaTime;
                 ConsumePower(drain);
             }
         }
@@ -200,7 +200,7 @@ namespace DVDNights
                 return;
             }
             
-            _currentPower += GameProgression.GetFFClickBonus(_diskLevelController.DiskFFBonusLevel);
+            _currentPower += BounceGameProgression.GetFFClickBonus(_diskLevelController.DiskFFBonusLevel);
             _currentPower = Mathf.Clamp(_currentPower, 0, 100);
             forwardFillView.UpdateFill(_currentPower);
         }
