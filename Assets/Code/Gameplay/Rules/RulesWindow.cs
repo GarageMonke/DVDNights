@@ -1,4 +1,5 @@
 ﻿using System;
+using CorePatterns.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private Button rulesAcknowledgeButton;
+        [SerializeField] private AudioClip acknowledgeAudioClip;
         
         public Action OnRulesAcknowledge;
 
@@ -19,6 +21,7 @@ namespace DVDNights
         private void RaiseOnRulesAcknowledge()
         {
             OnRulesAcknowledge?.Invoke();
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, acknowledgeAudioClip, volume: 0.75f);
             Hide();
         }
     }
