@@ -15,6 +15,7 @@ namespace DVDNights
         private ITVNavigationController _tvNavigationController;
         private ITVStateController _tvStateController;
         private IDeliveryController _deliveryController;
+        private IDecayController _decayController;
         
         private GameRulesInteractableObject _currentGameRulesInteractableObject;
         private GameRulesInteractableObject _obsoleteGameRulesInteractableObject;
@@ -35,6 +36,7 @@ namespace DVDNights
             _disksController.OnGoldDiskCreated += RegisterGoldenDisksCollected;
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+            _decayController = ServiceLocator.GetService<IDecayController>();
             ScheduleRulesDelivery();
         }
 
@@ -84,8 +86,9 @@ namespace DVDNights
             _tvStateController.RemoveDisk();
             _tvNavigationController.OpenCloseButton.Press();
             _tvStateController.PlayStatic();
-            
-            DOVirtual.DelayedCall(1f, RegisterGoldenDisksCollected);
+            _decayController.DisableDecay();
+          
+            DOVirtual.DelayedCall(1f, ()=> _deliveryController.DeliverNextDvdBox());
         }
 
         private void HideObsoleteRules()

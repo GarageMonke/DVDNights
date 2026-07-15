@@ -30,8 +30,6 @@ namespace DVDNights
             _coolingDownObjects = new Dictionary<string, ICorruptibleObject>();
             _availableObjects = new Dictionary<string, ICorruptibleObject>();
             _corruptedTickInterval = new WaitForSeconds(CorruptedTickInterval);
-            _tickCoroutine = StartCoroutine(CorruptedTickRoutine());
-            _decayCoroutine = StartCoroutine(DecayRoutine());
         }
         
         private void Start()
@@ -58,7 +56,26 @@ namespace DVDNights
                 corruptibleObject.OnCooldownFinished -= FinishCooldown;
             }
         }
-        
+
+        public void EnableDecay()
+        {
+            if (_tickCoroutine != null && _decayCoroutine != null)
+            {
+                return;
+            }
+            
+            _tickCoroutine = StartCoroutine(CorruptedTickRoutine());
+            _decayCoroutine = StartCoroutine(DecayRoutine());
+        }
+
+        public void DisableDecay()
+        {
+            StopAllCoroutines();
+
+            _tickCoroutine = null;
+            _decayCoroutine = null;
+        }
+
         public void RegisterCorruptibleObject(ICorruptibleObject corruptibleObject)
         {
             _corruptibleObjects.TryAdd(corruptibleObject.ObjectId, corruptibleObject);
@@ -175,6 +192,8 @@ namespace DVDNights
 
     public interface IDecayController
     {
+        public void EnableDecay();
+        public void DisableDecay();
         public void RegisterCorruptibleObject(ICorruptibleObject corruptibleObject);
         public void ClearObject(string objectId);
     }

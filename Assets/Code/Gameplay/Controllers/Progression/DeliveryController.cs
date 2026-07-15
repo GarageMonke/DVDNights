@@ -18,6 +18,8 @@ namespace DVDNights
         private IGameProgressionController _gameProgressionController;
         private IDVDTrayController _dvdTrayController;
 
+        public int LastDeliveredIndex => _currentDeliveryIndex;
+
         private void Awake()
         {
             InstallService();
@@ -26,7 +28,7 @@ namespace DVDNights
         private void Start()
         {
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
-            DeliverNextDvdBox();
+            LoadDeliveredObjects();
         }
 
         private void InstallService()
@@ -54,7 +56,7 @@ namespace DVDNights
             
             _dvdTrayController.SetCurrentDVDBox(dvdBoxes[_currentDeliveryIndex]);
         }
-        
+
         public void DeliverNextDvdBox()
         {
             if (_currentDeliveryIndex >= dvdBoxes.Length)
@@ -81,7 +83,9 @@ namespace DVDNights
 
     public interface IDeliveryController
     {
+        public int LastDeliveredIndex { get; }
         public void DeliverNextDvdBox();
         public void DeliverNextRuleSet();
+        
     }
 }
