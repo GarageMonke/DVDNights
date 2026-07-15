@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,9 @@ namespace DVDNights
         [SerializeField] private FadeInOutBlack mainFadeInOutBlack;
         [SerializeField] private InputActionSO clickActionSO;
         [SerializeField] private GameObject wakeUpView;
+        
+        [Header("Audio-Feedback")]
+        [SerializeField] private AudioClip openEyesAudioClip;
 
         private IOutlineController _outlinesController;
         private ICameraController _cameraController;
@@ -47,6 +51,7 @@ namespace DVDNights
         private void OpenEyes()
         {
             Sequence openEyesSequence =  DOTween.Sequence();
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, openEyesAudioClip, 0.75f);
             _cameraController.WakeUpSequence();
             
             mainFadeInOutBlack.FadeOut(2f, Ease.Linear, null);
