@@ -9,6 +9,7 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private TVInteractableObject tvInteractableObject;
+        [SerializeField] private DoorInteractableObject doorInteractableObject;
         [SerializeField] private Collider dvdBoxCollider;
         
         [Header("Configuration")] 
@@ -30,13 +31,13 @@ namespace DVDNights
         [SerializeField] private AudioClip openDVDBoxAudioClip;
         [SerializeField] private AudioClip closeDVDBoxAudioClip;
         [SerializeField] private AudioClip DVDOnTrayAudioClip;
+        [SerializeField] private AudioClip pickUpDvdBoxAudioClip;
         
         private Sequence _openDvdBoxSequence;
         private IDVDTrayController _dvdTrayController;
         private IInteractionController _interactionController;
         private Vector3[] _dvdPathToTray;
         private ICameraController _cameraController;
-        private IMainMenuController _tvMainMenuController;
         private ITVStateController _tvStateController;
         private bool _isInDesktop;
 
@@ -49,9 +50,7 @@ namespace DVDNights
             _interactionController = ServiceLocator.GetService<IInteractionController>();
             _dvdPathToTray = CurveGenerator.GetCurvePoints(dvdPathNodes[0], dvdPathNodes[1], dvdPathNodes[2], 10);
             _cameraController = ServiceLocator.GetService<ICameraController>();
-            _tvMainMenuController = ServiceLocator.GetService<IMainMenuController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
-            CheckInteractionStatus();
         }
 
         private void CheckInteractionStatus()
@@ -70,7 +69,7 @@ namespace DVDNights
 
         public override string GetInteractionAction()
         {
-            if (_isInDesktop)
+            if (!_isInDesktop)
             {
                 return "Take DVD Box";
             }
@@ -87,7 +86,11 @@ namespace DVDNights
 
             if (!_isInDesktop)
             {
+                AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, pickUpDvdBoxAudioClip, pitch: 1f, randomizePitch: true);
                 TeleportDvdBoxToDesktop();
+                DisableInteraction();
+                _dvdTrayController.SetCurrentDVDBox(this);
+                DOVirtual.DelayedCall(0.5f, ()=> doorInteractableObject.ForceClose());
                 return;
             }
             
@@ -158,11 +161,11 @@ namespace DVDNights
         
         public void TeleportDvdBoxToDesktop()
         {
+            gameObject.SetActive(true);
             transform.localPosition = dvdBoxDesktopPosition;
             transform.localRotation = Quaternion.Euler(dvdBoxDesktopRotation);
             _isInDesktop = true;
         }
-
 
         private void OnDestroy()
         {

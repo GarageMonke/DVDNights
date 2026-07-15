@@ -44,7 +44,6 @@ namespace DVDNights
         {
             base.Start();
             _sanityController = ServiceLocator.GetService<ISanityController>();
-            DisableInteraction();
         }
 
         public override string GetInteractionAction()
@@ -226,6 +225,8 @@ namespace DVDNights
 
         public void KnockDoor()
         {
+            EnableInteraction();
+            _isFault = false;
             int randomKnockingClip = Random.Range(0, fastKnocksAudioClips.Length);
             AudioClip knockingClip = fastKnocksAudioClips[randomKnockingClip];
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, knockingClip);

@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -12,12 +11,22 @@ namespace DVDNights
         [Header("Rulesets")]
         [SerializeField] private GameRulesInteractableObject[] decoyGameRulesInteractableObjects;
         
+        [Header("Door")]
+        [SerializeField] private DoorInteractableObject doorInteractableObject;
+        
         private int _currentDeliveryIndex;
         private IGameProgressionController _gameProgressionController;
+        private IDVDTrayController _dvdTrayController;
 
         private void Awake()
         {
             InstallService();
+        }
+
+        private void Start()
+        {
+            _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
+            DeliverNextDvdBox();
         }
 
         private void InstallService()
@@ -28,7 +37,7 @@ namespace DVDNights
         private void LoadDeliveredObjects()
         {
             //Load Delivery Index
-            _currentDeliveryIndex = 0;
+            _currentDeliveryIndex = 2;
             
             if (_currentDeliveryIndex <= 0)
             {
@@ -42,18 +51,23 @@ namespace DVDNights
             {
                 dvdBoxes[i].TeleportDvdBoxToDesktop();
             }
+            
+            _dvdTrayController.SetCurrentDVDBox(dvdBoxes[_currentDeliveryIndex]);
         }
         
         public void DeliverNextDvdBox()
         {
-            _currentDeliveryIndex++;
-
             if (_currentDeliveryIndex >= dvdBoxes.Length)
             {
                 return;
             }
             
+            doorInteractableObject.KnockDoor();
+            
             dvdBoxes[_currentDeliveryIndex].gameObject.SetActive(true);
+            dvdBoxes[_currentDeliveryIndex].EnableInteraction();
+            
+            _currentDeliveryIndex++;
         }
 
         public void DeliverNextRuleSet()

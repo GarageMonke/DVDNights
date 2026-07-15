@@ -6,7 +6,7 @@ namespace DVDNights
     public class TVButtonContextController : MonoBehaviour, ITVButtonContextController
     {
         private ITVNavigationController _tvNavigationController;
-        private IDVDTrayController _idvdTrayController;
+        private IDVDTrayController _dvdTrayController;
         private IShopController _shopController;
         private TVButton[] _tvButtons;
         private ITVStateController _tvStateController;
@@ -26,7 +26,7 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvButtons = _tvNavigationController.TvButtons;
             
-            _idvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
+            _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
             _shopController = ServiceLocator.GetService<IShopController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
         }
@@ -39,7 +39,7 @@ namespace DVDNights
             }
             
             _tvStateController ??= ServiceLocator.GetService<ITVStateController>();
-            _idvdTrayController ??= ServiceLocator.GetService<IDVDTrayController>();
+            _dvdTrayController ??= ServiceLocator.GetService<IDVDTrayController>();
             _shopController ??= ServiceLocator.GetService<IShopController>();
 
             if (!_tvStateController.IsTVOn)
@@ -54,7 +54,7 @@ namespace DVDNights
                     return "Power Off";
                 //Open/Close Button
                 case 1:
-                    return _idvdTrayController.IsTrayOpened ? "Close" : "Open";
+                    return _dvdTrayController.IsTrayOpened ? "Close" : "Open";
                 //Menu Button
                 case 2:
                     if (_shopController == null)
@@ -86,10 +86,21 @@ namespace DVDNights
                     return "FF Power";
                 //Next Button
                 case 5:
-                    return "Next";
+                    if (_shopController == null)
+                    {
+                        return "Fast Forward";
+                    }
+                    
+                    if (_shopController.IsShopOpened)
+                    {
+                        return "Next";
+                    }
+                    
+                    return "Fast Forward";
+                   
                 //Play/Pause Button
                 case 6:
-                    return "Play/Pause";
+                    return "?";
                 //Volume Down Button
                 case 7:
                     return "Volume Down";

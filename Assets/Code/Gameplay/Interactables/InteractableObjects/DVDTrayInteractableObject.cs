@@ -1,16 +1,13 @@
 ﻿using CorePatterns.ServiceLocator;
-using UnityEngine;
 
 namespace DVDNights
 {
     public class DVDTrayInteractableObject : InteractableObject
     {
-        [Header("References")]
-        [SerializeField] private DVDBoxInteractableObject dvdBoxInteractableObject;
-        
         private IDVDTrayController _dvdTrayController;
         private ITVNavigationController _tvNavigationController;
         private ITVStateController _tvStateController;
+        private DVDBoxInteractableObject _currentDvdBoxInteractableObject;
 
         public override string GetInteractionAction()
         {
@@ -22,10 +19,11 @@ namespace DVDNights
             if (_tvStateController.IsDiskOnTray)
             {
                 _tvNavigationController.OnOpenCloseButtonPressed?.Invoke();
+                DisableInteraction();
             }
             else
             {
-                dvdBoxInteractableObject.Interact();
+                _currentDvdBoxInteractableObject.Interact();
             }
         }
 
@@ -34,8 +32,9 @@ namespace DVDNights
            //
         }
         
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
@@ -56,6 +55,11 @@ namespace DVDNights
                 DisableInteraction();
                 IgnoreNavigation(false);
             }
+        }
+
+        public void SetCurrentDvdBoxInteractableObject(DVDBoxInteractableObject currentDvdBoxInteractableObject)
+        {
+           _currentDvdBoxInteractableObject = currentDvdBoxInteractableObject;
         }
 
         private void OnDestroy()

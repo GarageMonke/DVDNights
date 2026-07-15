@@ -31,7 +31,6 @@ namespace DVDNights
         public Transform TrayTransform => diskTrayTransform;
         public Action OnTrayOpened { get; set; }
         public Action OnTrayClosed { get; set; }
-        
 
         private void Awake()
         {
@@ -109,9 +108,14 @@ namespace DVDNights
                 _canAnimate = true;
                 OnTrayClosed?.Invoke();
                 _tvOpenCloseButton.EnableButton();
-                
             });
         }
+        
+        public void SetCurrentDVDBox(DVDBoxInteractableObject dvdBoxInteractableObject)
+        {
+            dvdTrayInteractableObject.SetCurrentDvdBoxInteractableObject(dvdBoxInteractableObject);
+        }
+
 
         private void OnDestroy()
         {
@@ -125,6 +129,8 @@ namespace DVDNights
         public Transform TrayTransform { get; }
         public Action OnTrayOpened { get; set; }
         public Action OnTrayClosed { get; set; }
+
+        public void SetCurrentDVDBox(DVDBoxInteractableObject dvdBoxInteractableObject);
     }
 }
 
