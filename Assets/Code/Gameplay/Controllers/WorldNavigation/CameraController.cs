@@ -227,6 +227,47 @@ namespace DVDNights
             _depthOfField.active = true;
         }
 
+        public void WakeUpSequence()
+        {
+            DisableNavigation();
+
+            Vector3 startRotation = new Vector3(-65f, 0f, 0f); // Looking up
+            float startStrength = 3f;
+
+            float totalDuration = 12f;
+            float recoverStartTime = 6f;
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(
+                DOVirtual.Float(0f, totalDuration, totalDuration, t =>
+                    {
+                        float recovery = Mathf.Clamp01((t - recoverStartTime) / (totalDuration - recoverStartTime));
+                        
+                        Vector3 baseRotation = Vector3.Lerp(startRotation, Vector3.zero, recovery);
+                        
+                        float strength = Mathf.Lerp(startStrength, 0f, recovery);
+                        
+                        float pitch = baseRotation.x + Mathf.Sin(t * 1.10f) * strength * 0.25f;
+                        float yaw   = baseRotation.y + Mathf.Sin(t * 0.63f) * strength;
+                        float roll  = baseRotation.z + Mathf.Sin(t * 1.85f) * strength * 1.25f;
+
+                        mainCamera.transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+                    })
+                    .SetEase(Ease.InOutSine)
+            );
+
+            sequence.AppendCallback(() =>
+            {
+                mainCamera.transform.localRotation = Quaternion.identity;
+
+                _currentPitch = 0f;
+                _currentYaw = 0f;
+
+                EnableNavigation();
+            });
+        }
+
         private void OnDestroy()
         {
             _zoomInputAction.performed -= ZoomIn;
@@ -248,5 +289,6 @@ namespace DVDNights
         public void TweenToRotation(Quaternion rotation, float duration = 1f);
         public void Focus();
         public void Unfocus();
+        public void WakeUpSequence();
     }
 }

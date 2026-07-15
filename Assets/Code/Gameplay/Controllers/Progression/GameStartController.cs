@@ -41,18 +41,42 @@ namespace DVDNights
             _clickAction.performed -= PrepareRoom;
             wakeUpView.SetActive(false);
             _outlinesController.DisableAllOutlines();
-            mainFadeInOutBlack.FadeOut(2f, Ease.Linear, OpenEyes);
+            OpenEyes();
         }
 
         private void OpenEyes()
         {
-            _cameraController.EnableNavigation();
+            Sequence openEyesSequence =  DOTween.Sequence();
+            _cameraController.WakeUpSequence();
             
-            DOVirtual.DelayedCall(1f, () =>
+            mainFadeInOutBlack.FadeOut(2f, Ease.Linear, null);
+            openEyesSequence.AppendInterval(2f);
+            openEyesSequence.AppendCallback(() =>
+            {
+                mainFadeInOutBlack.FadeIn(1f, Ease.Linear, null);
+            });
+            openEyesSequence.AppendInterval(1f);
+            openEyesSequence.AppendCallback(() =>
+            {
+                mainFadeInOutBlack.FadeOut(1f, Ease.Linear, null);
+            });
+            openEyesSequence.AppendInterval(2f);
+            openEyesSequence.AppendCallback(() =>
+            {
+                mainFadeInOutBlack.FadeIn(1f, Ease.Linear, null);
+            });
+            openEyesSequence.AppendInterval(2f);
+            openEyesSequence.AppendCallback(() =>
+            {
+                mainFadeInOutBlack.FadeOut(2f, Ease.Linear, null);
+              
+            });
+            openEyesSequence.AppendInterval(5f);
+            openEyesSequence.AppendCallback(() =>
             {
                 _interactionController.EnableInteractions();
+                _interactionController.ShowCrossHair();
             });
-
         }
 
         private void OnDestroy()

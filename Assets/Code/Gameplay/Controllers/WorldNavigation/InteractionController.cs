@@ -65,6 +65,7 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _cameraController = ServiceLocator.GetService<ICameraController>();
         _cameraController.EnableNavigation();
         _camera = _cameraController.Camera;
+        HideCrossHair();
     }
 
     private void Update()
@@ -245,6 +246,16 @@ public class InteractionController : MonoBehaviour, IInteractionController
         _currentInteraction = interactableObject;
     }
 
+    public void ShowCrossHair()
+    {
+        crosshairImage.gameObject.SetActive(true);
+    }
+
+    public void HideCrossHair()
+    {
+        crosshairImage.gameObject.SetActive(false);
+    }
+
     private void TweenToSize(Vector2 targetSize)
     {
         _crossHairTween?.Kill();
@@ -286,4 +297,7 @@ public interface IInteractionController
     public void ForceInteraction(IInteractableObject interactableObject);
     public void StopInteractionWithObject();
     public void SetCurrentInteraction(IInteractableObject interactableObject);
+
+    public void ShowCrossHair();
+    public void HideCrossHair();
 }
