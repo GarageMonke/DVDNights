@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae13b73ed487c846a80c59f6b6889a3, type: 3}
+  m_Name: Breathing-Provider
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: sigh
+    Value: {fileID: 8300000, guid: 62d64fdd8cf3a284a81cba82eaef366c, type: 3}
+  - Id: heavy1
+    Value: {fileID: 8300000, guid: 5d247592164b8804aae9a2fe17cd38d0, type: 3}
+  - Id: heavy2
+    Value: {fileID: 8300000, guid: a7e06e7eec6a23648b219e3d0f8493c9, type: 3}

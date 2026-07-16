@@ -42,7 +42,9 @@ namespace DVDNights
 
         public Camera Camera => mainCamera;
         public Vector3 OriginPosition => _initialCameraPosition;
-        
+
+        public bool IsNavigationEnabled => _isEnabled;
+
         private DepthOfField _depthOfField;
         private IInteractionController _interactionController;
         private Tweener _fovTween;
@@ -279,6 +281,7 @@ namespace DVDNights
     {
         public Camera Camera { get; }
         public Vector3 OriginPosition { get; }
+        public bool IsNavigationEnabled { get; }
         public void HandleRotation();
         public void SetSensitivity(float sensitivity);
         public void EnableNavigation();

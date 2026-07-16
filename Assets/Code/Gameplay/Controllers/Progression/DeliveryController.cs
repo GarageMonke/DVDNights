@@ -28,7 +28,7 @@ namespace DVDNights
         private void Start()
         {
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
-            LoadDeliveredObjects();
+            DeliverNextDvdBox();
         }
 
         private void InstallService()
