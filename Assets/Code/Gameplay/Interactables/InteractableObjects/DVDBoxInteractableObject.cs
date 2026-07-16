@@ -91,6 +91,7 @@ namespace DVDNights
                 DisableInteraction();
                 _dvdTrayController.SetCurrentDVDBox(this);
                 DOVirtual.DelayedCall(0.5f, ()=> doorInteractableObject.ForceClose());
+                OnInteractionPerformed?.Invoke();
                 return;
             }
             

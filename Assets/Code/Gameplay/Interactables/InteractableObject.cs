@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using System;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
@@ -7,6 +8,7 @@ namespace DVDNights
     {
         [Header("Configuration")] 
         [SerializeField] private bool hasNavigation;
+        [SerializeField] private bool registerForTutorial;
 
         [SerializeField] private bool _isEnabled = true;
         [SerializeField] private bool _hasCrossHairHint = true;
@@ -18,14 +20,37 @@ namespace DVDNights
         [SerializeField] private AudioClip interactionAudioClip;
 
         private IOutlineController _outlineController;
+        private IInteractableController _interactableController;
         private bool _hasIgnoreNavigation;
 
         public bool HasNavigation => hasNavigation;
         public AudioClip InteractionAudioClip => interactionAudioClip;
+        public Action OnInteractionPerformed { get; set; }
+        public string InteractableId => gameObject.name;
         public bool IsEnabled => _isEnabled;
         public bool HasIgnoreNavigation => _hasIgnoreNavigation;
         public bool HasCrossHairHint => _hasCrossHairHint;
+        
+        protected virtual void Start()
+        {
+            if (outline)
+            {
+                _outlineController = ServiceLocator.GetService<IOutlineController>();
+                _outlineController.RegisterOutline(outline);
+            }
 
+            if (registerForTutorial)
+            {
+                RegisterObjectForTutorial();
+            }
+        }
+
+        protected void RegisterObjectForTutorial()
+        {
+            _interactableController = ServiceLocator.GetService<IInteractableController>();
+            _interactableController.RegisterInteractable(this);
+        }
+        
         public void EnableInteraction()
         {
             _isEnabled = true;
@@ -60,15 +85,7 @@ namespace DVDNights
         {
             Unhighlight();
         }
-
-        protected virtual void Start()
-        {
-            if (outline)
-            {
-                _outlineController = ServiceLocator.GetService<IOutlineController>();
-                _outlineController.RegisterOutline(outline);
-            }
-        }
+        
 
         public virtual void Highlight()
         {
@@ -93,15 +110,17 @@ namespace DVDNights
 
     public interface IInteractableObject
     {
+        public string InteractableId { get; }
         public bool IsEnabled { get; }
         public bool HasIgnoreNavigation { get; }
         public bool HasCrossHairHint { get; }
+        public bool HasNavigation { get; }
+        public AudioClip InteractionAudioClip { get; }
+        public Action OnInteractionPerformed { get; set; }
         public void Interact();
         public void StopInteraction();
         public void Highlight();
         public void Unhighlight();
-        public bool HasNavigation { get; }
-        public AudioClip InteractionAudioClip { get; }
         public void EnableInteraction();
         public void DisableInteraction();
         public string GetInteractionAction();

@@ -165,6 +165,11 @@ public class InteractionController : MonoBehaviour, IInteractionController
             return;
         }
         
+        if (!interactableObject.IsEnabled)
+        {
+            return; 
+        }
+        
         _currentInteraction = interactableObject;
 
         if (_currentHighlighted != null)

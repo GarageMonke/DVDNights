@@ -35,6 +35,8 @@ namespace DVDNights
             _thresholdIntensity = (minIntensity + maxIntensity) / 2f;
             _originalIntensity = lampLight.intensity;
         }
+        
+
         public override string GetInteractionAction()
         {
             return _isOn ? "Turn Off" : "Turn On";

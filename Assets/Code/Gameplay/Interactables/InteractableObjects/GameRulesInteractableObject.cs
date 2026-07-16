@@ -90,6 +90,7 @@ namespace DVDNights
 
             TeleportRulesToDesktop();
             OnRulesAcknowledge?.Invoke();
+            OnInteractionPerformed?.Invoke();
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, acknowledgeAudioClip, volume: 1f);
         }
 

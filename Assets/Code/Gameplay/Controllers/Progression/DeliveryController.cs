@@ -68,8 +68,6 @@ namespace DVDNights
             
             dvdBoxes[_currentDeliveryIndex].gameObject.SetActive(true);
             dvdBoxes[_currentDeliveryIndex].EnableInteraction();
-            
-            _currentDeliveryIndex++;
         }
 
         public void DeliverNextRuleSet()
@@ -78,6 +76,8 @@ namespace DVDNights
             gameRulesInteractableObject.SlipTroughDoor();
             _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
             _gameProgressionController.SetLastDeliveredRules(gameRulesInteractableObject);
+            
+            _currentDeliveryIndex++;
         }
     }
 

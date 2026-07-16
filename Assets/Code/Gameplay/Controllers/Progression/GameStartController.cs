@@ -31,6 +31,8 @@ namespace DVDNights
             _clickAction = clickActionSO.GetInputAction();
             _clickAction.performed += PrepareRoom;
            ServiceLocator.RegisterService<IGameStartController>(this);
+           
+           
         }
 
         private void Start()

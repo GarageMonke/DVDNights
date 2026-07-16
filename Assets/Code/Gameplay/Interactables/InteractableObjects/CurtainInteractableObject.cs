@@ -14,8 +14,9 @@ namespace DVDNights
         
         private IRainController _rainController;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _rainController = ServiceLocator.GetService<IRainController>();
         }
 
