@@ -13,6 +13,7 @@ namespace DVDNights
         
         [Header("Door")]
         [SerializeField] private DoorInteractableObject doorInteractableObject;
+        [SerializeField] private Light doorLight;
         
         private int _currentDeliveryIndex;
         private IGameProgressionController _gameProgressionController;
@@ -66,8 +67,10 @@ namespace DVDNights
             
             doorInteractableObject.KnockDoor();
             
+            doorLight.enabled = true;
             dvdBoxes[_currentDeliveryIndex].gameObject.SetActive(true);
             dvdBoxes[_currentDeliveryIndex].EnableInteraction();
+            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed += HideLight;
         }
 
         public void DeliverNextRuleSet()
@@ -78,6 +81,12 @@ namespace DVDNights
             _gameProgressionController.SetLastDeliveredRules(gameRulesInteractableObject);
             
             _currentDeliveryIndex++;
+        }
+
+        private void HideLight()
+        {
+            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed -= HideLight;
+            doorLight.enabled = false;
         }
     }
 
