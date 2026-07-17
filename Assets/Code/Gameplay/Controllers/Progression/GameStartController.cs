@@ -3,6 +3,7 @@ using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 namespace DVDNights
 {
@@ -20,6 +21,10 @@ namespace DVDNights
         private ICameraController _cameraController;
         private IInteractionController _interactionController;
         private InputAction _clickAction;
+        
+        private DepthOfField _depthOfField;
+        private LensDistortion _lensDistortion;
+        
 
         private void Awake()
         {
@@ -32,7 +37,6 @@ namespace DVDNights
             _clickAction.performed += PrepareRoom;
            ServiceLocator.RegisterService<IGameStartController>(this);
            
-           
         }
 
         private void Start()
@@ -40,6 +44,8 @@ namespace DVDNights
             _outlinesController = ServiceLocator.GetService<IOutlineController>();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
+            _lensDistortion = PostProcessingManager.Instance.GetVolumeComponent<LensDistortion>();
         }
 
         private void PrepareRoom(InputAction.CallbackContext context)
@@ -52,11 +58,35 @@ namespace DVDNights
 
         private void OpenEyes()
         {
+            float originalDoF = _depthOfField.focalLength.value;
+            _depthOfField.active = true;
+            _lensDistortion.active = true;
             Sequence openEyesSequence =  DOTween.Sequence();
+            Tweener depthOfFieldTweener = null;
+
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, openEyesAudioClip, 0.75f);
-            _cameraController.WakeUpSequence();
             
+            _cameraController.WakeUpSequence();
             mainFadeInOutBlack.FadeOut(2f, Ease.Linear, null);
+            
+            Sequence lensDistortionSequence = DOTween.Sequence()
+                .Append(
+                    DOTween.To(
+                            () => _lensDistortion.intensity.value,
+                            x => _lensDistortion.intensity.value = x,
+                            0.5f,
+                            5f)
+                        .SetEase(Ease.Linear))
+                .AppendInterval(1f)
+                .Append(
+                    DOTween.To(
+                            () => _lensDistortion.intensity.value,
+                            x => _lensDistortion.intensity.value = x,
+                            -0.5f,
+                            5f)
+                        .SetEase(Ease.Linear))
+                .SetLoops(-1);
+            
             openEyesSequence.AppendInterval(2f);
             openEyesSequence.AppendCallback(() =>
             {
@@ -76,11 +106,32 @@ namespace DVDNights
             openEyesSequence.AppendCallback(() =>
             {
                 mainFadeInOutBlack.FadeOut(2f, Ease.Linear, null);
-              
+                depthOfFieldTweener = DOTween.To(
+                        () => _depthOfField.focalLength.value,
+                        x => _depthOfField.focalLength.value = x,
+                        0f,
+                        5f)
+                    .SetEase(Ease.Linear);
+                
+                lensDistortionSequence?.Kill();
+                lensDistortionSequence
+                    .Append(
+                        DOTween.To(
+                                () => _lensDistortion.intensity.value,
+                                x => _lensDistortion.intensity.value = x,
+                                0f,
+                                5f)
+                            .SetEase(Ease.Linear))
+                    .SetLoops(-1);
             });
-            openEyesSequence.AppendInterval(5f);
+            openEyesSequence.AppendInterval(5.5f);
             openEyesSequence.AppendCallback(() =>
             {
+                _depthOfField.focalLength.value = originalDoF;
+                _depthOfField.active = false;
+                depthOfFieldTweener?.Kill();
+                lensDistortionSequence?.Kill();
+                _lensDistortion.active = false;
                 _interactionController.EnableInteractions();
                 _interactionController.ShowCrossHair();
             });

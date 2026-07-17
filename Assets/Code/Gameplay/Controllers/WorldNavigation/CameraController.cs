@@ -1,4 +1,5 @@
 ﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
@@ -12,7 +13,6 @@ namespace DVDNights
     {
         [Header("Camera Reference")]
         [SerializeField] private Camera mainCamera;
-        [SerializeField] private Volume postProcessing;
         [SerializeField] private InputActionSO zoomInputActionSO;
 
         [Header("Rotation Settings")]
@@ -71,7 +71,7 @@ namespace DVDNights
             Vector3 startAngles = mainCamera.transform.eulerAngles;
             _currentPitch = startAngles.x;
             _currentYaw   = startAngles.y;
-            postProcessing.profile.TryGet(out _depthOfField);
+            _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
 
             ServiceLocator.RegisterService<ICameraController>(this);
         }
