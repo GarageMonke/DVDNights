@@ -165,6 +165,11 @@ public class AudioSourceChannel : MonoBehaviour
         }
     }
 
+    public void StopSFX()
+    {
+        sfxSource.Stop();
+    }
+
     public void PlayDistortedAudio()
     {
         if (_isDistorted)

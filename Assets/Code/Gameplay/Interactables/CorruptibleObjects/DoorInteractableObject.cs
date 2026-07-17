@@ -91,6 +91,7 @@ namespace DVDNights
                 _sanityController.TakeSanityImmediate(_penaltyType);
             }
             
+            AudioManager.Instance.StopSFX(AudioChannelType.DOOR);
             AudioManager.Instance.PlaySFX(AudioChannelType.DOOR, InteractionAudioClip);
             _isTweening = true;
             _handleTweener?.Kill();

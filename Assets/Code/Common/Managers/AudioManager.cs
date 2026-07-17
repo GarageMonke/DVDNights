@@ -47,6 +47,13 @@ namespace CorePatterns.Managers
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
             channel.StopOST(fadeOut);
         }
+
+
+        public void StopSFX(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            channel.StopSFX();
+        }
         
         public void PauseOST(AudioChannelType channelType, float fadeDuration = 2f)
         {
