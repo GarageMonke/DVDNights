@@ -1,4 +1,6 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DVDNights
@@ -18,6 +20,8 @@ namespace DVDNights
         private int _currentDeliveryIndex;
         private IGameProgressionController _gameProgressionController;
         private IDVDTrayController _dvdTrayController;
+        private ICameraController _cameraController;
+        private Sequence _deliverySequence;
 
         public int LastDeliveredIndex => _currentDeliveryIndex;
 
@@ -29,7 +33,7 @@ namespace DVDNights
         private void Start()
         {
             _dvdTrayController = ServiceLocator.GetService<IDVDTrayController>();
-            DeliverNextDvdBox();
+            _cameraController = ServiceLocator.GetService<ICameraController>();
         }
 
         private void InstallService()
@@ -70,7 +74,23 @@ namespace DVDNights
             doorLight.enabled = true;
             dvdBoxes[_currentDeliveryIndex].gameObject.SetActive(true);
             dvdBoxes[_currentDeliveryIndex].EnableInteraction();
-            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed += HideLight;
+            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed += OnDvdBoxDelivered;
+            
+            Sequence doorSequence = DOTween.Sequence();
+            doorSequence.AppendInterval(1f);
+            doorSequence.AppendCallback(() =>
+            {
+                _cameraController.TweenToRotation(Quaternion.Euler(new Vector3(0f, 180f, 0f)), 0.35f);
+            });
+
+            _deliverySequence = DOTween.Sequence().SetLoops(-1)
+                .AppendInterval(3f)
+                .AppendCallback(() =>
+                {
+                    doorInteractableObject.KnockDoor();
+                })
+                .AppendInterval(3f);
+
         }
 
         public void DeliverNextRuleSet()
@@ -83,10 +103,11 @@ namespace DVDNights
             _currentDeliveryIndex++;
         }
 
-        private void HideLight()
+        private void OnDvdBoxDelivered()
         {
-            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed -= HideLight;
+            dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed -= OnDvdBoxDelivered;
             doorLight.enabled = false;
+            _deliverySequence?.Kill();
         }
     }
 

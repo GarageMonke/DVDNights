@@ -16,15 +16,18 @@ namespace DVDNights
         
         [Header("Audio-Feedback")]
         [SerializeField] private AudioClip openEyesAudioClip;
+        [SerializeField] private AudioClip doorKnockingAudioClip;
 
         private IOutlineController _outlinesController;
         private ICameraController _cameraController;
         private IInteractionController _interactionController;
+        private IDeliveryController _deliveryController;
         private InputAction _clickAction;
         
         private DepthOfField _depthOfField;
         private LensDistortion _lensDistortion;
-        
+        private Sequence _doorKnockingSequence;
+
 
         private void Awake()
         {
@@ -46,6 +49,10 @@ namespace DVDNights
             _interactionController = ServiceLocator.GetService<IInteractionController>();
             _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
             _lensDistortion = PostProcessingManager.Instance.GetVolumeComponent<LensDistortion>();
+            _deliveryController = ServiceLocator.GetService<IDeliveryController>();
+            
+            //Check if its a new game
+            AudioManager.Instance.PlayOST(AudioChannelType.DOOR, doorKnockingAudioClip, 0.75f, true);
         }
 
         private void PrepareRoom(InputAction.CallbackContext context)
@@ -123,6 +130,8 @@ namespace DVDNights
                                 5f)
                             .SetEase(Ease.Linear))
                     .SetLoops(-1);
+                
+                AudioManager.Instance.StopOST(AudioChannelType.DOOR);
             });
             openEyesSequence.AppendInterval(5.5f);
             openEyesSequence.AppendCallback(() =>
@@ -135,7 +144,16 @@ namespace DVDNights
                 _interactionController.EnableInteractions();
                 _interactionController.ShowCrossHair();
             });
+            
+            openEyesSequence.AppendInterval(0.5f);
+            openEyesSequence.AppendCallback(() =>
+            {
+                _deliveryController.DeliverNextDvdBox();
+            });
+
+
         }
+        
 
         private void OnDestroy()
         {
