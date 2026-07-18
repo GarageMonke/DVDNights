@@ -23,7 +23,9 @@ namespace DVDNights
         private IMouseLayoutController _mouseLayoutController;
         private ICameraController _cameraController;
 
+        public Action OnTrackPlayRequested { get; set; }
         public Action OnTrackSelectionCloseRequested { get; set; }
+        public Action OnTrackStopRequested { get; set; }
         public bool IsPlayingTrack => _isPlayingTrack;
 
         private void Awake()
@@ -48,12 +50,18 @@ namespace DVDNights
             AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE, fadeDuration: 0f);
             DisplayTrack();
             trackSelectionWindow.Display();
-            trackSelectionWindow.OnNextTrackRequested += NextTrack;
-            trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
-            trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
-            trackSelectionWindow.OnExitTrackRequested += ExitTrackSelection;
+            SubscribeToEvents();
             _mouseLayoutController.DisplayRegularLayout();
             _cameraController.Unfocus();
+
+            if (_isPlayingTrack)
+            {
+                trackSelectionWindow.EnableStopTrackButton();
+            }
+            else
+            {
+                trackSelectionWindow.DisableStopTrackButton();
+            }
         }
 
      
@@ -105,7 +113,8 @@ namespace DVDNights
             
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
             _isPlayingTrack = true;
-            OnTrackSelectionCloseRequested?.Invoke();
+            OnTrackPlayRequested?.Invoke();
+            CloseTrackSelector();
         }
 
         private void DeleteTrack()
@@ -122,11 +131,7 @@ namespace DVDNights
         public void CloseTrackSelector()
         {
             DeleteTrack();
-            
-            trackSelectionWindow.OnNextTrackRequested -= NextTrack;
-            trackSelectionWindow.OnPreviousTrackRequested -= PreviousTrack;
-            trackSelectionWindow.OnSelectTrackRequested -= SelectTrack;
-            
+            UnsubscribeToEvents();
             _mouseLayoutController.HideMouseLayout();
             trackSelectionWindow.Hide();
             _cameraController.Focus();
@@ -142,23 +147,56 @@ namespace DVDNights
             }
             
             AudioManager.Instance.ResumeOST(AudioChannelType.TURNTABLE);
+            CloseTrackSelector();
         }
-        
+
+        public void PauseSelectedTrack()
+        {
+            AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE);
+        }
+
         private void ExitTrackSelection()
         {
-            _isPlayingTrack = false;
-            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
             OnTrackSelectionCloseRequested?.Invoke();
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
+            CloseTrackSelector();
+        }
+
+        private void StopPlayingTrack()
+        {
+            OnTrackStopRequested?.Invoke();
+            ExitTrackSelection();
+        }
+
+        private void SubscribeToEvents()
+        {
+            trackSelectionWindow.OnNextTrackRequested += NextTrack;
+            trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
+            trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
+            trackSelectionWindow.OnStopTrackRequested += StopPlayingTrack;
+            trackSelectionWindow.OnCloseTrackRequested += ExitTrackSelection;
+        }
+
+        private void UnsubscribeToEvents()
+        {
+            trackSelectionWindow.OnNextTrackRequested -= NextTrack;
+            trackSelectionWindow.OnPreviousTrackRequested -= PreviousTrack;
+            trackSelectionWindow.OnSelectTrackRequested -= SelectTrack;
+            trackSelectionWindow.OnStopTrackRequested -= StopPlayingTrack;
+            trackSelectionWindow.OnCloseTrackRequested -= ExitTrackSelection;
         }
     }
 
     public interface ITrackSelectionController
     {
+        public Action OnTrackPlayRequested { get; set; }
         public Action OnTrackSelectionCloseRequested { get; set; }
+        public Action OnTrackStopRequested { get; set; }
         public bool IsPlayingTrack { get; }
         public void OpenTrackSelector();
         public void CloseTrackSelector();
         public void PlaySelectedTrack();
+        public void PauseSelectedTrack();
 
     }
 }

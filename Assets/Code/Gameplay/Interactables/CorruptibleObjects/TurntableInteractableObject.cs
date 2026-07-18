@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
@@ -58,6 +59,8 @@ namespace DVDNights
             _interactionController = ServiceLocator.GetService<IInteractionController>();
             _vinylPathToTurntable = CurveGenerator.GetCurvePoints(vinylToTurntablePath[0], vinylToTurntablePath[2], vinylToTurntablePath[4], 10);
             _vinylCasePath = CurveGenerator.GetCurvePoints(vinylCasePath[0], vinylCasePath[1], vinylCasePath[2], 5);
+            _trackSelectorController.OnTrackStopRequested += StopSpinning;
+            _trackSelectorController.OnTrackSelectionCloseRequested += ExitTurntable;
         }
 
         public override string GetInteractionAction()
@@ -75,14 +78,14 @@ namespace DVDNights
             
             Unhighlight();
             _interactionController.DisableInteractions();
-            _trackSelectorController.OnTrackSelectionCloseRequested += PlayVinyl;
+            _trackSelectorController.OnTrackPlayRequested += PlayVinyl;
             _cameraController.TweenToPosition(cameraLockPosition, 0.5f, ()=> _trackSelectorController.OpenTrackSelector());
             _cameraController.TweenToRotation(Quaternion.Euler(cameraLockRotation), 0.5f);
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
             
             if (_trackSelectorController.IsPlayingTrack)
             {
-                StopSpinning();
+                _trackSelectorController.PauseSelectedTrack();
             }
         }
 
@@ -110,16 +113,20 @@ namespace DVDNights
         {
             _interactionController.EnableInteractions();
             Highlight();
+            RestoreCameraNavigation();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);          
+        }
+
+        private void ExitTurntable()
+        {
+            _interactionController.StopInteractionWithObject();
         }
 
         private void PlayVinyl()
         {
             _vinylRotateTransform = vinyl.GetComponent<RotateTransform>();
-            _trackSelectorController.OnTrackSelectionCloseRequested -= PlayVinyl;
-            _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
-            _cameraController.TweenToRotation(Quaternion.Euler(cameraReleaseRotation), 0.5f);
-            _trackSelectorController.CloseTrackSelector();
+            _trackSelectorController.OnTrackPlayRequested -= PlayVinyl;
+            RestoreCameraNavigation();
 
             if (!_trackSelectorController.IsPlayingTrack)
             {
@@ -182,6 +189,12 @@ namespace DVDNights
 
         }
 
+        private void RestoreCameraNavigation()
+        {
+            _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
+            _cameraController.TweenToRotation(Quaternion.Euler(cameraReleaseRotation), 0.5f);
+        }
+
         public void ForceSpinning()
         {
             _vinylRotateTransform = vinyl.GetComponent<RotateTransform>();
@@ -206,10 +219,7 @@ namespace DVDNights
                 _vinylRotateTransform.EnableRotation();
             })
             .AppendInterval(0.5f)
-            .AppendCallback(() =>
-            {
-                _interactionController.StopInteractionWithObject();
-            })
+            .AppendCallback(ExitTurntable)
             .AppendInterval(readingVinylAudioClip.length)
             .AppendCallback(() =>
             {
@@ -235,6 +245,13 @@ namespace DVDNights
                     _vinylRotateTransform.DisableRotation();
                 });
             
+            ExitTurntable();
+        }
+
+        private void OnDestroy()
+        {
+            _trackSelectorController.OnTrackStopRequested -= StopSpinning;
+            _trackSelectorController.OnTrackSelectionCloseRequested -= ExitTurntable;
         }
     }
 }
