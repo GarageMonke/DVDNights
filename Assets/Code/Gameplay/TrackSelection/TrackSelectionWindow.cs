@@ -15,19 +15,24 @@ namespace DVDNights
         [SerializeField] private Button nextTrackButton;
         [SerializeField] private Button previousTrackButton;
         [SerializeField] private Button selectTrackButton;
-        [SerializeField] private Button exitTrackButton;
+        [SerializeField] private Button stopTrackButton;
+        [SerializeField] private Button closeTrackButton;
+        
+        [SerializeField] private TextMeshProUGUI playButtonText;
         
         public Action OnNextTrackRequested { get; set; }
         public Action OnPreviousTrackRequested { get; set; }
         public Action OnSelectTrackRequested { get; set; }
-        public Action OnExitTrackRequested { get; set; }
+        public Action OnStopTrackRequested { get; set; }
+        public Action OnCloseTrackRequested { get; set; }
         
         private void Awake()
         {
             nextTrackButton.onClick.AddListener(RequestNextTrack);
             previousTrackButton.onClick.AddListener(RequestPreviousTrack);
             selectTrackButton.onClick.AddListener(RequestSelectTrack);
-            exitTrackButton.onClick.AddListener(RequestExitTrack);
+            stopTrackButton.onClick.AddListener(RequestStopTrack);
+            closeTrackButton.onClick.AddListener(RequestCloseTrack);
         }
 
         private void RequestNextTrack()
@@ -45,9 +50,14 @@ namespace DVDNights
             OnSelectTrackRequested?.Invoke();
         }
         
-        private void RequestExitTrack()
+        private void RequestStopTrack()
         {
-            OnExitTrackRequested?.Invoke();
+            OnStopTrackRequested?.Invoke();
+        }
+        
+        private void RequestCloseTrack()
+        {
+            OnCloseTrackRequested?.Invoke();
         }
 
         public void UpdateTrackInfo(string trackTitle, string coverArt, string composer)
@@ -55,6 +65,26 @@ namespace DVDNights
             trackTitleText.text = trackTitle;
             coverArtText.text = coverArt;
             composerText.text = composer;
+        }
+
+        public void EnableStopTrackButton()
+        {
+            stopTrackButton.gameObject.SetActive(true);
+        }
+
+        public void DisableStopTrackButton()
+        {
+            stopTrackButton.gameObject.SetActive(false);
+        }
+
+        public void ShowPlayAction()
+        {
+            playButtonText.text = "PLAY TRACK";
+        }
+
+        public void ShowResumeAction()
+        {
+            playButtonText.text = "RESUME TRACK";
         }
 
         private void OnDestroy()
@@ -69,8 +99,14 @@ namespace DVDNights
         public Action OnNextTrackRequested { get; set; }
         public Action OnPreviousTrackRequested { get; set; }
         public Action OnSelectTrackRequested { get; set; }
-        public Action OnExitTrackRequested { get; set; }
+        public Action OnStopTrackRequested { get; set; }
+        public Action OnCloseTrackRequested { get; set; }
         
         public void UpdateTrackInfo(string trackTitle, string coverArt, string composer);
+        public void EnableStopTrackButton();
+        public void DisableStopTrackButton();
+
+        public void ShowPlayAction();
+        public void ShowResumeAction();
     }
 }
