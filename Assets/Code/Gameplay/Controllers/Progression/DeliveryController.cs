@@ -82,15 +82,6 @@ namespace DVDNights
             {
                 _cameraController.TweenToRotation(Quaternion.Euler(new Vector3(0f, 180f, 0f)), 0.35f);
             });
-
-            _deliverySequence = DOTween.Sequence().SetLoops(-1)
-                .AppendInterval(3f)
-                .AppendCallback(() =>
-                {
-                    doorInteractableObject.KnockDoor();
-                })
-                .AppendInterval(3f);
-
         }
 
         public void DeliverNextRuleSet()

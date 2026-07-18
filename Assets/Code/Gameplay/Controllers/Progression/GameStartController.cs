@@ -150,8 +150,6 @@ namespace DVDNights
             {
                 _deliveryController.DeliverNextDvdBox();
             });
-
-
         }
         
 

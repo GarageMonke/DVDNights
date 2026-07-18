@@ -110,7 +110,7 @@ public class AudioSourceChannel : MonoBehaviour
             ostSource.loop = loop;
             ostSource.volume = 0f;
             ostSource.Play();
-
+            _previousOstVolume = finalVolume;
             _fadeTween = ostSource.DOFade(finalVolume, 2f);
             return;
         }
@@ -121,6 +121,7 @@ public class AudioSourceChannel : MonoBehaviour
             ostSource.clip = newClip;
             ostSource.pitch = pitch;
             ostSource.volume = finalVolume;
+            _previousOstVolume = finalVolume;
             ostSource.loop = loop;
             ostSource.Play();
             _fadeTween = ostSource.DOFade(finalVolume, 3f);
@@ -131,7 +132,7 @@ public class AudioSourceChannel : MonoBehaviour
     {
         _fadeTween?.Kill();
         
-        ostSource.DOFade(0f, fadeDuration).OnComplete(() =>
+        _fadeTween = ostSource.DOFade(0f, fadeDuration).OnComplete(() =>
         {
             ostSource.Pause();
         });
@@ -139,8 +140,9 @@ public class AudioSourceChannel : MonoBehaviour
 
     public void ResumeOST()
     {
+        _fadeTween?.Kill();
         ostSource.UnPause();
-        ostSource.DOFade(ostSource.volume, 2f);
+        _fadeTween = ostSource.DOFade(_previousOstVolume, 2f);
     }
 
     public void StopOST(bool fadeOut = true)

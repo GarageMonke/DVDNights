@@ -27,6 +27,7 @@ namespace DVDNights
         public Action OnTrackSelectionCloseRequested { get; set; }
         public Action OnTrackStopRequested { get; set; }
         public bool IsPlayingTrack => _isPlayingTrack;
+        public bool IsPlayingSameTrack => !_shouldPlayFromStart;
 
         private void Awake()
         {
@@ -53,6 +54,7 @@ namespace DVDNights
             SubscribeToEvents();
             _mouseLayoutController.DisplayRegularLayout();
             _cameraController.Unfocus();
+            CheckPreviousTrack();
 
             if (_isPlayingTrack)
             {
@@ -63,7 +65,6 @@ namespace DVDNights
                 trackSelectionWindow.DisableStopTrackButton();
             }
         }
-
      
         private void DisplayTrack()
         {
@@ -84,6 +85,7 @@ namespace DVDNights
             }
             
             DisplayTrack();
+            CheckPreviousTrack();
         }
 
         private void PreviousTrack()
@@ -96,6 +98,7 @@ namespace DVDNights
             }
             
             DisplayTrack();
+            CheckPreviousTrack();
         }
 
         private void SelectTrack()
@@ -103,16 +106,14 @@ namespace DVDNights
             if (_currentTrackIndex == _previousTrackIndex)
             {
                 _shouldPlayFromStart = false;
-                _previousTrackIndex = _currentTrackIndex;
-               
             }
             else
             {
+                _previousTrackIndex = _currentTrackIndex;
                 _shouldPlayFromStart = true;
             }
             
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
-            _isPlayingTrack = true;
             OnTrackPlayRequested?.Invoke();
             CloseTrackSelector();
         }
@@ -139,6 +140,8 @@ namespace DVDNights
 
         public void PlaySelectedTrack()
         {
+            _isPlayingTrack = true;
+            
             if (_shouldPlayFromStart)
             {
                 TrackDataSO currentTrackData = trackDataProvider.GetElementById(_currentTrackIndex.ToString());
@@ -147,12 +150,19 @@ namespace DVDNights
             }
             
             AudioManager.Instance.ResumeOST(AudioChannelType.TURNTABLE);
-            CloseTrackSelector();
         }
 
         public void PauseSelectedTrack()
         {
             AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE);
+        }
+
+        public void ResumeSelectedTrack()
+        {
+            if (_isPlayingTrack)
+            {
+                AudioManager.Instance.ResumeOST(AudioChannelType.TURNTABLE);
+            }
         }
 
         private void ExitTrackSelection()
@@ -164,6 +174,8 @@ namespace DVDNights
 
         private void StopPlayingTrack()
         {
+            _previousTrackIndex = -1;
+            _isPlayingTrack = false;
             OnTrackStopRequested?.Invoke();
             ExitTrackSelection();
         }
@@ -185,6 +197,18 @@ namespace DVDNights
             trackSelectionWindow.OnStopTrackRequested -= StopPlayingTrack;
             trackSelectionWindow.OnCloseTrackRequested -= ExitTrackSelection;
         }
+
+        private void CheckPreviousTrack()
+        {
+            if (_currentTrackIndex == _previousTrackIndex)
+            {
+                trackSelectionWindow.ShowResumeAction();
+            }
+            else
+            {
+                trackSelectionWindow.ShowPlayAction();
+            }
+        }
     }
 
     public interface ITrackSelectionController
@@ -193,10 +217,12 @@ namespace DVDNights
         public Action OnTrackSelectionCloseRequested { get; set; }
         public Action OnTrackStopRequested { get; set; }
         public bool IsPlayingTrack { get; }
+        public bool IsPlayingSameTrack { get; }
         public void OpenTrackSelector();
         public void CloseTrackSelector();
         public void PlaySelectedTrack();
         public void PauseSelectedTrack();
+        public void ResumeSelectedTrack();
 
     }
 }
