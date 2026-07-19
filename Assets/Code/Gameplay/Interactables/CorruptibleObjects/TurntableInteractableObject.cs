@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.Managers;
+﻿using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
@@ -11,6 +10,8 @@ namespace DVDNights
         [Header("PlayVinyl-Sequence")] 
         [SerializeField] private Transform vinylCase;
         [SerializeField] private Transform vinyl;
+        [SerializeField] private Renderer vinylCaseRenderer;
+        [SerializeField] private Renderer vinylRenderer;
         [SerializeField] private Vector3[] vinylToTurntablePath;
         [SerializeField] private Vector3[] vinylCasePath;
         [SerializeField] private Vector3 vinylCaseStartPosition;
@@ -162,6 +163,8 @@ namespace DVDNights
                 _spinningSequence?.Kill();
             }
             
+            UpdateVinylVisuals();
+            
             _spinningSequence = DOTween.Sequence()
                 .AppendInterval(0.5f)
                 .AppendCallback(() =>
@@ -306,6 +309,17 @@ namespace DVDNights
             _trackSelectorController.OnTrackStopRequested -= ExitTurntable;
             _trackSelectorController.OnTrackSelectionCloseRequested -= ExitTurntable;
             _trackSelectorController.OnTrackSelectionCloseRequested -= TryResumeTrack;
+        }
+
+        private void UpdateVinylVisuals()
+        {
+           TrackDataSO selectedTrackData = _trackSelectorController.SelectedTrackData;
+           
+           if (selectedTrackData)
+           {
+               vinylCaseRenderer.material = selectedTrackData.VinylCaseMaterial;
+               vinylRenderer.material = selectedTrackData.VinylMaterial;
+           }
         }
     }
 }

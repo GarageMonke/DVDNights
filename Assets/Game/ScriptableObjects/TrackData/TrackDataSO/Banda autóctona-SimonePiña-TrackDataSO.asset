@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13608d3f87a84c3e92b532c2d97b8966, type: 3}
   m_Name: "Banda aut\xF3ctona-SimonePi\xF1a-TrackDataSO"
   m_EditorClassIdentifier: 
-  trackAudioClip: {fileID: 8300000, guid: 085c4899af73b0b4eaefd6aae0620262, type: 3}
-  trackObject: {fileID: 6896695006450494216, guid: f50a3800e85cf9b4bbad573e09dc0d26, type: 3}
   trackTitle: "Title: Banda Aut\xF3ctona"
   coverArt: "Cover Art: Simone Pi\xF1a"
   composer: 'Composer: Dale Marian Ponete la 10'
+  trackObject: {fileID: 6896695006450494216, guid: f50a3800e85cf9b4bbad573e09dc0d26, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: 085c4899af73b0b4eaefd6aae0620262, type: 3}
+  vinylCaseMaterial: {fileID: 2100000, guid: 176be3caae3e445418f5e8fbaea1e776, type: 2}
+  vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}

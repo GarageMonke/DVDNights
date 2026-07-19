@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13608d3f87a84c3e92b532c2d97b8966, type: 3}
   m_Name: Oscar-PaletteRBG-TrackDataSO
   m_EditorClassIdentifier: 
-  trackAudioClip: {fileID: 8300000, guid: 932c946aa81a39c41a288966f77a0fe8, type: 3}
-  trackObject: {fileID: 6896695006450494216, guid: 2c284e5f6c1cbf845b85acc6070c4118, type: 3}
   trackTitle: 'Title: Oscar'
   coverArt: 'Cover Art: PaletteRBG'
   composer: 'Composer: Dale Marian Ponete la 10'
+  trackObject: {fileID: 6896695006450494216, guid: 2c284e5f6c1cbf845b85acc6070c4118, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: d8d7aaa51eac3f64097d2b130e8e8374, type: 3}
+  vinylCaseMaterial: {fileID: 2100000, guid: e0c308fcf75e10a4ca085d5902eb390d, type: 2}
+  vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}

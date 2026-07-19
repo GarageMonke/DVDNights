@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13608d3f87a84c3e92b532c2d97b8966, type: 3}
   m_Name: Communion-Procreate-TrackDataSO
   m_EditorClassIdentifier: 
-  trackAudioClip: {fileID: 8300000, guid: 7f06afd8aeaf50e45b0c1c2a89ec31f9, type: 3}
-  trackObject: {fileID: 6896695006450494216, guid: 0c9822d9a93cb8e44b2f97734dbd5955, type: 3}
   trackTitle: 'Title: Communion'
   coverArt: 'Cover Art: Procreate'
   composer: 'Composer: Dale Marian Ponete la 10'
+  trackObject: {fileID: 6896695006450494216, guid: 0c9822d9a93cb8e44b2f97734dbd5955, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: 7f06afd8aeaf50e45b0c1c2a89ec31f9, type: 3}
+  vinylCaseMaterial: {fileID: 2100000, guid: f78363a52660f8d4caeea039d3d20ef3, type: 2}
+  vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}
