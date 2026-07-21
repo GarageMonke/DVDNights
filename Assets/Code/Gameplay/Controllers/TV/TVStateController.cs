@@ -46,7 +46,7 @@ namespace DVDNights
         private void Awake()
         {
             InstallService();
-            _isTesting = false;
+            _isTesting = true;
         }
 
         private void InstallService()
@@ -86,8 +86,12 @@ namespace DVDNights
                     _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
                     _tvMainMenuController.DisplayMenu();
                     _hasDisk = true;
-                    _gameProgressionController ??= ServiceLocator.GetService<IGameProgressionController>();
-                    _gameProgressionController?.ScheduleRulesDelivery();
+
+                    if (!_isTesting)
+                    {
+                        _gameProgressionController ??= ServiceLocator.GetService<IGameProgressionController>();
+                        _gameProgressionController?.ScheduleRulesDelivery();
+                    }
                 });
         }
 

@@ -37,7 +37,7 @@ namespace DVDNights
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _decayController = ServiceLocator.GetService<IDecayController>();
-            ScheduleRulesDelivery();
+            //ScheduleRulesDelivery();
         }
 
         public void ScheduleRulesDelivery()
@@ -111,7 +111,6 @@ namespace DVDNights
         private void OnDestroy()
         {
             _disksController.OnGoldDiskCreated -= RegisterGoldenDisksCollected;
-            _tvStateController.OnDiskRead -= ScheduleRulesDelivery;
         }
     }
 

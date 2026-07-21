@@ -2,7 +2,6 @@ using System;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using DVDNights;
-using UnityEditor;
 using UnityEngine;
 
 public class TrailerHandler : MonoBehaviour
@@ -26,8 +25,10 @@ public class TrailerHandler : MonoBehaviour
     [SerializeField] private TurntableInteractableObject turntableInteractableObject;
     [SerializeField] private GameRulesInteractableObject gameRulesInteractableObject;
     [SerializeField] private TVInteractableObject tvInteractableObject;
-    [SerializeField] private ArtInteractableObject artInteractableObject;
     [SerializeField] private DVDBoxInteractableObject dvdBoxInteractableObject;
+    [SerializeField] private ArtInteractableObject artInteractableObject;
+    [SerializeField] private ArtInteractableObject art2InteractableObject;
+    [SerializeField] private ArtInteractableObject art3InteractableObject;
     
     [Header("Camera-Configuration")]
     [SerializeField] private CameraPositionData originalCameraPositionData;
@@ -93,58 +94,98 @@ public class TrailerHandler : MonoBehaviour
             _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
             _interactionController.DisableInteractions();
             doorLight.enabled = false;
+            gameRulesInteractableObject.gameObject.SetActive(true);
+            gameRulesInteractableObject.TeleportRulesToDesktop();
+            dvdBoxInteractableObject.gameObject.SetActive(true);
+            dvdBoxInteractableObject.TeleportDvdBoxToDesktop();
+            ITVNavigationController tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
+            tvNavigationController.PowerButton.Press();
         });
         
-        _trailerSequence.AppendInterval(2f);
-        _trailerSequence.AppendCallback(OpenDVDBox);
+        // _trailerSequence.AppendInterval(2f);
+        // _trailerSequence.AppendCallback(OpenDVDBox);
+         // _trailerSequence.AppendCallback(PlayTake00);
+         // _trailerSequence.AppendInterval(2f);
+         // _trailerSequence.AppendCallback(PlayTake02);
+         // _trailerSequence.AppendInterval(6f);
+         // _trailerSequence.AppendCallback(PlayTake01);
+         // _trailerSequence.AppendInterval(3f);
+         // _trailerSequence.AppendCallback(PlayTake03);
+         // _trailerSequence.AppendInterval(4f);
+         // _trailerSequence.AppendCallback(()=>
+         // {
+         //     _tvStateController.StrikeTV();
+         //     PlayTake10();
+         // });
+         // _trailerSequence.AppendInterval(5f);
+         // _trailerSequence.AppendCallback(PlayTake02);
+         // _trailerSequence.AppendInterval(8f);
+         // _trailerSequence.AppendCallback(PlayTake04);
+         // _trailerSequence.AppendInterval(5f);
+         // _trailerSequence.AppendCallback(PlayTake02);
+         // _trailerSequence.AppendInterval(8f);
+         // _trailerSequence.AppendCallback(PlayTake05);
+         // _trailerSequence.AppendInterval(5f);
+         // _trailerSequence.AppendCallback(PlayTake02);
+         // _trailerSequence.AppendInterval(8f);
+         // _trailerSequence.AppendCallback(PlayTake06);
+         // _trailerSequence.AppendInterval(5f);
+         // _trailerSequence.AppendCallback(PlayTake02);
+         // _trailerSequence.AppendInterval(11f);
+         // _trailerSequence.AppendCallback(PlayTake07);
+         // _trailerSequence.AppendInterval(3f);
+         // _trailerSequence.AppendCallback(PlayTake08);
+         // _trailerSequence.AppendInterval(4f);
+         // _trailerSequence.AppendCallback(PlayTake09);
+         // _trailerSequence.AppendInterval(3f);
         
-//        
-//         _trailerSequence.AppendCallback(PlayTake00);
-//         _trailerSequence.AppendInterval(2f);
-//         _trailerSequence.AppendCallback(PlayTake02);
-//         _trailerSequence.AppendInterval(6f);
-//         _trailerSequence.AppendCallback(PlayTake01);
-//         _trailerSequence.AppendInterval(3f);
-//         _trailerSequence.AppendCallback(PlayTake03);
-//         _trailerSequence.AppendInterval(4f);
-//         _trailerSequence.AppendCallback(()=>
-//         {
-//             _tvStateController.StrikeTV();
-//             PlayTake10();
-//         });
-//         _trailerSequence.AppendInterval(5f);
-//         _trailerSequence.AppendCallback(PlayTake02);
-//         _trailerSequence.AppendInterval(8f);
-//         _trailerSequence.AppendCallback(PlayTake04);
-//         _trailerSequence.AppendInterval(5f);
-//         _trailerSequence.AppendCallback(PlayTake02);
-//         _trailerSequence.AppendInterval(8f);
-//         _trailerSequence.AppendCallback(PlayTake05);
-//         _trailerSequence.AppendInterval(5f);
-//         _trailerSequence.AppendCallback(PlayTake02);
-//         _trailerSequence.AppendInterval(8f);
-//         _trailerSequence.AppendCallback(PlayTake06);
-//         _trailerSequence.AppendInterval(5f);
-//         _trailerSequence.AppendCallback(PlayTake02);
-//         _trailerSequence.AppendInterval(11f);
-//         _trailerSequence.AppendCallback(PlayTake07);
-//         _trailerSequence.AppendInterval(3f);
-//         _trailerSequence.AppendCallback(PlayTake08);
-//         _trailerSequence.AppendInterval(4f);
-//         _trailerSequence.AppendCallback(PlayTake09);
-//         _trailerSequence.AppendInterval(3f);
-
-            //Cryptic Messages
-            // _trailerSequence.AppendInterval(1f);
-            // _trailerSequence.AppendCallback(PlayTake02);
-            // _trailerSequence.AppendInterval(0.1f);
-            // _trailerSequence.AppendCallback(CrypticMessages);
+         
+        //  _trailerSequence.AppendInterval(2f);
+        //  _trailerSequence.AppendCallback(PlayTake02);
+        //  _trailerSequence.AppendInterval(5f);
+        //  _trailerSequence.AppendCallback(PlayTake02);
+        //  _trailerSequence.AppendInterval(8f);
+        //  _trailerSequence.AppendInterval(5f);
+        //  _trailerSequence.AppendCallback(PlayTake02);
+        //  _trailerSequence.AppendInterval(8f);
+        //  _trailerSequence.AppendInterval(5f);
+        //  _trailerSequence.AppendCallback(PlayTake02);
+        //  _trailerSequence.AppendInterval(8f);
+        //  _trailerSequence.AppendInterval(5f);
+        //  _trailerSequence.AppendCallback(PlayTake02);
+        //  _trailerSequence.AppendInterval(11f);
+        //  
+        // //Cryptic Messages
+        // _trailerSequence.AppendInterval(1f);
+        // _trailerSequence.AppendCallback(PlayTake02);
+        // _trailerSequence.AppendInterval(0.1f);
+        // _trailerSequence.AppendCallback(CrypticMessages);
             
-            //Knocking Door
-            // _trailerSequence.AppendInterval(4f);
-            // _trailerSequence.AppendCallback(PlayTake12);
-
+        //Knocking Door
+        // _trailerSequence.AppendInterval(4f);
+        // _trailerSequence.AppendCallback(PlayTake12);
+        
+        //Only Final Sequence
+        // _trailerSequence.AppendInterval(5f);
+        // _trailerSequence.AppendCallback(PlayTake02);
+        // _trailerSequence.AppendInterval(11f);
+        // _trailerSequence.AppendCallback(PlayTake07);
+        // _trailerSequence.AppendInterval(3f);
+        // _trailerSequence.AppendCallback(PlayTake08);
+        // _trailerSequence.AppendInterval(4f);
+        // _trailerSequence.AppendCallback(PlayTake09);
+        // _trailerSequence.AppendInterval(3f);
+        
+        //Corruption Extra Sequences
+        _trailerSequence.AppendInterval(2f);
+        _trailerSequence.AppendCallback(PlayTake15);
+        _trailerSequence.AppendInterval(5f);
+        _trailerSequence.AppendCallback(PlayTake14);
+        _trailerSequence.AppendInterval(5f);
+        _trailerSequence.AppendCallback(PlayTake13);
+        _trailerSequence.AppendInterval(5f);
     }
+
 
     private void Update()
     {
@@ -396,6 +437,37 @@ public class TrailerHandler : MonoBehaviour
         trailerCameraLight.SetActive(false);
     }
 
+    private void PlayTake13()
+    {
+        ResetCamera();
+        ResetShoot();
+        SetCameraShoot(13);
+        trailerCameraLight.SetActive(true);
+        DOVirtual.DelayedCall(0.5f, ()=>
+            art2InteractableObject.Corrupt());
+    }
+
+    private void PlayTake14()
+    {
+        ResetCamera();
+        ResetShoot();
+        trailerCameraLight.SetActive(true);
+        SetCameraShoot(14);
+        DOVirtual.DelayedCall(0.5f, ()=>
+            art3InteractableObject.Corrupt());
+    }
+
+    
+    //Books Sequence
+    private void PlayTake15()
+    {
+        ResetCamera();
+        ResetShoot();
+        SetCameraShoot(15);
+        trailerCameraLight.SetActive(false);
+        bookInteractableObject.Corrupt();
+    }
+
     private void PlayTake11()
     {
         lampInteractableObject.Interact();
@@ -507,7 +579,8 @@ public class TrailerHandler : MonoBehaviour
             _disksController.ResumeAllDisksMoving();
             _disksController.CheckDisksToMerge();
         });
-            
+           
+        //COMMENT ONLY FOR DISK SEQUENCE
         DOVirtual.DelayedCall(8f, () =>
         {
             _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();
@@ -579,7 +652,7 @@ public class TrailerHandler : MonoBehaviour
         {
             _pointsController = ServiceLocator.GetService<IPointsController>();
             _pointsController.UpdatePoints(4292026);
-            shopController.OpenShop();
+            Shop();
         });
     }
     
@@ -600,7 +673,6 @@ public class TrailerHandler : MonoBehaviour
             diskLevelController.DiskFFDrainRateLevel = 8;
             diskLevelController.DiskFFMultLevel = 6;
             shopController.OpenShop();
-           
         });
         
         DOVirtual.DelayedCall(0.65f, ()=>
