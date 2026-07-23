@@ -22,6 +22,8 @@ namespace DVDNights
         private IDVDTrayController _dvdTrayController;
         private ICameraController _cameraController;
         private Sequence _deliverySequence;
+        
+        
 
         public int LastDeliveredIndex => _currentDeliveryIndex;
 
@@ -76,11 +78,18 @@ namespace DVDNights
             dvdBoxes[_currentDeliveryIndex].EnableInteraction();
             dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed += OnDvdBoxDelivered;
             
-            Sequence doorSequence = DOTween.Sequence();
-            doorSequence.AppendInterval(1f);
-            doorSequence.AppendCallback(() =>
+            _cameraController.DisableNavigation();
+            _deliverySequence?.Kill();
+            _deliverySequence = DOTween.Sequence();
+            _deliverySequence.AppendInterval(1f);
+            _deliverySequence.AppendCallback(() =>
             {
                 _cameraController.TweenToRotation(Quaternion.Euler(new Vector3(0f, 180f, 0f)), 0.35f);
+            });
+            _deliverySequence.AppendInterval(0.35f);
+            _deliverySequence.AppendCallback(() =>
+            {
+                _cameraController.EnableNavigation();
             });
         }
 

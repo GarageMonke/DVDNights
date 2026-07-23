@@ -129,8 +129,7 @@ namespace DVDNights
                                 x => _lensDistortion.intensity.value = x,
                                 0f,
                                 5f)
-                            .SetEase(Ease.Linear))
-                    .SetLoops(-1);
+                            .SetEase(Ease.Linear));
                 
                 AudioManager.Instance.StopOST(AudioChannelType.DOOR);
             });
