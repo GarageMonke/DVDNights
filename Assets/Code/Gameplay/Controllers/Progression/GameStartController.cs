@@ -121,6 +121,7 @@ namespace DVDNights
                     .SetEase(Ease.Linear);
                 
                 lensDistortionSequence?.Kill();
+                lensDistortionSequence = DOTween.Sequence();
                 lensDistortionSequence
                     .Append(
                         DOTween.To(

@@ -4,7 +4,6 @@ using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 namespace DVDNights
@@ -14,6 +13,7 @@ namespace DVDNights
         [Header("Camera Reference")]
         [SerializeField] private Camera mainCamera;
         [SerializeField] private InputActionSO zoomInputActionSO;
+        [SerializeField] private Transform jumpScareSpot;
 
         [Header("Rotation Settings")]
         [SerializeField] private float _mouseSensitivity = 2f;
@@ -44,6 +44,7 @@ namespace DVDNights
         public Vector3 OriginPosition => _initialCameraPosition;
 
         public bool IsNavigationEnabled => _isEnabled;
+        public Transform JumpScareSpot => jumpScareSpot;
 
         private DepthOfField _depthOfField;
         private IInteractionController _interactionController;
@@ -282,6 +283,7 @@ namespace DVDNights
         public Camera Camera { get; }
         public Vector3 OriginPosition { get; }
         public bool IsNavigationEnabled { get; }
+        public Transform JumpScareSpot { get; }
         public void HandleRotation();
         public void SetSensitivity(float sensitivity);
         public void EnableNavigation();

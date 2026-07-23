@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
@@ -14,6 +15,7 @@ namespace DVDNights
         [SerializeField] private Volume volume;
         [SerializeField] private Animator animatorController;
         [SerializeField] private Renderer entityRenderer;
+        [SerializeField] private Renderer[] entitySubRenderers;
         
         [Header("Bone-References")]
         [SerializeField] private Transform head1;
@@ -22,26 +24,37 @@ namespace DVDNights
 
         [Header("Audio-Feedback")] 
         [SerializeField] private AudioClipProvider jumpScareAudioClipProvider;
+        
+        [Header("Jumpscares-Data")]
+        [SerializeField] private StartToTargetTweenData[] jumpScareData;
 
         private const string IdleCorner = "Idle-Corner";
         private const string IdleSneaking = "Idle-Sneaking";
         private const string IdleTopDoor = "Idle-TopDoor";
         private const string IdleTopDoorIdle = "Idle-TopDoorIdle";
+        private const string IdleJumpScare = "Idle-Jumpscare";
         
         private readonly string[] _idleAnimations =
         {
-            //IdleCorner,
+            IdleCorner,
             IdleSneaking,
-            //IdleTopDoorIdle
+            IdleTopDoorIdle
         };
 
+        private int _selectedAnimationIndex;
+        private bool _jumpScareEnabled;
+        private bool _isJumpScareScheduled;
+        
         private Bloom _bloom;
         private Tween _bloomTween;
         private Tween _jumpScareTween;
         private Camera _camera;
+        private Sequence _jumpScareSequence;
+        private Transform _spawnParent;
+        private Vector3 _spawnPosition;
+        
         private ICameraController _cameraController;
         private ISanityController _sanityController;
-        private bool _jumpScareEnabled;
 
         private void Awake()
         {
@@ -51,6 +64,10 @@ namespace DVDNights
             }
             
             jumpScareAudioClipProvider.InitializeProvider();
+            _spawnPosition = transform.localPosition;
+            _spawnParent = transform.parent;
+            
+            DisableInteraction();
         }
 
         protected override void Start()
@@ -71,15 +88,35 @@ namespace DVDNights
             //No interaction
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                Corrupt();
+            }
+        }
+
         public override void Highlight()
         {
             if (IsVisible())
             {
-                PlayJumpScare();
+                ScheduleJumpScare();
                 return;
             }
             
             BloomIn(0.25f);
+        }
+
+        private void ScheduleJumpScare()
+        {
+            if (_isJumpScareScheduled)
+            {
+                return;
+            }
+            
+            _isJumpScareScheduled = true;
+            _jumpScareTween?.Kill();
+            _jumpScareTween = DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), PlayJumpScare);
         }
 
         public override void Unhighlight()
@@ -89,14 +126,17 @@ namespace DVDNights
 
         public void ShowEntity()
         {
+            EnableInteraction();
             _jumpScareEnabled = true;
+            animatorController.enabled = true;
             animatorController.speed = 0;
             animatorController.Play(GetRandomIdleAnimation());
         }
         
         private string GetRandomIdleAnimation()
         {
-            return _idleAnimations[Random.Range(0, _idleAnimations.Length)];
+            _selectedAnimationIndex = Random.Range(0, _idleAnimations.Length);
+            return _idleAnimations[_selectedAnimationIndex];
         }
 
         private void PlayJumpScare()
@@ -107,8 +147,37 @@ namespace DVDNights
             }
 
             _jumpScareEnabled = false;
-            _sanityController.TakeSanityImmediate(PenaltyType.EXTREME);
-            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, jumpScareAudioClipProvider.GetRandomElement());
+            animatorController.enabled = false;
+            
+            Vector3 targetPosition = jumpScareData[_selectedAnimationIndex].targetPosition;
+            Vector3 targetRotation = jumpScareData[_selectedAnimationIndex].targetRotation;
+            
+            transform.parent = _cameraController.JumpScareSpot;
+            transform.localEulerAngles = targetRotation;
+
+            _cameraController.DisableNavigation();
+            
+            _jumpScareSequence?.Kill();
+            _jumpScareSequence = DOTween.Sequence();
+
+            _jumpScareSequence.AppendCallback(() =>
+            {
+                transform.DOLocalMove(targetPosition, 0.1f)
+                    .SetEase(Ease.OutSine).OnComplete((() =>
+                    {
+                        AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, jumpScareAudioClipProvider.GetRandomElement());
+                    }));
+             
+            });
+
+            _jumpScareSequence.AppendInterval(0.25f);
+            
+            _jumpScareSequence.AppendCallback(() =>
+                {
+                    _sanityController.TakeSanityImmediate(PenaltyType.EXTREME);
+                    _cameraController.EnableNavigation();
+                    ClearCorruption();
+                });
         }
 
         public void PlayAnimationClip()
@@ -132,7 +201,11 @@ namespace DVDNights
         public override void ClearCorruption()
         {
             base.ClearCorruption();
+            DisableInteraction();
             _jumpScareEnabled = false;
+            transform.parent = _spawnParent;
+            transform.localPosition = _spawnPosition;
+            _isJumpScareScheduled = false;
         }
 
         private void PlayKillSequence()
@@ -177,8 +250,25 @@ namespace DVDNights
         bool IsOnScreen(Vector3 worldPos)
         {
             Vector3 vp = _camera.WorldToViewportPoint(worldPos);
-
             return vp is { z: > 0, x: > 0.05f and < 0.95f, y: > 0.05f and < 0.95f };
+        }
+
+        private void EnableEntityRenderers()
+        {
+            entityRenderer.enabled = true;
+            foreach (Renderer entitySubRenderer in entitySubRenderers)
+            {
+                entitySubRenderer.enabled = true;
+            }
+        }
+        
+        private void DisableEntityRenderers()
+        {
+            entityRenderer.enabled = false;
+            foreach (Renderer entitySubRenderer in entitySubRenderers)
+            {
+                entitySubRenderer.enabled = false;
+            }
         }
     }
 }
