@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RotateTransform : MonoBehaviour, ITransformRotator
@@ -21,10 +22,21 @@ public class RotateTransform : MonoBehaviour, ITransformRotator
         if (frameSkip == 0)
         {
             SmoothRotate();
+        }
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isEnabled)
+        {
             return;
         }
         
-        FrameRotate();
+        if (frameSkip > 0)
+        {
+            FrameRotate();
+        }
     }
 
     private void SmoothRotate()

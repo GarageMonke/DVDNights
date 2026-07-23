@@ -113,7 +113,7 @@ Material:
     - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DistortionStrength: 0.0015
+    - _DistortionStrength: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -129,8 +129,8 @@ Material:
     - _ReceiveShadows: 1
     - _SampleGI: 0
     - _ScanlineIntensity: 0.5
-    - _ScanlineOpacity: 0.024
-    - _ScrollSpeed: 0.25
+    - _ScanlineOpacity: 0
+    - _ScrollSpeed: 0
     - _Smoothness: 0.195
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 0
