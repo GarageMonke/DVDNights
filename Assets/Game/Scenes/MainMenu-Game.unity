@@ -1219,6 +1219,10 @@ MonoBehaviour:
   highlightImage: {fileID: 2084241913}
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
+  highlightPitch: 1
+  highlightVolume: 1
+  clickPitch: 1
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightFontStyle: 1
   highlightTextFont: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
@@ -1666,6 +1670,10 @@ MonoBehaviour:
   highlightImage: {fileID: 1263405658}
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
+  highlightPitch: 1
+  highlightVolume: 1
+  clickPitch: 1
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightFontStyle: 1
   highlightTextFont: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
@@ -2185,8 +2193,12 @@ MonoBehaviour:
   button: {fileID: 230162027}
   buttonText: {fileID: 167139751}
   highlightImage: {fileID: 1295009859}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   originalJitterStrength: 0.0364
@@ -2666,6 +2678,10 @@ MonoBehaviour:
   highlightImage: {fileID: 1925602817}
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
+  highlightPitch: 1
+  highlightVolume: 1
+  clickPitch: 1
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightFontStyle: 1
   highlightTextFont: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
@@ -4564,6 +4580,10 @@ MonoBehaviour:
   highlightImage: {fileID: 629770717}
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
+  highlightPitch: 1
+  highlightVolume: 1
+  clickPitch: 1
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightFontStyle: 1
   highlightTextFont: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
@@ -5740,8 +5760,12 @@ MonoBehaviour:
   button: {fileID: 601840483}
   buttonText: {fileID: 551349222}
   highlightImage: {fileID: 85412699}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   originalJitterStrength: 0.0364
@@ -7546,7 +7570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &795813218
@@ -7569,7 +7593,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -10197,8 +10221,12 @@ MonoBehaviour:
   button: {fileID: 937535350}
   buttonText: {fileID: 207744045}
   highlightImage: {fileID: 1138542163}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   originalJitterStrength: 0.0364
@@ -11059,6 +11087,10 @@ MonoBehaviour:
   highlightImage: {fileID: 1820454909}
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
+  highlightPitch: 1
+  highlightVolume: 1
+  clickPitch: 1
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   highlightFontStyle: 1
   highlightTextFont: {fileID: 11400000, guid: f387cb712faabb54795c76671a205ec6, type: 2}
@@ -16110,8 +16142,12 @@ MonoBehaviour:
   button: {fileID: 1627990879}
   buttonText: {fileID: 642607036}
   highlightImage: {fileID: 431995481}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   originalJitterStrength: 0.0364
@@ -16597,8 +16633,12 @@ MonoBehaviour:
   button: {fileID: 1719993366}
   buttonText: {fileID: 1868391186}
   highlightImage: {fileID: 1716804314}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   originalJitterStrength: 0.0364
@@ -18041,7 +18081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -217.87999}
+  m_AnchoredPosition: {x: 350, y: -232.82251}
   m_SizeDelta: {x: 350, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1919339299
@@ -18064,7 +18104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 0.3
+  m_text: Version 0.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
   m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
@@ -18091,8 +18131,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

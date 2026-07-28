@@ -16,6 +16,11 @@ namespace DVDNights
         [Header("Feedback")] 
         [SerializeField] private AudioClip highlightAudioClip;
         [SerializeField] private AudioClip clickAudioClip;
+
+        [SerializeField] private float highlightPitch = 1f;
+        [SerializeField] private float highlightVolume = 1f;
+        [SerializeField] private float clickPitch = 1f;
+        [SerializeField] private float clickVolume = 1f;
         
         [Header("Configuration")]
         [SerializeField] private Color highlightTextColor;
@@ -46,7 +51,7 @@ namespace DVDNights
         {
             highlightImage.color = Color.grey;
             buttonText.color = _originalTextHighlightColor;
-            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, clickAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, clickAudioClip, volume: clickVolume, pitch: clickPitch);
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
@@ -61,7 +66,7 @@ namespace DVDNights
             highlightImage.gameObject.SetActive(true);
             buttonText.color = highlightTextColor;
             buttonText.fontStyle = highlightFontStyle;
-            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, highlightAudioClip);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, highlightAudioClip, volume: highlightVolume, pitch: highlightPitch);
         }
 
         protected virtual void Unhighlight()
