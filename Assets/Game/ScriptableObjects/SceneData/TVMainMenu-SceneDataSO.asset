@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b0fb5291f29a248a534341d0292a1b, type: 3}
-  m_Name: MainMenu-SceneDataSO
+  m_Name: TVMainMenu-SceneDataSO
   m_EditorClassIdentifier: 
   sceneName: MainMenu-InsideTV
   openAdditive: 1

@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using CorePatterns.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ namespace DVDNights
         [SerializeField] private Button button;
         [SerializeField] protected TextMeshProUGUI buttonText;
         [SerializeField] private Image highlightImage;
+
+        [Header("Feedback")] 
+        [SerializeField] private AudioClip highlightAudioClip;
+        [SerializeField] private AudioClip clickAudioClip;
         
         [Header("Configuration")]
         [SerializeField] private Color highlightTextColor;
@@ -41,6 +46,7 @@ namespace DVDNights
         {
             highlightImage.color = Color.grey;
             buttonText.color = _originalTextHighlightColor;
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, clickAudioClip);
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
@@ -55,6 +61,7 @@ namespace DVDNights
             highlightImage.gameObject.SetActive(true);
             buttonText.color = highlightTextColor;
             buttonText.fontStyle = highlightFontStyle;
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, highlightAudioClip);
         }
 
         protected virtual void Unhighlight()
