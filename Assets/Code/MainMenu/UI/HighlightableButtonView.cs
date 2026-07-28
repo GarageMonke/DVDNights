@@ -13,13 +13,19 @@ namespace DVDNights
         [SerializeField] protected TextMeshProUGUI buttonText;
         [SerializeField] protected Image highlightImage;
         [SerializeField] private bool hideImageOnUnhighlight = true;
-
-        [Header("Feedback")] 
+        
+        [Header("Highlight-Settings")]
         [SerializeField] private AudioClip highlightAudioClip;
-        [SerializeField] private AudioClip clickAudioClip;
-
         [SerializeField] private float highlightPitch = 1f;
         [SerializeField] private float highlightVolume = 1f;
+       
+        [Header("Unhighlight-Settings")]
+        [SerializeField] private AudioClip unhighlightAudioClip;
+        [SerializeField] private float unhighlightPitch = 1f;
+        [SerializeField] private float unhighlightVolume = 1f;
+        
+        [Header("Click-Settings")]
+        [SerializeField] private AudioClip clickAudioClip;
         [SerializeField] private float clickPitch = 1f;
         [SerializeField] private float clickVolume = 1f;
         
@@ -33,7 +39,11 @@ namespace DVDNights
         
         protected virtual void Awake()
         {
-            _originalImageHighlightColor = highlightImage.color;
+            if (highlightImage)
+            {
+                _originalImageHighlightColor = highlightImage.color;
+            }
+
             _originalTextHighlightColor =  buttonText.color;
             _originalFontStyle = buttonText.fontStyle;
         }
@@ -50,22 +60,34 @@ namespace DVDNights
 
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            highlightImage.color = Color.grey;
+            if (highlightImage)
+            {
+                highlightImage.color = Color.grey;
+            }
+
             buttonText.color = _originalTextHighlightColor;
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, clickAudioClip, volume: clickVolume, pitch: clickPitch);
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            highlightImage.color = _originalImageHighlightColor;
+            if (highlightImage)
+            {
+                highlightImage.color = _originalImageHighlightColor;
+            }
+            
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
         }
 
         protected virtual void Highlight()
         {
-            highlightImage.gameObject.SetActive(true);
-            highlightImage.color = highlightTextColor;
+            if (highlightImage)
+            {
+                highlightImage.gameObject.SetActive(true);
+                highlightImage.color = highlightTextColor;
+            }
+
             buttonText.color = highlightTextColor;
             buttonText.fontStyle = highlightFontStyle;
             
@@ -74,10 +96,16 @@ namespace DVDNights
 
         protected virtual void Unhighlight()
         {
-            highlightImage.gameObject.SetActive(!hideImageOnUnhighlight);
-            highlightImage.color = _originalImageHighlightColor;
+            if (highlightImage)
+            {
+                highlightImage.gameObject.SetActive(!hideImageOnUnhighlight);
+                highlightImage.color = _originalImageHighlightColor;
+            }
+
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
+
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, unhighlightAudioClip, volume: unhighlightVolume, pitch: unhighlightPitch);
         }
         
         protected virtual void OnDisable()
