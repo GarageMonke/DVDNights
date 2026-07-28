@@ -1363,8 +1363,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CREDITS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1810,8 +1810,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2059,7 +2059,7 @@ GameObject:
   - component: {fileID: 230162029}
   - component: {fileID: 230162028}
   - component: {fileID: 230162027}
-  - component: {fileID: 230162026}
+  - component: {fileID: 230162030}
   m_Layer: 5
   m_Name: Credits-Button
   m_TagString: Untagged
@@ -2088,25 +2088,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &230162026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230162024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a789b476cd5f4e3bbe4cbb086bf2722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 230162027}
-  buttonText: {fileID: 167139751}
-  highlightImage: {fileID: 1295009859}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  highlightFontStyle: 1
 --- !u!114 &230162027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,6 +2170,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230162024}
   m_CullTransparentMesh: 1
+--- !u!114 &230162030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230162024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 230162027}
+  buttonText: {fileID: 167139751}
+  highlightImage: {fileID: 1295009859}
+  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &244853988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4927,8 +4936,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gallery
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5605,7 +5614,7 @@ GameObject:
   - component: {fileID: 601840485}
   - component: {fileID: 601840484}
   - component: {fileID: 601840483}
-  - component: {fileID: 601840482}
+  - component: {fileID: 601840486}
   m_Layer: 5
   m_Name: Gallery-Button
   m_TagString: Untagged
@@ -5634,25 +5643,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &601840482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601840480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a789b476cd5f4e3bbe4cbb086bf2722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 601840483}
-  buttonText: {fileID: 551349222}
-  highlightImage: {fileID: 85412699}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  highlightFontStyle: 1
 --- !u!114 &601840483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5735,6 +5725,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601840480}
   m_CullTransparentMesh: 1
+--- !u!114 &601840486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601840480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 601840483}
+  buttonText: {fileID: 551349222}
+  highlightImage: {fileID: 85412699}
+  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &609860935
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,8 +6161,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: NEW GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10053,7 +10071,7 @@ GameObject:
   - component: {fileID: 937535352}
   - component: {fileID: 937535351}
   - component: {fileID: 937535350}
-  - component: {fileID: 937535349}
+  - component: {fileID: 937535353}
   m_Layer: 5
   m_Name: Settings-Button
   m_TagString: Untagged
@@ -10082,25 +10100,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &937535349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 937535347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a789b476cd5f4e3bbe4cbb086bf2722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 937535350}
-  buttonText: {fileID: 207744045}
-  highlightImage: {fileID: 1138542163}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  highlightFontStyle: 1
 --- !u!114 &937535350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10183,6 +10182,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937535347}
   m_CullTransparentMesh: 1
+--- !u!114 &937535353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937535347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 937535350}
+  buttonText: {fileID: 207744045}
+  highlightImage: {fileID: 1138542163}
+  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &951824593
 GameObject:
   m_ObjectHideFlags: 0
@@ -15957,7 +15984,7 @@ GameObject:
   - component: {fileID: 1627990881}
   - component: {fileID: 1627990880}
   - component: {fileID: 1627990879}
-  - component: {fileID: 1627990878}
+  - component: {fileID: 1627990882}
   m_Layer: 5
   m_Name: Play-Button
   m_TagString: Untagged
@@ -15986,25 +16013,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1627990878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627990876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a789b476cd5f4e3bbe4cbb086bf2722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 1627990879}
-  buttonText: {fileID: 642607036}
-  highlightImage: {fileID: 431995481}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  highlightFontStyle: 1
 --- !u!114 &1627990879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16087,6 +16095,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627990876}
   m_CullTransparentMesh: 1
+--- !u!114 &1627990882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627990876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1627990879}
+  buttonText: {fileID: 642607036}
+  highlightImage: {fileID: 431995481}
+  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &1646653585
 GameObject:
   m_ObjectHideFlags: 0
@@ -16435,7 +16471,7 @@ GameObject:
   - component: {fileID: 1719993368}
   - component: {fileID: 1719993367}
   - component: {fileID: 1719993366}
-  - component: {fileID: 1719993365}
+  - component: {fileID: 1719993369}
   m_Layer: 5
   m_Name: Exit-Button
   m_TagString: Untagged
@@ -16464,25 +16500,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1719993365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719993363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a789b476cd5f4e3bbe4cbb086bf2722e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 1719993366}
-  buttonText: {fileID: 1868391186}
-  highlightImage: {fileID: 1716804314}
-  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
-  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
-  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
-  highlightFontStyle: 1
 --- !u!114 &1719993366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16565,6 +16582,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719993363}
   m_CullTransparentMesh: 1
+--- !u!114 &1719993369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719993363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1719993366}
+  buttonText: {fileID: 1868391186}
+  highlightImage: {fileID: 1716804314}
+  highlightAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: 12e25825ac41a394eaca0aa9457e85f8, type: 3}
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &1731966125
 GameObject:
   m_ObjectHideFlags: 0
@@ -17678,8 +17723,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: EXIT GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
