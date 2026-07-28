@@ -15,6 +15,8 @@ namespace DVDNights
         private static readonly int UpdateRate = Shader.PropertyToID("_UpdateRate");
 
         [Header("Glitch-Configuration")]
+        [SerializeField] private bool glitchImage;
+        
         [SerializeField, Range(0f, 0.05f)]
         private float originalJitterStrength = 0.0364f;
         private float highlightedJitterStrength = 0.0025f;
@@ -48,6 +50,7 @@ namespace DVDNights
         [SerializeField] private Ease transitionEase = Ease.OutQuad;
         
         private Material _textMaterial;
+        private Material _imageMaterial;
         private Tween _glitchTween;
         
         private float _jitterStrength;
@@ -63,6 +66,7 @@ namespace DVDNights
             base.Awake();
             
             _textMaterial = buttonText.fontMaterial;
+            _imageMaterial = highlightImage.material;
 
             _jitterStrength = originalJitterStrength;
             _horizontalTear = originalHorizontalTear;
@@ -129,6 +133,17 @@ namespace DVDNights
             _textMaterial.SetFloat(ScrollX, _noiseScrollX);
             _textMaterial.SetFloat(ScrollY, _noiseScrollY);
             _textMaterial.SetFloat(UpdateRate, _updateRate);
+
+            if (glitchImage)
+            {
+                _imageMaterial.SetFloat(JitterStrength, _jitterStrength);
+                _imageMaterial.SetFloat(LineStrength, _horizontalTear);
+                _imageMaterial.SetFloat(Chromatic, _rgbSplit);
+                _imageMaterial.SetFloat(ScanlineIntensity, _scanlines);
+                _imageMaterial.SetFloat(ScrollX, _noiseScrollX);
+                _imageMaterial.SetFloat(ScrollY, _noiseScrollY);
+                _imageMaterial.SetFloat(UpdateRate, _updateRate);
+            }
         }
 
         private void OnDestroy()

@@ -11,7 +11,8 @@ namespace DVDNights
         [Header("References")]
         [SerializeField] private Button button;
         [SerializeField] protected TextMeshProUGUI buttonText;
-        [SerializeField] private Image highlightImage;
+        [SerializeField] protected Image highlightImage;
+        [SerializeField] private bool hideImageOnUnhighlight = true;
 
         [Header("Feedback")] 
         [SerializeField] private AudioClip highlightAudioClip;
@@ -64,14 +65,17 @@ namespace DVDNights
         protected virtual void Highlight()
         {
             highlightImage.gameObject.SetActive(true);
+            highlightImage.color = highlightTextColor;
             buttonText.color = highlightTextColor;
             buttonText.fontStyle = highlightFontStyle;
+            
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, highlightAudioClip, volume: highlightVolume, pitch: highlightPitch);
         }
 
         protected virtual void Unhighlight()
         {
-            highlightImage.gameObject.SetActive(false);
+            highlightImage.gameObject.SetActive(!hideImageOnUnhighlight);
+            highlightImage.color = _originalImageHighlightColor;
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
         }

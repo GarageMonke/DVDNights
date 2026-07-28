@@ -760,17 +760,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85412697}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 601840481}
+  m_Father: {fileID: 551349221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.5, y: 0}
-  m_SizeDelta: {x: -65, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &85412699
 MonoBehaviour:
@@ -1217,6 +1217,7 @@ MonoBehaviour:
   button: {fileID: 161781922}
   buttonText: {fileID: 1057011064}
   highlightImage: {fileID: 2084241913}
+  hideImageOnUnhighlight: 0
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
   highlightPitch: 1
@@ -1319,6 +1320,7 @@ GameObject:
   - component: {fileID: 167139750}
   - component: {fileID: 167139752}
   - component: {fileID: 167139751}
+  - component: {fileID: 167139753}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1337,14 +1339,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1295009858}
   m_Father: {fileID: 230162025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &167139751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1444,6 +1447,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167139749}
   m_CullTransparentMesh: 1
+--- !u!114 &167139753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167139749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &179753600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1668,6 +1685,7 @@ MonoBehaviour:
   button: {fileID: 187146094}
   buttonText: {fileID: 1554083959}
   highlightImage: {fileID: 1263405658}
+  hideImageOnUnhighlight: 0
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
   highlightPitch: 1
@@ -1770,6 +1788,7 @@ GameObject:
   - component: {fileID: 207744044}
   - component: {fileID: 207744046}
   - component: {fileID: 207744045}
+  - component: {fileID: 207744047}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1788,14 +1807,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1138542162}
   m_Father: {fileID: 937535348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &207744045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1895,6 +1915,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207744043}
   m_CullTransparentMesh: 1
+--- !u!114 &207744047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207744043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &213037233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,7 +2122,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 167139750}
-  - {fileID: 1295009858}
   m_Father: {fileID: 953444423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2193,7 +2226,8 @@ MonoBehaviour:
   button: {fileID: 230162027}
   buttonText: {fileID: 167139751}
   highlightImage: {fileID: 1295009859}
-  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  hideImageOnUnhighlight: 1
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
   clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
   highlightPitch: 3
   highlightVolume: 1
@@ -2201,6 +2235,7 @@ MonoBehaviour:
   clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
+  glitchImage: 0
   originalJitterStrength: 0.0364
   originalHorizontalTear: 0.0441
   originalRgbSplit: 0.00648
@@ -2508,7 +2543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 09db00d04a2aada4f9a3dfc7d177afeb, type: 2}
+  m_Material: {fileID: 2100000, guid: e4ec722d9f2282e4098e81b9ab013990, type: 2}
   m_Color: {r: 1, g: 0.88666916, b: 0, a: 0.9254902}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -2676,6 +2711,7 @@ MonoBehaviour:
   button: {fileID: 317553146}
   buttonText: {fileID: 456235298}
   highlightImage: {fileID: 1925602817}
+  hideImageOnUnhighlight: 0
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
   highlightPitch: 1
@@ -3857,12 +3893,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1627990877}
+  m_Father: {fileID: 642607035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.5, y: 5}
-  m_SizeDelta: {x: -65, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &431995481
 MonoBehaviour:
@@ -4578,6 +4614,7 @@ MonoBehaviour:
   button: {fileID: 506354683}
   buttonText: {fileID: 1920757051}
   highlightImage: {fileID: 629770717}
+  hideImageOnUnhighlight: 0
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
   highlightPitch: 1
@@ -4908,6 +4945,7 @@ GameObject:
   - component: {fileID: 551349221}
   - component: {fileID: 551349223}
   - component: {fileID: 551349222}
+  - component: {fileID: 551349224}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4926,14 +4964,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 85412698}
   m_Father: {fileID: 601840481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &551349222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5033,6 +5072,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551349220}
   m_CullTransparentMesh: 1
+--- !u!114 &551349224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551349220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &552936684
 GameObject:
   m_ObjectHideFlags: 0
@@ -5655,7 +5708,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 551349221}
-  - {fileID: 85412698}
   m_Father: {fileID: 953444423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5760,7 +5812,8 @@ MonoBehaviour:
   button: {fileID: 601840483}
   buttonText: {fileID: 551349222}
   highlightImage: {fileID: 85412699}
-  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  hideImageOnUnhighlight: 1
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
   clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
   highlightPitch: 3
   highlightVolume: 1
@@ -5768,6 +5821,7 @@ MonoBehaviour:
   clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
+  glitchImage: 0
   originalJitterStrength: 0.0364
   originalHorizontalTear: 0.0441
   originalRgbSplit: 0.00648
@@ -6137,6 +6191,7 @@ GameObject:
   - component: {fileID: 642607035}
   - component: {fileID: 642607037}
   - component: {fileID: 642607036}
+  - component: {fileID: 642607038}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -6155,14 +6210,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 431995480}
   m_Father: {fileID: 1627990877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &642607036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6262,6 +6318,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642607034}
   m_CullTransparentMesh: 1
+--- !u!114 &642607038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642607034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &648616973
 GameObject:
   m_ObjectHideFlags: 0
@@ -10116,7 +10186,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 207744044}
-  - {fileID: 1138542162}
   m_Father: {fileID: 953444423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10221,7 +10290,8 @@ MonoBehaviour:
   button: {fileID: 937535350}
   buttonText: {fileID: 207744045}
   highlightImage: {fileID: 1138542163}
-  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  hideImageOnUnhighlight: 1
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
   clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
   highlightPitch: 3
   highlightVolume: 1
@@ -10229,6 +10299,7 @@ MonoBehaviour:
   clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
+  glitchImage: 0
   originalJitterStrength: 0.0364
   originalHorizontalTear: 0.0441
   originalRgbSplit: 0.00648
@@ -10490,7 +10561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: e4ec722d9f2282e4098e81b9ab013990, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -11085,6 +11156,7 @@ MonoBehaviour:
   button: {fileID: 1089589212}
   buttonText: {fileID: 1921721065}
   highlightImage: {fileID: 1820454909}
+  hideImageOnUnhighlight: 0
   highlightAudioClip: {fileID: 0}
   clickAudioClip: {fileID: 0}
   highlightPitch: 1
@@ -11168,8 +11240,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WISHLIST NOW ON
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
-  m_sharedMaterial: {fileID: -8072581302709549392, guid: b52b3a038aa4398428d0bb7ee060ac10, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
+  m_sharedMaterial: {fileID: -8072581302709549392, guid: 9bc6c9b2e44447842a6c409d442738af, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11691,17 +11763,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1138542161}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 937535348}
+  m_Father: {fileID: 207744044}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.5, y: 0}
-  m_SizeDelta: {x: -65, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1138542163
 MonoBehaviour:
@@ -12547,17 +12619,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295009857}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 230162025}
+  m_Father: {fileID: 167139750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.5, y: 0}
-  m_SizeDelta: {x: -65, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1295009859
 MonoBehaviour:
@@ -12850,9 +12922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 3c10d4985280c3b4aab61e6b39372a0f, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -13821,6 +13893,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1414247236}
   - component: {fileID: 1414247237}
+  - component: {fileID: 1414247240}
+  - component: {fileID: 1414247239}
+  - component: {fileID: 1414247238}
+  - component: {fileID: 1414247241}
   m_Layer: 5
   m_Name: Wishlist-Steam
   m_TagString: Untagged
@@ -13875,6 +13951,122 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!222 &1414247238
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414247235}
+  m_CullTransparentMesh: 1
+--- !u!114 &1414247239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414247235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1414247240}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1414247240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414247235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1414247241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414247235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63d43cca6574908ab464f1de785456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1414247239}
+  buttonText: {fileID: 1105796394}
+  highlightImage: {fileID: 1324898562}
+  hideImageOnUnhighlight: 0
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
+  clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
+  highlightPitch: 3
+  highlightVolume: 1
+  clickPitch: 3
+  clickVolume: 1
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
+  glitchImage: 1
+  originalJitterStrength: 0.0364
+  originalHorizontalTear: 0.0441
+  originalRgbSplit: 0.00648
+  originalScanlines: 0.304
+  originalNoiseScrollX: 0.1
+  originalNoiseScrollY: 0.5
+  originalUpdateRate: 12
+  transitionDuration: 0.2
+  transitionEase: 6
 --- !u!1 &1414907268
 GameObject:
   m_ObjectHideFlags: 0
@@ -15298,8 +15490,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: UND
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8edf9f577bc482747b91a88078dfbf38, type: 2}
-  m_sharedMaterial: {fileID: 7975607806780324845, guid: 8edf9f577bc482747b91a88078dfbf38, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
+  m_sharedMaterial: {fileID: 3048863780643756096, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16037,7 +16229,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 642607035}
-  - {fileID: 431995480}
   m_Father: {fileID: 953444423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -16142,7 +16333,8 @@ MonoBehaviour:
   button: {fileID: 1627990879}
   buttonText: {fileID: 642607036}
   highlightImage: {fileID: 431995481}
-  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  hideImageOnUnhighlight: 1
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
   clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
   highlightPitch: 3
   highlightVolume: 1
@@ -16150,6 +16342,7 @@ MonoBehaviour:
   clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
+  glitchImage: 0
   originalJitterStrength: 0.0364
   originalHorizontalTear: 0.0441
   originalRgbSplit: 0.00648
@@ -16218,8 +16411,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RULEB
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8edf9f577bc482747b91a88078dfbf38, type: 2}
-  m_sharedMaterial: {fileID: 7975607806780324845, guid: 8edf9f577bc482747b91a88078dfbf38, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
+  m_sharedMaterial: {fileID: 3048863780643756096, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16445,17 +16638,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716804312}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1719993364}
+  m_Father: {fileID: 1868391185}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -32.5, y: 0}
-  m_SizeDelta: {x: -65, y: 10}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1716804314
 MonoBehaviour:
@@ -16528,7 +16721,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1868391185}
-  - {fileID: 1716804313}
   m_Father: {fileID: 953444423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -16633,7 +16825,8 @@ MonoBehaviour:
   button: {fileID: 1719993366}
   buttonText: {fileID: 1868391186}
   highlightImage: {fileID: 1716804314}
-  highlightAudioClip: {fileID: 8300000, guid: 90e518d0d68f3984da96b7a9674e08bf, type: 3}
+  hideImageOnUnhighlight: 1
+  highlightAudioClip: {fileID: 8300000, guid: e625cff9fd6e59b418b8778e619a4b5c, type: 3}
   clickAudioClip: {fileID: 8300000, guid: e584d7736277a6949aeae332568e1079, type: 3}
   highlightPitch: 3
   highlightVolume: 1
@@ -16641,6 +16834,7 @@ MonoBehaviour:
   clickVolume: 1
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
+  glitchImage: 0
   originalJitterStrength: 0.0364
   originalHorizontalTear: 0.0441
   originalRgbSplit: 0.00648
@@ -17715,6 +17909,7 @@ GameObject:
   - component: {fileID: 1868391185}
   - component: {fileID: 1868391187}
   - component: {fileID: 1868391186}
+  - component: {fileID: 1868391188}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -17733,14 +17928,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1716804313}
   m_Father: {fileID: 1719993364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1868391186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17840,6 +18036,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868391184}
   m_CullTransparentMesh: 1
+--- !u!114 &1868391188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868391184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1001 &1877578644
 PrefabInstance:
   m_ObjectHideFlags: 0
