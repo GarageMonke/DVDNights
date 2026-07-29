@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Game/Scenes/Init-MainScene.unity
+    guid: e94b25df1c0d0e646a2a43bf30af6ff1
+  - enabled: 1
     path: Assets/Game/Scenes/Global-Managers.unity
     guid: e97e94e5a547c7b45a4ba4b081b5e149
+  - enabled: 1
+    path: Assets/Game/Scenes/Windows-Game.unity
+    guid: b45943bcbe93470459ef402b066147b7
   - enabled: 1
     path: Assets/Game/Scenes/PlayRoom-World.unity
     guid: 9a72d9b9cfc8f76418cebfc6f22ed56a

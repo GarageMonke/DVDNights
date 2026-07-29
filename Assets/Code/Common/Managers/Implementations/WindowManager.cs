@@ -1,8 +1,10 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Common.Database;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CorePatterns.Managers
 {
@@ -12,6 +14,7 @@ namespace CorePatterns.Managers
         [SerializeField] private WindowDatabase windowDatabase;
 
         private readonly Dictionary<Type, Window> _windowPrefabs = new();
+        private Canvas _containerCanvas;
 
         protected override void Awake()
         {
@@ -32,7 +35,7 @@ namespace CorePatterns.Managers
             }
         }
 
-        public T OpenWindow<T>() where T : Window
+        public T OpenWindow<T>(GameObject source, bool openInContainer = false) where T : Window
         {
             Type type = typeof(T);
 
@@ -41,12 +44,12 @@ namespace CorePatterns.Managers
                 Debug.LogError($"Window {type.Name} was not found");
                 return null;
             }
-
-            Canvas canvas = FindFirstObjectByType<Canvas>();
-
+            
+            Canvas canvas = openInContainer ? _containerCanvas : FindCanvasInHierarchy(source);
+            
             if (!canvas)
             {
-                Debug.LogError("No Canvas found in the scene.");
+                Debug.LogError("No Canvas found.");
                 return null;
             }
 
@@ -55,6 +58,17 @@ namespace CorePatterns.Managers
             instance?.Display();
 
             return instance;
+        }
+        
+        public void SetContainerCanvas(Canvas canvas)
+        {
+            _containerCanvas = canvas;
+        }
+
+        private Canvas FindCanvasInHierarchy(GameObject source)
+        {
+            Scene scene = source.scene;
+            return scene.GetRootGameObjects().SelectMany(go => go.GetComponentsInChildren<Canvas>(true)).FirstOrDefault();
         }
     }
 }

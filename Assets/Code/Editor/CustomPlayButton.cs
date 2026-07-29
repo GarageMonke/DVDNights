@@ -23,7 +23,7 @@ public class CustomPlayButton
 
     private static void PlayFromStartScene()
     {
-        var startScenePath = "Assets/Game/Scenes/Global-Managers.unity";
+        var startScenePath = "Assets/Game/Scenes/Init-MainScene.unity";
 
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
