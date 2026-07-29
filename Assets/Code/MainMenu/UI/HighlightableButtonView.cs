@@ -18,11 +18,6 @@ namespace DVDNights
         [SerializeField] private AudioClip highlightAudioClip;
         [SerializeField] private float highlightPitch = 1f;
         [SerializeField] private float highlightVolume = 1f;
-       
-        [Header("Unhighlight-Settings")]
-        [SerializeField] private AudioClip unhighlightAudioClip;
-        [SerializeField] private float unhighlightPitch = 1f;
-        [SerializeField] private float unhighlightVolume = 1f;
         
         [Header("Click-Settings")]
         [SerializeField] private AudioClip clickAudioClip;
@@ -104,8 +99,6 @@ namespace DVDNights
 
             buttonText.color = _originalTextHighlightColor;
             buttonText.fontStyle = _originalFontStyle;
-
-            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, unhighlightAudioClip, volume: unhighlightVolume, pitch: unhighlightPitch);
         }
         
         protected virtual void OnDisable()

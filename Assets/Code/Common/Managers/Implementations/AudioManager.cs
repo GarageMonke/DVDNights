@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace CorePatterns.Managers
 {
-    public class AudioManager : MonoBehaviour
+    public class AudioManager : Manager<AudioManager>
     {
-        public static AudioManager Instance { get; private set; }
-
         [Header("Channels")] [SerializeField] private AudioSourceChannel tvAudioChannel;
         [SerializeField] private AudioSourceChannel turntableAudioChannel;
         [SerializeField] private AudioSourceChannel stormAudioChannel;
@@ -16,17 +14,6 @@ namespace CorePatterns.Managers
         [SerializeField] private AudioSourceChannel phoneAudioChannel;
         [SerializeField] private AudioSourceChannel heartbeatAudioChannel;
         [SerializeField] private AudioSourceChannel breathingAudioChannel;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
 
         public void PlaySFX(AudioChannelType channelType, AudioClip clip, float volume = 1f, float pitch = 1f,
             bool randomizePitch = false)

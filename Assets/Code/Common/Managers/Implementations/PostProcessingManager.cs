@@ -3,23 +3,12 @@ using UnityEngine.Rendering;
 
 namespace CorePatterns.Managers
 {
-    public class PostProcessingManager : MonoBehaviour
+    public class PostProcessingManager : Manager<PostProcessingManager>
     {
         public static PostProcessingManager Instance { get; private set; }
 
         [Header("References")] 
         [SerializeField] private Volume postProcessing;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
 
         public void EnableVolume()
         {

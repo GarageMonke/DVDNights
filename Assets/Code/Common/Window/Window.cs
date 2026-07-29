@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Common
 {
     public class Window : MonoBehaviour, IWindow
     {
@@ -15,8 +15,7 @@ namespace DVDNights
 
         public virtual void Hide()
         {
-            gameObject.SetActive(false);
-            _isDisplaying = false;
+            Destroy(gameObject);
         }
     }
     
