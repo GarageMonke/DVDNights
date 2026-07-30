@@ -254,7 +254,7 @@ MonoBehaviour:
   m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 471
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -317,7 +317,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 375
+    m_Bits: 343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: e7383cd9078a25e459ea0f16dea22980, type: 2}
   m_TargetDisplay: 0
