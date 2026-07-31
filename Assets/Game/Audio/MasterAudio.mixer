@@ -541,6 +541,12 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 63f468ef302e7ce44ba37d067c9a8d41
+    name: MasterVolume
+  - guid: 4eb1c3debe146f7499112a0598c206d3
+    name: OSTVolume
+  - guid: 268e553fb2c149548bfb0bb00c3567b0
+    name: SFXVolume
   - guid: 61885602baf66ba4d966fd64f481ac1c
     name: TurnTable-Distortion
   - guid: ca633a26a9f14034dbc1e023146d4807

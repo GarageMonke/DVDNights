@@ -5,7 +5,8 @@ namespace CorePatterns.Managers
 {
     public class AudioManager : Manager<AudioManager>
     {
-        [Header("Channels")] [SerializeField] private AudioSourceChannel tvAudioChannel;
+        [Header("Channels")] 
+        [SerializeField] private AudioSourceChannel tvAudioChannel;
         [SerializeField] private AudioSourceChannel turntableAudioChannel;
         [SerializeField] private AudioSourceChannel stormAudioChannel;
         [SerializeField] private AudioSourceChannel nonDiegeticAudioChannel;
