@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Common.Localization;
 using Code.Common.Persistence;
 using Common;
 using CorePatterns.Managers;
@@ -31,8 +32,7 @@ namespace Code.MVP
         [SerializeField] private Slider sfxVolumeSlider;
 
         [Header("Language")] 
-        [SerializeField] private TMP_Dropdown languageDropdown;
-        [SerializeField] private List<string> supportedLanguageCodes = new() { "en", "es", "fr", "de", "ja" };
+        [SerializeField] private LanguageDropdown languageDropdown;
 
         [Header("Danger Zone")] 
         [SerializeField] private Button deleteProgressButton;
@@ -40,8 +40,7 @@ namespace Code.MVP
 
         [Header("ScrollView")] 
         [SerializeField] private ScrollRect scrollRect;
-
-
+        
         private void Awake()
         {
             SubscribeToEvents();
@@ -64,7 +63,7 @@ namespace Code.MVP
             qualityDropdown.onValueChanged.AddListener(OnQualityChanged);
             
             //Localization
-            languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+            languageDropdown.OnLanguageChanged += OnLanguageChanged;
             
             //Audio
             masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
@@ -128,10 +127,6 @@ namespace Code.MVP
             // Quality (URP levels defined in Project Settings > Quality)
             qualityDropdown.ClearOptions();
             qualityDropdown.AddOptions(new List<string>(settingsManager.AvailableQualityLevels));
-
-            // Language
-            languageDropdown.ClearOptions();
-            languageDropdown.AddOptions(supportedLanguageCodes);
         }
 
         private void RefreshFromCurrentSettings()
@@ -156,26 +151,22 @@ namespace Code.MVP
             masterVolumeSlider.SetValueWithoutNotify(data.masterVolume);
             sfxVolumeSlider.SetValueWithoutNotify(data.sfxVolume);
             ostVolumeSlider.SetValueWithoutNotify(data.ostVolume);
-            
-            //Localization
-            int langIndex = supportedLanguageCodes.IndexOf(data.languageCode);
-            languageDropdown.SetValueWithoutNotify(Mathf.Max(0, langIndex));
         }
 
         private void HandleSettingsChanged(SettingsData data) => RefreshFromCurrentSettings();
 
         //DISPLAY
-        public void OnResolutionChanged(int index) => SettingsManager.Instance.SetResolution(index);
+        private void OnResolutionChanged(int index) => SettingsManager.Instance.SetResolution(index);
 
-        public void OnFullscreenToggled(bool isFullscreen) => SettingsManager.Instance.SetFullscreenMode(isFullscreen ? FullScreenModeOption.FullscreenWindow : FullScreenModeOption.Windowed);
+        private void OnFullscreenToggled(bool isFullscreen) => SettingsManager.Instance.SetFullscreenMode(isFullscreen ? FullScreenModeOption.FullscreenWindow : FullScreenModeOption.Windowed);
 
-        public void OnVSyncToggled(bool vSyncEnabled)
+        private void OnVSyncToggled(bool vSyncEnabled)
         {
             SettingsManager.Instance.SetVSync(vSyncEnabled);
             fpsDropdown.interactable = !vSyncEnabled;
         }
 
-        public void OnFpsLimitChanged(int index) => SettingsManager.Instance.SetFPSLimitByIndex(index);
+        private void OnFpsLimitChanged(int index) => SettingsManager.Instance.SetFPSLimitByIndex(index);
         
         //INPUT
 
@@ -183,15 +174,18 @@ namespace Code.MVP
 
         private void OnMouseXToggled(bool invertMouseX) => SettingsManager.Instance.InvertMouseX(invertMouseX);
         private void OnMouseYToggled(bool invertMouseY) => SettingsManager.Instance.InvertMouseY(invertMouseY);
-        
-        public void OnQualityChanged(int index) => SettingsManager.Instance.SetQualityLevel(index);
 
-        public void OnMasterVolumeChanged(float value) => SettingsManager.Instance.SetMasterVolume(value);
-        public void OnOSTVolumeChanged(float value) => SettingsManager.Instance.SetOSTVolume(value);
+        private void OnQualityChanged(int index) => SettingsManager.Instance.SetQualityLevel(index);
 
-        public void OnSfxVolumeChanged(float value) => SettingsManager.Instance.SetSfxVolume(value);
+        private void OnMasterVolumeChanged(float value) => SettingsManager.Instance.SetMasterVolume(value);
+        private void OnOSTVolumeChanged(float value) => SettingsManager.Instance.SetOSTVolume(value);
 
-        public void OnLanguageChanged(int index) => SettingsManager.Instance.SetLanguage(supportedLanguageCodes[index]);
+        private void OnSfxVolumeChanged(float value) => SettingsManager.Instance.SetSfxVolume(value);
+
+        private void OnLanguageChanged(string languageCode)
+        {
+            SettingsManager.Instance.SetLanguage(languageCode);
+        }
 
         public void OnDeleteProgressClicked()
         {

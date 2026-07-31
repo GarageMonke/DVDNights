@@ -1,5 +1,4 @@
 ﻿using Code.Common.Persistence;
-using Code.MVP;
 
 namespace CorePatterns.Managers
 {
@@ -19,7 +18,6 @@ namespace CorePatterns.Managers
         [Header("Persistence")] 
         [SerializeField] private string playerPrefsKey = "GameSettings";
         
-
         public Action<SettingsData> OnSettingsChanged;
         
         public Action<float> OnMasterVolumeChanged;
@@ -236,7 +234,8 @@ namespace CorePatterns.Managers
             if (string.IsNullOrEmpty(languageCode)) return;
 
             Current.languageCode = languageCode;
-
+            LocalizationManager.Instance.SetLanguage(languageCode);
+            
             SaveSettings();
             OnLanguageChanged?.Invoke(languageCode);
             OnSettingsChanged?.Invoke(Current);
@@ -256,7 +255,7 @@ namespace CorePatterns.Managers
         public void LoadSettings()
         {
             //Temporal
-            PlayerPrefs.DeleteAll();
+           // PlayerPrefs.DeleteAll();
             
             if (PlayerPrefs.HasKey(playerPrefsKey))
             {
