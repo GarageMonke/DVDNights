@@ -21,12 +21,16 @@ namespace CorePatterns.Managers
         
 
         public Action<SettingsData> OnSettingsChanged;
+        
         public Action<float> OnMasterVolumeChanged;
+        public Action<float> OnOstVolumeChanged;
         public Action<float> OnSfxVolumeChanged;
-        public Action<float> OnMusicVolumeChanged;
+        
         public Action<string> OnLanguageChanged;
+        
         public Action OnProgressDeleted;
 
+        public readonly int[] AvailableFPSLimits = { 30, 60, 90, 120, 144, 165, 240, -1};
         public SettingsData Current { get; private set; } = new();
 
         public IReadOnlyList<Resolution> AvailableResolutions { get; private set; }
@@ -39,7 +43,7 @@ namespace CorePatterns.Managers
             base.Awake();
 
             AvailableResolutions = Screen.resolutions;
-            Load();
+            LoadSettings();
             ApplyAll();
         }
 
@@ -56,7 +60,7 @@ namespace CorePatterns.Managers
             Screen.SetResolution(res.width, res.height, ToUnityFullscreenMode(Current.fullscreenMode),
                 res.refreshRateRatio);
 
-            Save();
+            SaveSettings();
             OnSettingsChanged?.Invoke(Current);
         }
 
@@ -65,7 +69,7 @@ namespace CorePatterns.Managers
             Current.fullscreenMode = mode;
             Screen.fullScreenMode = ToUnityFullscreenMode(mode);
 
-            Save();
+            SaveSettings();
             OnSettingsChanged?.Invoke(Current);
         }
 
@@ -80,7 +84,82 @@ namespace CorePatterns.Managers
                 _ => FullScreenMode.FullScreenWindow
             };
         }
+        
+        public void SetVSync(bool enableVSync)
+        {
+            Current.vSyncEnabled = enableVSync;
+            QualitySettings.vSyncCount = enableVSync ? 1 : 0;
 
+            // Re-apply FPS limit since it only takes effect when vSync is off
+            Application.targetFrameRate = enableVSync ? -1 : AvailableFPSLimits[Current.fpsLimitIndex];
+
+            SaveSettings();
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
+        public void SetFPSLimitByIndex(int index)
+        {
+            if (index < 0 || index >= AvailableFPSLimits.Length) return;
+
+            Current.fpsLimitIndex = index;
+            SetFPSLimit(AvailableFPSLimits[index]);
+        }
+
+        private void SetFPSLimit(int fps)
+        {
+            if (!Current.vSyncEnabled)
+            {
+                Application.targetFrameRate = fps > 0 ? fps : -1;
+            }
+
+            SaveSettings();
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
+        public void ApplyDisplaySettings()
+        {
+            if (Current.resolutionIndex == -1)
+            {
+                Resolution resolution = AvailableResolutions[^1];
+                Screen.SetResolution(resolution.width, resolution.height, ToUnityFullscreenMode(Current.fullscreenMode), resolution.refreshRateRatio);
+                Current.resolutionIndex = AvailableResolutions.Count - 1;
+            }
+            else if (Current.resolutionIndex >= 0 && Current.resolutionIndex < AvailableResolutions.Count)
+            {
+                Resolution resolution = AvailableResolutions[Current.resolutionIndex];
+                Screen.SetResolution(resolution.width, resolution.height, ToUnityFullscreenMode(Current.fullscreenMode), resolution.refreshRateRatio);
+            }
+            
+            QualitySettings.vSyncCount = Current.vSyncEnabled ? 1 : 0;
+            Application.targetFrameRate = Current.vSyncEnabled ? -1 : (Current.fpsLimitIndex > 0 ? AvailableFPSLimits[Current.fpsLimitIndex] : -1);
+            Screen.fullScreenMode = ToUnityFullscreenMode(Current.fullscreenMode);
+        }
+        
+        // ---------------------------------------------------------------------
+        // INPUT
+        // ---------------------------------------------------------------------
+
+        public void SetMouseSensitivity(float sensitivity)
+        {
+            Current.mouseSensitivity = sensitivity;
+            SaveSettings();
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
+        public void InvertMouseX(bool invertX)
+        {
+            Current.mouseInvertX = invertX;
+            SaveSettings();
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
+        public void InvertMouseY(bool invertY)
+        {
+            Current.mouseInvertY = invertY;
+            SaveSettings();
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
         // ---------------------------------------------------------------------
         // GRAPHICS / URP QUALITY
         // ---------------------------------------------------------------------
@@ -92,9 +171,18 @@ namespace CorePatterns.Managers
             Current.qualityLevel = qualityIndex;
             QualitySettings.SetQualityLevel(qualityIndex, true);
 
-            Save();
+            SaveSettings();
             OnSettingsChanged?.Invoke(Current);
         }
+        
+        private void ApplyQualitySettings()
+        {
+            if (Current.qualityLevel >= 0)
+            {
+                QualitySettings.SetQualityLevel(Current.qualityLevel, true);
+            }
+        }
+
 
         // ---------------------------------------------------------------------
         // AUDIO
@@ -105,8 +193,18 @@ namespace CorePatterns.Managers
             Current.masterVolume = Mathf.Clamp01(linear01);
             ApplyVolume(masterVolumeParam, Current.masterVolume);
 
-            Save();
+            SaveSettings();
             OnMasterVolumeChanged?.Invoke(Current.masterVolume);
+            OnSettingsChanged?.Invoke(Current);
+        }
+        
+        public void SetOSTVolume(float linear01)
+        {
+            Current.ostVolume = Mathf.Clamp01(linear01);
+            ApplyVolume(ostVolumeParam, Current.ostVolume);
+
+            SaveSettings();
+            OnOstVolumeChanged?.Invoke(Current.ostVolume);
             OnSettingsChanged?.Invoke(Current);
         }
 
@@ -115,18 +213,8 @@ namespace CorePatterns.Managers
             Current.sfxVolume = Mathf.Clamp01(linear01);
             ApplyVolume(sfxVolumeParam, Current.sfxVolume);
 
-            Save();
+            SaveSettings();
             OnSfxVolumeChanged?.Invoke(Current.sfxVolume);
-            OnSettingsChanged?.Invoke(Current);
-        }
-
-        public void SetMusicVolume(float linear01)
-        {
-            Current.ostVolume = Mathf.Clamp01(linear01);
-            ApplyVolume(ostVolumeParam, Current.ostVolume);
-
-            Save();
-            OnMusicVolumeChanged?.Invoke(Current.ostVolume);
             OnSettingsChanged?.Invoke(Current);
         }
 
@@ -149,7 +237,7 @@ namespace CorePatterns.Managers
 
             Current.languageCode = languageCode;
 
-            Save();
+            SaveSettings();
             OnLanguageChanged?.Invoke(languageCode);
             OnSettingsChanged?.Invoke(Current);
         }
@@ -158,15 +246,18 @@ namespace CorePatterns.Managers
         // PERSISTENCE
         // ---------------------------------------------------------------------
 
-        public void Save()
+        public void SaveSettings()
         {
             string json = JsonUtility.ToJson(Current);
             PlayerPrefs.SetString(playerPrefsKey, json);
             PlayerPrefs.Save();
         }
 
-        public void Load()
+        public void LoadSettings()
         {
+            //Temporal
+            PlayerPrefs.DeleteAll();
+            
             if (PlayerPrefs.HasKey(playerPrefsKey))
             {
                 string json = PlayerPrefs.GetString(playerPrefsKey);
@@ -174,29 +265,14 @@ namespace CorePatterns.Managers
             }
             else
             {
-                Current = new SettingsData
-                {
-                    qualityLevel = QualitySettings.GetQualityLevel(),
-                    languageCode = Application.systemLanguage.ToString()[..2].ToLower()
-                };
+                Current = new SettingsData();
             }
         }
 
         public void ApplyAll()
         {
-            if (Current.qualityLevel >= 0)
-                QualitySettings.SetQualityLevel(Current.qualityLevel, true);
-
-            if (Current.resolutionIndex >= 0 && Current.resolutionIndex < AvailableResolutions.Count)
-            {
-                var res = AvailableResolutions[Current.resolutionIndex];
-                Screen.SetResolution(res.width, res.height, ToUnityFullscreenMode(Current.fullscreenMode),
-                    res.refreshRateRatio);
-            }
-            else
-            {
-                Screen.fullScreenMode = ToUnityFullscreenMode(Current.fullscreenMode);
-            }
+            ApplyDisplaySettings();
+            ApplyQualitySettings();
 
             ApplyVolume(masterVolumeParam, Current.masterVolume);
             ApplyVolume(sfxVolumeParam, Current.sfxVolume);
@@ -204,22 +280,18 @@ namespace CorePatterns.Managers
 
             OnSettingsChanged?.Invoke(Current);
         }
-
+        
         public void ResetToDefaults()
         {
-            Current = new SettingsData
-            {
-                qualityLevel = QualitySettings.GetQualityLevel()
-            };
+            Current.ResetToDefaults();
             ApplyAll();
-            Save();
+            SaveSettings();
         }
 
         // ---------------------------------------------------------------------
         // DELETE PROGRESS
         // ---------------------------------------------------------------------
-
-
+        
         public void DeleteProgress()
         {
             // Example if using file-based saves:

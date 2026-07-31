@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Common.Persistence;
 using Common;
 using CorePatterns.Managers;
@@ -11,11 +12,18 @@ namespace Code.MVP
     public class SettingsWindow : Window
     {
         [Header("Display")] 
-        [SerializeField] private TMP_Dropdown resolutionDropdown;
         [SerializeField] private Toggle fullscreenToggle;
+        [SerializeField] private TMP_Dropdown resolutionDropdown;
+        [SerializeField] private TMP_Dropdown fpsDropdown;
+        [SerializeField] private Toggle vSyncToggle;
 
         [Header("Graphics")] 
         [SerializeField] private TMP_Dropdown qualityDropdown;
+
+        [Header("Input")] 
+        [SerializeField] private Slider mouseSensitivitySlider;
+        [SerializeField] private Toggle invertMouseXToggle;
+        [SerializeField] private Toggle invertMouseYToggle;
 
         [Header("Audio")] 
         [SerializeField] private Slider masterVolumeSlider;
@@ -28,15 +36,52 @@ namespace Code.MVP
 
         [Header("Danger Zone")] 
         [SerializeField] private Button deleteProgressButton;
+        [SerializeField] private Button restoreToDefaultsButton;
+
+        [Header("ScrollView")] 
+        [SerializeField] private ScrollRect scrollRect;
 
 
         private void Awake()
         {
-            deleteProgressButton.onClick.AddListener(OnDeleteProgressClicked);
+            SubscribeToEvents();
         }
 
-        private void OnEnable()
+        private void SubscribeToEvents()
         {
+            //Display
+            resolutionDropdown.onValueChanged.AddListener(OnResolutionChanged);
+            fpsDropdown.onValueChanged.AddListener(OnFpsLimitChanged);
+            fullscreenToggle.onValueChanged.AddListener(OnFullscreenToggled);
+            vSyncToggle.onValueChanged.AddListener(OnVSyncToggled);
+            
+            //Input
+            invertMouseXToggle.onValueChanged.AddListener(OnMouseXToggled);
+            invertMouseYToggle.onValueChanged.AddListener(OnMouseYToggled);
+            mouseSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
+            
+            //Quality
+            qualityDropdown.onValueChanged.AddListener(OnQualityChanged);
+            
+            //Localization
+            languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+            
+            //Audio
+            masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+            ostVolumeSlider.onValueChanged.AddListener(OnOSTVolumeChanged);
+            sfxVolumeSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
+            
+            //Danger Zone
+            deleteProgressButton.onClick.AddListener(OnDeleteProgressClicked);
+            restoreToDefaultsButton.onClick.AddListener(OnResetToDefaultsClicked);
+        }
+
+        public override void Display()
+        {
+            base.Display();
+            
+            scrollRect.verticalNormalizedPosition = 1;
+            
             PopulateDropdowns();
             RefreshFromCurrentSettings();
             SettingsManager.Instance.OnSettingsChanged += HandleSettingsChanged;
@@ -47,7 +92,6 @@ namespace Code.MVP
             base.Hide();
             SettingsManager.Instance.OnSettingsChanged -= HandleSettingsChanged;
         }
-        
 
         private void PopulateDropdowns()
         {
@@ -63,6 +107,23 @@ namespace Code.MVP
             }
 
             resolutionDropdown.AddOptions(resolutionOptions);
+            
+            //FPS
+            fpsDropdown.ClearOptions();
+            List<string> fpsOptions = new List<string>();
+            
+            foreach (int fpsLimit in settingsManager.AvailableFPSLimits)
+            {
+                if (fpsLimit > -1)
+                {
+                    fpsOptions.Add($"{fpsLimit} FPS");
+                    continue;
+                }
+                
+                fpsOptions.Add("Unlimited");
+            }
+
+            fpsDropdown.AddOptions(fpsOptions);
 
             // Quality (URP levels defined in Project Settings > Quality)
             qualityDropdown.ClearOptions();
@@ -77,28 +138,56 @@ namespace Code.MVP
         {
             SettingsData data = SettingsManager.Instance.Current;
 
+            //Display
             resolutionDropdown.SetValueWithoutNotify(Mathf.Max(0, data.resolutionIndex));
+            fpsDropdown.SetValueWithoutNotify(Mathf.Max(0, data.fpsLimitIndex));
             fullscreenToggle.SetIsOnWithoutNotify(data.fullscreenMode != FullScreenModeOption.Windowed);
+            vSyncToggle.SetIsOnWithoutNotify(data.vSyncEnabled);
+            
+            //Input
+            mouseSensitivitySlider.SetValueWithoutNotify(data.mouseSensitivity);
+            invertMouseXToggle.SetIsOnWithoutNotify(data.mouseInvertX);
+            invertMouseYToggle.SetIsOnWithoutNotify(data.mouseInvertY);
+            
+            //Quality
             qualityDropdown.SetValueWithoutNotify(Mathf.Max(0, data.qualityLevel));
+            
+            //Audio
             masterVolumeSlider.SetValueWithoutNotify(data.masterVolume);
             sfxVolumeSlider.SetValueWithoutNotify(data.sfxVolume);
             ostVolumeSlider.SetValueWithoutNotify(data.ostVolume);
-
+            
+            //Localization
             int langIndex = supportedLanguageCodes.IndexOf(data.languageCode);
             languageDropdown.SetValueWithoutNotify(Mathf.Max(0, langIndex));
         }
 
         private void HandleSettingsChanged(SettingsData data) => RefreshFromCurrentSettings();
 
+        //DISPLAY
         public void OnResolutionChanged(int index) => SettingsManager.Instance.SetResolution(index);
 
-        public void OnFullscreenToggled(bool isFullscreen) => SettingsManager.Instance.SetFullscreenMode(isFullscreen
-                ? FullScreenModeOption.FullscreenWindow
-                : FullScreenModeOption.Windowed);
+        public void OnFullscreenToggled(bool isFullscreen) => SettingsManager.Instance.SetFullscreenMode(isFullscreen ? FullScreenModeOption.FullscreenWindow : FullScreenModeOption.Windowed);
 
+        public void OnVSyncToggled(bool vSyncEnabled)
+        {
+            SettingsManager.Instance.SetVSync(vSyncEnabled);
+            fpsDropdown.interactable = !vSyncEnabled;
+        }
+
+        public void OnFpsLimitChanged(int index) => SettingsManager.Instance.SetFPSLimitByIndex(index);
+        
+        //INPUT
+
+        private void OnMouseSensitivityChanged(float arg0) => SettingsManager.Instance.SetMouseSensitivity(arg0);
+
+        private void OnMouseXToggled(bool invertMouseX) => SettingsManager.Instance.InvertMouseX(invertMouseX);
+        private void OnMouseYToggled(bool invertMouseY) => SettingsManager.Instance.InvertMouseY(invertMouseY);
+        
         public void OnQualityChanged(int index) => SettingsManager.Instance.SetQualityLevel(index);
 
         public void OnMasterVolumeChanged(float value) => SettingsManager.Instance.SetMasterVolume(value);
+        public void OnOSTVolumeChanged(float value) => SettingsManager.Instance.SetOSTVolume(value);
 
         public void OnSfxVolumeChanged(float value) => SettingsManager.Instance.SetSfxVolume(value);
 
@@ -118,6 +207,12 @@ namespace Code.MVP
         public void OnDeleteProgressCancelled()
         {
             //Close Confirm dialog
+        }
+        
+        public void OnResetToDefaultsClicked()
+        {
+            SettingsManager.Instance.ResetToDefaults();
+            RefreshFromCurrentSettings();
         }
     }
 }
