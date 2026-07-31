@@ -41,8 +41,9 @@ namespace Code.MVP
         [Header("ScrollView")] 
         [SerializeField] private ScrollRect scrollRect;
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             SubscribeToEvents();
         }
 

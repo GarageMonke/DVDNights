@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Common
 {
     public class Window : MonoBehaviour, IWindow
     {
+        [Header("Close-Button")]
+        [SerializeField] private Button closeButton;
+        
         private bool _isDisplaying;
         public bool IsDisplaying => _isDisplaying;
+
+        protected virtual void Awake()
+        {
+            if (closeButton)
+            {
+                closeButton.onClick.AddListener(Hide);
+            }
+        }
 
         public virtual void Display()
         {

@@ -39,8 +39,11 @@ namespace DVDNights
                 _originalImageHighlightColor = highlightImage.color;
             }
 
-            _originalTextHighlightColor =  buttonText.color;
-            _originalFontStyle = buttonText.fontStyle;
+            if (buttonText)
+            {
+                _originalTextHighlightColor = buttonText.color;
+                _originalFontStyle = buttonText.fontStyle;
+            }
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
@@ -60,7 +63,11 @@ namespace DVDNights
                 highlightImage.color = Color.grey;
             }
 
-            buttonText.color = _originalTextHighlightColor;
+            if (buttonText)
+            {
+                buttonText.color = _originalTextHighlightColor;
+            }
+
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, clickAudioClip, volume: clickVolume, pitch: clickPitch);
         }
 
@@ -70,9 +77,12 @@ namespace DVDNights
             {
                 highlightImage.color = _originalImageHighlightColor;
             }
-            
-            buttonText.color = _originalTextHighlightColor;
-            buttonText.fontStyle = _originalFontStyle;
+
+            if (buttonText)
+            {
+                buttonText.color = _originalTextHighlightColor;
+                buttonText.fontStyle = _originalFontStyle;
+            }
         }
 
         protected virtual void Highlight()
@@ -83,9 +93,12 @@ namespace DVDNights
                 highlightImage.color = highlightTextColor;
             }
 
-            buttonText.color = highlightTextColor;
-            buttonText.fontStyle = highlightFontStyle;
-            
+            if (buttonText)
+            {
+                buttonText.color = highlightTextColor;
+                buttonText.fontStyle = highlightFontStyle;
+            }
+
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, highlightAudioClip, volume: highlightVolume, pitch: highlightPitch);
         }
 
@@ -97,8 +110,11 @@ namespace DVDNights
                 highlightImage.color = _originalImageHighlightColor;
             }
 
-            buttonText.color = _originalTextHighlightColor;
-            buttonText.fontStyle = _originalFontStyle;
+            if (buttonText)
+            {
+                buttonText.color = _originalTextHighlightColor;
+                buttonText.fontStyle = _originalFontStyle;
+            }
         }
         
         protected virtual void OnDisable()
