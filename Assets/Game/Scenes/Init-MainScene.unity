@@ -164,7 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa9091cb5b44b4489c263b9f4820a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneToOpen: {fileID: 11400000, guid: 10851a296226b8146a3ba0dcabef88e5, type: 2}
+  sceneToOpen: {fileID: 11400000, guid: 10851a296226b8146a3ba0dcabef88e5, type: 2}
+  openSceneOnStart: 1
 --- !u!114 &213965806
 MonoBehaviour:
   m_ObjectHideFlags: 0

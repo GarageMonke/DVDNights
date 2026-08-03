@@ -16,4 +16,5 @@ MonoBehaviour:
   openAdditive: 1
   sceneDataToOpen:
   - {fileID: 11400000, guid: 99e7fc4d96c5f9f41bfb3c6f594b0cb4, type: 2}
-  sceneDataToClose: []
+  sceneDataToClose:
+  - {fileID: 11400000, guid: d9c2f5af41da4054e93549da48157007, type: 2}

@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -567.5, y: 125}
-  m_SizeDelta: {x: 785.0001, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3234085657684097176
 CanvasRenderer:
@@ -856,8 +856,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -567.5, y: 125}
-  m_SizeDelta: {x: 785.0001, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6092332871347287809
 CanvasRenderer:
@@ -1034,7 +1034,7 @@ MonoBehaviour:
   hideImageOnUnhighlight: 1
   highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
-  highlightVolume: 1
+  highlightVolume: 0.5
   clickAudioClip: {fileID: 8300000, guid: a3de656bfbdfd054a9cda982f6f39b6d, type: 3}
   clickPitch: 1
   clickVolume: 1
@@ -1190,10 +1190,10 @@ MonoBehaviour:
   hideImageOnUnhighlight: 1
   highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
-  highlightVolume: 1
+  highlightVolume: 0.5
   clickAudioClip: {fileID: 8300000, guid: 5e8293d7fcdd27c49a796f391ddecf24, type: 3}
   clickPitch: 1
-  clickVolume: 1
+  clickVolume: 0.5
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   glitchImage: 0
@@ -1753,10 +1753,10 @@ MonoBehaviour:
   hideImageOnUnhighlight: 1
   highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
-  highlightVolume: 1
+  highlightVolume: 0.5
   clickAudioClip: {fileID: 8300000, guid: 5e8293d7fcdd27c49a796f391ddecf24, type: 3}
   clickPitch: 1
-  clickVolume: 1
+  clickVolume: 0.5
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   glitchImage: 0
@@ -1999,10 +1999,10 @@ MonoBehaviour:
   hideImageOnUnhighlight: 1
   highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
-  highlightVolume: 1
+  highlightVolume: 0.5
   clickAudioClip: {fileID: 8300000, guid: 5e8293d7fcdd27c49a796f391ddecf24, type: 3}
   clickPitch: 1
-  clickVolume: 1
+  clickVolume: 0.5
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   glitchImage: 0
@@ -2191,6 +2191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7456832805693654516}
   - component: {fileID: 164579154810542752}
+  - component: {fileID: 3327162354356921538}
   m_Layer: 5
   m_Name: MainMenu-Window
   m_TagString: Untagged
@@ -2215,12 +2216,13 @@ RectTransform:
   - {fileID: 4981323919244892279}
   - {fileID: 5479310331247867085}
   - {fileID: 8071195555471813394}
+  - {fileID: 2448758808248520418}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 567.5, y: -125}
-  m_SizeDelta: {x: 1135, y: 1030}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &164579154810542752
 MonoBehaviour:
@@ -2235,6 +2237,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 0}
+  sceneLoader: {fileID: 3327162354356921538}
+  fadeInOutBlack: {fileID: 5686331516949969847}
+  newGameButton: {fileID: 2263046977542355064}
+  galleryButton: {fileID: 740412939058423055}
+  settingsAccessPoint: {fileID: 6216473407858709898}
+  mainMenuAudioClip: {fileID: 8300000, guid: c7a5d422cbdd8e44eb546ed9d430882b, type: 3}
+  startGameAudioClip: {fileID: 8300000, guid: a3de656bfbdfd054a9cda982f6f39b6d, type: 3}
+--- !u!114 &3327162354356921538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5301580648568104847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa9091cb5b44b4489c263b9f4820a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToOpen: {fileID: 11400000, guid: 87e639a601b98ee4681cef0c49a4b2ce, type: 2}
+  openSceneOnStart: 0
 --- !u!1 &5750229112994457278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,7 +2368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -175, y: 125}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &4713158975831557166
@@ -2412,8 +2435,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -567.5, y: 150}
-  m_SizeDelta: {x: 495.00012, y: 250}
+  m_AnchoredPosition: {x: 70, y: 0}
+  m_SizeDelta: {x: -140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5298124198199053090
 MonoBehaviour:
@@ -2441,6 +2464,108 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &6724703923017977440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2448758808248520418}
+  - component: {fileID: 3481147814193285017}
+  - component: {fileID: 5147798227225318692}
+  - component: {fileID: 3740270983836153744}
+  - component: {fileID: 5686331516949969847}
+  m_Layer: 5
+  m_Name: FadeInFadeOut-Component
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2448758808248520418
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724703923017977440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7456832805693654516}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3481147814193285017
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724703923017977440}
+  m_CullTransparentMesh: 1
+--- !u!114 &5147798227225318692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724703923017977440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!225 &3740270983836153744
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724703923017977440}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &5686331516949969847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724703923017977440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80488c2b7d8248c4834eb29e4abbb696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 3740270983836153744}
 --- !u!1 &6817947498682972065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,10 +3204,10 @@ MonoBehaviour:
   hideImageOnUnhighlight: 1
   highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
-  highlightVolume: 1
+  highlightVolume: 0.5
   clickAudioClip: {fileID: 8300000, guid: 5e8293d7fcdd27c49a796f391ddecf24, type: 3}
   clickPitch: 1
-  clickVolume: 1
+  clickVolume: 0.5
   highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   highlightFontStyle: 1
   glitchImage: 0
@@ -3314,7 +3439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -567.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -175}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &4631981217506545629

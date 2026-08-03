@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Common;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
@@ -16,8 +17,9 @@ namespace DVDNights
         public Action OnRulesAcknowledge;
         private IDecayController _decayController;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             rulesAcknowledgeButton.onClick.AddListener(RaiseOnRulesAcknowledge);
         }
 
@@ -32,6 +34,11 @@ namespace DVDNights
             _decayController.EnableDecay();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, acknowledgeAudioClip, volume: 0.75f);
             Hide();
+        }
+        
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<RulesWindow>();
         }
     }
 

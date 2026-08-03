@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CorePatterns.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Common
 {
-    public class Window : MonoBehaviour, IWindow
+    public abstract class Window : MonoBehaviour, IWindow
     {
         [Header("Close-Button")]
         [SerializeField] private Button closeButton;
@@ -28,8 +28,11 @@ namespace Common
 
         public virtual void Hide()
         {
-            Destroy(gameObject);
+            _isDisplaying = false;
+            Close();
         }
+
+        public abstract void Close();
     }
     
     public interface IWindow

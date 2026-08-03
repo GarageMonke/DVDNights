@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using CorePatterns.Managers;
 using DG.Tweening;
 using DVDNights;
 using TMPro;
@@ -31,6 +32,11 @@ namespace Code.Gameplay.Dialogues
         {
             _fadeTween?.Kill();
             _fadeTween = canvasGroup.DOFade(0f, 0.3f).OnComplete(() => base.Hide());
+        }
+
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<DialogWindow>();
         }
 
         public void UpdateDialog(string dialog)

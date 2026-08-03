@@ -1509,6 +1509,7 @@ MonoBehaviour:
   rotationVector: {x: 0, y: 0, z: 2}
   smoothSpeed: 5
   isEnabled: 1
+  frameSkip: 0
 --- !u!1001 &1923583425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1785,7 +1786,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 66220cefd44809748a81cf35434f84fe, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 7be5b7f126fa3944a9cf1949836a0c94, type: 2}
 --- !u!65 &1955194200
 BoxCollider:
   m_ObjectHideFlags: 0

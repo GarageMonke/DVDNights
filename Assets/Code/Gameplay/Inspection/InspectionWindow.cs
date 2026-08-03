@@ -1,4 +1,5 @@
 ﻿using Common;
+using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,11 @@ namespace DVDNights
             
             inspectableSubtitle.text = newInspectableSubtitle;
             inspectableDescription.text = newInspectableDescription;
+        }
+        
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<InspectionWindow>();
         }
     }
 

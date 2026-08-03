@@ -5,11 +5,10 @@ using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class TVMessageWindow : Window, IMessageWindow
+    public class TVMessageWindow : TVWindow, IMessageWindow
     {
         [Header("References")] 
         [SerializeField] private GameObject messageWindow;
@@ -56,6 +55,7 @@ namespace DVDNights
             _tvNavigationController.OnSubmitButtonPressed -= RaiseOnMessageAccepted;
             messageWindow.SetActive(false);
         }
+
 
         private IEnumerator StartRebuilding()
         {

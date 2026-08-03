@@ -5,8 +5,6 @@ namespace CorePatterns.Managers
 {
     public class PostProcessingManager : Manager<PostProcessingManager>
     {
-        public static PostProcessingManager Instance { get; private set; }
-
         [Header("References")] 
         [SerializeField] private Volume postProcessing;
 

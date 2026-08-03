@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using UnityEngine;
 
 namespace Code.Common.Feedback
@@ -23,6 +24,11 @@ namespace Code.Common.Feedback
         public void PlayOST()
         {
             AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, ostAudioClip);
+        }
+
+        private void OnDestroy()
+        {
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC);
         }
     }
 }

@@ -23,5 +23,15 @@ namespace Code.MainMenu.AccessPoints
         {
             WindowManager.Instance.OpenWindow<T>(gameObject, openInContainer);
         }
+
+        public void EnableAccessPoint()
+        {
+            accessPointButton.interactable = true;
+        }
+
+        public void DisableAccessPoint()
+        {
+            accessPointButton.interactable = false;
+        }
     }
 }

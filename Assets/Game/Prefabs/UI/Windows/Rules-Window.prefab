@@ -1,80 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &742559161909634607
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8520058133655270503}
-  - component: {fileID: 4632885014678123239}
-  - component: {fileID: 7863997384841303611}
-  m_Layer: 5
-  m_Name: Highlight-Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &8520058133655270503
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742559161909634607}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6188600879866245909}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 176}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4632885014678123239
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742559161909634607}
-  m_CullTransparentMesh: 1
---- !u!114 &7863997384841303611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742559161909634607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 5aa4531c015e28c44bb1324877690c98, type: 2}
-  m_Color: {r: 0.8960484, g: 0.7941449, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c1f357b14f240642bc6b61198493e42, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1017868473650228092
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408e6f33c3ea4990b12f111e61649241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  closeButton: {fileID: 0}
   rulesAcknowledgeButton: {fileID: 8412159376613646616}
   acknowledgeAudioClip: {fileID: 8300000, guid: f7391a6708d04e84cb35230c9b942920, type: 3}
 --- !u!1 &4391123570025224909
@@ -1235,7 +1161,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8520058133655270503}
   - {fileID: 3002589377685437665}
   m_Father: {fileID: 8901361576887218648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1264,7 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 84f99dbe10d62474a84c1c18286d11e6, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1340,16 +1265,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 8412159376613646616}
   buttonText: {fileID: 8107212469282146828}
-  highlightImage: {fileID: 7863997384841303611}
-  hideImageOnUnhighlight: 1
-  highlightAudioClip: {fileID: 0}
+  highlightImage: {fileID: 0}
+  hideImageOnUnhighlight: 0
+  highlightAudioClip: {fileID: 8300000, guid: 16e140ee65de1d842a4fa6c0070e33f2, type: 3}
   highlightPitch: 1
   highlightVolume: 1
   clickAudioClip: {fileID: 0}
   clickPitch: 1
   clickVolume: 1
-  highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightFontStyle: 2
+  highlightTextColor: {r: 1, g: 0.88666916, b: 0, a: 1}
+  highlightFontStyle: 1
 --- !u!1 &7803276330108843580
 GameObject:
   m_ObjectHideFlags: 0

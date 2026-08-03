@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,11 @@ namespace DVDNights
             selectTrackButton.onClick.AddListener(RequestSelectTrack);
             stopTrackButton.onClick.AddListener(RequestStopTrack);
             closeTrackButton.onClick.AddListener(RequestCloseTrack);
+        }
+
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<TrackSelectionWindow>();
         }
 
         private void RequestNextTrack()

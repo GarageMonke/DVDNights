@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Common.Localization;
 using Code.Common.Persistence;
 using Common;
@@ -91,6 +90,11 @@ namespace Code.MVP
         {
             base.Hide();
             SettingsManager.Instance.OnSettingsChanged -= HandleSettingsChanged;
+        }
+
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<SettingsWindow>();
         }
 
         private void PopulateDropdowns()

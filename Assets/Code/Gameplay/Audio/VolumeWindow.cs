@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DVDNights
 {
-    public class VolumeWindow : Window, IVolumeWindow
+    public class VolumeWindow : TVWindow, IVolumeWindow
     {
         [Header("References")]
         [SerializeField] private FillView volumeFillView;

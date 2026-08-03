@@ -72,7 +72,6 @@ namespace DVDNights
             Vector3 startAngles = mainCamera.transform.eulerAngles;
             _currentPitch = startAngles.x;
             _currentYaw   = startAngles.y;
-            _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
 
             ServiceLocator.RegisterService<ICameraController>(this);
         }
@@ -80,6 +79,7 @@ namespace DVDNights
         private void Start()
         {
             _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
         }
 
         private void ZoomOut(InputAction.CallbackContext context)

@@ -18,10 +18,11 @@ namespace DVDNights
         [SerializeField] private AudioClip slipAudioClip;
         
         [Header("Rules-Window")]
-        [SerializeField] private RulesWindow rulesWindow;
         [SerializeField] private AudioClip acknowledgeAudioClip;
-
+        
         public Action OnRulesAcknowledge;
+        
+        private RulesWindow _rulesWindow;
         private Sequence _slipSequence;
         private bool _isInDesktop;
         private ICameraController _cameraController;
@@ -31,7 +32,6 @@ namespace DVDNights
         {
             base.Start();
             _cameraController = ServiceLocator.GetService<ICameraController>();
-            rulesWindow.OnRulesAcknowledge += AcknowledgeRules;
             _interactionController = ServiceLocator.GetService<IInteractionController>();
         }
 
@@ -72,7 +72,12 @@ namespace DVDNights
 
         public override void Interact()
         {
-            rulesWindow.Display();
+            if (!_rulesWindow)
+            {
+                _rulesWindow = WindowManager.Instance.OpenWindow<RulesWindow>(gameObject, openInContainer: true);
+                _rulesWindow.OnRulesAcknowledge += AcknowledgeRules;
+            }
+
             _cameraController.DisableNavigation();
             _interactionController.DisableInteractions();
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, volume: 1f, randomizePitch: true);
@@ -80,6 +85,9 @@ namespace DVDNights
 
         public void AcknowledgeRules()
         {
+            _rulesWindow.OnRulesAcknowledge -= AcknowledgeRules;
+            _rulesWindow = null;
+            
             _cameraController.EnableNavigation();
             _interactionController.EnableInteractions();
             
@@ -109,11 +117,6 @@ namespace DVDNights
         public void HideRules()
         {
             gameObject.SetActive(false);
-        }
-
-        private void OnDestroy()
-        {
-            rulesWindow.OnRulesAcknowledge -= AcknowledgeRules;
         }
     }
 }
