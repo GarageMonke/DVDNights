@@ -22,8 +22,6 @@ namespace DVDNights
         private IDVDTrayController _dvdTrayController;
         private ICameraController _cameraController;
         private Sequence _deliverySequence;
-        
-        
 
         public int LastDeliveredIndex => _currentDeliveryIndex;
 
@@ -79,6 +77,7 @@ namespace DVDNights
             dvdBoxes[_currentDeliveryIndex].OnInteractionPerformed += OnDvdBoxDelivered;
             
             _cameraController.DisableNavigation();
+            
             _deliverySequence?.Kill();
             _deliverySequence = DOTween.Sequence();
             _deliverySequence.AppendInterval(1f);
@@ -95,6 +94,7 @@ namespace DVDNights
 
         public void DeliverNextRuleSet()
         {
+            _deliverySequence?.Kill();
             GameRulesInteractableObject gameRulesInteractableObject = decoyGameRulesInteractableObjects[_currentDeliveryIndex];
             gameRulesInteractableObject.SlipTroughDoor();
             _gameProgressionController = ServiceLocator.GetService<IGameProgressionController>();

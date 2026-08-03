@@ -1,12 +1,13 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace DVDNights
 {
     public class MouseLayoutController : MonoBehaviour, IMouseLayoutController
     {
-        [SerializeField] private MouseLayoutView mouseLayoutView;
-        
+        private MouseLayoutWindow _mouseLayoutWindow;
+
         private void Awake()
         {
             InstallService();
@@ -19,19 +20,25 @@ namespace DVDNights
 
         public void DisplayRegularLayout()
         {
-            mouseLayoutView.Display();
-            mouseLayoutView.DisplayRegularLayout();
+            if (!_mouseLayoutWindow)
+            {
+                _mouseLayoutWindow = WindowManager.Instance.OpenWindow<MouseLayoutWindow>(gameObject, openInContainer: false);
+            }
+
+            _mouseLayoutWindow.gameObject.SetActive(true);
+            _mouseLayoutWindow.DisplayRegularLayout();
         }
 
         public void DisplayInspectionLayout()
         {
-            mouseLayoutView.Display();
-            mouseLayoutView.DisplayInspectionLayout();
+            _mouseLayoutWindow.gameObject.SetActive(true);
+            _mouseLayoutWindow.Display();
+            _mouseLayoutWindow.DisplayInspectionLayout();
         }
 
         public void HideMouseLayout()
         {
-            mouseLayoutView.Hide();
+            _mouseLayoutWindow.gameObject.SetActive(false);
         }
     }
 

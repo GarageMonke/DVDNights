@@ -27,12 +27,14 @@ namespace DVDNights
         private bool _isInDesktop;
         private ICameraController _cameraController;
         private IInteractionController _interactionController;
+        private IMouseLayoutController _mouseLayoutController;
 
         protected override void Start()
         {
             base.Start();
             _cameraController = ServiceLocator.GetService<ICameraController>();
             _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _mouseLayoutController = ServiceLocator.GetService<IMouseLayoutController>();
         }
 
         public override string GetInteractionAction()
@@ -43,6 +45,10 @@ namespace DVDNights
         public void SlipTroughDoor()
         {
             ShowRules();
+            
+            _cameraController ??= ServiceLocator.GetService<ICameraController>();
+            _cameraController.DisableNavigation();
+            
             _slipSequence?.Kill();
             _slipSequence = DOTween.Sequence();
             _slipSequence.AppendInterval(0.5f);
@@ -61,12 +67,8 @@ namespace DVDNights
             _slipSequence.AppendCallback(() =>
             {
                 Quaternion targetLookRotation = Quaternion.LookRotation(transform.position - _cameraController.Camera.transform.position);
-                _cameraController.TweenToRotation(targetLookRotation);
-            });
-            _slipSequence.AppendInterval(1f);
-            _slipSequence.AppendCallback(() =>
-            {
-                _cameraController.DisableNavigation();
+                DOTween.KillAll(complete: true);
+                _cameraController.TweenToRotation(targetLookRotation, 0.25f);
             });
         }
 
@@ -80,6 +82,7 @@ namespace DVDNights
 
             _cameraController.DisableNavigation();
             _interactionController.DisableInteractions();
+            _mouseLayoutController.HideMouseLayout();
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, InteractionAudioClip, volume: 1f, randomizePitch: true);
         }
 

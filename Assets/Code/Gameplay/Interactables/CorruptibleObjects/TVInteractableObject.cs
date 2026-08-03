@@ -81,6 +81,7 @@ namespace DVDNights
             _mouseLayoutController.DisplayRegularLayout();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
             _isInteractingWithTv = true;
+            AudioManager.Instance.SetChannelVolume(AudioChannelType.TV, 100f);
         }
 
         public override void StopInteraction()
@@ -99,7 +100,7 @@ namespace DVDNights
             _mouseLayoutController.HideMouseLayout();
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
             _isInteractingWithTv = false;
-            _isInteractingWithTv = true;
+            AudioManager.Instance.SetChannelVolume(AudioChannelType.TV, 25f);
         }
 
         public override void Corrupt()
