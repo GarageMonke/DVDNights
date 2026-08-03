@@ -9,9 +9,8 @@ namespace DVDNights
     public class TrackSelectorController : MonoBehaviour, ITrackSelectionController
     {
         [Header("References")] 
-        [SerializeField] private Transform trackOrigin;
-        [SerializeField] private TrackSelectionWindow trackSelectionWindow;
         [SerializeField] private TrackDataProvider trackDataProvider;
+        [SerializeField] private GameObject trackSelectionPrefab;
         
         private GameObject _trackObject;
         
@@ -23,6 +22,7 @@ namespace DVDNights
 
         private IMouseLayoutController _mouseLayoutController;
         private ICameraController _cameraController;
+        private TrackSelectionWindow _trackSelectionWindow;
 
         public Action OnTrackPlayRequested { get; set; }
         public Action OnTrackSelectionCloseRequested { get; set; }
@@ -51,20 +51,20 @@ namespace DVDNights
         public void OpenTrackSelector()
         {
             AudioManager.Instance.PauseOST(AudioChannelType.TURNTABLE, fadeDuration: 0f);
+            _trackSelectionWindow = WindowManager.Instance.OpenWindow<TrackSelectionWindow>(gameObject, openInContainer: true);
             DisplayTrack();
-            trackSelectionWindow.Display();
             SubscribeToEvents();
-            _mouseLayoutController.DisplayRegularLayout();
+          
             _cameraController.Unfocus();
             CheckPreviousTrack();
 
             if (_isPlayingTrack)
             {
-                trackSelectionWindow.EnableStopTrackButton();
+                _trackSelectionWindow.EnableStopTrackButton();
             }
             else
             {
-                trackSelectionWindow.DisableStopTrackButton();
+                _trackSelectionWindow.DisableStopTrackButton();
             }
         }
      
@@ -72,8 +72,7 @@ namespace DVDNights
         {
             DeleteTrack();
             TrackDataSO currentTrackData = trackDataProvider.GetElementById(_currentTrackIndex.ToString());
-            _trackObject = Instantiate(currentTrackData.TrackObject, trackOrigin);
-            trackSelectionWindow.UpdateTrackInfo(currentTrackData.TrackTitle, currentTrackData.CoverArt, currentTrackData.Composer);
+            _trackSelectionWindow.UpdateTrackInfo(currentTrackData.VinylSprite, currentTrackData.TrackTitle, currentTrackData.CoverArt, currentTrackData.Composer);
             AudioManager.Instance.PlayPreview(AudioChannelType.NONDIEGETIC, currentTrackData.TrackAudioClip);
         }
 
@@ -136,8 +135,7 @@ namespace DVDNights
         {
             DeleteTrack();
             UnsubscribeToEvents();
-            _mouseLayoutController.HideMouseLayout();
-            trackSelectionWindow.Hide();
+            _trackSelectionWindow.Hide();
             _cameraController.Focus();
         }
 
@@ -186,31 +184,31 @@ namespace DVDNights
 
         private void SubscribeToEvents()
         {
-            trackSelectionWindow.OnNextTrackRequested += NextTrack;
-            trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
-            trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
-            trackSelectionWindow.OnStopTrackRequested += StopPlayingTrack;
-            trackSelectionWindow.OnCloseTrackRequested += ExitTrackSelection;
+            _trackSelectionWindow.OnNextTrackRequested += NextTrack;
+            _trackSelectionWindow.OnPreviousTrackRequested += PreviousTrack;
+            _trackSelectionWindow.OnSelectTrackRequested += SelectTrack;
+            _trackSelectionWindow.OnStopTrackRequested += StopPlayingTrack;
+            _trackSelectionWindow.OnCloseTrackRequested += ExitTrackSelection;
         }
 
         private void UnsubscribeToEvents()
         {
-            trackSelectionWindow.OnNextTrackRequested -= NextTrack;
-            trackSelectionWindow.OnPreviousTrackRequested -= PreviousTrack;
-            trackSelectionWindow.OnSelectTrackRequested -= SelectTrack;
-            trackSelectionWindow.OnStopTrackRequested -= StopPlayingTrack;
-            trackSelectionWindow.OnCloseTrackRequested -= ExitTrackSelection;
+            _trackSelectionWindow.OnNextTrackRequested -= NextTrack;
+            _trackSelectionWindow.OnPreviousTrackRequested -= PreviousTrack;
+            _trackSelectionWindow.OnSelectTrackRequested -= SelectTrack;
+            _trackSelectionWindow.OnStopTrackRequested -= StopPlayingTrack;
+            _trackSelectionWindow.OnCloseTrackRequested -= ExitTrackSelection;
         }
 
         private void CheckPreviousTrack()
         {
             if (_currentTrackIndex == _previousTrackIndex)
             {
-                trackSelectionWindow.ShowResumeAction();
+                _trackSelectionWindow.ShowResumeAction();
             }
             else
             {
-                trackSelectionWindow.ShowPlayAction();
+                _trackSelectionWindow.ShowPlayAction();
             }
         }
     }

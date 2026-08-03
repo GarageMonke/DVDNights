@@ -13,6 +13,7 @@ namespace DVDNights
         [SerializeField] private AudioClip trackAudioClip;
         [SerializeField] private Material vinylCaseMaterial;
         [SerializeField] private Material vinylMaterial;
+        [SerializeField] private Sprite vinylSprite;
         
         public AudioClip TrackAudioClip => trackAudioClip;
         public GameObject TrackObject => trackObject;
@@ -20,6 +21,7 @@ namespace DVDNights
         public string CoverArt => coverArt;
         public string Composer => composer;
         public Material VinylCaseMaterial => vinylCaseMaterial;
-        public  Material VinylMaterial => vinylMaterial;
+        public Material VinylMaterial => vinylMaterial;
+        public Sprite VinylSprite => vinylSprite;
     }
 }

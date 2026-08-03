@@ -326,6 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowCamera: {fileID: 248689878}
   windowVolume: {fileID: 1237092310}
+  worldTransform: {fileID: 283663787}
   windowDatabase: {fileID: 11400000, guid: f32dc2d948e0d7a478ac03646ff79d60, type: 2}
 --- !u!1 &1237092308
 GameObject:

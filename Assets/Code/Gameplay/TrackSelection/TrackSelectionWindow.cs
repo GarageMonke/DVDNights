@@ -13,6 +13,7 @@ namespace DVDNights
         [SerializeField] private TextMeshProUGUI trackTitleText;
         [SerializeField] private TextMeshProUGUI coverArtText;
         [SerializeField] private TextMeshProUGUI composerText;
+        [SerializeField] private Image trackImage;
 
         [SerializeField] private Button nextTrackButton;
         [SerializeField] private Button previousTrackButton;
@@ -28,8 +29,9 @@ namespace DVDNights
         public Action OnStopTrackRequested { get; set; }
         public Action OnCloseTrackRequested { get; set; }
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             nextTrackButton.onClick.AddListener(RequestNextTrack);
             previousTrackButton.onClick.AddListener(RequestPreviousTrack);
             selectTrackButton.onClick.AddListener(RequestSelectTrack);
@@ -67,8 +69,9 @@ namespace DVDNights
             OnCloseTrackRequested?.Invoke();
         }
 
-        public void UpdateTrackInfo(string trackTitle, string coverArt, string composer)
+        public void UpdateTrackInfo(Sprite trackSprite, string trackTitle, string coverArt, string composer)
         {
+            trackImage.sprite = trackSprite;
             trackTitleText.text = trackTitle;
             coverArtText.text = coverArt;
             composerText.text = composer;
@@ -108,8 +111,8 @@ namespace DVDNights
         public Action OnSelectTrackRequested { get; set; }
         public Action OnStopTrackRequested { get; set; }
         public Action OnCloseTrackRequested { get; set; }
-        
-        public void UpdateTrackInfo(string trackTitle, string coverArt, string composer);
+
+        public void UpdateTrackInfo(Sprite trackSprite, string trackTitle, string coverArt, string composer);
         public void EnableStopTrackButton();
         public void DisableStopTrackButton();
 

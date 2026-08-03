@@ -133,8 +133,8 @@ MonoBehaviour:
   m_text: Keep the lights on at all times. If they begin to flicker, turn them off
     and on again.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b17710868d9e49444940357ae25a2c99, type: 2}
-  m_sharedMaterial: {fileID: -608666947906293359, guid: b17710868d9e49444940357ae25a2c99, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
+  m_sharedMaterial: {fileID: 3048863780643756096, guid: 2041325b4eca77e4b9b8cc312a951fe4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -251,7 +251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -113.315}
+  m_AnchoredPosition: {x: 50, y: -57.870003}
   m_SizeDelta: {x: 400, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &708206534673089226

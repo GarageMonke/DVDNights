@@ -14,6 +14,7 @@ namespace CorePatterns.Managers
         [Header("References")] 
         [SerializeField] private Camera windowCamera;
         [SerializeField] private Volume windowVolume;
+        [SerializeField] private Transform worldTransform;
         
         [Header("Windows")]
         [SerializeField] private WindowDatabase windowDatabase;
@@ -22,6 +23,7 @@ namespace CorePatterns.Managers
         private Dictionary<Type, WindowEntry> _openedWindows = new();
         
         private Canvas _containerCanvas;
+        private GameObject _instantiatedInWorld;
 
         protected override void Awake()
         {
@@ -61,6 +63,8 @@ namespace CorePatterns.Managers
             }
 
             T instance = Instantiate(prefab, canvas.transform) as T;
+
+            GameObject instantiatedInWorld = null;
             
             _openedWindows.TryAdd(type, new WindowEntry(instance, openInContainer));
             

@@ -19,3 +19,4 @@ MonoBehaviour:
   trackAudioClip: {fileID: 8300000, guid: d8d7aaa51eac3f64097d2b130e8e8374, type: 3}
   vinylCaseMaterial: {fileID: 2100000, guid: c0dbe898abd842640b725d5e8c2a2647, type: 2}
   vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}
+  vinylSprite: {fileID: 21300000, guid: 40ae17a9ba4ccb145bceb644c9dc3b0b, type: 3}
