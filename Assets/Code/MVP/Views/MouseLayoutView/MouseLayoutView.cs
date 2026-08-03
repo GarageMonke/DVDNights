@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Common;
+using CorePatterns.Managers;
+using UnityEngine;
 
 namespace DVDNights
 {
@@ -27,6 +29,11 @@ namespace DVDNights
             mouseLeftClick.SetActive(false);
             mouseWheelClick.SetActive(false);
             mouseRightClick.SetActive(false);
+        }
+
+        public override void Close()
+        {
+            WindowManager.Instance.CloseWindow<MouseLayoutView>();
         }
     }
 

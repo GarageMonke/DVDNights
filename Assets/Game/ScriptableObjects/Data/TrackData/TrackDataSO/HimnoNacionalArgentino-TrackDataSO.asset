@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13608d3f87a84c3e92b532c2d97b8966, type: 3}
+  m_Name: HimnoNacionalArgentino-TrackDataSO
+  m_EditorClassIdentifier: 
+  trackTitle: 'Title: Himno Nacional Argentino'
+  coverArt: 
+  composer: 
+  trackObject: {fileID: 6896695006450494216, guid: bcbf0441c45527046913e310fffbf03b, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: 8a422fb3d33b99845a6184728bd4a76c, type: 3}
+  vinylCaseMaterial: {fileID: 2100000, guid: 7658470d223b07b4ab39492fbd44d9b3, type: 2}
+  vinylMaterial: {fileID: 2100000, guid: cde24e22543af40498da43ca7b2c8d05, type: 2}
+  vinylSprite: {fileID: 21300000, guid: 6ea2a3d0554d61146a061a8013a3a1b7, type: 3}

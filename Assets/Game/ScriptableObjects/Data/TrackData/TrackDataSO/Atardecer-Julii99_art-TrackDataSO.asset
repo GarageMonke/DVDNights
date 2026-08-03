@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13608d3f87a84c3e92b532c2d97b8966, type: 3}
+  m_Name: Atardecer-Julii99_art-TrackDataSO
+  m_EditorClassIdentifier: 
+  trackTitle: 'Title: Atardecer'
+  coverArt: 'Cover Art: Julii99_art'
+  composer: 'Composer: Dale Marian Ponete la 10'
+  trackObject: {fileID: 6896695006450494216, guid: d29dccf14dff6de4c8ece3aa74fdedd4, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: dd8ba26abeb73d04682789708d799655, type: 3}
+  vinylCaseMaterial: {fileID: 2100000, guid: 3548354c29cf96d48b65ff08a690e670, type: 2}
+  vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}
+  vinylSprite: {fileID: 21300000, guid: 82e508df1222e3d48ba7239fe76dee39, type: 3}

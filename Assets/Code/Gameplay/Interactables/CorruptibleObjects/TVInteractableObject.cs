@@ -53,15 +53,7 @@ namespace DVDNights
             
             return "TV";
         }
-
-        private void Update()
-        {
-            if (!Input.GetKeyDown(KeyCode.C)) return;
-            if (CanBeCorrupted())
-            {
-                Corrupt();
-            }
-        }
+        
 
         public override void Interact()
         {

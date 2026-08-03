@@ -15,12 +15,17 @@ namespace DVDNights
         {
             _tweener?.Kill();
             _tweener = canvasGroup.DOFade(1, duration).SetEase(ease).OnComplete(() => onFadeCallback?.Invoke());
+            canvasGroup.blocksRaycasts = true;
         }
         
         public void FadeOut(float duration, Ease ease, Action onFadeCallback)
         {
             _tweener?.Kill();
-            _tweener = canvasGroup.DOFade(0, duration).SetEase(ease).OnComplete(() => onFadeCallback?.Invoke());
+            _tweener = canvasGroup.DOFade(0, duration).SetEase(ease).OnComplete(() =>
+            {
+                canvasGroup.blocksRaycasts = false;
+                onFadeCallback?.Invoke();
+            });
         }
     }
 }

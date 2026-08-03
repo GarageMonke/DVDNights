@@ -1,11 +1,12 @@
 ﻿using System;
+using Common;
 using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
 
 namespace DVDNights
 {
-    public class ShopWindow : Window, IShopWindow
+    public class ShopWindow : TVWindow, IShopWindow
     {
         [Header("References")] 
         [SerializeField] private TextMeshProUGUI availablePointsText;
@@ -27,7 +28,7 @@ namespace DVDNights
         {
             _shopItemInfoProvider = ServiceLocator.GetService<IShopItemInfoProvider>();
         }
-
+        
         public override void Display()
         {
             foreach (IShopItemView shopItemView in shopItemViews)

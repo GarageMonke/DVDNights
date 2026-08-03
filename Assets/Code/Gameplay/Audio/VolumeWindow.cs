@@ -1,10 +1,11 @@
-﻿using CorePatterns.Managers;
+﻿using Common;
+using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 
 namespace DVDNights
 {
-    public class VolumeWindow : Window, IVolumeWindow
+    public class VolumeWindow : TVWindow, IVolumeWindow
     {
         [Header("References")]
         [SerializeField] private FillView volumeFillView;
