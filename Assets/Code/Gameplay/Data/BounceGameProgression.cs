@@ -4,7 +4,7 @@ namespace DVDNights
 {
     public static class BounceGameProgression
     {
-        // ── BASE CONSTANTS 
+        // BASE CONSTANTS 
         public static readonly int DiscBaseBorderPoints = 1;
         public static readonly int DiscBaseCornerPoints = 10;
         public static readonly int DiscBaseSpeed = 200;
@@ -49,7 +49,7 @@ namespace DVDNights
             return (int)Math.Min(MaxPoints, cost);
         }
         
-        public static int GetBonusMaxLevel() => 2;
+        public static int GetBonusMaxLevel() => 20;
 
         public static float GetFFClickBonus(int level) => FFClickBonus[level];
         
@@ -69,17 +69,17 @@ namespace DVDNights
         
         // Border: starts strong, doubles roughly every 3-4 levels, explodes at the end
         private static readonly int[] BorderBonusMultipliers = {
-            1,      // 0 — base
-            4,      // 1 — first upgrade, instant wow
-            8,     // 2
+            1,      // 0 
+            4,      // 1 
+            8,      // 2
             20,     // 3
             60,     // 4
-            100,    // 5 — halfway feels powerful
+            100,    // 5
             250,    // 6
             450,    // 7
-            650,   // 8
+            650,    // 8
             1800,   // 9
-            5000,   // 10 — double digits, huge milestone
+            5000,   // 10
             7000,   // 11
             12000,  // 12
             20000,  // 13
@@ -89,7 +89,7 @@ namespace DVDNights
             175000, // 17
             300000, // 18
             520000, // 19
-            1000000 // 20 — one million times. the player screams
+            1000000 // 20
         };
         
         private static readonly int[] CornerBonusMultipliers = {
@@ -113,7 +113,7 @@ namespace DVDNights
             6000000, // 17
             13000000,// 18
             28000000,// 19
-            60000000 // 20 — sixty million per corner hit. absurd. perfect.
+            60000000 // 20
         };
     }
 }

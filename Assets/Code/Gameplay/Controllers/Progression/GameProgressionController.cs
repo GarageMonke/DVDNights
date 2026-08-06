@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 
