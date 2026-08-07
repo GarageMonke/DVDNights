@@ -10,7 +10,7 @@ namespace DVDNights
     {
         [Header("References")] 
         [SerializeField] private GameObject powerView;
-        [SerializeField] private Material forwardMaterial;
+      
 
         [Header("Feedback")] 
         [SerializeField] private FillView forwardFillView;
@@ -24,11 +24,12 @@ namespace DVDNights
         
         private float _layerProgress;
         private IShopController _shopController;
-        private ITVNavigationController _tvNagivationController;
+        private ITVNavigationController _tvNavigationController;
         private bool _isForwarding;
         private IDisksController _disksController;
         private IDiskLevelController _diskLevelController;
         private ITVStateController _tvStateController;
+        private Material _forwardMaterial;
 
         private static readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
         private static readonly int DistortionStrength = Shader.PropertyToID("_DistortionStrength");
@@ -51,15 +52,16 @@ namespace DVDNights
         private void Start()
         {
             _shopController = ServiceLocator.GetService<IShopController>();
-            _tvNagivationController = ServiceLocator.GetService<ITVNavigationController>();
+            _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _disksController = ServiceLocator.GetService<IDisksController>();
             _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
 
-            _tvNagivationController.OnSubmitButtonPressed += AddPower;
-            _tvNagivationController.OnNextButtonHeld += GoForward;
-            _tvNagivationController.OnNextButtonReleased += StopForward;
-            _forwardButton = _tvNagivationController.NextButton;
+            _tvNavigationController.OnSubmitButtonPressed += AddPower;
+            _tvNavigationController.OnNextButtonHeld += GoForward;
+            _tvNavigationController.OnNextButtonReleased += StopForward;
+            _forwardButton = _tvNavigationController.NextButton;
+            _forwardMaterial = _tvStateController.TVScreenMaterial;
 
             _currentPower = 100;
             AddPower();
@@ -67,9 +69,9 @@ namespace DVDNights
 
         private void OnDestroy()
         {
-            _tvNagivationController.OnSubmitButtonPressed -= AddPower;
-            _tvNagivationController.OnNextButtonHeld -= GoForward;
-            _tvNagivationController.OnNextButtonReleased -= StopForward;
+            _tvNavigationController.OnSubmitButtonPressed -= AddPower;
+            _tvNavigationController.OnNextButtonHeld -= GoForward;
+            _tvNavigationController.OnNextButtonReleased -= StopForward;
         }
 
         private void GoForward()
@@ -111,6 +113,7 @@ namespace DVDNights
             forwardLevelText.text = "X" + BounceGameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
             SetForwardShader();
         }
+        
 
         private void SetForwardShader()
         {
@@ -157,17 +160,17 @@ namespace DVDNights
                     break;
             }
             
-            forwardMaterial.SetFloat(ScrollSpeed, speed);
-            forwardMaterial.SetFloat(DistortionStrength, distortion);
-            forwardMaterial.SetFloat(ScanlineOpacity, opacity);
+            _forwardMaterial.SetFloat(ScrollSpeed, speed);
+            _forwardMaterial.SetFloat(DistortionStrength, distortion);
+            _forwardMaterial.SetFloat(ScanlineOpacity, opacity);
         }
 
         public void ResetForwardShader()
         {
             powerView.SetActive(false);
-            forwardMaterial.SetFloat(ScrollSpeed, 0);
-            forwardMaterial.SetFloat(DistortionStrength, 0);
-            forwardMaterial.SetFloat(ScanlineOpacity, 0);
+            _forwardMaterial.SetFloat(ScrollSpeed, 0);
+            _forwardMaterial.SetFloat(DistortionStrength, 0);
+            _forwardMaterial.SetFloat(ScanlineOpacity, 0);
         }
 
         private void StopForward()
@@ -223,14 +226,14 @@ namespace DVDNights
 
         public void FlickerForward()
         {
-            forwardMaterial = _tvStateController.TVScreenMaterial;
+            _forwardMaterial = _tvStateController.TVScreenMaterial;
             var speed = 500f;
             var distortion = 0.1f;
             var opacity = 0.05f;
 
-            forwardMaterial.SetFloat(ScrollSpeed, speed);
-            forwardMaterial.SetFloat(DistortionStrength, distortion);
-            forwardMaterial.SetFloat(ScanlineOpacity, opacity);
+            _forwardMaterial.SetFloat(ScrollSpeed, speed);
+            _forwardMaterial.SetFloat(DistortionStrength, distortion);
+            _forwardMaterial.SetFloat(ScanlineOpacity, opacity);
         }
     }
 
