@@ -19,6 +19,9 @@ namespace Code.MVP
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button galleryButton;
         [SerializeField] private SettingsAccessPoint settingsAccessPoint;
+        [SerializeField] private CreditsAccessPoint creditsAccessPoint;
+        [SerializeField] private Button exitButton;
+        [SerializeField] private Button steamButton;
         
         [Header("Audio-Feedback")]
         [SerializeField] private AudioClip mainMenuAudioClip;
@@ -29,8 +32,10 @@ namespace Code.MVP
         {
             base.Awake();
             newGameButton.onClick.AddListener(NewGame);
+            exitButton.onClick.AddListener(ExitGame);;
+            steamButton.onClick.AddListener(OpenSteamPage);;
         }
-        
+
         private void Start()
         {
             AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, mainMenuAudioClip);
@@ -56,6 +61,16 @@ namespace Code.MVP
         {
             fadeInOutBlack.FadeIn(startGameAudioClip.length, Ease.Linear, DisplayLoadingWindow);
             AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC);
+        }
+        
+        private void OpenSteamPage()
+        {
+            Application.OpenURL("");
+        }
+        
+        private void ExitGame()
+        {
+            Application.Quit();
         }
 
         private void DisplayLoadingWindow()
