@@ -1126,7 +1126,7 @@ MonoBehaviour:
   sfxSource: {fileID: 2122998163}
   ostSource: {fileID: 1689389582}
   mixer: {fileID: 24100000, guid: f704ebb6c65cf694f887471c484fdede, type: 2}
-  channelVolume: 30
+  channelVolume: 70
   hauntedDistortion: 70
   hauntedLowPass: 2500
   distortionParameter: TurnTable-Distortion
