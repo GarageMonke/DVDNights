@@ -17,12 +17,17 @@ namespace DVDNights
         [SerializeField] private Renderer entityRenderer;
         [SerializeField] private Renderer[] entitySubRenderers;
         
+        [Header("Interactables")]
+        [SerializeField] private LampInteractableObject lampInteractableObject;
+        
         [Header("Bone-References")]
         [SerializeField] private Transform head1;
         [SerializeField] private Transform head2;
         [SerializeField] private Transform head3;
+        [SerializeField] private Transform body;
 
         [Header("Audio-Feedback")] 
+        [SerializeField] private AudioClip warningAudioClip;
         [SerializeField] private AudioClipProvider jumpScareAudioClipProvider;
         
         [Header("Jumpscares-Data")]
@@ -55,6 +60,7 @@ namespace DVDNights
         
         private ICameraController _cameraController;
         private ISanityController _sanityController;
+        
 
         private void Awake()
         {
@@ -98,13 +104,17 @@ namespace DVDNights
 
         public override void Highlight()
         {
+            BloomIn(0.5f);
+
             if (IsVisible())
             {
                 ScheduleJumpScare();
-                return;
             }
-            
-            BloomIn(0.25f);
+
+            if (IsPartiallyVisible())
+            {
+                DisplayWarning();
+            }
         }
 
         private void ScheduleJumpScare()
@@ -119,6 +129,11 @@ namespace DVDNights
             _jumpScareTween = DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), PlayJumpScare);
         }
 
+        private void DisplayWarning()
+        {
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, warningAudioClip);
+        }
+
         public override void Unhighlight()
         {
             BloomOut(0.25f);
@@ -131,6 +146,14 @@ namespace DVDNights
             animatorController.enabled = true;
             animatorController.speed = 0;
             animatorController.Play(GetRandomIdleAnimation());
+        }
+
+        private void TurnOffLamp()
+        {
+            if (_isCorrupted)
+            {
+                lampInteractableObject.Interact();
+            }
         }
         
         private string GetRandomIdleAnimation()
@@ -190,6 +213,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
+            lampInteractableObject.OnLampTurnedOn += TurnOffLamp;
             ShowEntity();
         }
 
@@ -201,6 +225,7 @@ namespace DVDNights
         public override void ClearCorruption()
         {
             base.ClearCorruption();
+            lampInteractableObject.OnLampTurnedOn -= TurnOffLamp;
             DisableInteraction();
             _jumpScareEnabled = false;
             transform.parent = _spawnParent;
@@ -242,9 +267,14 @@ namespace DVDNights
             TweenBloom(0f, duration);
         }
 
-        bool IsVisible()
+        private bool IsVisible()
         {
             return IsOnScreen(head1.position) || IsOnScreen(head2.position) || IsOnScreen(head3.position);
+        }
+
+        private bool IsPartiallyVisible()
+        {
+            return IsOnScreen(body.position);
         }
 
         bool IsOnScreen(Vector3 worldPos)

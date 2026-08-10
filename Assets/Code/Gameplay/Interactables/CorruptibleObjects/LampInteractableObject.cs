@@ -1,6 +1,8 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
@@ -25,6 +27,8 @@ namespace DVDNights
         [SerializeField] private float minStepTime = 0.02f;
         [SerializeField] private float maxStepTime = 0.1f;
 
+        public Action OnLampTurnedOn;
+        
         private bool _isOn;
         private Sequence _flickerSequence;
         private float _thresholdIntensity;
@@ -53,6 +57,7 @@ namespace DVDNights
             {
                 toPlay = turnOnLampAudioClip;
                 OverrideShadeMaterial(shadeEmissiveMaterial);
+                OnLampTurnedOn?.Invoke();
             }
             else
             {
