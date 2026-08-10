@@ -1,5 +1,4 @@
-﻿using System;
-using CheatCodes.Definitions;
+﻿using CheatCodes.Definitions;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
