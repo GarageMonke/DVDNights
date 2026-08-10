@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 8Gold-DiskDataSO
   m_EditorClassIdentifier: 
   diskType: 7
-  diskMultiplier: 128
+  diskMultiplier: 256
   diskColor: {r: 1, g: 0.88666916, b: 0, a: 1}
   diskMaterial: {fileID: 2100000, guid: 41559a9269ab99e4ba977a2fbee15a1c, type: 2}

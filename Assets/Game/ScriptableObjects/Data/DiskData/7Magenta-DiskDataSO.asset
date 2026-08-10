@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: 7Magenta-DiskDataSO
   m_EditorClassIdentifier: 
   diskType: 6
-  diskMultiplier: 64
+  diskMultiplier: 128
   diskColor: {r: 0.98803353, g: 0.56407976, b: 1, a: 1}
+  diskMaterial: {fileID: 0}
