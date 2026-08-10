@@ -8,6 +8,7 @@ namespace Rulebound
     public class CheatCodesController : MonoBehaviour, ICheatCodesController
     {
         private Dictionary<string, ICheatCodeImplementation> _cheatCodes;
+        
         private void Awake()
         {
             InstallService();

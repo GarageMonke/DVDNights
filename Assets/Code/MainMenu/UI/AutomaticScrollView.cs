@@ -66,8 +66,6 @@ public class AutomaticScrollView : MonoBehaviour
     private IEnumerator ScrollByDurationRoutine(float duration, float holdTime = 1f)
     {
         scrollRect.verticalNormalizedPosition = 1f;
-        
-        yield return new WaitForSeconds(holdTime);
 
         float elapsed = 0f;
         while (elapsed < duration)

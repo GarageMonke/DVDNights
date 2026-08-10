@@ -27,18 +27,20 @@ namespace Code.MVP
         [SerializeField] private AudioClip mainMenuAudioClip;
         [SerializeField] private AudioClip startGameAudioClip;
         
-
+        
         protected override void Awake()
         {
             base.Awake();
             newGameButton.onClick.AddListener(NewGame);
             exitButton.onClick.AddListener(ExitGame);;
-            steamButton.onClick.AddListener(OpenSteamPage);;
+            steamButton.onClick.AddListener(OpenSteamPage);
+            creditsAccessPoint.OnWindowAccessed += Hide;
+            settingsAccessPoint.OnWindowAccessed += Hide;
         }
 
         private void Start()
         {
-            AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, mainMenuAudioClip);
+            AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, mainMenuAudioClip, loop: true);
             fadeInOutBlack.FadeOut(2f, Ease.Linear, null);
         }
 
@@ -78,6 +80,12 @@ namespace Code.MVP
             WindowManager.Instance.OpenWindow<LoadingWindow>(gameObject, true);
             sceneLoader.LoadScene();
             Hide();
+        }
+
+        private void OnDestroy()
+        {
+            creditsAccessPoint.OnWindowAccessed -= Hide;
+            settingsAccessPoint.OnWindowAccessed -= Hide;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CorePatterns.Managers;
+﻿using System;
+using CorePatterns.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using Window = Common.Window;
@@ -11,6 +12,8 @@ namespace Code.MainMenu.AccessPoints
         [SerializeField] private bool openInContainer;
         [SerializeField] private Button accessPointButton;
 
+        public Action OnWindowAccessed;
+        
         private void Awake()
         {
             if (accessPointButton)
@@ -21,6 +24,7 @@ namespace Code.MainMenu.AccessPoints
 
         public override void Access()
         {
+            OnWindowAccessed?.Invoke();
             WindowManager.Instance.OpenWindow<T>(gameObject, openInContainer);
         }
 

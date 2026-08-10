@@ -24,6 +24,9 @@ namespace CorePatterns.Managers
         
         private Canvas _containerCanvas;
         private GameObject _instantiatedInWorld;
+        
+        public Action OnWindowOpened;
+        public Action OnWindowClosed;
 
         protected override void Awake()
         {
@@ -71,6 +74,8 @@ namespace CorePatterns.Managers
             RefreshOverlayState();
 
             instance?.Display();
+            
+            OnWindowOpened?.Invoke();
 
             return instance;
         }
@@ -86,12 +91,19 @@ namespace CorePatterns.Managers
             }
             
             RefreshOverlayState();
+            
+            OnWindowClosed?.Invoke();
         }
-        
         
         public void SetContainerCanvas(Canvas canvas)
         {
             _containerCanvas = canvas;
+        }
+
+        public bool IsWindowOpen<T>() where T : Window
+        {
+            _openedWindows.TryGetValue(typeof(T), out WindowEntry windowEntry);
+            return windowEntry != null;
         }
 
         private Canvas FindCanvasInHierarchy(GameObject source)

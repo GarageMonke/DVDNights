@@ -87,7 +87,7 @@ public class AudioSourceChannel : MonoBehaviour
         sfxSource.PlayOneShot(clip, finalVolume);
     }
 
-    public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false, float pitch = 1f)
+    public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false, float pitch = 1f, bool fadeIn = true)
     {
         if (!newClip)
         {
@@ -103,7 +103,7 @@ public class AudioSourceChannel : MonoBehaviour
 
         float finalVolume = ResolveVolume(volume);
         
-        if (!ostSource.isPlaying || !ostSource.clip)
+        if (!ostSource.isPlaying || !ostSource.clip || !fadeIn)
         {
             ostSource.clip = newClip;
             ostSource.pitch = pitch;
@@ -249,5 +249,15 @@ public class AudioSourceChannel : MonoBehaviour
                     () => { _fadeTween = ostSource.DOFade(0f, 1f).OnComplete(() => { ostSource.Stop(); }); });
             });
         });
+    }
+
+    public AudioClip GetPlayingAudioClip()
+    {
+        if (ostSource.isPlaying)
+        {
+            return ostSource.clip;
+        }
+
+        return null;
     }
 }

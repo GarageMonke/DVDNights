@@ -16,14 +16,16 @@ namespace Code.MVP
         public override void Display()
         {
             base.Display();
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
             AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, creditsAudioClip);
-            scrollView.StartScrolling(creditsAudioClip.length, holdTime: 2f);
+            scrollView.StartScrolling(creditsAudioClip.length * 0.85f, holdTime: 6f);
             scrollView.OnScrollEnded += Close;
         }
 
         public override void Close()
         {
             scrollView.OnScrollEnded -= Close;
+            WindowManager.Instance.OpenWindow<MainMenuWindow>(gameObject, true);
             WindowManager.Instance.CloseWindow<CreditsWindow>();
         }
     }

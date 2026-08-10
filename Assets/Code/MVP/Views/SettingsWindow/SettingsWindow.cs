@@ -94,6 +94,7 @@ namespace Code.MVP
 
         public override void Close()
         {
+            WindowManager.Instance.OpenWindow<MainMenuWindow>(gameObject, true);
             WindowManager.Instance.CloseWindow<SettingsWindow>();
         }
 

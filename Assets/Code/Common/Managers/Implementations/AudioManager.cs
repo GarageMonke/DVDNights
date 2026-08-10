@@ -24,10 +24,10 @@ namespace CorePatterns.Managers
         }
 
         public void PlayOST(AudioChannelType channelType, AudioClip newClip, float volume = 1f, bool loop = false,
-            float pitch = 1f)
+            float pitch = 1f, bool fadeIn = true)
         {
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
-            channel.PlayOST(newClip, volume, loop, pitch);
+            channel.PlayOST(newClip, volume, loop, pitch, fadeIn);
         }
 
         public void StopOST(AudioChannelType channelType, bool fadeOut = true)
@@ -83,6 +83,12 @@ namespace CorePatterns.Managers
         {
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
             channel.ClearDistortedAudio();
+        }
+
+        public AudioClip GetChannelPlayingOST(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            return channel.GetPlayingAudioClip();
         }
 
         private AudioSourceChannel GetAudioSourceChannelByType(AudioChannelType audioChannelType)
