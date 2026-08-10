@@ -1387,6 +1387,69 @@ Transform:
   - {fileID: 799723192}
   m_Father: {fileID: 968922661}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &273415533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273415534}
+  - component: {fileID: 273415535}
+  m_Layer: 0
+  m_Name: CheatCodes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &273415534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273415533}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 654512762}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273415535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273415533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64754f6e82d4ee19e0f232cdab5a393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registeredCodes:
+  - {fileID: 11400000, guid: 5e41c926af703fe41bafd447d8e5c445, type: 2}
+  inputMappings:
+  - inputActionSo: {fileID: 11400000, guid: 1b44819bc27713d4f8bf92f4c10a23b6, type: 2}
+    cheatInput: 0
+  - inputActionSo: {fileID: 11400000, guid: 8932a7ef7c1c9394abe9b7b5d7565b97, type: 2}
+    cheatInput: 1
+  - inputActionSo: {fileID: 11400000, guid: f73d33cc7c87a7b42b072ce75b9ba0a0, type: 2}
+    cheatInput: 2
+  - inputActionSo: {fileID: 11400000, guid: af7ea66cbdd64214e866a3335da5f509, type: 2}
+    cheatInput: 3
+  - inputActionSo: {fileID: 11400000, guid: 431e5211925b7a84f9e46ce365001109, type: 2}
+    cheatInput: 4
+  - inputActionSo: {fileID: 11400000, guid: ebd808b52d19d7e4ea52d1625001127e, type: 2}
+    cheatInput: 5
+  - inputActionSo: {fileID: 11400000, guid: 898914bf4de8f1d4eb730f5865cc28e6, type: 2}
+    cheatInput: 6
+  - inputActionSo: {fileID: 11400000, guid: ac81b127ff5599a4c9fa2bcebf944907, type: 2}
+    cheatInput: 7
 --- !u!1001 &275191195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4485,6 +4548,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 71365578}
+  - {fileID: 273415534}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &665845320
