@@ -75,8 +75,6 @@ namespace CheatCodes.Implementations
 
             _isActive = true;
             
-            Debug.Log("Konami Code Activated!");
-            
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, cheatActivatedSFXAudioClip);
 
             DOVirtual.DelayedCall(cheatActivatedSFXAudioClip.length / 2f, CheatCodeSequence);

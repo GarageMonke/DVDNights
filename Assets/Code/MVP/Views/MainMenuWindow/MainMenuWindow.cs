@@ -56,6 +56,7 @@ namespace Code.MVP
 
         public override void Close()
         {
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC);
             WindowManager.Instance.CloseWindow<MainMenuWindow>();
         }
 

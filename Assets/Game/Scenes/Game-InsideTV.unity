@@ -2956,7 +2956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerView: {fileID: 121974324}
-  forwardMaterial: {fileID: 2100000, guid: 27adabc1d87a83041bb5d43d920cdb34, type: 2}
   forwardFillView: {fileID: 1394552950}
   forwardLevelText: {fileID: 1478779038}
   startForwardingClip: {fileID: 8300000, guid: 41e86442b430a7544aff5a9dce930313, type: 3}
@@ -4845,7 +4844,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0d34ecc9631c35d418584035555fdaff, type: 2}
+  - {fileID: 2100000, guid: 2f13616b9263b7e4a825d2db0a0d0c96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

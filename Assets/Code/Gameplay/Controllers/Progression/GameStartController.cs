@@ -36,10 +36,10 @@ namespace DVDNights
 
         private void InstallService()
         {
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC);
             _clickAction = clickActionSO.GetInputAction();
             _clickAction.performed += PrepareRoom;
            ServiceLocator.RegisterService<IGameStartController>(this);
-           
         }
 
         private void Start()
