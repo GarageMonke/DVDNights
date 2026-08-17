@@ -13,12 +13,16 @@ namespace DVDNights
         
         protected bool _isCorrupted;
         protected IDecayController _decayController;
+        protected ISanityController _sanityController;
+        protected IRulesViolationController _rulesViolationController;
 
         protected override void Start()
         {
             base.Start();
             _decayController = ServiceLocator.GetService<IDecayController>();
             _decayController.RegisterCorruptibleObject(this);
+            _sanityController =  ServiceLocator.GetService<ISanityController>();
+            _rulesViolationController = ServiceLocator.GetService<IRulesViolationController>();
         }
         
         public virtual void Corrupt()

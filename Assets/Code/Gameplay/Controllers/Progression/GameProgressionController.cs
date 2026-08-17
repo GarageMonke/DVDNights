@@ -15,6 +15,7 @@ namespace DVDNights
         private ITVStateController _tvStateController;
         private IDeliveryController _deliveryController;
         private IDecayController _decayController;
+        private IRulesViolationController _rulesViolationController;
         
         private GameRulesInteractableObject _currentGameRulesInteractableObject;
         private GameRulesInteractableObject _obsoleteGameRulesInteractableObject;
@@ -36,6 +37,7 @@ namespace DVDNights
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _decayController = ServiceLocator.GetService<IDecayController>();
+            _rulesViolationController = ServiceLocator.GetService<IRulesViolationController>();
             ScheduleRulesDelivery();
         }
 
@@ -92,6 +94,7 @@ namespace DVDNights
 
         private void HideObsoleteRules()
         {
+            _rulesViolationController.StartCheckingForRuleViolations();
             _currentGameRulesInteractableObject.OnRulesAcknowledge -= HideObsoleteRules;
 
             if (_obsoleteGameRulesInteractableObject)

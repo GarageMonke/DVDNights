@@ -1,5 +1,4 @@
 ﻿using Common;
-using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 
@@ -11,33 +10,34 @@ namespace DVDNights
         [SerializeField] private FillView volumeFillView;
         [SerializeField] private TextMeshProUGUI volumeText;
         
-        [Header("Configuration")]
-        [SerializeField] private AudioChannelType audioChannelType;
 
-        private void Awake()
+        public void SetVolumeLimits(int minVolume, int maxVolume)
         {
-            volumeFillView.InitializeView(100);
-            SetVolume((int)AudioManager.Instance.GetChannelVolume(audioChannelType));
+            volumeFillView.InitializeView(maxVolume, minVolume);
+        }
+
+        public int GetCurrentFill()
+        {
+            return (int)volumeFillView.CurrentFill;
         }
 
         public void VolumeUp()
         {
             volumeFillView.UpdateFill(volumeFillView.CurrentFill + 1);
             volumeText.text = volumeFillView.CurrentFill.ToString();
-            SetVolume((int)volumeFillView.CurrentFill);
+            SetVolume(GetCurrentFill());
         }
 
         public void VolumeDown()
         {
             volumeFillView.UpdateFill(volumeFillView.CurrentFill - 1);
             volumeText.text = volumeFillView.CurrentFill.ToString();
-            SetVolume((int)volumeFillView.CurrentFill);
+            SetVolume(GetCurrentFill());
         }
 
         public void SetVolume(int volume)
         {
             volumeFillView.UpdateFill(volume);
-            AudioManager.Instance.SetChannelVolume(audioChannelType, volume);
         }
     }
 

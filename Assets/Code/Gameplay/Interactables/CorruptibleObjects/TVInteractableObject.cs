@@ -110,7 +110,6 @@ namespace DVDNights
             _disksController.MuteAllDiscs();
             _tvStateController.PlayStatic(true);
             SetHasNavigation(false);
-            _hasBeenHitOnce = true;
         }
 
         public override void ClearCorruption()
@@ -140,11 +139,6 @@ namespace DVDNights
             _strikeSequence = DOTween.Sequence()
                 .Append(transform.DOLocalRotate(new Vector3(0, strikeAngle, 0), 0.05f).SetEase(Ease.Flash));
             AudioManager.Instance.PlayOST(AudioChannelType.TV, TVHummingAudioClip, volume: 0.65f, pitch: 1f, loop: true);
-        }
-
-        private IEnumerator FirstStrikeRoutine()
-        {
-            yield return new WaitForEndOfFrame();
         }
 
         public override bool CanBeCorrupted()

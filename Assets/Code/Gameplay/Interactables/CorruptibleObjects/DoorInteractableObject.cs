@@ -31,7 +31,6 @@ namespace DVDNights
         private Sequence _knockingSequence;
         private Sequence _corruptionSequence;
         private bool _isFault;
-        private ISanityController _sanityController;
         private PenaltyType _penaltyType;
 
 
@@ -43,7 +42,6 @@ namespace DVDNights
         protected override void Start()
         {
             base.Start();
-            _sanityController = ServiceLocator.GetService<ISanityController>();
         }
         
 

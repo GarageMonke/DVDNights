@@ -2,7 +2,6 @@
 using CorePatterns.Providers.Implementations;
 using CorePatterns.ServiceLocator;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
@@ -34,7 +33,6 @@ namespace DVDNights
 
         private int _currentRings;
         private Sequence _callSequence;
-        private ISanityController _sanityController;
         private AudioClip _previousAudioClip;
 
         private void Awake()
@@ -47,7 +45,6 @@ namespace DVDNights
         protected override void Start()
         {
             base.Start();
-            _sanityController = ServiceLocator.GetService<ISanityController>();
         }
 
         private void Update()

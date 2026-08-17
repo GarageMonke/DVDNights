@@ -1,5 +1,4 @@
 ﻿using CorePatterns.Managers;
-using CorePatterns.Providers.Implementations;
 using DG.Tweening;
 using UnityEngine;
 

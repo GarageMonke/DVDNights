@@ -1096,7 +1096,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeFillView: {fileID: 1763488557}
   volumeText: {fileID: 1561593215}
-  audioChannelType: 0
 --- !u!1 &236059656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,6 +1280,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6848547347882801251, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
   m_PrefabInstance: {fileID: 285467952}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &344397908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344397909}
+  m_Layer: 0
+  m_Name: Corruptible-Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &344397909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344397908}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1615002300}
+  m_Father: {fileID: 1559345874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &363529152 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3605201746629068810, guid: 346951b147ca21d4d830d6f23c91f647, type: 3}
@@ -4904,6 +4935,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 458197371}
+  - {fileID: 344397909}
   m_Father: {fileID: 1578962588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1561593213
@@ -5267,6 +5299,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &1615002299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1615002300}
+  - component: {fileID: 1615002301}
+  m_Layer: 0
+  m_Name: TVVolume-CorruptibleObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1615002300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615002299}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 344397909}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1615002301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615002299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91200123717340ddab1cbe09cb473928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1653737812
 GameObject:
   m_ObjectHideFlags: 0
@@ -5933,6 +6009,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tvVolumeWindow: {fileID: 202757632}
   hideDelay: 3
+  minVolume: 0
+  maxVolume: 99
 --- !u!1 &1788297072
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ namespace DVDNights
         public ITVButton SubmitButton  =>  tvButtons[4];
         public ITVButton NextButton  =>  tvButtons[5];
         public ITVButton PlayPauseButton  =>  tvButtons[6];
+        public ITVButton VolumeDownButton => tvButtons[7];
+        public ITVButton VolumeUpButton => tvButtons[8];
         public Action OnPowerButtonPressed { get; set; }
         public Action OnOpenCloseButtonPressed { get; set; }
         public Action OnMenuButtonPressed { get; set; }
@@ -176,6 +178,8 @@ public interface ITVNavigationController
     public ITVButton SubmitButton { get; }
     public ITVButton NextButton { get; }
     public ITVButton PlayPauseButton { get; }
+    public ITVButton VolumeUpButton { get; }
+    public ITVButton VolumeDownButton { get; }
     public Action OnPowerButtonPressed { get; set; }
     public Action OnOpenCloseButtonPressed { get; set; }
     public Action OnMenuButtonPressed { get; set; }

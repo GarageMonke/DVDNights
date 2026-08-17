@@ -66,6 +66,7 @@ namespace DVDNights
             {
                 toPlay = turnOnLampAudioClip;
                 OverrideShadeMaterial(shadeEmissiveMaterial);
+                _rulesViolationController.RemoveRuleViolation(ObjectId);
                 OnLampTurnedOn?.Invoke();
             }
             else
@@ -75,6 +76,7 @@ namespace DVDNights
                     ClearCorruption();
                 }
                 
+                _rulesViolationController.AddRuleViolation(ObjectId);
                 toPlay = turnOffLampAudioClip;
                 OverrideShadeMaterial(shadeMaterial);
             }
