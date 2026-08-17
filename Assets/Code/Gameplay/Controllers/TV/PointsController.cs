@@ -35,7 +35,7 @@ public class PointsController : MonoBehaviour, IPointsController
     private void Start()
     {
         _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
-        UpdatePoints(0);
+        UpdatePoints(100797);
     }
 
     private void HandleBorderHit(DiskDataSO diskData)

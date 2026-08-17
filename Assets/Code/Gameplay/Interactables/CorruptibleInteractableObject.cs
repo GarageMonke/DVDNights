@@ -47,5 +47,10 @@ namespace DVDNights
         {
             StartCoroutine(StartCooldownRoutine());
         }
+
+        public bool IsCorrupted()
+        {
+            return _isCorrupted;
+        }
     }
 }

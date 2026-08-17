@@ -10,5 +10,7 @@ namespace DVDNights
         public void ClearCorruption();
         public bool CanBeCorrupted();
         public void CooldownObject();
+
+        public bool IsCorrupted();
     }
 }

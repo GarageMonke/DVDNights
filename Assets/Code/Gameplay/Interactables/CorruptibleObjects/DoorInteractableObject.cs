@@ -45,6 +45,7 @@ namespace DVDNights
             base.Start();
             _sanityController = ServiceLocator.GetService<ISanityController>();
         }
+        
 
         public override string GetInteractionAction()
         {

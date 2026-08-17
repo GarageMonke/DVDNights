@@ -49,10 +49,13 @@ namespace DVDNights
         private int _selectedAnimationIndex;
         private bool _jumpScareEnabled;
         private bool _isJumpScareScheduled;
+        private bool _playerWarned;
         
         private Bloom _bloom;
         private Tween _bloomTween;
         private Tween _jumpScareTween;
+        private Tween _lampOffTween;
+        
         private Camera _camera;
         private Sequence _jumpScareSequence;
         private Transform _spawnParent;
@@ -110,8 +113,7 @@ namespace DVDNights
             {
                 ScheduleJumpScare();
             }
-
-            if (IsPartiallyVisible())
+            else if (IsPartiallyVisible())
             {
                 DisplayWarning();
             }
@@ -126,11 +128,23 @@ namespace DVDNights
             
             _isJumpScareScheduled = true;
             _jumpScareTween?.Kill();
-            _jumpScareTween = DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), PlayJumpScare);
+            _jumpScareTween = DOVirtual.DelayedCall(Random.Range(0.25f, 1f), PlayJumpScare);
+        }
+        
+        private void ScheduleTurnOffLamp()
+        {
+            _lampOffTween?.Kill();
+            _lampOffTween = DOVirtual.DelayedCall(Random.Range(0.5f, 1.5f), TurnOffLamp);
         }
 
         private void DisplayWarning()
         {
+            if (_playerWarned)
+            {
+                return;
+            }
+
+            _playerWarned = true;
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, warningAudioClip);
         }
 
@@ -142,6 +156,7 @@ namespace DVDNights
         public void ShowEntity()
         {
             EnableInteraction();
+            ScheduleTurnOffLamp();
             _jumpScareEnabled = true;
             animatorController.enabled = true;
             animatorController.speed = 0;
@@ -150,7 +165,7 @@ namespace DVDNights
 
         private void TurnOffLamp()
         {
-            if (_isCorrupted)
+            if (_isCorrupted && lampInteractableObject.IsOn)
             {
                 lampInteractableObject.Interact();
             }
@@ -213,7 +228,7 @@ namespace DVDNights
         public override void Corrupt()
         {
             base.Corrupt();
-            lampInteractableObject.OnLampTurnedOn += TurnOffLamp;
+            lampInteractableObject.OnLampTurnedOn += ScheduleTurnOffLamp;
             ShowEntity();
         }
 
@@ -225,9 +240,11 @@ namespace DVDNights
         public override void ClearCorruption()
         {
             base.ClearCorruption();
-            lampInteractableObject.OnLampTurnedOn -= TurnOffLamp;
+            lampInteractableObject.OnLampTurnedOn -= ScheduleTurnOffLamp;
             DisableInteraction();
+            animatorController.enabled = false;
             _jumpScareEnabled = false;
+            _playerWarned = false;
             transform.parent = _spawnParent;
             transform.localPosition = _spawnPosition;
             _isJumpScareScheduled = false;
@@ -274,13 +291,19 @@ namespace DVDNights
 
         private bool IsPartiallyVisible()
         {
-            return IsOnScreen(body.position);
+            return IsPartiallyOnScreen(body.position);
         }
 
-        bool IsOnScreen(Vector3 worldPos)
+        private bool IsOnScreen(Vector3 worldPos)
         {
             Vector3 vp = _camera.WorldToViewportPoint(worldPos);
             return vp is { z: > 0, x: > 0.05f and < 0.95f, y: > 0.05f and < 0.95f };
+        }
+        
+        private bool IsPartiallyOnScreen(Vector3 worldPos)
+        {
+            Vector3 vp = _camera.WorldToViewportPoint(worldPos);
+            return vp is { z: > 0, x: > -1.05f and < 1.05f, y: > -1.05f and < 1.05f };
         }
 
         private void EnableEntityRenderers()

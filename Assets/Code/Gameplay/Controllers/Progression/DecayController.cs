@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
@@ -36,7 +38,7 @@ namespace DVDNights
         {
             _sanityController = ServiceLocator.GetService<ISanityController>();
         }
- 
+
         private void OnDestroy()
         {
             if (_tickCoroutine != null)

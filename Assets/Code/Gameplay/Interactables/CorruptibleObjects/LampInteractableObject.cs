@@ -28,6 +28,8 @@ namespace DVDNights
         [SerializeField] private float maxStepTime = 0.1f;
 
         public Action OnLampTurnedOn;
+
+        public bool IsOn => _isOn;
         
         private bool _isOn;
         private Sequence _flickerSequence;
@@ -39,7 +41,14 @@ namespace DVDNights
             _thresholdIntensity = (minIntensity + maxIntensity) / 2f;
             _originalIntensity = lampLight.intensity;
         }
-        
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Corrupt();
+            }
+        }
 
         public override string GetInteractionAction()
         {

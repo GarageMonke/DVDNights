@@ -12,12 +12,12 @@ namespace DVDNights
         
         private bool _isOpened;
         
-        private IRainController _rainController;
+        private IThunderController _thunderController;
 
         protected override void Start()
         {
             base.Start();
-            _rainController = ServiceLocator.GetService<IRainController>();
+            _thunderController = ServiceLocator.GetService<IThunderController>();
         }
 
         public override string GetInteractionAction()
@@ -47,7 +47,7 @@ namespace DVDNights
             }
             
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
-            _rainController.PlayRain();
+            _thunderController.PlayRain();
         }
 
         private void CloseWinds()
@@ -58,7 +58,7 @@ namespace DVDNights
             }
             
             AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
-            _rainController.StopRain();
+            _thunderController.StopRain();
         }
     }
 }

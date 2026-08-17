@@ -81,6 +81,11 @@ public class DisksController : MonoBehaviour, IDisksController
         
         //GameStart here should be loaded the current disks
         CreateDisk(DiskType.WHITE);
+        CreateDisk(DiskType.CYAN);
+        CreateDisk(DiskType.CYAN);
+        CreateDisk(DiskType.ORANGE);
+        CreateDisk(DiskType.YELLOW);
+        CreateDisk(DiskType.YELLOW);
         ResumeAllDisksMoving();
         CheckDisksToMerge();
         _tvStateController.StartPlayingGame();

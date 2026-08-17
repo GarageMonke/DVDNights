@@ -1,20 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Code.Gameplay.Misc;
 using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DVDNights
 {
-    public class RainController : MonoBehaviour, IRainController
+    public class ThunderController : MonoBehaviour, IThunderController
     {
         [Header("References")]
         [SerializeField] private ThunderLightning thunderLightning;
+        [SerializeField] private EntityInteractableObject entityInteractableObject;
         
         [Header("Feedback")]
         [SerializeField] private AudioClip rainAudioClip;
         
-        Coroutine _thunderCooldownRoutine;
+        private Coroutine _thunderCooldownRoutine;
+        private ISanityController _sanityController;
 
         private void Awake()
         {
@@ -23,9 +27,14 @@ namespace DVDNights
 
         private void InstallService()
         {
-            ServiceLocator.RegisterService<IRainController>(this);
+            ServiceLocator.RegisterService<IThunderController>(this);
         }
-        
+
+        private void Start()
+        {
+            _sanityController = ServiceLocator.GetService<ISanityController>();
+        }
+
         public void PlayRain()
         {
             AudioManager.Instance.PlayOST(AudioChannelType.STORM, rainAudioClip, volume: 1f, loop: true);
@@ -42,6 +51,15 @@ namespace DVDNights
         public void PlayThunder()
         {
             thunderLightning.Strike();
+
+            if (entityInteractableObject.IsCorrupted())
+            {
+                entityInteractableObject.ClearCorruption();
+            }
+            else
+            {
+                _sanityController.TakeSanityImmediate(PenaltyType.HIGH);
+            }
         }
 
         private IEnumerator StartThunderCooldown()
@@ -54,7 +72,7 @@ namespace DVDNights
         }
     }
 
-    public interface IRainController
+    public interface IThunderController
     {
         public void PlayRain();
         public void StopRain();

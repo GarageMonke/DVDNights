@@ -45,7 +45,7 @@ public class TrailerHandler : MonoBehaviour
     private IPointsController _pointsController;
     private ITVStateController _tvStateController;
     private IGameProgressionController _gameProgressionController;
-    private IRainController _rainController;
+    private IThunderController _thunderController;
     private Vector3 _trailerCameraOriginalPosition;
 
     private int _internalDiscSequence;
@@ -401,8 +401,8 @@ public class TrailerHandler : MonoBehaviour
         lampInteractableObject.Interact();
         _tvStateController = ServiceLocator.GetService<ITVStateController>();
         _tvStateController.PlayStatic();
-        _rainController = ServiceLocator.GetService<IRainController>();
-        _rainController.PlayRain();
+        _thunderController = ServiceLocator.GetService<IThunderController>();
+        _thunderController.PlayRain();
         ResetShoot();
         SetCameraShoot(11);
     }
