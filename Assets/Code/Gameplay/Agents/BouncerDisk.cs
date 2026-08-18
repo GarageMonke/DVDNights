@@ -13,7 +13,9 @@ namespace DVDNights
         [SerializeField] private float cornerThreshold = 0.05f;
 
         [Header("References")] 
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private SpriteRenderer contourSpriteRenderer;
+        [SerializeField] private SpriteRenderer centerSpriteRenderer;
+        [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
         [SerializeField] private Transform bounceArea;
         
         [Header("Retro Effect")]
@@ -48,14 +50,22 @@ namespace DVDNights
         private IBounceFeedbackController _bounceFeedbackController;
         private float _originalVolume;
 
-        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea)
+        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea, int diskIndex)
         {
             _diskDataSO = diskData;
-            spriteRenderer.color = diskData.DiskColor;
+            
+            int tierOrder = (int)_diskDataSO.DiskType;
+            int sortingOrder = tierOrder * 10000 + diskIndex;
 
+            contourSpriteRenderer.sortingOrder = sortingOrder;
+            centerSpriteRenderer.sortingOrder = sortingOrder;
+            backgroundSpriteRenderer.sortingOrder = sortingOrder;
+            
+            contourSpriteRenderer.color = diskData.DiskColor;
+            
             if (diskData.DiskMaterial)
             {
-                spriteRenderer.material = diskData.DiskMaterial;
+                contourSpriteRenderer.material = diskData.DiskMaterial;
             }
             
             _bounceFeedbackController = ServiceLocator.GetService<IBounceFeedbackController>();
@@ -109,7 +119,7 @@ namespace DVDNights
         private void InitializeSizes()
         {
             var areaBounds = bounceArea.GetComponent<MeshCollider>().bounds;
-            var logoBounds = spriteRenderer.bounds;
+            var logoBounds = backgroundSpriteRenderer.bounds;
 
             _areaHalfSize = new Vector2(areaBounds.extents.x, areaBounds.extents.y);
             _logoHalfSize = new Vector2(logoBounds.extents.x, logoBounds.extents.y);
@@ -408,7 +418,7 @@ namespace DVDNights
         public Action<DiskDataSO> OnCornerHit { get; set; }
         public Action<DiskDataSO, Vector3, bool> OnHit { get; set; }
         public DiskDataSO DiskDataSO { get; }
-        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea);
+        public void InitializeDisk(DiskDataSO diskData, Transform bouncingArea, int diskIndex);
         public float BaseSpeed { get; set; }
         public void DestroyDisk();
         public void SetMoving(bool isMoving);

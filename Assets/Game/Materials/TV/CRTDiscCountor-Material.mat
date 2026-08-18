@@ -38,12 +38,12 @@ Material:
     - _FresnelIntensity: 0
     - _FresnelPower: 0.1
     - _GlowAlpha: 0.35
-    - _GlowIntensity: 0.8
+    - _GlowIntensity: 2
     - _GlowPower: 0.1
     - _GlowSize: 1.5
     - _NoiseStrength: 1
-    - _OutlineAlpha: 1
-    - _OutlineThickness: 3
+    - _OutlineAlpha: 0
+    - _OutlineThickness: 0
     - _RGBSeparation: 0.0134
     - _ScanlineDensity: 10
     - _ScanlineStrength: 0
@@ -51,7 +51,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
