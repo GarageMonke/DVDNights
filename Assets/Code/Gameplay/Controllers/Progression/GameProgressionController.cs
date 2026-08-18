@@ -19,6 +19,8 @@ namespace DVDNights
         
         private GameRulesInteractableObject _currentGameRulesInteractableObject;
         private GameRulesInteractableObject _obsoleteGameRulesInteractableObject;
+        
+        public int GoldenDisksCollected => _goldDisksAmount;
 
         private void Awake()
         {
@@ -119,6 +121,7 @@ namespace DVDNights
 
     public interface IGameProgressionController
     {
+        public int GoldenDisksCollected { get; }
         public void RegisterGoldenDisksCollected();
         public void EjectDisk();
         public void SetLastDeliveredRules(GameRulesInteractableObject currentGameRulesInteractableObject);

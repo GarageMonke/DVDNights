@@ -266,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: ec8e07e325a09dd4d9da4d72337af442, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Material: {fileID: 2100000, guid: 910c0bad411664f4aa491c2589390c9f, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -374,9 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingContent: {fileID: 314818247}
-  mainMenuContent: {fileID: 1706364038}
-  selectableTextViews:
-  - {fileID: 1531213334}
+  loadingText: {fileID: 1923583427}
   gameSceneDataSO: {fileID: 11400000, guid: 7706db46d74161c4cb7dea90dc446a44, type: 2}
 --- !u!1 &458197370
 GameObject:
@@ -990,17 +988,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1531213334 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4793380468812301875, guid: 146346a061769794d9e3470a6d7be5a1, type: 3}
-  m_PrefabInstance: {fileID: 6169112689672473950}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b811024c27bb47c7a456cae150f7bf7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1559345873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,7 +1591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_text
-      value: LOADING...
+      value: LOADING DISC-1
       objectReference: {fileID: 0}
     - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_fontSize
@@ -1615,6 +1602,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1c189286d848a454d8065c922ea68f05, type: 2}
     - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+      propertyPath: m_fontStyle
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.11055279
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_fontSizeBase
       value: 100
       objectReference: {fileID: 0}
@@ -1622,6 +1625,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 5932942432585694571, guid: 1c189286d848a454d8065c922ea68f05, type: 2}
+    - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280090368
+      objectReference: {fileID: 0}
     - target: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
@@ -1640,6 +1647,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6848547347882801251, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
   m_PrefabInstance: {fileID: 1923583425}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1923583427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6909159591254954997, guid: 8e4b289860b6b4043ab6be2fe7b44061, type: 3}
+  m_PrefabInstance: {fileID: 1923583425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1955194194
 GameObject:
   m_ObjectHideFlags: 0

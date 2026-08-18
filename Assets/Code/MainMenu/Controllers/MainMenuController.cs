@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using CorePatterns.Scenes;
 using CorePatterns.ServiceLocator;
+using TMPro;
 using UnityEngine;
 
 namespace DVDNights
@@ -8,19 +11,14 @@ namespace DVDNights
    {
       [Header("References")] 
       [SerializeField] private GameObject loadingContent;
-      [SerializeField]private GameObject mainMenuContent;
-     
-      [Header("Menu")]
-      [SerializeField] private SelectableTextView[] selectableTextViews;
-
+      [SerializeField] private TextMeshProUGUI loadingText;
+      
       [Header("Scenes")] 
       [SerializeField] private SceneDataSO gameSceneDataSO;
       
       private int _currentIndex;
-
-      private ITVNavigationController _tvNavigationController;
-      private ITVStateController _tvStateController;
-
+      private IEnumerator _loadingAnimation;
+      
       private void Awake()
       {
          InstallService();
@@ -31,124 +29,49 @@ namespace DVDNights
          ServiceLocator.RegisterService<IMainMenuController>(this);
       }
 
-      private void Start()
+      private IEnumerator AnimateLoadingDots()
       {
-         SelectFirst();
-         _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
-         _tvStateController = ServiceLocator.GetService<ITVStateController>();
-
-         _tvNavigationController.OnPreviousButtonPressed += PreviousSelection;
-         _tvNavigationController.OnNextButtonPressed += NextSelection;
-         _tvNavigationController.OnSubmitButtonPressed += Submit;
+         int dotCount = 0;
+         
+         //Load from data
+         string discNumber = $"Loading Disc-{1}";
+         
+         while (true)
+         {
+            dotCount = (dotCount + 1) % 4;
+            loadingText.text =  discNumber + new string('.', dotCount);
+            yield return new WaitForSeconds(1f);
+         }
       }
 
-      private void Update()
+      public void LoadGame()
       {
-         if (Input.GetKeyDown(KeyCode.RightArrow))
-         {
-            NextSelection();
-         }
-         
-         if (Input.GetKeyDown(KeyCode.LeftArrow))
-         {
-            PreviousSelection();
-         }
-
-         if (Input.GetKeyDown(KeyCode.Space))
-         {
-            Submit();
-         }
+         loadingContent.gameObject.SetActive(true);
+         StartCoroutine(AnimateLoadingDots());
       }
       
-      private void SelectFirst()
+      private void StopLoadingAnimation()
       {
-         _currentIndex = 0;
-
-         foreach (ISelectableTextView selectableTextView in selectableTextViews)
-         {
-            selectableTextView.Unselect();
-         }
-         
-         selectableTextViews[_currentIndex].Select();
-      }
-
-      private void NextSelection()
-      {
-         if (_currentIndex + 1 >= selectableTextViews.Length)
+         if (_loadingAnimation == null)
          {
             return;
          }
          
-         selectableTextViews[_currentIndex].Unselect();
-         
-         _currentIndex++;
-         
-         selectableTextViews[_currentIndex].Select();
+         StopCoroutine(_loadingAnimation);
+         _loadingAnimation = null;
       }
 
-      private void PreviousSelection()
+      public void GoToGame()
       {
-         if (_currentIndex - 1 < 0)
-         {
-            return;
-         }
-         
-         selectableTextViews[_currentIndex].Unselect();
-         
-         _currentIndex--;
-         
-         selectableTextViews[_currentIndex].Select();
-      }
-
-      private void Submit()
-      {
-         if (!_tvStateController.IsTVOn)
-         {
-            return;
-         }
-
-         if (!_tvStateController.HasDisk)
-         {
-            return;
-         }
-         
-         switch (_currentIndex)
-         {
-            case 0:
-               PlayGame();
-               break;
-            case 1:
-               break;
-            case 2:
-               break;
-            case 3:
-               break;
-         }
-      }
-
-      private void PlayGame()
-      {
-         SceneDataManager.Instance.OpenScene(gameSceneDataSO);
-      }
-
-      private void OnDestroy()
-      {
-         _tvNavigationController.OnPreviousButtonPressed -= PreviousSelection;
-         _tvNavigationController.OnNextButtonPressed -= NextSelection;
-         _tvNavigationController.OnSubmitButtonPressed -= Submit;
-      }
-
-      public void DisplayMenu()
-      {
+         StopLoadingAnimation();
          loadingContent.gameObject.SetActive(false);
          SceneDataManager.Instance.OpenScene(gameSceneDataSO);
-         // mainMenuContent.gameObject.SetActive(true);
-         // SelectFirst();
       }
    }
 }
 
 public interface IMainMenuController
 {
-   public void DisplayMenu();
+   public void LoadGame();
+   public void GoToGame();
 }

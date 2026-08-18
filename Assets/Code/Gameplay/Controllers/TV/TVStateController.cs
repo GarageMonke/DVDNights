@@ -71,10 +71,13 @@ namespace DVDNights
         {
             _dvdTrayController.OnTrayClosed -= ReadDisk;
             _readDiskSequence?.Kill();
+            _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
+            
             _readDiskSequence = DOTween.Sequence()
                 .AppendCallback(() =>
                 {
                     tvScreenMesh.material = tvScreenMaterial;
+                    _tvMainMenuController.LoadGame();
                     AudioManager.Instance.StopOST(AudioChannelType.TV);
                     AudioManager.Instance.PlaySFX(AudioChannelType.TV, loadingDVDAudioClip, volume: 1f, pitch: 1f);
                 })
@@ -83,8 +86,7 @@ namespace DVDNights
                 {
                     _interactionController ??= ServiceLocator.GetService<IInteractionController>();
                     _interactionController.SetCurrentInteraction(_tvNavigationController.TVInteractableObject);
-                    _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
-                    _tvMainMenuController.DisplayMenu();
+                    _tvMainMenuController.GoToGame();
                     _hasDisk = true;
                     _gameProgressionController ??= ServiceLocator.GetService<IGameProgressionController>();
                     _gameProgressionController?.ScheduleRulesDelivery();
@@ -142,7 +144,7 @@ namespace DVDNights
                 _hasDisk = true;
                 tvScreenMesh.material = tvScreenMaterial;
                 _tvMainMenuController ??= ServiceLocator.GetService<IMainMenuController>();
-                _tvMainMenuController.DisplayMenu();
+                _tvMainMenuController.GoToGame();
             }
             
             tvScreenMesh.material = tvScreenMaterial;
