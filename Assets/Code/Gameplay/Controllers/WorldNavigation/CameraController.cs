@@ -55,8 +55,7 @@ namespace DVDNights
         private Tween _enableInteractionTween;
         private bool _isDelayed;
         private Vector3 _currentRotation;
-        private float _pitchVelocity;
-        private float _yawVelocity;
+        private Vector3 _rotationVelocity;
 
         private void Awake()
         {
@@ -156,22 +155,38 @@ namespace DVDNights
         {
             float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
             float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
-
+            
             if (_mouseYClamp)
             {
-                _currentYaw = Mathf.Clamp(_currentYaw + mouseX, _minYawAngle, _maxYawAngle);
+                _currentYaw = Mathf.Clamp(
+                    _currentYaw + mouseX,
+                    _minYawAngle,
+                    _maxYawAngle
+                );
             }
             else
             {
                 _currentYaw += mouseX;
             }
 
-            _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
-            
-            float smoothedPitch = Mathf.SmoothDampAngle(_currentRotation.x, _currentPitch, ref _pitchVelocity, drunkSmoothTime);
-            float smoothedYaw = Mathf.SmoothDampAngle(_currentRotation.y, _currentYaw, ref _yawVelocity, drunkSmoothTime);
+            _currentPitch = Mathf.Clamp(
+                _currentPitch - mouseY,
+                _minPitchAngle,
+                _maxPitchAngle
+            );
 
-            _currentRotation = new Vector3(smoothedPitch, smoothedYaw, 0f);
+            Vector3 targetRotation = new Vector3(
+                _currentPitch,
+                _currentYaw,
+                0f
+            );
+            
+            _currentRotation = Vector3.SmoothDamp(
+                _currentRotation,
+                targetRotation,
+                ref _rotationVelocity,
+                drunkSmoothTime
+            );
 
             mainCamera.transform.localRotation = Quaternion.Euler(_currentRotation);
         }
@@ -193,8 +208,8 @@ namespace DVDNights
             
             // Pitch (X axis, up/down)
             _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
-            _currentRotation = new Vector3(_currentPitch, _currentYaw, 0f);
             mainCamera.transform.localRotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
+            _currentRotation = mainCamera.transform.localRotation.eulerAngles;
         }
 
         public void DelayCameraMovement(bool delay)
