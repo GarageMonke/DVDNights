@@ -1,0 +1,325 @@
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
+using DG.Tweening;
+using UnityEngine;
+
+namespace DVDNights
+{
+    public class TurntableInteractableObject : CorruptibleInteractableObject
+    {
+        [Header("PlayVinyl-Sequence")] 
+        [SerializeField] private Transform vinylCase;
+        [SerializeField] private Transform vinyl;
+        [SerializeField] private Renderer vinylCaseRenderer;
+        [SerializeField] private Renderer vinylRenderer;
+        [SerializeField] private Vector3[] vinylToTurntablePath;
+        [SerializeField] private Vector3[] vinylCasePath;
+        [SerializeField] private Vector3 vinylCaseStartPosition;
+        [SerializeField] private Vector3 vinylCaseStartRotation;
+        [SerializeField] private Vector3 vinylCasePreparePosition;
+        [SerializeField] private Vector3 vinylCaseFirstPosition;
+
+        [Header("PlayVinyl-Feedback")] 
+        [SerializeField] private AudioClip grabVinylCaseAudioClip;
+        [SerializeField] private AudioClip vinylOutOfSleeveAudioClip;
+        [SerializeField] private AudioClip vinylAirSpinAudioClip;
+        [SerializeField] private AudioClip vinylOnTurntableAudioClip;
+        [SerializeField] private AudioClip fixTurntableAudioClip;
+        
+        [Header("Head-Sequence")] 
+        [SerializeField] private Transform head;
+        [SerializeField] private Vector3 headLockRotation;
+        [SerializeField] private Vector3 headFreeRotation;
+
+        [Header("Head-Feedback")] 
+        [SerializeField] private AudioClip placeHeadOnVinylAudioClip;
+        [SerializeField] private AudioClip readingVinylAudioClip;
+        [SerializeField] private AudioClip removeHeadOnVinylAudioClip;
+        
+        [Header("Configuration")]
+        [SerializeField] private Vector3 cameraLockPosition;
+        [SerializeField] private Vector3 cameraLockRotation;
+        [SerializeField] private Vector3 cameraReleaseRotation;
+
+        private ICameraController _cameraController;
+        private ITrackSelectionController _trackSelectorController;
+        private IInteractionController _interactionController;
+        private RotateTransform _vinylRotateTransform;
+       
+        private Vector3 _vinylOriginPosition;
+        private Vector3 _vinylOriginRotation;
+        private Vector3 _vinylOriginScale;
+        
+        private Sequence _spinningSequence;
+        private bool _isSpinning;
+        private Vector3[] _vinylPathToTurntable;
+        private Vector3[] _vinylCasePath;
+
+        private void Awake()
+        {
+            _vinylOriginPosition = vinyl.localPosition;
+            _vinylOriginRotation = vinyl.localRotation.eulerAngles;
+            _vinylOriginScale = vinyl.localScale;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            _cameraController = ServiceLocator.GetService<ICameraController>();
+            _trackSelectorController = ServiceLocator.GetService<ITrackSelectionController>();
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _vinylPathToTurntable = CurveGenerator.GetCurvePoints(vinylToTurntablePath[0], vinylToTurntablePath[2], vinylToTurntablePath[4], 10);
+            _vinylCasePath = CurveGenerator.GetCurvePoints(vinylCasePath[0], vinylCasePath[1], vinylCasePath[2], 5);
+            _trackSelectorController.OnTrackStopRequested += StopSpinning;
+            _trackSelectorController.OnTrackStopRequested += ExitTurntable;
+            _trackSelectorController.OnTrackSelectionCloseRequested += ExitTurntable;
+            _trackSelectorController.OnTrackSelectionCloseRequested += TryResumeTrack;
+        }
+
+        public override string GetInteractionAction()
+        {
+            return "Select Track";
+        }
+
+        public override void Interact()
+        {
+            if (_isCorrupted)
+            {
+                ClearCorruption();
+                return;
+            }
+            
+            Unhighlight();
+            _interactionController.DisableInteractions();
+            _trackSelectorController.OnTrackPlayRequested += PlayVinyl;
+            _cameraController.TweenToPosition(cameraLockPosition, 0.5f, ()=> _trackSelectorController.OpenTrackSelector());
+            _cameraController.TweenToRotation(Quaternion.Euler(cameraLockRotation), 0.5f);
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 2.5f);
+            
+            if (_trackSelectorController.IsPlayingTrack)
+            {
+                _trackSelectorController.PauseSelectedTrack();
+            }
+        }
+
+        public override void Corrupt()
+        {
+            base.Corrupt();
+            SetHasNavigation(false);
+            AudioManager.Instance.DistortAudio(AudioChannelType.TURNTABLE);
+        }
+
+        public override void ClearCorruption()
+        {
+            base.ClearCorruption();
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, fixTurntableAudioClip, volume: 1f, pitch: 2f);          
+            SetHasNavigation(true);
+            AudioManager.Instance.ClearDistortedAudio(AudioChannelType.TURNTABLE);
+        }
+
+        public override bool CanBeCorrupted()
+        {
+            return _trackSelectorController.IsPlayingTrack && _isSpinning;
+        }
+
+        public override void StopInteraction()
+        {
+            RestoreCameraNavigation();
+            _interactionController.EnableInteractions();
+            AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, InteractionAudioClip, volume: 1f, pitch: 1.5f);
+        }
+
+        private void ExitTurntable()
+        {
+            _interactionController.StopInteractionWithObject();
+        }
+
+        private void TryResumeTrack()
+        {
+            _trackSelectorController.ResumeSelectedTrack();
+        }
+
+        private void PlayVinyl()
+        {
+            _vinylRotateTransform = vinyl.GetComponent<RotateTransform>();
+            _trackSelectorController.OnTrackPlayRequested -= PlayVinyl;
+            RestoreCameraNavigation();
+            _trackSelectorController.CloseTrackSelector();
+
+            if (_trackSelectorController.IsPlayingSameTrack)
+            {
+                ExitTurntable();
+                TryResumeTrack();
+                StartSpinningWithoutHead();
+                return;
+            }
+            
+            if (_trackSelectorController.IsPlayingTrack)
+            {
+                StopSpinning();
+            }
+            else
+            {
+                _spinningSequence?.Kill();
+            }
+            
+            UpdateVinylVisuals();
+            
+            _spinningSequence = DOTween.Sequence()
+                .AppendInterval(0.5f)
+                .AppendCallback(() =>
+                {
+                    vinylCase.gameObject.SetActive(true);
+                    vinyl.gameObject.SetActive(true);
+                })
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOutOfSleeveAudioClip, volume: 1f, pitch: 0.75f);
+                    vinylCase.DOLocalMove(vinylCasePreparePosition, grabVinylCaseAudioClip.length).SetEase(Ease.OutExpo)
+                        .OnComplete(() => { vinyl.parent = transform; });
+                })
+                .AppendInterval(grabVinylCaseAudioClip.length)
+                .AppendCallback(() =>
+                {
+                    AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOutOfSleeveAudioClip, volume: 1f, pitch: 1f);
+                    vinyl.DOLocalMove(_vinylPathToTurntable[0], 0.65f).SetEase(Ease.InSine);
+                    vinylCase.DOLocalMove(vinylCaseFirstPosition, 0.65f).SetEase(Ease.OutSine);
+                })
+                .AppendInterval(1f)
+                .AppendCallback(() =>
+                    {
+                        vinylCase.DOLocalPath(_vinylCasePath, 8f, PathType.CatmullRom).SetEase(Ease.OutElastic).OnWaypointChange(waypointIndex =>
+                        {
+                            if (waypointIndex == 3)
+                            {
+                                vinylCase.gameObject.SetActive(false);
+                            }
+                        });
+                        
+                        AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylAirSpinAudioClip, volume: 1f, pitch: 1.5f);
+                        vinyl.DOBlendableLocalRotateBy(new Vector3(0, 0, -360), 0.5f, RotateMode.FastBeyond360)
+                            .SetEase(Ease.Linear).OnComplete(
+                                ()=>  vinyl.DOLocalRotate(new Vector3(0, 0, 0), 1.25f).SetEase(Ease.OutSine));
+                    }
+                    )
+                .AppendInterval(0.6f)
+                .AppendCallback(() =>
+                {
+                    vinyl.DOLocalPath(_vinylPathToTurntable, 1.75f, PathType.CatmullRom).SetEase(Ease.InOutSine)
+                        .OnWaypointChange(waypointIndex =>
+                        {
+                            if (waypointIndex == 5)
+                            {
+                                //vinyl.DOLocalRotate(new Vector3(0, 0, 0), 0.35f).SetEase(Ease.OutSine);
+                            }
+                            
+                            if (waypointIndex == 10)
+                            {
+                                AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, vinylOnTurntableAudioClip, volume: 1f, pitch: 1f);
+                                StartSpinning();
+                            }
+                        });
+                });
+
+        }
+
+        private void RestoreCameraNavigation()
+        {
+            _cameraController.TweenToPosition(_cameraController.OriginPosition, 0.5f);
+            _cameraController.TweenToRotation(Quaternion.Euler(cameraReleaseRotation), 0.5f);
+        }
+
+        public void ForceSpinning()
+        {
+            _vinylRotateTransform = vinyl.GetComponent<RotateTransform>();
+            StartSpinning();
+        }
+
+        private void StartSpinningWithoutHead()
+        {
+            _vinylRotateTransform.EnableRotation();
+            _isSpinning = true;
+            _trackSelectorController.PlaySelectedTrack();
+        }
+
+        private void StartSpinning()
+        {
+            _spinningSequence?.Kill();
+            _spinningSequence = DOTween.Sequence()
+            .AppendCallback(() =>
+            {
+                head.DOLocalRotate(headLockRotation, 1f).OnComplete(() =>
+                {
+                    AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, placeHeadOnVinylAudioClip);
+                });
+            })
+            .AppendInterval(1f + placeHeadOnVinylAudioClip.length)
+            .AppendCallback(() =>
+            {
+                AudioManager.Instance.PlaySFX(AudioChannelType.TURNTABLE, readingVinylAudioClip);
+                _vinylRotateTransform.EnableRotation();
+            })
+            .AppendInterval(0.5f)
+            .AppendCallback(()=>
+            {
+                RestoreCameraNavigation();
+                ExitTurntable();
+                DisableInteraction();
+            })
+            .AppendInterval(readingVinylAudioClip.length)
+            .AppendCallback(() =>
+            {
+                _isSpinning = true;
+                _trackSelectorController.PlaySelectedTrack();
+                EnableInteraction();
+            });
+        }
+
+        private void StopSpinning()
+        {
+            _spinningSequence?.Kill();
+            _spinningSequence = DOTween.Sequence()
+                .AppendCallback(
+                    ()=>
+                    {
+                        AudioManager.Instance.PlaySFX(AudioChannelType.NONDIEGETIC, removeHeadOnVinylAudioClip);
+                        head.DOLocalRotate(headFreeRotation, removeHeadOnVinylAudioClip.length);
+                    })
+                .AppendInterval(removeHeadOnVinylAudioClip.length)
+                .AppendCallback(() =>
+                {
+                    _isSpinning = false;
+                    RestoreVinylDefaults();
+                });
+        }
+
+        private void RestoreVinylDefaults()
+        {
+            _vinylRotateTransform.DisableRotation();
+            vinyl.gameObject.SetActive(false);
+            vinyl.parent = vinylCase;
+            vinyl.localScale = _vinylOriginScale;
+            vinyl.localPosition = _vinylOriginPosition;
+            vinyl.localRotation = Quaternion.Euler(_vinylOriginRotation);
+        }
+
+        private void OnDestroy()
+        {
+            _trackSelectorController.OnTrackStopRequested -= StopSpinning;
+            _trackSelectorController.OnTrackStopRequested -= ExitTurntable;
+            _trackSelectorController.OnTrackSelectionCloseRequested -= ExitTurntable;
+            _trackSelectorController.OnTrackSelectionCloseRequested -= TryResumeTrack;
+        }
+
+        private void UpdateVinylVisuals()
+        {
+           TrackDataSO selectedTrackData = _trackSelectorController.SelectedTrackData;
+           
+           if (selectedTrackData)
+           {
+               vinylCaseRenderer.material = selectedTrackData.VinylCaseMaterial;
+               vinylRenderer.material = selectedTrackData.VinylMaterial;
+           }
+        }
+    }
+}

@@ -16,8 +16,9 @@ namespace DVDNights
         [SerializeField] private Transform jumpScareSpot;
 
         [Header("Rotation Settings")]
-        [SerializeField] private float _mouseSensitivity = 2f;
+        [SerializeField] private float mouseSensitivity = 2f;
         [SerializeField] private bool _mouseYClamp;
+        [SerializeField] private float drunkSmoothTime = 0.3f;
 
         [Header("X Axis (Pitch - Up/Down)")]
         [SerializeField] private float _minPitchAngle = -30f;
@@ -30,6 +31,8 @@ namespace DVDNights
         private float _currentPitch;
         private float _currentYaw;
         private bool _isEnabled;
+
+        private float _mouseSensitivity;
 
         private Vector3 _previousCameraPosition;
         private Vector3 _initialCameraPosition;
@@ -50,6 +53,10 @@ namespace DVDNights
         private IInteractionController _interactionController;
         private Tweener _fovTween;
         private Tween _enableInteractionTween;
+        private bool _isDelayed;
+        private Vector3 _currentRotation;
+        private float _pitchVelocity;
+        private float _yawVelocity;
 
         private void Awake()
         {
@@ -63,6 +70,7 @@ namespace DVDNights
                 mainCamera = Camera.main;
             }
 
+            RestoreSensitivity();
             _zoomInputAction = zoomInputActionSO.GetInputAction();
             _zoomInputAction.performed += ZoomIn;
             _zoomInputAction.canceled += ZoomOut;
@@ -131,8 +139,41 @@ namespace DVDNights
             {
                 return;
             }
+
+            if (!_isDelayed)
+            {
+                HandleRotation();
+                return;
+            }
             
-            HandleRotation();
+            if (_isDelayed)
+            {
+                HandleDelayedRotation();
+            }
+        }
+
+        private void HandleDelayedRotation()
+        {
+            float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity;
+
+            if (_mouseYClamp)
+            {
+                _currentYaw = Mathf.Clamp(_currentYaw + mouseX, _minYawAngle, _maxYawAngle);
+            }
+            else
+            {
+                _currentYaw += mouseX;
+            }
+
+            _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
+            
+            float smoothedPitch = Mathf.SmoothDampAngle(_currentRotation.x, _currentPitch, ref _pitchVelocity, drunkSmoothTime);
+            float smoothedYaw = Mathf.SmoothDampAngle(_currentRotation.y, _currentYaw, ref _yawVelocity, drunkSmoothTime);
+
+            _currentRotation = new Vector3(smoothedPitch, smoothedYaw, 0f);
+
+            mainCamera.transform.localRotation = Quaternion.Euler(_currentRotation);
         }
 
         public void HandleRotation()
@@ -149,16 +190,26 @@ namespace DVDNights
             {
                 _currentYaw += mouseX;
             }
-
+            
             // Pitch (X axis, up/down)
             _currentPitch = Mathf.Clamp(_currentPitch - mouseY, _minPitchAngle, _maxPitchAngle);
-            
+            _currentRotation = new Vector3(_currentPitch, _currentYaw, 0f);
             mainCamera.transform.localRotation = Quaternion.Euler(_currentPitch, _currentYaw, 0f);
+        }
+
+        public void DelayCameraMovement(bool delay)
+        {
+            _isDelayed = delay;
         }
 
         public void SetSensitivity(float sensitivity)
         {
             _mouseSensitivity = sensitivity;
+        }
+
+        public void RestoreSensitivity()
+        {
+            _mouseSensitivity = mouseSensitivity;
         }
 
         public void EnableNavigation()
@@ -285,7 +336,9 @@ namespace DVDNights
         public bool IsNavigationEnabled { get; }
         public Transform JumpScareSpot { get; }
         public void HandleRotation();
+        public void DelayCameraMovement(bool delay);
         public void SetSensitivity(float sensitivity);
+        public void RestoreSensitivity();
         public void EnableNavigation();
         public void DisableNavigation();
         public void UpdateCameraPositionAndRotation(Vector3 newCameraPosition, Vector3 newCameraRotation);
