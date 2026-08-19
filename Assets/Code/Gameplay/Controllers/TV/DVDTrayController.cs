@@ -24,19 +24,25 @@ namespace DVDNights
 
         private bool _canAnimate;
         private bool _isOpened;
+        private bool _isAnimating;
+        
         private ITVButton _tvOpenCloseButton;
         private ITVStateController _tvStateController;
 
         public bool IsTrayOpened => _isOpened;
+        public bool IsAnimating => _isAnimating;
+        
         public Transform TrayTransform => diskTrayTransform;
         public Action OnTrayOpened { get; set; }
         public Action OnTrayClosed { get; set; }
+        public Action OnTrayAnimation { get; set; }
 
         private void Awake()
         {
             _originalZPosition = diskTrayTransform.localPosition.z;
             _canAnimate = true;
             _isOpened = false;
+            _isAnimating = false;
             InstallService();
         }
 
@@ -71,6 +77,9 @@ namespace DVDNights
                 return;
             }
             
+            _isAnimating = true;
+            OnTrayAnimation?.Invoke();
+            
             _canAnimate = false;
             _tvOpenCloseButton.DisableButton();
             
@@ -91,6 +100,7 @@ namespace DVDNights
             diskTrayTransform.DOLocalMoveZ(destinationZPosition, openTrayClip.length * 0.65f).SetEase(Ease.InSine).OnComplete(() =>
             {
                 _isOpened = true;
+                _isAnimating = false;
                 _canAnimate = true;
                 OnTrayOpened?.Invoke();
                 _tvOpenCloseButton.EnableButton();
@@ -105,6 +115,7 @@ namespace DVDNights
             diskTrayTransform.DOLocalMoveZ(_originalZPosition, closeTrayClip.length * 0.55f).SetEase(Ease.InOutSine).OnComplete(() =>
             {
                 _isOpened = false;
+                _isAnimating = false;
                 _canAnimate = true;
                 OnTrayClosed?.Invoke();
                 _tvOpenCloseButton.EnableButton();
@@ -129,6 +140,7 @@ namespace DVDNights
         public Transform TrayTransform { get; }
         public Action OnTrayOpened { get; set; }
         public Action OnTrayClosed { get; set; }
+        public Action OnTrayAnimation { get; set; }
 
         public void SetCurrentDVDBox(DVDBoxInteractableObject dvdBoxInteractableObject);
     }

@@ -40,6 +40,7 @@ namespace DVDNights
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
             _dvdTrayController.OnTrayOpened += CheckInteractionStatus;
             _dvdTrayController.OnTrayClosed += CheckInteractionStatus;
+            _dvdTrayController.OnTrayAnimation += DisableDVDInteractions;
             CheckInteractionStatus();
         }
 
@@ -49,12 +50,15 @@ namespace DVDNights
             {
                 EnableInteraction();
                 IgnoreNavigation(true);
+                _currentDvdBoxInteractableObject.EnableInteraction();
             }
             else
             {
                 DisableInteraction();
                 IgnoreNavigation(false);
             }
+            
+            _tvNavigationController.OpenCloseButton.EnableButton();
         }
 
         public void SetCurrentDvdBoxInteractableObject(DVDBoxInteractableObject currentDvdBoxInteractableObject)
@@ -62,10 +66,18 @@ namespace DVDNights
            _currentDvdBoxInteractableObject = currentDvdBoxInteractableObject;
         }
 
+        private void DisableDVDInteractions()
+        {
+            _currentDvdBoxInteractableObject.DisableInteraction();
+            _tvNavigationController.OpenCloseButton.DisableButton();
+            DisableInteraction();
+        }
+
         private void OnDestroy()
         {
             _dvdTrayController.OnTrayOpened -= CheckInteractionStatus;
             _dvdTrayController.OnTrayClosed -= CheckInteractionStatus;
+            _dvdTrayController.OnTrayAnimation -= DisableDVDInteractions;
         }
     }
 }
