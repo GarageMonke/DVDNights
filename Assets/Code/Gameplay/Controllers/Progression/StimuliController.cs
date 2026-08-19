@@ -16,10 +16,12 @@ namespace DVDNights
         [Header("Anxiety")] 
         [SerializeField] private float anxietyIncreaseRate = 0.1f;
         [SerializeField] private float anxietyDecayRate = 0.25f;
+        [SerializeField] private Color anxietyColor = Color.red;
         
         [Header("Sleep")] 
         [SerializeField] private float sleepIncreaseRate = 0.1f;
         [SerializeField] private float sleepDecayRate = 0.25f;
+        [SerializeField] private FadeInOutBlack fadeInOutBlack;
 
         private bool _isEnabled;
         private IAFKController _afkController;
@@ -70,25 +72,32 @@ namespace DVDNights
 
         private void UpdateSleep()
         {
-            bool shouldIncrease = IsPlayerAFK() || IsFastForwardingTooMuch();
+            bool shouldIncrease = CheckSleep();
 
             if (shouldIncrease)
             {
                 sleep += sleepIncreaseRate * Time.deltaTime;
+                fadeInOutBlack.FadeIn(sleep, null);
             }
             else
             {
                 sleep -= sleepDecayRate * Time.deltaTime;
+                fadeInOutBlack.FadeOut(sleep, null);
             }
 
             sleep = Mathf.Clamp01(sleep);
-            Debug.Log("Sleep: " + sleep);
+          
 
             if (sleep >= 1f)
             {
                 TriggerSleep();
                 sleep = 0f;
             }
+        }
+
+        private bool CheckSleep()
+        {
+            return IsPlayerAFK() || IsFastForwardingTooMuch();
         }
 
         private void InstallService()
@@ -115,17 +124,12 @@ namespace DVDNights
 
         private bool IsPlayerAFK()
         {
-            return _afkController.AFKTime >= afkThreshold;
+            return !_fastForwardController.IsForwarding && _afkController.AFKTime >= afkThreshold;
         }
 
         private bool IsFastForwardingTooMuch()
         {
-            if (!_fastForwardController.IsForwarding)
-            {
-                return false;
-            }
-            
-            return _fastForwardController.FastForwardingTime >= afkThreshold;
+            return _fastForwardController.IsForwarding && _fastForwardController.FastForwardingTime >= afkThreshold;
         }
 
         private void TriggerAnxiety()

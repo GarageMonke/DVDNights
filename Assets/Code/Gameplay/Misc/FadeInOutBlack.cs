@@ -18,6 +18,34 @@ namespace DVDNights
             canvasGroup.blocksRaycasts = true;
         }
         
+        public void FadeIn(float fadeValue, Action onFadeCallback)
+        {
+            UpdateFadeValue(fadeValue);
+            
+            canvasGroup.blocksRaycasts = true;
+
+            if (Mathf.Approximately(canvasGroup.alpha, 1))
+            {
+                onFadeCallback?.Invoke();
+            }
+        }
+
+        public void FadeOut(float fadeValue, Action onFadeCallback)
+        {
+            UpdateFadeValue(fadeValue);          
+
+            if (Mathf.Approximately(canvasGroup.alpha, 0))
+            {
+                canvasGroup.blocksRaycasts = false;
+                onFadeCallback?.Invoke();
+            }
+        }
+
+        private void UpdateFadeValue(float fadeValue)
+        {
+            canvasGroup.alpha = Mathf.Clamp01(fadeValue);
+        }
+        
         public void FadeOut(float duration, Ease ease, Action onFadeCallback)
         {
             _tweener?.Kill();

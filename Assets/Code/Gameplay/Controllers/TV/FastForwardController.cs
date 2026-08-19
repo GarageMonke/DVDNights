@@ -28,6 +28,7 @@ namespace DVDNights
         private IDisksController _disksController;
         private IDiskLevelController _diskLevelController;
         private ITVStateController _tvStateController;
+        private IAFKController _afkController;
         private Material _forwardMaterial;
 
         private static readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
@@ -60,6 +61,7 @@ namespace DVDNights
             _disksController = ServiceLocator.GetService<IDisksController>();
             _diskLevelController = ServiceLocator.GetService<IDiskLevelController>();
             _tvStateController = ServiceLocator.GetService<ITVStateController>();
+            _afkController = ServiceLocator.GetService<IAFKController>();
 
             _tvNavigationController.OnSubmitButtonPressed += AddPower;
             _tvNavigationController.OnNextButtonHeld += GoForward;
@@ -113,6 +115,7 @@ namespace DVDNights
             
             _isForwarding = true;
             _startTime = Time.time;
+            _afkController.RecordActivity();
             _disksController.BoostAllDisksSpeed();
             powerView.SetActive(true);
             forwardLevelText.text = "X" + BounceGameProgression.GetFFLevelMult(_diskLevelController.DiskFFMultLevel);
@@ -188,6 +191,8 @@ namespace DVDNights
             ResetForwardShader();
             AudioManager.Instance.StopOST(AudioChannelType.DIEGETIC);
             AudioManager.Instance.PlaySFX(AudioChannelType.DIEGETIC, stopForwardingClip, 0.1f);
+            _startTime = 0;
+            _afkController.RecordActivity();
             _isForwarding = false;
             _disksController.ResetAllDisksSpeed();
         }

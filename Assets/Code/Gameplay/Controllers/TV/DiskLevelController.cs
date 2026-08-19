@@ -55,8 +55,8 @@ namespace DVDNights
             _diskBorderBonusLevel = 0;
             _diskCornerBonusLevel = 0;
             _diskFFBonusLevel = 0;
-            _diskFFMultLevel = 0;
-            _diskFFDrainRateLevel = 0;
+            _diskFFMultLevel = 10;
+            _diskFFDrainRateLevel = 10;
         }
     }
 
