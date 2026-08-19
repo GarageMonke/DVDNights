@@ -16,10 +16,13 @@ namespace DVDNights
         private IDeliveryController _deliveryController;
         private IDecayController _decayController;
         private IRulesViolationController _rulesViolationController;
+        private IStimuliController _stimuliController;
+        private IAFKController _afkController;
         
         private GameRulesInteractableObject _currentGameRulesInteractableObject;
         private GameRulesInteractableObject _obsoleteGameRulesInteractableObject;
-        
+   
+
         public int GoldenDisksCollected => _goldDisksAmount;
 
         private void Awake()
@@ -40,6 +43,9 @@ namespace DVDNights
             _tvNavigationController = ServiceLocator.GetService<ITVNavigationController>();
             _decayController = ServiceLocator.GetService<IDecayController>();
             _rulesViolationController = ServiceLocator.GetService<IRulesViolationController>();
+            _stimuliController = ServiceLocator.GetService<IStimuliController>();
+            _afkController = ServiceLocator.GetService<IAFKController>();
+            
             ScheduleRulesDelivery();
         }
 
@@ -94,22 +100,25 @@ namespace DVDNights
             DOVirtual.DelayedCall(1f, ()=> _deliveryController.DeliverNextDvdBox());
         }
 
-        private void HideObsoleteRules()
+        private void AcknowledgeRules()
         {
             _rulesViolationController.StartCheckingForRuleViolations();
-            _currentGameRulesInteractableObject.OnRulesAcknowledge -= HideObsoleteRules;
+            _currentGameRulesInteractableObject.OnRulesAcknowledge -= AcknowledgeRules;
 
             if (_obsoleteGameRulesInteractableObject)
             {
                 _obsoleteGameRulesInteractableObject.HideRules();
             }
+            
+            _afkController.EnableController();
+            _stimuliController.EnableController();
         }
 
         public void SetLastDeliveredRules(GameRulesInteractableObject currentGameRulesInteractableObject)
         {
             _obsoleteGameRulesInteractableObject = _currentGameRulesInteractableObject;
             _currentGameRulesInteractableObject = currentGameRulesInteractableObject;
-            _currentGameRulesInteractableObject.OnRulesAcknowledge += HideObsoleteRules;
+            _currentGameRulesInteractableObject.OnRulesAcknowledge += AcknowledgeRules;
         }
 
         private void OnDestroy()

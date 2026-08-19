@@ -43,6 +43,7 @@ namespace DVDNights
 
         private InputAction _zoomInputAction;
 
+        public Action OnCameraMove { get; set; }
         public Camera Camera => mainCamera;
         public Vector3 OriginPosition => _initialCameraPosition;
 
@@ -139,16 +140,15 @@ namespace DVDNights
                 return;
             }
 
+            OnCameraMove?.Invoke();
+            
             if (!_isDelayed)
             {
                 HandleRotation();
                 return;
             }
             
-            if (_isDelayed)
-            {
-                HandleDelayedRotation();
-            }
+            HandleDelayedRotation();
         }
 
         private void HandleDelayedRotation()
@@ -346,6 +346,7 @@ namespace DVDNights
 
     public interface ICameraController
     {
+        public Action OnCameraMove { get; set; }
         public Camera Camera { get; }
         public Vector3 OriginPosition { get; }
         public bool IsNavigationEnabled { get; }
