@@ -12,8 +12,14 @@ namespace DVDNights
         [Header("References")] 
         [SerializeField] private AudioClipProvider voicesProvider;
         [SerializeField] private FadeInOutBlack fadeInOutBlack;
+        [SerializeField] private TurntableInteractableObject turntableInteractableObject;
 
         private ITrackSelectionController _trackSelectorController;
+        private ICameraController _cameraController;
+        private IInteractionController _interactionController;
+        private IStimuliController _stimuliController;
+        private IInteractableController _interactableController;
+        
         private DepthOfField _depthOfField;
         private LensDistortion _lensDistortion;
         private PaniniProjection _paniniProjection;
@@ -24,13 +30,19 @@ namespace DVDNights
         private Sequence _depthOfFieldSequence;
         private MotionBlur _motionBlur;
         private FilmGrain _filmGrain;
-        private ICameraController _cameraController;
+
 
         protected override void Start()
         {
             base.Start();
             _trackSelectorController = ServiceLocator.GetService<ITrackSelectionController>();
             _cameraController = ServiceLocator.GetService<ICameraController>();
+            _interactionController = ServiceLocator.GetService<IInteractionController>();
+            _interactableController = ServiceLocator.GetService<IInteractableController>();
+            
+            _stimuliController = ServiceLocator.GetService<IStimuliController>();
+            _stimuliController.OnAnxietyTriggered += Corrupt;
+            
             voicesProvider.InitializeProvider();
             
             _trackSelectorController.OnTrackStartPlaying += TryClearCorruption;
@@ -41,6 +53,14 @@ namespace DVDNights
             _chromaticAberration = PostProcessingManager.Instance.GetVolumeComponent<ChromaticAberration>();
             _motionBlur = PostProcessingManager.Instance.GetVolumeComponent<MotionBlur>();
             _filmGrain = PostProcessingManager.Instance.GetVolumeComponent<FilmGrain>();
+        }
+
+        private void OnDestroy()
+        {
+            if (_stimuliController != null)
+            {
+                _stimuliController.OnAnxietyTriggered -= Corrupt;
+            }
         }
 
         private void Update()
@@ -55,6 +75,9 @@ namespace DVDNights
         {
             base.Corrupt();
             
+            _interactableController.DisableAllInteractables();
+            _interactableController.EnableInteractable(turntableInteractableObject.InteractableId);
+            
             AudioClip randomVoice = voicesProvider.GetRandomElement();
             AudioManager.Instance.PlayOST(AudioChannelType.VOICES, randomVoice, loop: true);
             DrunkEffect();
@@ -62,8 +85,10 @@ namespace DVDNights
 
         private void DrunkEffect()
         {
+            _interactionController.StopInteractionWithObject();
             _cameraController.DelayCameraMovement(true);
             _originalDoF = _depthOfField.focalLength.value;
+            
             _depthOfField.active = true;
             _lensDistortion.active = true;
             _paniniProjection.active = true;
@@ -125,6 +150,8 @@ namespace DVDNights
 
         private void TurnOffAllEffects()
         {
+            _stimuliController.EnableAnxiety();
+            _interactableController.EnableAllInteractables();
             _cameraController.DelayCameraMovement(false);
             _depthOfField.active = false;
             _chromaticAberration.active = false;
@@ -138,7 +165,8 @@ namespace DVDNights
 
         public override bool CanBeCorrupted()
         {
-            return !_trackSelectorController.IsPlayingTrack;
+            //Only manually Corrupted
+            return false;
         }
 
         private void TryClearCorruption()

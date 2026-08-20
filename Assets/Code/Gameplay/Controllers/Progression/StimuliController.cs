@@ -24,6 +24,10 @@ namespace DVDNights
         [SerializeField] private FadeInOutBlack fadeInOutBlack;
 
         private bool _isEnabled;
+
+        private bool _anxietyEnabled;
+        private bool _sleepEnabled;
+        
         private IAFKController _afkController;
         private ITrackSelectionController _trackSelectionController;
         private IFastForwardController _fastForwardController;
@@ -49,7 +53,7 @@ namespace DVDNights
 
         private void UpdateAnxiety()
         {
-            bool shouldIncrease = !TurntableIsPlaying();
+            bool shouldIncrease = IncreaseAnxiety();
 
             if (shouldIncrease)
             {
@@ -66,13 +70,12 @@ namespace DVDNights
             if (anxiety >= 1f)
             {
                 TriggerAnxiety();
-                anxiety = 0f;
             }
         }
 
         private void UpdateSleep()
         {
-            bool shouldIncrease = CheckSleep();
+            bool shouldIncrease = IncreaseSleep();
 
             if (shouldIncrease)
             {
@@ -86,23 +89,18 @@ namespace DVDNights
             }
 
             sleep = Mathf.Clamp01(sleep);
-          
-
+            
             if (sleep >= 1f)
             {
                 TriggerSleep();
-                sleep = 0f;
             }
-        }
-
-        private bool CheckSleep()
-        {
-            return IsPlayerAFK() || IsFastForwardingTooMuch();
         }
 
         private void InstallService()
         {
             ServiceLocator.RegisterService<IStimuliController>(this);
+            EnableAnxiety();
+            EnableSleep();
         }
 
         private void Start()
@@ -116,10 +114,15 @@ namespace DVDNights
             _trackSelectionController = ServiceLocator.GetService<ITrackSelectionController>();
             _fastForwardController = ServiceLocator.GetService<IFastForwardController>();
         }
-
-        private bool TurntableIsPlaying()
+        
+        private bool IncreaseSleep()
         {
-            return _trackSelectionController.IsPlayingTrack;
+            return _sleepEnabled && (IsPlayerAFK() || IsFastForwardingTooMuch());
+        }
+
+        private bool IncreaseAnxiety()
+        {
+            return _anxietyEnabled && !_trackSelectionController.IsPlayingTrack;
         }
 
         private bool IsPlayerAFK()
@@ -134,11 +137,13 @@ namespace DVDNights
 
         private void TriggerAnxiety()
         {
+            _anxietyEnabled = false;
             OnAnxietyTriggered?.Invoke();
         }
 
         private void TriggerSleep()
         {
+            _sleepEnabled = false;
             OnSleepTriggered?.Invoke();
         }
 
@@ -152,6 +157,16 @@ namespace DVDNights
         {
             _isEnabled = false;
         }
+
+        public void EnableSleep()
+        {
+            _sleepEnabled = true;
+        }
+
+        public void EnableAnxiety()
+        {
+            _anxietyEnabled = true;
+        }
     }
 
     public interface IStimuliController
@@ -160,5 +175,7 @@ namespace DVDNights
         public Action OnAnxietyTriggered { get; set; }
         public void EnableController();
         public void DisableController();
+        public void EnableSleep();
+        public void EnableAnxiety();
     }
 }
