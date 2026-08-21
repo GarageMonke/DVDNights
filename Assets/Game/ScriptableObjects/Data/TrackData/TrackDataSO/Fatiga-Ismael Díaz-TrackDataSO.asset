@@ -16,7 +16,8 @@ MonoBehaviour:
   coverArt: "Cover Art: Ismael D\xEDaz"
   composer: 'Composer: Dale Marian Ponete la 10'
   trackObject: {fileID: 6896695006450494216, guid: 10f8fe596127c014990649b94eb34914, type: 3}
-  trackAudioClip: {fileID: 8300000, guid: d8d7aaa51eac3f64097d2b130e8e8374, type: 3}
+  trackAudioClip: {fileID: 8300000, guid: cdd1f50647c2a864a89ef534fb2948fa, type: 3}
   vinylCaseMaterial: {fileID: 2100000, guid: a61d08773dac40b4bbd5c9a2584de4f9, type: 2}
   vinylMaterial: {fileID: 2100000, guid: cd4a6060910f79e4c8bee23cbb014e36, type: 2}
   vinylSprite: {fileID: 21300000, guid: 90bcbe8dd9d7880498bcde233f4d70a1, type: 3}
+  isUnlocked: 1

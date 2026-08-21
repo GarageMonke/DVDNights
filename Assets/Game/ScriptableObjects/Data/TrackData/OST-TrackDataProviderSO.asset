@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: OST-TrackDataProviderSO
   m_EditorClassIdentifier: 
   assignedElements:
+  - Id: 9
+    Value: {fileID: 11400000, guid: 341805be411e21d43953f988498d2fba, type: 2}
+  - Id: 8
+    Value: {fileID: 11400000, guid: 5ad4f037668d8654c8f2128f427022f0, type: 2}
   - Id: 0
     Value: {fileID: 11400000, guid: f1f64f61fea89d245bfd15402dff52ec, type: 2}
   - Id: 1
@@ -29,10 +33,6 @@ MonoBehaviour:
     Value: {fileID: 11400000, guid: d2faacc6e257de34f8561e7687d0bc99, type: 2}
   - Id: 7
     Value: {fileID: 11400000, guid: 5005caef27c0b9c49ab99d2e5aaa3db9, type: 2}
-  - Id: 8
-    Value: {fileID: 11400000, guid: 5ad4f037668d8654c8f2128f427022f0, type: 2}
-  - Id: 9
-    Value: {fileID: 11400000, guid: 341805be411e21d43953f988498d2fba, type: 2}
   - Id: 10
     Value: {fileID: 11400000, guid: 84bbf90eb95e670469acb8dac68f23fc, type: 2}
   - Id: 11

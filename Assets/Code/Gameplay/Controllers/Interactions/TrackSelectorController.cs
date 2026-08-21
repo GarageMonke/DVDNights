@@ -16,11 +16,10 @@ namespace DVDNights
         
         private GameObject _trackObject;
         
-        private int _currentTrackIndex = 0;
-        private int _previousTrackIndex = -1;
         private bool _shouldPlayFromStart;
         private bool _isPlayingTrack;
         private TrackDataSO _selectedTrackData;
+        private TrackDataSO _previousTrackData;
         
         private TrackSelectionWindow _trackSelectionWindow;
 
@@ -43,23 +42,14 @@ namespace DVDNights
             trackDataProvider.InitializeProvider();
             ServiceLocator.RegisterService<ITrackSelectionController>(this);
             _allUnlockedTracks = new List<TrackDataSO>();
-        }
-        
-        private void SelectTrack()
-        {
-            if (_currentTrackIndex == _previousTrackIndex)
+
+            foreach (TrackDataSO trackData in trackDataProvider.GetAllElements())
             {
-                _shouldPlayFromStart = false;
+                if (trackData.IsUnlocked)
+                {
+                    _allUnlockedTracks.Add(trackData);
+                }
             }
-            else
-            {
-                _previousTrackIndex = _currentTrackIndex;
-                _shouldPlayFromStart = true;
-            }
-            
-            _selectedTrackData = trackDataProvider.GetElementById(_currentTrackIndex.ToString());
-            
-            OnTrackPlayRequested?.Invoke();
         }
 
         public void PlaySelectedTrack()
@@ -68,8 +58,7 @@ namespace DVDNights
             
             if (_shouldPlayFromStart)
             {
-                TrackDataSO currentTrackData = trackDataProvider.GetElementById(_currentTrackIndex.ToString());
-                AudioManager.Instance.PlayOST(AudioChannelType.TURNTABLE, currentTrackData.TrackAudioClip);
+                AudioManager.Instance.PlayOST(AudioChannelType.TURNTABLE, _selectedTrackData.TrackAudioClip);
                 OnTrackStartPlaying?.Invoke();
                 return;
             }
@@ -81,8 +70,8 @@ namespace DVDNights
         public void StopPlayingTrack()
         {
             PauseSelectedTrack();
+            _previousTrackData = _selectedTrackData;
             _selectedTrackData = null;
-            _previousTrackIndex = -1;
             _isPlayingTrack = false;
             OnTrackStopRequested?.Invoke();
         }
@@ -104,14 +93,18 @@ namespace DVDNights
         {
             int randomTrackIndex = Random.Range(0, _allUnlockedTracks.Count);
 
-            while (randomTrackIndex == _previousTrackIndex)
+            TrackDataSO randomTrackData = _allUnlockedTracks[randomTrackIndex];
+            
+            while (randomTrackData == _previousTrackData)
             {
                 randomTrackIndex = Random.Range(0, _allUnlockedTracks.Count);
+                randomTrackData = _allUnlockedTracks[randomTrackIndex];
             }
-
-            _currentTrackIndex = randomTrackIndex;
             
-            SelectTrack();
+            _selectedTrackData = randomTrackData;
+            
+            _shouldPlayFromStart = true;
+            OnTrackPlayRequested?.Invoke();
         }
     }
 

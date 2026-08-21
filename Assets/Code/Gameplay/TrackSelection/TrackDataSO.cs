@@ -14,6 +14,7 @@ namespace DVDNights
         [SerializeField] private Material vinylCaseMaterial;
         [SerializeField] private Material vinylMaterial;
         [SerializeField] private Sprite vinylSprite;
+        [SerializeField] private bool isUnlocked;
         
         public AudioClip TrackAudioClip => trackAudioClip;
         public GameObject TrackObject => trackObject;
@@ -23,5 +24,12 @@ namespace DVDNights
         public Material VinylCaseMaterial => vinylCaseMaterial;
         public Material VinylMaterial => vinylMaterial;
         public Sprite VinylSprite => vinylSprite;
+
+        public bool IsUnlocked => isUnlocked;
+
+        public void UnlockTrack()
+        {
+            isUnlocked = true;
+        }
     }
 }

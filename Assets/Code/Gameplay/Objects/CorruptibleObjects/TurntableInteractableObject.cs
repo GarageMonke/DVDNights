@@ -75,7 +75,7 @@ namespace DVDNights
 
         public override string GetInteractionAction()
         {
-            return !_trackSelectorController.IsPlayingTrack ? "Reproducir Vinilo" : "Parar Vinilo";
+            return !_trackSelectorController.IsPlayingTrack ? "Play Track" : "Stop Track";
         }
 
         public override void Interact()
