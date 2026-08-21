@@ -187,6 +187,12 @@ public class InteractionController : MonoBehaviour, IInteractionController
         
         _currentInteraction.Interact();
 
+        if (_currentInteraction == null)
+        {
+            ClearHighlight();
+            return;
+        }
+        
         if (!_currentInteraction.IsEnabled)
         {
             _currentInteraction = null;
@@ -228,6 +234,11 @@ public class InteractionController : MonoBehaviour, IInteractionController
 
     public void StopInteractionWithObject()
     {
+        _isInteracting = false;
+        crosshairImage.gameObject.SetActive(true);
+        _cameraController.EnableNavigation();
+        _dialogController.HideDialog();
+        
         if (_currentInteraction == null)
         {
             return;
@@ -238,12 +249,8 @@ public class InteractionController : MonoBehaviour, IInteractionController
             return;
         }
         
-        _isInteracting = false;
-        crosshairImage.gameObject.SetActive(true);
-        _cameraController.EnableNavigation();
         _currentInteraction.StopInteraction();
         _currentInteraction = null;
-        _dialogController.HideDialog();
     }
 
     public void SetCurrentInteraction(IInteractableObject interactableObject)
