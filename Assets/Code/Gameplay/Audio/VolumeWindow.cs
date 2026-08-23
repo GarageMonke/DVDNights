@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class VolumeWindow : TVWindow, IVolumeWindow
     {

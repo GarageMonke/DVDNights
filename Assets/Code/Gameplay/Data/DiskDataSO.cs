@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     [CreateAssetMenu(fileName = "-DiskDataSO", menuName = "ScriptableObjects/Disks/DiskDataSO")]
     public class DiskDataSO : ScriptableObject

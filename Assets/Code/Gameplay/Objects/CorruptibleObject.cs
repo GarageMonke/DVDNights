@@ -3,7 +3,7 @@ using System.Collections;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class CorruptibleObject : MonoBehaviour, ICorruptibleObject
     {

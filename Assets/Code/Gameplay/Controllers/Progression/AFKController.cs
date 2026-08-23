@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class AFKController : MonoBehaviour, IAFKController
     {

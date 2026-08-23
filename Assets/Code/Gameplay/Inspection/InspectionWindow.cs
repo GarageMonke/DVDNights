@@ -3,7 +3,7 @@ using CorePatterns.Managers;
 using TMPro;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class InspectionWindow : Window, IInspectionWindow
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public abstract class CorruptibleInspectableObject : CorruptibleInteractableObject
     {

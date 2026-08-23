@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class TVInteractableObject : CorruptibleInteractableObject
     {

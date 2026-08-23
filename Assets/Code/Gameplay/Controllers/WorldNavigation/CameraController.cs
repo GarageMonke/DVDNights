@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class CameraController : MonoBehaviour, ICameraController
     {

@@ -4,7 +4,7 @@ using CorePatterns.ServiceLocator;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class BouncerDisk : MonoBehaviour, IBouncerDisk
     {

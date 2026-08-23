@@ -37,7 +37,6 @@ namespace CorePatterns.Managers
             channel.StopOST(fadeOut);
         }
 
-
         public void StopSFX(AudioChannelType channelType)
         {
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
@@ -90,6 +89,24 @@ namespace CorePatterns.Managers
         {
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
             return channel.GetPlayingAudioClip();
+        }
+
+        public void PauseAllAudio()
+        {
+            foreach (AudioChannelType type in Enum.GetValues(typeof(AudioChannelType)))
+            {
+                AudioSourceChannel channel = GetAudioSourceChannelByType(type);
+                channel.PauseOST();
+            }
+        }
+
+        public void ResumeAllAudio()
+        {
+            foreach (AudioChannelType type in Enum.GetValues(typeof(AudioChannelType)))
+            {
+                AudioSourceChannel channel = GetAudioSourceChannelByType(type);
+                channel.ResumeOST();
+            }
         }
 
         private AudioSourceChannel GetAudioSourceChannelByType(AudioChannelType audioChannelType)

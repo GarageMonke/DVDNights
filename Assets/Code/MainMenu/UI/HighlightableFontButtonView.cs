@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class HighlightableFontButtonView : HighlightableButtonView
     {

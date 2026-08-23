@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class ChalkboardShake : MonoBehaviour
     {

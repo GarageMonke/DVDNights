@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class HighlightableGlitchButtonView : HighlightableButtonView
     {

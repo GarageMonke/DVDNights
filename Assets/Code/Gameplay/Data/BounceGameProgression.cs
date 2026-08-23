@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DVDNights
+namespace Rulebound
 {
     public static class BounceGameProgression
     {

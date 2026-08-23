@@ -3,7 +3,7 @@ using CorePatterns.Managers;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Code.MVP
+namespace Rulebound
 {
     public class LoadingWindow : Window
     {

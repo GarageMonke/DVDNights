@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     [Serializable]
     public class StartToTargetTweenData

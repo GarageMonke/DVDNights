@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class GameProgressionController : MonoBehaviour, IGameProgressionController
     {

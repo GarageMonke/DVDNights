@@ -6,7 +6,7 @@ using CorePatterns.ServiceLocator;
 using TMPro;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class TVMessageWindow : TVWindow, IMessageWindow
     {

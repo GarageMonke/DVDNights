@@ -7,7 +7,7 @@ using CorePatterns.ServiceLocator;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class RulesWindow : Window, IRulesWindow
     {

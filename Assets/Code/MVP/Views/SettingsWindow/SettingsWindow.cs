@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Code.MVP
+namespace Rulebound
 {
     public class SettingsWindow : Window
     {

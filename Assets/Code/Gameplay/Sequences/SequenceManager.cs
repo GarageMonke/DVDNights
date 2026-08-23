@@ -3,7 +3,7 @@ using DG.Tweening;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class SequenceManager : MonoBehaviour
     {

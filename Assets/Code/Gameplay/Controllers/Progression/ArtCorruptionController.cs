@@ -3,7 +3,7 @@ using CorePatterns.ServiceLocator;
 using TossBoss.Providers.Engine.Implementations.Materials;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class ArtCorruptionController : MonoBehaviour, IArtCorruptionController
     {

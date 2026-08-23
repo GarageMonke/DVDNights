@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class ShopItemView : MonoBehaviour, IShopItemView
     {

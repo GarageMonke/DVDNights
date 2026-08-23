@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class RulesViolationController : MonoBehaviour, IRulesViolationController
     {

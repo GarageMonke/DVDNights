@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class GameStartController : MonoBehaviour, IGameStartController
     {

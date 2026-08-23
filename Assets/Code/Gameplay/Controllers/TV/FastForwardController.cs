@@ -4,7 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class FastForwardController : MonoBehaviour, IFastForwardController
     {

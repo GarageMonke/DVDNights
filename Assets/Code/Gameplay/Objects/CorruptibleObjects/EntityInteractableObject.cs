@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class EntityInteractableObject : CorruptibleInteractableObject
     {

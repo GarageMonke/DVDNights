@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class FillView : MonoBehaviour, IFillView
     {

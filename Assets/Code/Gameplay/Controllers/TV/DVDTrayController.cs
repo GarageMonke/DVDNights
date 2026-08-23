@@ -4,7 +4,7 @@ using CorePatterns.ServiceLocator;
 using DG.Tweening;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class DVDTrayController : MonoBehaviour, IDVDTrayController
     {

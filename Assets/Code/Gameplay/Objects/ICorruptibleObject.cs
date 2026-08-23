@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DVDNights
+namespace Rulebound
 {
     public interface ICorruptibleObject
     {

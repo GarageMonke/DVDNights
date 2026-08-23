@@ -2,7 +2,7 @@
 using CorePatterns.Managers;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class MouseLayoutWindow : Window, IMouseLayoutView
     {

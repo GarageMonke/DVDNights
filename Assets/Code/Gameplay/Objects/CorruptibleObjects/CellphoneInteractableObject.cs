@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Sequence = DG.Tweening.Sequence;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class CellphoneInteractableObject : CorruptibleInteractableObject
     {

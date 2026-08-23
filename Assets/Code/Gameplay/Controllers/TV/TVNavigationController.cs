@@ -1,9 +1,9 @@
 ﻿using System;
 using CorePatterns.ServiceLocator;
-using DVDNights;
+using Rulebound;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class TVNavigationController : MonoBehaviour, ITVNavigationController
     {

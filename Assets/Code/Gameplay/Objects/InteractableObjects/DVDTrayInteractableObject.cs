@@ -1,6 +1,6 @@
 ﻿using CorePatterns.ServiceLocator;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class DVDTrayInteractableObject : InteractableObject
     {

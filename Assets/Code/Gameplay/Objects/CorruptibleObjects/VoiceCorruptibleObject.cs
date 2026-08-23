@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class VoiceCorruptibleObject : CorruptibleObject
     {

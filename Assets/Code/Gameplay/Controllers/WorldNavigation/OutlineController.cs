@@ -2,7 +2,7 @@
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class OutlineController :  MonoBehaviour, IOutlineController
     {

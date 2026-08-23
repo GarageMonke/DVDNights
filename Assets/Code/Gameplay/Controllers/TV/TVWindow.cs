@@ -1,7 +1,7 @@
 ﻿using Common;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public abstract class TVWindow : MonoBehaviour, IWindow
     {

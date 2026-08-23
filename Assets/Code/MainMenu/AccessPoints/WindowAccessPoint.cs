@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Window = Common.Window;
 
-namespace Code.MainMenu.AccessPoints
+namespace Rulebound
 {
     public abstract class WindowAccessPoint<T> : AccessPoint where T : Window
     {

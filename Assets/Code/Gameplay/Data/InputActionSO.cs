@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace DVDNights
+namespace Rulebound
 {
     [CreateAssetMenu(fileName = "InputAction_", menuName = "ScriptableObjects/Input/Data/InputAction", order = 0)]
     public class InputActionSO : ScriptableObject

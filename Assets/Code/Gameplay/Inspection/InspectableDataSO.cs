@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     [CreateAssetMenu(fileName = "-InspectableDataSO", menuName = "ScriptableObjects/Inspection/InspectableDataSO")]
     public class InspectableDataSO : ScriptableObject

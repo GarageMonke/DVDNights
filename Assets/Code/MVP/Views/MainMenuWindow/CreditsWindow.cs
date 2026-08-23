@@ -1,9 +1,8 @@
 ﻿using Common;
 using CorePatterns.Managers;
-using DVDNights;
 using UnityEngine;
 
-namespace Code.MVP
+namespace Rulebound
 {
     public class CreditsWindow : Window
     {

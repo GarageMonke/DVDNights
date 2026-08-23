@@ -3,7 +3,7 @@ using Code.Gameplay.Dialogues;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     public class DialogController : MonoBehaviour, IDialogController
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DVDNights
+namespace Rulebound
 {
     [CreateAssetMenu(fileName = "-TrackDataSO", menuName = "ScriptableObjects/Tracks/TrackDataSO")]
     public class TrackDataSO : ScriptableObject

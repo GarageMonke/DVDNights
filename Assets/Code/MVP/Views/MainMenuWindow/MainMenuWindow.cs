@@ -1,13 +1,10 @@
-﻿using System;
-using Code.MainMenu.AccessPoints;
-using Common;
+﻿using Common;
 using CorePatterns.Managers;
 using DG.Tweening;
-using DVDNights;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.MVP
+namespace Rulebound
 {
     public class MainMenuWindow : Window
     {

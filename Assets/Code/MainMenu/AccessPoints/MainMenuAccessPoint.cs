@@ -1,6 +1,4 @@
-﻿using Code.MVP;
-
-namespace Code.MainMenu.AccessPoints
+﻿namespace Rulebound
 {
     public class MainMenuAccessPoint : WindowAccessPoint<MainMenuWindow>
     {

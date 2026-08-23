@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.MainMenu.AccessPoints
+namespace Rulebound
 {
     public abstract class AccessPoint : MonoBehaviour, IAccessPoint
     {
