@@ -24,7 +24,7 @@ namespace Rulebound
         public override void Close()
         {
             scrollView.OnScrollEnded -= Close;
-            WindowManager.Instance.OpenWindow<MainMenuWindow>(gameObject, true);
+            AudioManager.Instance.StopOST(AudioChannelType.NONDIEGETIC, fadeOut: false);
             WindowManager.Instance.CloseWindow<CreditsWindow>();
         }
     }

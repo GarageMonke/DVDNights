@@ -33,10 +33,18 @@ namespace Rulebound
             steamButton.onClick.AddListener(OpenSteamPage);
         }
 
-        private void Start()
+        public override void Display()
         {
-            AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, mainMenuAudioClip, loop: true);
+            base.Display();
+            
             fadeInOutBlack.FadeOut(2f, Ease.Linear, null);
+            
+            if (AudioManager.Instance.GetChannelPlayingOST(AudioChannelType.NONDIEGETIC) == mainMenuAudioClip)
+            {
+                return;
+            }
+            
+            AudioManager.Instance.PlayOST(AudioChannelType.NONDIEGETIC, mainMenuAudioClip, loop: true, fadeIn: false);
         }
 
         private void EnableAllMenuAccessPoints()

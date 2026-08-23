@@ -112,6 +112,14 @@ namespace CorePatterns.Managers
             OnWindowClosed?.Invoke();
         }
 
+        private void DisplayWindowByType(Type type)
+        {
+            if (_openedWindows.TryGetValue(type, out WindowEntry windowEntry))
+            {
+                windowEntry.Window.Display();
+            }
+        }
+
         private void ShortcutToCloseTopWindow(InputAction.CallbackContext obj)
         {
             Type topWindowType = GetTopWindowType();
@@ -136,6 +144,19 @@ namespace CorePatterns.Managers
         {
             Type latestOpenedType = GetTopWindowType();
             CloseWindowByType(latestOpenedType);
+            DisplayTopWindow();
+        }
+
+        private void DisplayTopWindow()
+        {
+            Type latestOpenedType = GetTopWindowType();
+
+            if (!IsWindowOpen(latestOpenedType))
+            {
+                return;
+            }
+            
+            DisplayWindowByType(latestOpenedType);
         }
 
         private Type GetTopWindowType()
