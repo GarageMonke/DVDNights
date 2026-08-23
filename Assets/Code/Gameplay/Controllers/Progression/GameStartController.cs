@@ -27,6 +27,7 @@ namespace Rulebound
         private DepthOfField _depthOfField;
         private LensDistortion _lensDistortion;
         private Sequence _doorKnockingSequence;
+        private IPauseController _pauseController;
 
 
         private void Awake()
@@ -50,6 +51,7 @@ namespace Rulebound
             _depthOfField = PostProcessingManager.Instance.GetVolumeComponent<DepthOfField>();
             _lensDistortion = PostProcessingManager.Instance.GetVolumeComponent<LensDistortion>();
             _deliveryController = ServiceLocator.GetService<IDeliveryController>();
+            _pauseController = ServiceLocator.GetService<IPauseController>();
             
             //Check if its a new game
             AudioManager.Instance.PlayOST(AudioChannelType.DOOR, doorKnockingAudioClip, 0.75f, true);
@@ -143,6 +145,7 @@ namespace Rulebound
                 _lensDistortion.active = false;
                 _interactionController.EnableInteractions();
                 _interactionController.ShowCrossHair();
+                _pauseController.EnablePause();
             });
             
             openEyesSequence.AppendInterval(0.5f);

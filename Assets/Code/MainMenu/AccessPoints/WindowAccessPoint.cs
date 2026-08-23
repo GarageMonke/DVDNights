@@ -14,6 +14,8 @@ namespace Rulebound
 
         public Action OnWindowAccessed;
         
+        protected T _windowAccessed;
+        
         private void Awake()
         {
             if (accessPointButton)
@@ -25,7 +27,7 @@ namespace Rulebound
         public override void Access()
         {
             OnWindowAccessed?.Invoke();
-            WindowManager.Instance.OpenWindow<T>(gameObject, openInContainer);
+            _windowAccessed = WindowManager.Instance.OpenWindow<T>(gameObject, openInContainer);
         }
 
         public void EnableAccessPoint()

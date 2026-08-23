@@ -16,6 +16,7 @@ namespace CorePatterns.Managers
         [SerializeField] private Volume windowVolume;
         [SerializeField] private Transform worldTransform;
         
+        
         [Header("Windows")]
         [SerializeField] private WindowDatabase windowDatabase;
 

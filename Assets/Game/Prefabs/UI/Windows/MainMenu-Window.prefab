@@ -1784,6 +1784,7 @@ MonoBehaviour:
   accessOnStart: 0
   openInContainer: 1
   accessPointButton: {fileID: 5481728095284854396}
+  returnToMainMenu: 1
 --- !u!1 &4226663114693289881
 GameObject:
   m_ObjectHideFlags: 0
