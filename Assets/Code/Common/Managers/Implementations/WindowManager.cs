@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Database;
+using Rulebound;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
@@ -15,16 +17,19 @@ namespace CorePatterns.Managers
         [SerializeField] private Camera windowCamera;
         [SerializeField] private Volume windowVolume;
         [SerializeField] private Transform worldTransform;
-        
+        [SerializeField] private InputActionSO closeInputActionSO;
         
         [Header("Windows")]
         [SerializeField] private WindowDatabase windowDatabase;
 
         private readonly Dictionary<Type, Window> _windowPrefabs = new();
         private Dictionary<Type, WindowEntry> _openedWindows = new();
+        private readonly List<Type> _windowStack = new();
         
         private Canvas _containerCanvas;
         private GameObject _instantiatedInWorld;
+        
+        private InputAction _closeInputAction;
         
         public Action OnWindowOpened;
         public Action OnWindowClosed;
@@ -33,6 +38,8 @@ namespace CorePatterns.Managers
         {
             base.Awake();
             RegisterWindows();
+            _closeInputAction = closeInputActionSO.GetInputAction();
+            _closeInputAction.performed += ShortcutToCloseTopWindow;
         }
 
         private void RegisterWindows()
@@ -70,6 +77,11 @@ namespace CorePatterns.Managers
 
             GameObject instantiatedInWorld = null;
             
+            if (_openedWindows.TryAdd(type, new WindowEntry(instance, openInContainer)))
+            {
+               _windowStack.Add(type);
+            }
+            
             _openedWindows.TryAdd(type, new WindowEntry(instance, openInContainer));
             
             RefreshOverlayState();
@@ -83,11 +95,15 @@ namespace CorePatterns.Managers
         
         public void CloseWindow<T>() where T : Window
         {
-            _openedWindows.TryGetValue(typeof(T), out WindowEntry windowEntry);
+            CloseWindowByType(typeof(T));
+        }
 
-            if (windowEntry != null)
+        
+        private void CloseWindowByType(Type type)
+        {
+            if (_openedWindows.Remove(type, out WindowEntry windowEntry))
             {
-                _openedWindows.Remove(typeof(T));
+                _windowStack.Remove(type);
                 Destroy(windowEntry.Window.gameObject);
             }
             
@@ -95,16 +111,81 @@ namespace CorePatterns.Managers
             
             OnWindowClosed?.Invoke();
         }
+
+        private void ShortcutToCloseTopWindow(InputAction.CallbackContext obj)
+        {
+            Type topWindowType = GetTopWindowType();
+
+            if (topWindowType == null)
+            {
+                return;
+            }
+            
+            if (!IsWindowOpen(topWindowType))
+            {
+                return;
+            }
+            
+            if (CanBeClosedByShortcut(topWindowType))
+            {
+                CloseTopWindow();
+            }
+        }
+        
+        public void CloseTopWindow()
+        {
+            Type latestOpenedType = GetTopWindowType();
+            CloseWindowByType(latestOpenedType);
+        }
+
+        private Type GetTopWindowType()
+        {
+            if (_windowStack.Count == 0)
+            {
+                return null;
+            }
+            
+            return _windowStack[^1];
+        }
+        
+        public void CloseAllWindows()
+        {
+            List<Type> windowsInOrder = new(_windowStack);
+            windowsInOrder.Reverse();
+
+            foreach (Type type in windowsInOrder)
+            {
+                CloseWindowByType(type);
+            }
+        }
         
         public void SetContainerCanvas(Canvas canvas)
         {
             _containerCanvas = canvas;
         }
 
+        public bool CanBeClosedByShortcut(Type windowType)
+        {
+            _openedWindows.TryGetValue(windowType, out WindowEntry windowEntry);
+            return windowEntry != null && windowEntry.Window.CloseByShortcut;
+        }
+
         public bool IsWindowOpen<T>() where T : Window
         {
             _openedWindows.TryGetValue(typeof(T), out WindowEntry windowEntry);
             return windowEntry != null;
+        }
+
+        public bool IsWindowOpen(Type type)
+        {
+            _openedWindows.TryGetValue(type, out WindowEntry windowEntry);
+            return windowEntry != null;
+        }
+
+        public bool IsWindowOnTop<T>() where T : Window
+        {
+            Type topWindowType = GetTopWindowType();
+            return typeof(T) == topWindowType;
         }
 
         private Canvas FindCanvasInHierarchy(GameObject source)
@@ -119,6 +200,11 @@ namespace CorePatterns.Managers
 
             windowCamera.enabled = shouldEnable;
             windowVolume.enabled = shouldEnable;
+        }
+
+        public bool HasOpenedWindows()
+        {
+            return _openedWindows.Count > 0;
         }
     }
 }

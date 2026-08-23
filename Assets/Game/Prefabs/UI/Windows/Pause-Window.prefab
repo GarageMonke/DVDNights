@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d919437b7ab4ede9be7b6a7c463c589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: ui_exitGame
+  key: ui_exit
 --- !u!114 &4488911700422204260
 MonoBehaviour:
   m_ObjectHideFlags: 0

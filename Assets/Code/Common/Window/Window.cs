@@ -8,9 +8,11 @@ namespace Common
     {
         [Header("Close-Button")]
         [SerializeField] private Button closeButton;
+        [SerializeField] private bool closeByShortcut = true;
         
         private bool _isDisplaying;
         public bool IsDisplaying => _isDisplaying;
+        public bool CloseByShortcut => closeByShortcut;
 
         protected virtual void Awake()
         {

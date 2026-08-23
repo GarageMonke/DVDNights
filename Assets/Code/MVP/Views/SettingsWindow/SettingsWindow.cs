@@ -42,18 +42,10 @@ namespace Rulebound
         [Header("ScrollView")] 
         [SerializeField] private ScrollRect scrollRect;
 
-        private bool _goBackToMenu;
-        private IPauseController _pauseController;
-
         protected override void Awake()
         {
             base.Awake();
             SubscribeToEvents();
-        }
-        
-        public void SetGoBackToMenu(bool goBackToMenu)
-        {
-            _goBackToMenu = goBackToMenu;
         }
 
         private void SubscribeToEvents()
@@ -91,9 +83,6 @@ namespace Rulebound
             
             scrollRect.verticalNormalizedPosition = 1;
             
-            _pauseController = ServiceLocator.GetService<IPauseController>();
-            _pauseController.DisablePause();
-            
             PopulateDropdowns();
             RefreshFromCurrentSettings();
             SettingsManager.Instance.OnSettingsChanged += HandleSettingsChanged;
@@ -107,16 +96,6 @@ namespace Rulebound
 
         public override void Close()
         {
-            if (_goBackToMenu)
-            {
-                WindowManager.Instance.OpenWindow<MainMenuWindow>(gameObject, true);
-            }
-            else
-            {
-                _pauseController.EnablePause();
-                _pauseController.Pause();
-            }
-
             WindowManager.Instance.CloseWindow<SettingsWindow>();
         }
 

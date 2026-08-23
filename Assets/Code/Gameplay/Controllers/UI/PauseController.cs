@@ -54,11 +54,21 @@ namespace Rulebound
             
             if (_isPaused)
             {
+                if (IsPauseWindowOnTop())
+                {
+                    return;
+                }
+                
                 Resume();
                 return;
             }
             
             Pause();
+        }
+
+        private bool IsPauseWindowOnTop()
+        {
+            return WindowManager.Instance.HasOpenedWindows() && WindowManager.Instance.IsWindowOnTop<PauseWindow>();
         }
 
         public void Pause()

@@ -31,8 +31,6 @@ namespace Rulebound
             newGameButton.onClick.AddListener(NewGame);
             exitButton.onClick.AddListener(ExitGame);;
             steamButton.onClick.AddListener(OpenSteamPage);
-            creditsAccessPoint.OnWindowAccessed += Hide;
-            settingsAccessPoint.OnWindowAccessed += Hide;
         }
 
         private void Start()
@@ -78,12 +76,6 @@ namespace Rulebound
             WindowManager.Instance.OpenWindow<LoadingWindow>(gameObject, true);
             sceneLoader.LoadScene();
             Hide();
-        }
-
-        private void OnDestroy()
-        {
-            creditsAccessPoint.OnWindowAccessed -= Hide;
-            settingsAccessPoint.OnWindowAccessed -= Hide;
         }
     }
 }

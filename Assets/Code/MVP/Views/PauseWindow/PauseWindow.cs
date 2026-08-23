@@ -19,7 +19,6 @@ namespace Rulebound
         {
             base.Awake();
             resumeButton.onClick.AddListener(RaiseResumePressed);
-            settingsAccessPoint.OnWindowAccessed += Hide;
             exitGameButton.onClick.AddListener(ExitGame);
         }
 
@@ -36,11 +35,6 @@ namespace Rulebound
         public override void Close()
         {
             WindowManager.Instance.CloseWindow<PauseWindow>();
-        }
-
-        private void OnDestroy()
-        {
-            settingsAccessPoint.OnWindowAccessed -= Hide;
         }
     }
 }

@@ -2238,6 +2238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 0}
+  closeByShortcut: 0
   sceneLoader: {fileID: 3327162354356921538}
   fadeInOutBlack: {fileID: 5686331516949969847}
   newGameButton: {fileID: 2263046977542355064}
