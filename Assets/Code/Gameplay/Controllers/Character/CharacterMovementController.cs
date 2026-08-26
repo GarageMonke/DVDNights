@@ -12,30 +12,17 @@ namespace Rulebound
 
         [Header("Input Actions")]
         [SerializeField] private InputActionSO moveActionSO;
-        [SerializeField] private InputActionSO jumpActionSO;
-        [SerializeField] private InputActionSO sprintActionSO;
 
         [Header("Movement")]
         [SerializeField] private float walkSpeed = 5f;
-        [SerializeField] private float sprintMultiplier = 2.5f;
-        
-        [Header("Jumping")]
-        [SerializeField] private float jumpForce = 5f;
-        [SerializeField] private float jumpHeight = 3f;
-        [SerializeField] private float gravityMultiplier = 2.5f;
 
         private InputAction _moveAction;
-        private InputAction _jumpAction;
-        private InputAction _sprintAction;
 
         private Vector2 _movementInput;
         private bool _isMoving;
-        private bool _isSprinting;
-        
-        private bool _isGrounded;
-
-        private Coroutine _crouchRoutine;
         private bool _isEnabled;
+        
+        private ICharacterSprintController _sprintController;
 
         public bool IsMoving => _isMoving;
 
@@ -58,8 +45,6 @@ namespace Rulebound
                 return;
 
             Move();
-            UpdateGrounded();
-            ApplyGravity();
         }
 
         private void InstallService()
@@ -72,36 +57,23 @@ namespace Rulebound
             }
 
             rigidBody.freezeRotation = true;
-            rigidBody.useGravity = true;
 
             _moveAction = moveActionSO.GetInputAction();
-            _jumpAction = jumpActionSO.GetInputAction();
-            _sprintAction = sprintActionSO.GetInputAction();
 
             _moveAction.performed += HandleMovement;
             _moveAction.canceled += HandleMovement;
-
-            _sprintAction.performed += HandleSprint;
-            _sprintAction.canceled += HandleSprint;
-            
-            _jumpAction.performed += OnJump;
-            
-            EnableController();
         }
 
-        private void HandleSprint(InputAction.CallbackContext context)
+        private void Start()
         {
-            _isSprinting = context.ReadValue<float>() > 0;
+            _sprintController = ServiceLocator.GetService<ICharacterSprintController>();
+            EnableController();
         }
 
         private void OnDestroy()
         {
             _moveAction.performed -= HandleMovement;
             _moveAction.canceled -= HandleMovement;
-            _jumpAction.performed -= OnJump;
-            
-            _sprintAction.performed -= HandleSprint;
-            _sprintAction.canceled -= HandleSprint;
         }
 
         private void Move()
@@ -114,7 +86,7 @@ namespace Rulebound
 
         private float GetMovementSpeed()
         {
-            return _isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
+            return _sprintController.IsSprinting ? walkSpeed * _sprintController.SprintMultiplier : walkSpeed;
         }
 
         private void UpdateMovementState()
@@ -122,38 +94,9 @@ namespace Rulebound
             _isMoving = _movementInput.sqrMagnitude > 0.01f;
         }
 
-        private void UpdateGrounded()
-        {
-            Vector3 origin = transform.position + Vector3.up * 0.1f;
-            _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f);
-        }
-
         private void HandleMovement(InputAction.CallbackContext context)
         {
             _movementInput = context.ReadValue<Vector2>();
-        }
-
-        private void OnJump(InputAction.CallbackContext context)
-        {
-            if (!_isGrounded)
-            {
-                return;
-            }
-            
-            Vector3 velocity = rigidBody.linearVelocity;
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
-
-            rigidBody.linearVelocity = velocity;
-        }
-        
-        private void ApplyGravity()
-        {
-            if (_isGrounded)
-            {
-                return;
-            }
-
-            rigidBody.AddForce(Physics.gravity * (gravityMultiplier - 1f), ForceMode.Acceleration);
         }
         
         public void EnableController()

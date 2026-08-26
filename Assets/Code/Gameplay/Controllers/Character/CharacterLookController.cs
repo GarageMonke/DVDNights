@@ -106,7 +106,9 @@ namespace Rulebound
         private void ApplyHeadbob()
         {
             if (!headbob.enabled || !cameraPivot)
+            {
                 return;
+            }
 
             if (_characterMovementController.IsMoving)
             {
@@ -117,17 +119,11 @@ namespace Rulebound
 
                 Vector3 targetPosition = _cameraRestLocalPos + new Vector3(bobX, bobY, 0f);
 
-                cameraPivot.localPosition = Vector3.Lerp(
-                    cameraPivot.localPosition,
-                    targetPosition,
-                    headbob.smoothing * Time.deltaTime);
+                cameraPivot.localPosition = Vector3.Lerp(cameraPivot.localPosition, targetPosition, headbob.smoothing * Time.deltaTime);
             }
             else
             {
-                cameraPivot.localPosition = Vector3.Lerp(
-                    cameraPivot.localPosition,
-                    _cameraRestLocalPos,
-                    headbob.smoothing * Time.deltaTime);
+                cameraPivot.localPosition = Vector3.Lerp(cameraPivot.localPosition, _cameraRestLocalPos, headbob.smoothing * Time.deltaTime);
             }
         }
 

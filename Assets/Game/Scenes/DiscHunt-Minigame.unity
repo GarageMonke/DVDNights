@@ -260,6 +260,56 @@ Transform:
   - {fileID: 1467723074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &459191587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459191588}
+  - component: {fileID: 459191589}
+  m_Layer: 0
+  m_Name: CharacterJump-Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &459191588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459191587}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 766842201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459191589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459191587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45d9ffa8c5974a5cbc960b5df00dd98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 766842203}
+  capsuleCollider: {fileID: 766842204}
+  jumpActionSO: {fileID: 11400000, guid: d98f25174b7970c4ba0392269e8d40f6, type: 2}
+  jumpForce: 10
+  jumpHeight: 25
+  gravityMultiplier: 4
 --- !u!1 &554356580
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +481,8 @@ Transform:
   - {fileID: 1361426797}
   - {fileID: 1641018486}
   - {fileID: 1627416729}
+  - {fileID: 459191588}
+  - {fileID: 975915938}
   m_Father: {fileID: 265900126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &766842203
@@ -591,6 +643,54 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 6.1232336e-17}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &975915937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 975915938}
+  - component: {fileID: 975915939}
+  m_Layer: 0
+  m_Name: CharacterSprint-Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &975915938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975915937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 766842201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &975915939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975915937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b61c14c05de45d6bbd8245bb4a8c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 766842203}
+  capsuleCollider: {fileID: 766842204}
+  sprintActionSO: {fileID: 11400000, guid: d7efa911d05145f49b970c70e2bafe33, type: 2}
+  sprintMultiplier: 2.5
 --- !u!1 &1129545005
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,13 +972,7 @@ MonoBehaviour:
   rigidBody: {fileID: 766842203}
   capsuleCollider: {fileID: 766842204}
   moveActionSO: {fileID: 11400000, guid: 19a4b761940812849b8e8180ffe402b6, type: 2}
-  jumpActionSO: {fileID: 11400000, guid: d98f25174b7970c4ba0392269e8d40f6, type: 2}
-  sprintActionSO: {fileID: 11400000, guid: d7efa911d05145f49b970c70e2bafe33, type: 2}
   walkSpeed: 15
-  sprintMultiplier: 2.5
-  jumpForce: 10
-  jumpHeight: 25
-  gravityMultiplier: 4
 --- !u!1 &1800455263
 GameObject:
   m_ObjectHideFlags: 0
