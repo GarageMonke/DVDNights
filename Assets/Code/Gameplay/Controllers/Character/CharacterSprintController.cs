@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using System;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,9 @@ namespace Rulebound
         [Header("Movement")]
         [SerializeField] private float sprintMultiplier = 2.5f;
 
+        [Header("Configuration")] 
+        [SerializeField] private bool useStamina = true;
+
         private InputAction _moveAction;
         private InputAction _sprintAction;
 
@@ -24,6 +28,8 @@ namespace Rulebound
         private bool _isSprinting;
         private bool _isEnabled;
         private bool _canSprint;
+        
+        private ICharacterStaminaController _staminaController;
 
         public bool CanSprint => _canSprint;
         public bool IsSprinting => _isSprinting;
@@ -42,13 +48,50 @@ namespace Rulebound
 
             _sprintAction.performed += HandleSprint;
             _sprintAction.canceled += HandleSprint;
-            
+        }
+
+        private void Start()
+        {
+            _staminaController = ServiceLocator.GetService<ICharacterStaminaController>();
             EnableController();
+        }
+        
+        private void Update()
+        {
+            if (!_isEnabled)
+            {
+                return;
+            }
+
+            if (!useStamina)
+            {
+                return;
+            }
+            
+            if (_isSprinting)
+            {
+                if (!_staminaController.HasStamina)
+                {
+                    _isSprinting = false;
+                    return;
+                }
+
+                _staminaController.ConsumeStamina(Time.deltaTime);
+            }
         }
 
         private void HandleSprint(InputAction.CallbackContext context)
         {
-            _isSprinting = context.ReadValue<float>() > 0;
+            bool isTryingToSprint = context.ReadValue<float>() > 0;
+
+            if (useStamina)
+            {
+                _isSprinting = isTryingToSprint && _staminaController.HasStamina;
+            }
+            else
+            {
+                _isSprinting = isTryingToSprint;
+            }
         }
 
         private void OnDestroy()
