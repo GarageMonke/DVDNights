@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace Rulebound
@@ -45,8 +44,7 @@ namespace Rulebound
                 return;
             }
 
-            _currentStamina -= staminaDrainRate * Time.deltaTime;
-            _currentStamina = Mathf.Max(_currentStamina, 0f);
+            ConsumeStamina(staminaDrainRate * Time.deltaTime);
         }
         
         public void ConsumeStamina(float amountToConsume)

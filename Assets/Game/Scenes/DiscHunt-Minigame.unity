@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallPlatform-03
       objectReference: {fileID: 0}
+    - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.9
@@ -389,6 +393,10 @@ PrefabInstance:
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SmallPlatform-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1027,11 +1035,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b61c14c05de45d6bbd8245bb4a8c3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: 766842203}
-  capsuleCollider: {fileID: 766842204}
   sprintActionSO: {fileID: 11400000, guid: d7efa911d05145f49b970c70e2bafe33, type: 2}
   sprintMultiplier: 3
-  useStamina: 1
+  useStamina: 0
 --- !u!1 &1129545005
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1550,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallPlatform-04
       objectReference: {fileID: 0}
+    - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.95
@@ -1613,6 +1623,18 @@ PrefabInstance:
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SmallPlatform-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4908871446611756263, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_LocalPosition.x

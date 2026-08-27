@@ -34,6 +34,8 @@ namespace Rulebound
         
         private ICharacterStaminaController _staminaController;
 
+        public bool IsGrounded => _isGrounded;
+
         public bool CanJump()
         {
             bool baseJumpCondition = (_isGrounded || HasCoyoteTime) && _isEnabled;
@@ -151,6 +153,7 @@ namespace Rulebound
 
     public interface ICharacterJumpController
     {
+        public bool IsGrounded { get; }
         public bool CanJump();
         public void EnableController();
         public void DisableController();

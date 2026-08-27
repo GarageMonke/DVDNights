@@ -1,5 +1,4 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,31 +6,25 @@ namespace Rulebound
 {
     public class CharacterSprintController : MonoBehaviour, ICharacterSprintController
     {
-        [Header("References")]
-        [SerializeField] private Rigidbody rigidBody;
-        [SerializeField] private CapsuleCollider capsuleCollider;
-
         [Header("Input Actions")]
         [SerializeField] private InputActionSO sprintActionSO;
 
         [Header("Movement")]
         [SerializeField] private float sprintMultiplier = 2.5f;
 
-        [Header("Configuration")] 
+        [Header("Configuration")]
         [SerializeField] private bool useStamina = true;
 
-        private InputAction _moveAction;
         private InputAction _sprintAction;
 
-        private Vector2 _movementInput;
-        private bool _isMoving;
+        private bool _sprintInputHeld;
         private bool _isSprinting;
         private bool _isEnabled;
-        private bool _canSprint;
-        
-        private ICharacterStaminaController _staminaController;
 
-        public bool CanSprint => _canSprint;
+        private ICharacterStaminaController _staminaController;
+        private ICharacterJumpController _jumpController;
+
+        public bool CanSprint => !useStamina || _staminaController.HasStamina;
         public bool IsSprinting => _isSprinting;
         public float SprintMultiplier => sprintMultiplier;
 
@@ -39,11 +32,11 @@ namespace Rulebound
         {
             InstallService();
         }
-        
+
         private void InstallService()
         {
             ServiceLocator.RegisterService<ICharacterSprintController>(this);
-            
+
             _sprintAction = sprintActionSO.GetInputAction();
 
             _sprintAction.performed += HandleSprint;
@@ -53,45 +46,44 @@ namespace Rulebound
         private void Start()
         {
             _staminaController = ServiceLocator.GetService<ICharacterStaminaController>();
+            _jumpController = ServiceLocator.GetService<ICharacterJumpController>();
+
             EnableController();
         }
-        
+
         private void Update()
         {
             if (!_isEnabled)
+                return;
+
+            UpdateSprint();
+        }
+
+        private void UpdateSprint()
+        {
+            if (_jumpController.IsGrounded)
+            {
+                _isSprinting = _sprintInputHeld && CanSprint;
+            }
+
+            if (!useStamina || !_isSprinting)
             {
                 return;
             }
 
-            if (!useStamina)
-            {
-                return;
-            }
-            
-            if (_isSprinting)
-            {
-                if (!_staminaController.HasStamina)
-                {
-                    _isSprinting = false;
-                    return;
-                }
-
-                _staminaController.ConsumeStamina();
-            }
+            _staminaController.ConsumeStamina();
         }
 
         private void HandleSprint(InputAction.CallbackContext context)
         {
-            bool isTryingToSprint = context.ReadValue<float>() > 0;
+            _sprintInputHeld = context.ReadValue<float>() > 0;
 
-            if (useStamina)
+            if (!_jumpController.IsGrounded)
             {
-                _isSprinting = isTryingToSprint && _staminaController.HasStamina;
+                return;
             }
-            else
-            {
-                _isSprinting = isTryingToSprint;
-            }
+
+            _isSprinting = _sprintInputHeld && CanSprint;
         }
 
         private void OnDestroy()
@@ -108,15 +100,17 @@ namespace Rulebound
         public void DisableController()
         {
             _isEnabled = false;
+            _isSprinting = false;
         }
     }
 
     public interface ICharacterSprintController
     {
-        public bool CanSprint { get; }
-        public bool IsSprinting { get; }
-        public float SprintMultiplier { get; }
-        public void EnableController();
-        public void DisableController();
+        bool CanSprint { get; }
+        bool IsSprinting { get; }
+        float SprintMultiplier { get; }
+
+        void EnableController();
+        void DisableController();
     }
 }

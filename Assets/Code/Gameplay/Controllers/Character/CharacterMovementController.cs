@@ -23,7 +23,12 @@ namespace Rulebound
         private bool _isEnabled;
         
         private ICharacterSprintController _sprintController;
+        private ICharacterJumpController _jumpController;
 
+        private float _speed;
+        private Vector3 _inputDirection;
+        private Vector3 _move;
+        
         public bool IsMoving => _isMoving;
 
         private void Awake()
@@ -67,6 +72,7 @@ namespace Rulebound
         private void Start()
         {
             _sprintController = ServiceLocator.GetService<ICharacterSprintController>();
+            _jumpController = ServiceLocator.GetService<ICharacterJumpController>();
             EnableController();
         }
 
@@ -78,10 +84,16 @@ namespace Rulebound
 
         private void Move()
         {
-            float speed = GetMovementSpeed();
-            Vector3 inputDirection = new Vector3(_movementInput.x, 0, _movementInput.y).normalized;
-            Vector3 move = transform.TransformDirection(inputDirection) * (speed * Time.fixedDeltaTime);
-            rigidBody.MovePosition(rigidBody.position + move);
+            if (!_jumpController.IsGrounded)
+            {
+                rigidBody.MovePosition(rigidBody.position + _move);
+                return;
+            }
+            
+            _speed = GetMovementSpeed();
+            _inputDirection = new Vector3(_movementInput.x, 0, _movementInput.y).normalized;
+            _move = transform.TransformDirection(_inputDirection) * (_speed * Time.fixedDeltaTime);
+            rigidBody.MovePosition(rigidBody.position + _move);
         }
 
         private float GetMovementSpeed()
