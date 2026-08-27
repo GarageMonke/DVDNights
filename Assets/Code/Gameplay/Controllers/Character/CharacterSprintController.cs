@@ -76,7 +76,7 @@ namespace Rulebound
                     return;
                 }
 
-                _staminaController.ConsumeStamina(Time.deltaTime);
+                _staminaController.ConsumeStamina();
             }
         }
 

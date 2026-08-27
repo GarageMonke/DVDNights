@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using System;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,19 +13,35 @@ namespace Rulebound
 
         [Header("Input Actions")]
         [SerializeField] private InputActionSO jumpActionSO;
-        
-        [Header("Jumping")]
+
+        [Header("Jumping")] 
         [SerializeField] private float jumpForce = 10f;
         [SerializeField] private float jumpHeight = 25f;
         [SerializeField] private float gravityMultiplier = 4f;
+        
+        [Header("Stamina")]
+        [SerializeField] private bool useStamina = true;
+        [SerializeField] private float staminaToConsume = 20f;
         
         private InputAction _jumpAction;
         
         private bool _isGrounded;
         
         private bool _isEnabled;
+        
+        private ICharacterStaminaController _staminaController;
 
-        public bool CanJump => _isGrounded;
+        public bool CanJump()
+        {
+            bool baseJumpCondition = _isGrounded && _isEnabled;
+            
+            if (useStamina)
+            {
+                return baseJumpCondition && _staminaController.CurrentStamina - staminaToConsume > 0;
+            }
+
+            return baseJumpCondition;
+        }
 
         private void Awake()
         {
@@ -55,7 +72,11 @@ namespace Rulebound
             _jumpAction = jumpActionSO.GetInputAction();
             
             _jumpAction.performed += OnJump;
-            
+        }
+
+        private void Start()
+        {
+            _staminaController = ServiceLocator.GetService<ICharacterStaminaController>();
             EnableController();
         }
 
@@ -63,7 +84,6 @@ namespace Rulebound
         {
             _jumpAction.performed -= OnJump;
         }
-        
         
         private void UpdateGrounded()
         {
@@ -77,11 +97,19 @@ namespace Rulebound
             {
                 return;
             }
-            
-            Vector3 velocity = rigidBody.linearVelocity;
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
 
-            rigidBody.linearVelocity = velocity;
+            if (useStamina)
+            {
+                _staminaController.ConsumeStamina(staminaToConsume);
+            }
+
+            if (CanJump())
+            {
+                Vector3 velocity = rigidBody.linearVelocity;
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+
+                rigidBody.linearVelocity = velocity;
+            }
         }
         
         private void ApplyGravity()
@@ -107,8 +135,8 @@ namespace Rulebound
 
     public interface ICharacterJumpController
     {
-        bool CanJump { get; }
-        void EnableController();
-        void DisableController();
+        public bool CanJump();
+        public void EnableController();
+        public void DisableController();
     }
 }

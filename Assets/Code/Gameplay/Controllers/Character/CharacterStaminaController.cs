@@ -38,14 +38,25 @@ namespace Rulebound
             RecoverStamina();
         }
 
-        public void ConsumeStamina(float deltaTime)
+        public void ConsumeStamina()
         {
             if (!_isEnabled)
             {
                 return;
             }
 
-            _currentStamina -= staminaDrainRate * deltaTime;
+            _currentStamina -= staminaDrainRate * Time.deltaTime;
+            _currentStamina = Mathf.Max(_currentStamina, 0f);
+        }
+        
+        public void ConsumeStamina(float amountToConsume)
+        {
+            if (!_isEnabled)
+            {
+                return;
+            }
+
+            _currentStamina -= amountToConsume;
             _currentStamina = Mathf.Max(_currentStamina, 0f);
         }
 
@@ -72,8 +83,8 @@ namespace Rulebound
         public float MaxStamina { get; }
         public float StaminaPercentage { get; }
         public bool HasStamina { get; }
-
-        public void ConsumeStamina(float deltaTime);
+        public void ConsumeStamina(float amountToConsume);
+        public void ConsumeStamina();
         public void EnableController();
         public void DisableController();
     }

@@ -358,6 +358,8 @@ MonoBehaviour:
   jumpForce: 10
   jumpHeight: 25
   gravityMultiplier: 4
+  useStamina: 0
+  staminaToConsume: 25
 --- !u!1 &554356580
 GameObject:
   m_ObjectHideFlags: 0
