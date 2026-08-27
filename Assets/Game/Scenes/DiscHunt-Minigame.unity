@@ -756,6 +756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84ba22af519422eadf6274c1d9f802e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterMovementController: {fileID: 1641018487}
+  _characterJumpController: {fileID: 459191589}
+  _characterLookController: {fileID: 1627416730}
+  _characterSprintController: {fileID: 975915939}
+  _characterStaminaController: {fileID: 116112787}
 --- !u!1 &802207138
 GameObject:
   m_ObjectHideFlags: 0

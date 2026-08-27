@@ -42,6 +42,7 @@ namespace Rulebound
         public void ResetMinigame()
         {
             character.CharacterTransform.position = startPoint.position;
+            character.ResetCharacter();
         }
 
         public void EndMinigame()

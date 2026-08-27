@@ -148,13 +148,16 @@ namespace Rulebound
         {
             _isEnabled = false;
         }
+
+        public void ResetController()
+        {
+            _lastGroundedTime = Time.time;
+        }
     }
 
-    public interface ICharacterJumpController
+    public interface ICharacterJumpController : ICharacterController
     {
         public bool IsGrounded { get; }
         public bool CanJump();
-        public void EnableController();
-        public void DisableController();
     }
 }

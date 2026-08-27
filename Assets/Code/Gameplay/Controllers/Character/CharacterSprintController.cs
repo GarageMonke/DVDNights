@@ -102,15 +102,17 @@ namespace Rulebound
             _isEnabled = false;
             _isSprinting = false;
         }
+
+        public void ResetController()
+        {
+            _isSprinting = false;
+        }
     }
 
-    public interface ICharacterSprintController
+    public interface ICharacterSprintController : ICharacterController
     {
         bool CanSprint { get; }
         bool IsSprinting { get; }
         float SprintMultiplier { get; }
-
-        void EnableController();
-        void DisableController();
     }
 }

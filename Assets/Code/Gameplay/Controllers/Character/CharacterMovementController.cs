@@ -120,12 +120,15 @@ namespace Rulebound
         {
             _isEnabled = false;
         }
+
+        public void ResetController()
+        {
+            _isMoving = false;
+        }
     }
 
-    public interface ICharacterMovementController
+    public interface ICharacterMovementController : ICharacterController
     {
         bool IsMoving { get; }
-        void EnableController();
-        void DisableController();
     }
 }

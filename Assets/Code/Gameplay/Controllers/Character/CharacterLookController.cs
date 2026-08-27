@@ -37,6 +37,7 @@ namespace Rulebound
         private InputAction _lookAction;
         private bool _isEnabled;
         private ICharacterMovementController _characterMovementController;
+        
 
         private void Awake()
         {
@@ -137,6 +138,22 @@ namespace Rulebound
             _isEnabled = false;
         }
 
+        public void ResetController()
+        {
+            _yaw = 0;
+            _pitch = 0;
+            
+            if (bodyTransform)
+            {
+                bodyTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
+            }
+
+            if (cameraPivot)
+            {
+                cameraPivot.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
+            }
+        }
+
         public void SetCursorLocked(bool locked)
         {
             _cursorLocked = locked;
@@ -154,10 +171,8 @@ namespace Rulebound
         public float smoothing = 10f;
     }
 
-    public interface ICharacterLookController
+    public interface ICharacterLookController : ICharacterController
     {
-        public void EnableController();
-        public void DisableController();
         void SetCursorLocked(bool locked);
     }
 }

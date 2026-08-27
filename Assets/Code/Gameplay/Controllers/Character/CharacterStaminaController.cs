@@ -73,9 +73,14 @@ namespace Rulebound
         {
             _isEnabled = false;
         }
+
+        public void ResetController()
+        {
+            _currentStamina = maxStamina;
+        }
     }
 
-    public interface ICharacterStaminaController
+    public interface ICharacterStaminaController : ICharacterController
     {
         public float CurrentStamina { get; }
         public float MaxStamina { get; }
@@ -83,7 +88,5 @@ namespace Rulebound
         public bool HasStamina { get; }
         public void ConsumeStamina(float amountToConsume);
         public void ConsumeStamina();
-        public void EnableController();
-        public void DisableController();
     }
 }
