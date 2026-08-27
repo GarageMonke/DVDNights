@@ -44,6 +44,14 @@ namespace Rulebound
                 platform.DisablePlatform();
             }
         }
+
+        public void ResetAllPlatforms()
+        {
+            foreach (IPlatform platform in _platforms)
+            {
+                platform.ResetPlatform();
+            }
+        }
     }
 
     public interface IPlatformController
@@ -51,5 +59,6 @@ namespace Rulebound
         public void RegisterPlatform(IPlatform platformToRegister);
         public void EnableAllPlatforms();
         public void DisableAllPlatforms();
+        public void ResetAllPlatforms();
     }
 }

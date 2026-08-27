@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using CorePatterns.ServiceLocator;
+using UnityEngine;
 
 namespace Rulebound
 {
@@ -18,6 +20,15 @@ namespace Rulebound
         public ICharacterSprintController CharacterSprintController => _characterSprintController;
         public ICharacterStaminaController CharacterStaminaController => _characterStaminaController;
 
+        private void Awake()
+        {
+            InstallService();
+        }
+
+        private void InstallService()
+        {
+            ServiceLocator.RegisterService<ICharacter>(this);
+        }
 
         public void ResetCharacter()
         {

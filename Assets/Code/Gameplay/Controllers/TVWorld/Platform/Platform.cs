@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Rulebound
 {
-    public class Platform : MonoBehaviour, IPlatform
+    public abstract class Platform : MonoBehaviour, IPlatform
     {
         public Action OnPlatformTriggered { get; set; }
         
@@ -27,12 +27,15 @@ namespace Rulebound
         {
             _isEnabled = false;
         }
+
+        public abstract void ResetPlatform();
     }
 
     public interface IPlatform
     {
         public void EnablePlatform();
         public void DisablePlatform();
+        public void ResetPlatform();
         public Action OnPlatformTriggered { get; set; }
     }
 }

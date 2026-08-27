@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-
-namespace Rulebound
+﻿namespace Rulebound
 {
-    public class SolidPlatform : MonoBehaviour
+    public class SolidPlatform : Platform
     {
-        
+        public override void ResetPlatform()
+        {
+            
+        }
     }
 }

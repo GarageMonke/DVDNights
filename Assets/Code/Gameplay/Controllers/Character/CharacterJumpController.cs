@@ -25,6 +25,8 @@ namespace Rulebound
         
         private InputAction _jumpAction;
         
+        public Action OnJump { get; set; }
+        
         private bool _isGrounded;
         private float _lastGroundedTime;
         
@@ -33,6 +35,7 @@ namespace Rulebound
         
         private ICharacterStaminaController _staminaController;
 
+     
         public bool IsGrounded => _isGrounded;
 
         public bool CanJump()
@@ -75,7 +78,7 @@ namespace Rulebound
             rigidBody.useGravity = true;
             _jumpAction = jumpActionSO.GetInputAction();
             
-            _jumpAction.performed += OnJump;
+            _jumpAction.performed += OnJumpPerformed;
         }
 
         private void Start()
@@ -86,7 +89,7 @@ namespace Rulebound
 
         private void OnDestroy()
         {
-            _jumpAction.performed -= OnJump;
+            _jumpAction.performed -= OnJumpPerformed;
         }
         
         private void UpdateGrounded()
@@ -100,7 +103,7 @@ namespace Rulebound
             }
         }
         
-        private void OnJump(InputAction.CallbackContext context)
+        private void OnJumpPerformed(InputAction.CallbackContext context)
         {
             if (!_isGrounded)
             {
@@ -118,6 +121,7 @@ namespace Rulebound
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
 
                 rigidBody.linearVelocity = velocity;
+                OnJump?.Invoke();
             }
         }
         
@@ -157,6 +161,7 @@ namespace Rulebound
 
     public interface ICharacterJumpController : ICharacterController
     {
+        public Action OnJump { get; set; }
         public bool IsGrounded { get; }
         public bool CanJump();
     }

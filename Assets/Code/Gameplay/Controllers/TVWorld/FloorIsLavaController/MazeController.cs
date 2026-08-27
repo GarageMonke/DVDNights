@@ -1,17 +1,16 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace Rulebound
 {
-    public class FloorIsLavaController : MonoBehaviour, IFloorIsLavaController
+    public class MazeController : MonoBehaviour, IFloorIsLavaController
     {
         [Header("References")] 
-        [SerializeField] private Character character;
         [SerializeField] private Transform startPoint;
         
         private IHazardController _hazardController;
         private IPlatformController _platformController;
+        private ICharacter _character;
 
         private void Awake()
         {
@@ -28,6 +27,7 @@ namespace Rulebound
             _hazardController = ServiceLocator.GetService<IHazardController>();
             _hazardController.OnHazardTriggered += ResetMinigame;
             _platformController = ServiceLocator.GetService<IPlatformController>();
+            _character = ServiceLocator.GetService<ICharacter>();
             StartMinigame();
         }
 
@@ -41,8 +41,9 @@ namespace Rulebound
 
         public void ResetMinigame()
         {
-            character.CharacterTransform.position = startPoint.position;
-            character.ResetCharacter();
+            _character.CharacterTransform.position = startPoint.position;
+            _character.ResetCharacter();
+            _platformController.ResetAllPlatforms();
         }
 
         public void EndMinigame()
