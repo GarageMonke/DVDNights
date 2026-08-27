@@ -18,6 +18,7 @@ namespace Rulebound
         [SerializeField] private float jumpForce = 10f;
         [SerializeField] private float jumpHeight = 25f;
         [SerializeField] private float gravityMultiplier = 4f;
+        [SerializeField] private float coyoteTime = 0.15f;
         
         [Header("Stamina")]
         [SerializeField] private bool useStamina = true;
@@ -26,14 +27,16 @@ namespace Rulebound
         private InputAction _jumpAction;
         
         private bool _isGrounded;
+        private float _lastGroundedTime;
         
+        private bool HasCoyoteTime => Time.time - _lastGroundedTime <= coyoteTime;
         private bool _isEnabled;
         
         private ICharacterStaminaController _staminaController;
 
         public bool CanJump()
         {
-            bool baseJumpCondition = _isGrounded && _isEnabled;
+            bool baseJumpCondition = (_isGrounded || HasCoyoteTime) && _isEnabled;
             
             if (useStamina)
             {
@@ -89,6 +92,11 @@ namespace Rulebound
         {
             Vector3 origin = transform.position + Vector3.up * 0.1f;
             _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f);
+
+            if (_isGrounded)
+            {
+                _lastGroundedTime = Time.time;
+            }
         }
         
         private void OnJump(InputAction.CallbackContext context)
@@ -119,7 +127,15 @@ namespace Rulebound
                 return;
             }
 
-            rigidBody.AddForce(Physics.gravity * (gravityMultiplier - 1f), ForceMode.Acceleration);
+            if (rigidBody.linearVelocity.y > 0)
+            {
+                rigidBody.AddForce(Physics.gravity * (gravityMultiplier - 1f), ForceMode.Acceleration);
+            }
+            else
+            {
+                rigidBody.AddForce(Physics.gravity * (gravityMultiplier), ForceMode.Acceleration);
+            }
+           
         }
         
         public void EnableController()
