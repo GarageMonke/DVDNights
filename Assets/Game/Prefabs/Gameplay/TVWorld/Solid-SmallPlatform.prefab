@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2982319151360924015}
   - component: {fileID: 3249224312166401074}
   - component: {fileID: 5329668116063358361}
+  - component: {fileID: 5852264871471123781}
   m_Layer: 0
-  m_Name: SmallPlatform
+  m_Name: Solid-SmallPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,3 +109,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5852264871471123781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4238600471377994832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97e208d6f5e466eae120181f9eb0273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -15,7 +15,6 @@ namespace Rulebound
         [SerializeField] private InputActionSO jumpActionSO;
 
         [Header("Jumping")] 
-        [SerializeField] private float jumpForce = 10f;
         [SerializeField] private float jumpHeight = 25f;
         [SerializeField] private float gravityMultiplier = 4f;
         [SerializeField] private float coyoteTime = 0.15f;
