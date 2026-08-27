@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8731594942421849499}
   - component: {fileID: 5821326312265469021}
   m_Layer: 0
-  m_Name: DioidePlatform
+  m_Name: DiodePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,8 +5,12 @@ using UnityEngine;
 namespace Rulebound
 {
     [RequireComponent(typeof(Collider))]
-    public class Hazard : MonoBehaviour, IHazard
+    public abstract class Hazard : MonoBehaviour, IHazard
     {
+        [Header("References")] 
+        [SerializeField] protected MeshRenderer hazardRenderer;
+        [SerializeField] protected Collider hazardCollider;
+        
         public Action OnHazardTriggered { get; set; }
         
         protected bool _isEnabled;
@@ -30,14 +34,16 @@ namespace Rulebound
             _isEnabled = false;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public abstract void ResetHazard();
+
+        protected virtual void OnCollisionEnter(Collision other)
         {
             if (!_isEnabled)
             {
                 return;
             }
             
-            ICharacter character = other.GetComponent<ICharacter>();
+            ICharacter character = other.gameObject.GetComponent<ICharacter>();
             
             if (character != null)
             {
@@ -51,5 +57,6 @@ namespace Rulebound
         public Action OnHazardTriggered { get; set; }
         public void EnableHazard();
         public void DisableHazard();
+        public void ResetHazard();
     }
 }

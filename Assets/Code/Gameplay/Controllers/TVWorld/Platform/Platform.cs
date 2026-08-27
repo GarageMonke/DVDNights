@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Rulebound
 {
+    [RequireComponent(typeof(Collider))]
     public abstract class Platform : MonoBehaviour, IPlatform
     {
         public Action OnPlatformTriggered { get; set; }

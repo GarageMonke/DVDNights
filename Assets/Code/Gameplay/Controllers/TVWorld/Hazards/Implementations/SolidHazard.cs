@@ -2,6 +2,9 @@
 {
     public class SolidHazard : Hazard
     {
-        
+        public override void ResetHazard()
+        {
+            EnableHazard();
+        }
     }
 }

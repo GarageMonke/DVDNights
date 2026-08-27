@@ -54,6 +54,14 @@ namespace Rulebound
             }
         }
 
+        public void ResetAllHazards()
+        {
+            foreach (IHazard hazard in _hazards)
+            {
+                hazard.ResetHazard();
+            }
+        }
+
         private void OnDestroy()
         {
             foreach (IHazard hazard in _hazards)
@@ -69,5 +77,6 @@ namespace Rulebound
         public void RegisterHazard(IHazard hazardToRegister);
         public void EnableAllHazards();
         public void DisableAllHazards();
+        public void ResetAllHazards();
     }
 }
