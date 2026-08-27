@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 684563302}
     m_Modifications:
+    - target: {fileID: 3249224312166401074, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f13616b9263b7e4a825d2db0a0d0c96, type: 2}
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SolidSmallPlatform-03
@@ -241,6 +245,55 @@ MonoBehaviour:
   staminaDrainRate: 35
   staminaRecoveryRate: 15
   minimumSprintStamina: 1
+--- !u!1 &141129339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 141129340}
+  - component: {fileID: 141129341}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &141129340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141129339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 265900126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &141129341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141129339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: a25a0c800376d2f4e837f49e18d00881, type: 2}
 --- !u!1 &265900125
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +325,7 @@ Transform:
   m_Children:
   - {fileID: 766842201}
   - {fileID: 1467723074}
+  - {fileID: 141129340}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &318188165
@@ -282,6 +336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 684563302}
     m_Modifications:
+    - target: {fileID: 3249224312166401074, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f13616b9263b7e4a825d2db0a0d0c96, type: 2}
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SolidSmallPlatform-02
@@ -483,7 +541,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.19607875, b: 1, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -562,7 +620,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1610,6 +1668,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 684563302}
     m_Modifications:
+    - target: {fileID: 3249224312166401074, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f13616b9263b7e4a825d2db0a0d0c96, type: 2}
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SolidSmallPlatform-04
@@ -1858,6 +1920,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2079640327}
     m_Modifications:
+    - target: {fileID: 3249224312166401074, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 910c0bad411664f4aa491c2589390c9f, type: 2}
     - target: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
       propertyPath: m_Name
       value: SolidSmallPlatform-01
