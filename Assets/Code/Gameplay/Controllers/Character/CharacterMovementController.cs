@@ -8,13 +8,15 @@ namespace Rulebound
     {
         [Header("References")]
         [SerializeField] private Rigidbody rigidBody;
-        [SerializeField] private CapsuleCollider capsuleCollider;
 
         [Header("Input Actions")]
         [SerializeField] private InputActionSO moveActionSO;
 
         [Header("Movement")]
         [SerializeField] private float walkSpeed = 5f;
+
+        [Header("Air Steering")]
+        [SerializeField] private float airSteering = 1f;
 
         private InputAction _moveAction;
 
@@ -28,6 +30,8 @@ namespace Rulebound
         private float _speed;
         private Vector3 _inputDirection;
         private Vector3 _move;
+
+        private Quaternion _lastRotation;
         
         public bool IsMoving => _isMoving;
 
@@ -67,12 +71,15 @@ namespace Rulebound
 
             _moveAction.performed += HandleMovement;
             _moveAction.canceled += HandleMovement;
+
+            _lastRotation = transform.rotation;
         }
 
         private void Start()
         {
             _sprintController = ServiceLocator.GetService<ICharacterSprintController>();
             _jumpController = ServiceLocator.GetService<ICharacterJumpController>();
+
             EnableController();
         }
 
@@ -86,14 +93,25 @@ namespace Rulebound
         {
             if (!_jumpController.IsGrounded)
             {
+                ApplyAirSteering();
                 rigidBody.MovePosition(rigidBody.position + _move);
+                _lastRotation = transform.rotation;
                 return;
             }
             
             _speed = GetMovementSpeed();
             _inputDirection = new Vector3(_movementInput.x, 0, _movementInput.y).normalized;
             _move = transform.TransformDirection(_inputDirection) * (_speed * Time.fixedDeltaTime);
+            _lastRotation = transform.rotation;
             rigidBody.MovePosition(rigidBody.position + _move);
+        }
+
+        private void ApplyAirSteering()
+        {
+            Quaternion rotationDelta = transform.rotation * Quaternion.Inverse(_lastRotation);
+            rotationDelta = Quaternion.Euler(0f, rotationDelta.eulerAngles.y, 0f);
+            Quaternion steeringRotation = Quaternion.Slerp(Quaternion.identity, rotationDelta, airSteering);
+            _move = steeringRotation * _move;
         }
 
         private float GetMovementSpeed()
@@ -124,6 +142,8 @@ namespace Rulebound
         public void ResetController()
         {
             _isMoving = false;
+            _move = Vector3.zero;
+            _lastRotation = transform.rotation;
         }
     }
 

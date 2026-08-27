@@ -1443,7 +1443,8 @@ MonoBehaviour:
   rigidBody: {fileID: 766842203}
   capsuleCollider: {fileID: 766842204}
   moveActionSO: {fileID: 11400000, guid: 19a4b761940812849b8e8180ffe402b6, type: 2}
-  walkSpeed: 15
+  walkSpeed: 16
+  airSteering: 1
 --- !u!1 &1800455263
 GameObject:
   m_ObjectHideFlags: 0
