@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2f13616b9263b7e4a825d2db0a0d0c96, type: 2}
+  - {fileID: 2100000, guid: 81b184f4db491c04ab0a4711298bf448, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformRenderer: {fileID: 4264715572655527401}
   platformCollider: {fileID: 8731594942421849499}
+  platformColor: {r: 0, g: 0.19607875, b: 1, a: 1}
+  invisibleColor: {r: 0.019607844, g: 0.02745098, b: 0.078431375, a: 1}

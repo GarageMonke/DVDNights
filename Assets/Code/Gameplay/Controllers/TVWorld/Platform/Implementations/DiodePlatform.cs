@@ -1,14 +1,13 @@
-﻿using System;
-using CorePatterns.ServiceLocator;
+﻿using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace Rulebound
 {
     public class DiodePlatform : Platform
     {
-        [Header("References")] 
-        [SerializeField] private MeshRenderer platformRenderer;
-        [SerializeField] private Collider platformCollider;
+        [Header("Configuration")]
+        [SerializeField] protected Color invisibleColor; 
+        
         private ICharacter _character;
 
         private bool _isVisible;
@@ -35,15 +34,15 @@ namespace Rulebound
             MakeInvisible();
         }
 
-        private void MakeVisible()
+        protected virtual void MakeVisible()
         {
-            platformRenderer.enabled = true;
+            platformRenderer.material.color = platformColor;
             platformCollider.enabled = true;
         }
 
-        private void MakeInvisible()
+        protected virtual void MakeInvisible()
         {
-            platformRenderer.enabled = false;
+            platformRenderer.material.color = invisibleColor;
             platformCollider.enabled = false;
         }
 

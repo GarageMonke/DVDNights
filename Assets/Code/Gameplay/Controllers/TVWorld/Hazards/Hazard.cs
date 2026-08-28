@@ -8,7 +8,7 @@ namespace Rulebound
     public abstract class Hazard : MonoBehaviour, IHazard
     {
         [Header("References")] 
-        [SerializeField] protected MeshRenderer hazardRenderer;
+        [SerializeField] protected Renderer hazardRenderer;
         [SerializeField] protected Collider hazardCollider;
         
         public Action OnHazardTriggered { get; set; }
