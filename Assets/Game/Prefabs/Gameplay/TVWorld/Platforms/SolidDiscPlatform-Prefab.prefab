@@ -295,6 +295,7 @@ MonoBehaviour:
   platformRenderer: {fileID: 7529317315881621678}
   platformCollider: {fileID: 132691229547784596}
   platformColor: {r: 0.93333334, g: 0.93333334, b: 0.93333334, a: 1}
+  parentCharacter: 1
   downDistance: 3
   movementDuration: 0.2
 --- !u!1 &8314669401226171625

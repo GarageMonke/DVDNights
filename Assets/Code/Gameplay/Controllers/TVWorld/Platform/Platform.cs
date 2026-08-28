@@ -13,7 +13,8 @@ namespace Rulebound
         [SerializeField] protected Collider platformCollider;
         [SerializeField] protected Color platformColor;
 
-        [Header("Movement")]
+        [Header("Movement")] 
+        [SerializeField] private bool parentCharacter;
         [SerializeField] private float downDistance = 2f;
         [SerializeField] private float movementDuration = 0.2f;
 
@@ -58,7 +59,12 @@ namespace Rulebound
             }
 
             _hasCharacter = true;
-            character.CharacterTransform.parent = transform;
+
+            if (parentCharacter)
+            {
+                character.CharacterTransform.parent = transform;
+            }
+
             MovePlatform(true);
             OnPlatformTriggered?.Invoke();
         }
@@ -73,7 +79,12 @@ namespace Rulebound
             }
 
             _hasCharacter = false;
-            character.CharacterTransform.parent = character.OriginalParent;
+            
+            if (parentCharacter)
+            {
+                character.CharacterTransform.parent = character.OriginalParent;
+            }
+            
             MovePlatform(false);
         }
 
