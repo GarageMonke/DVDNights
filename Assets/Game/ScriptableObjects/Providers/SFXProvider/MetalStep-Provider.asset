@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae13b73ed487c846a80c59f6b6889a3, type: 3}
+  m_Name: MetalStep-Provider
+  m_EditorClassIdentifier: 
+  assignedElements:
+  - Id: 0
+    Value: {fileID: 8300000, guid: a860f4815dceb6e409206e1493c68d51, type: 3}
+  - Id: 1
+    Value: {fileID: 8300000, guid: 716e7f8527ae6b94398e12a1f58a44ec, type: 3}
+  - Id: 2
+    Value: {fileID: 8300000, guid: 9ea1dd34f23c7fa4c867d1b634bb24bf, type: 3}
+  - Id: 3
+    Value: {fileID: 8300000, guid: 67094e71b0c100345a7a6daf92c02c2f, type: 3}
+  - Id: 4
+    Value: {fileID: 8300000, guid: 0d5af68c34c57a543b425c0e6fe2f2c9, type: 3}
+  - Id: 5
+    Value: {fileID: 8300000, guid: e34333739a5fe4448900b335252db461, type: 3}
+  - Id: 6
+    Value: {fileID: 8300000, guid: 0e520dac76bffc448abcf326c096325f, type: 3}
+  - Id: 7
+    Value: {fileID: 8300000, guid: b468febeaf5d56540913f87118b5e33d, type: 3}
+  - Id: 8
+    Value: {fileID: 8300000, guid: 61e58c68db7fd194eb5038acf40a568c, type: 3}
+  - Id: 9
+    Value: {fileID: 8300000, guid: bdefddbbd529b5146aa16760685c2d36, type: 3}

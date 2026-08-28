@@ -16,6 +16,7 @@ namespace CorePatterns.Managers
         [SerializeField] private AudioSourceChannel heartbeatAudioChannel;
         [SerializeField] private AudioSourceChannel breathingAudioChannel;
         [SerializeField] private AudioSourceChannel voicesAudioChannel;
+        [SerializeField] private AudioSourceChannel tvWorldAudioChannel;
 
         public void PlaySFX(AudioChannelType channelType, AudioClip clip, float volume = 1f, float pitch = 1f,
             bool randomizePitch = false)
@@ -133,6 +134,8 @@ namespace CorePatterns.Managers
                     return breathingAudioChannel;
                 case AudioChannelType.VOICES:
                     return voicesAudioChannel;
+                case AudioChannelType.TVWORLD:
+                    return tvWorldAudioChannel;
                 default:
                     return nonDiegeticAudioChannel;
             }
@@ -151,5 +154,6 @@ public enum AudioChannelType
     PHONE,
     HEARTBEAT,
     BREATHING,
-    VOICES
+    VOICES,
+    TVWORLD
 }

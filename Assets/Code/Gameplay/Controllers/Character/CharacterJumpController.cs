@@ -1,4 +1,5 @@
 ﻿using System;
+using CorePatterns.Managers;
 using CorePatterns.ServiceLocator;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,10 @@ namespace Rulebound
         [SerializeField] private bool useStamina = true;
         [SerializeField] private float staminaToConsume = 20f;
 
+        [Header("Audio-Feedback")] 
+        [SerializeField] private AudioClip jumpAudioClip;
+        [SerializeField] private AudioClip landedAudioClip;
+
         private InputAction _jumpAction;
 
         public Action OnJump { get; set; }
@@ -36,6 +41,8 @@ namespace Rulebound
 
         private float _lastGroundedTime;
         private float _lastJumpPressedTime = Mathf.NegativeInfinity;
+
+        private bool _landingExpected;
 
         private bool _isEnabled;
 
@@ -116,7 +123,7 @@ namespace Rulebound
         private void UpdateGrounded()
         {
             _wasGrounded = _isGrounded;
-            
+    
             if (_jumpConsumed && rigidBody.linearVelocity.y > 0.01f)
             {
                 _isGrounded = false;
@@ -125,11 +132,16 @@ namespace Rulebound
 
             Vector3 origin = transform.position + Vector3.up * 0.1f;
 
-            _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f
-            );
+            _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f);
 
             if (_isGrounded)
             {
+                if (!_wasGrounded && _landingExpected)
+                {
+                    _landingExpected = false;
+                    AudioManager.Instance.PlaySFX(AudioChannelType.TVWORLD, landedAudioClip, volume: 0.5f, randomizePitch: true);
+                }
+
                 _jumpConsumed = false;
                 _coyoteTimeAvailable = false;
                 _lastGroundedTime = Time.time;
@@ -140,8 +152,7 @@ namespace Rulebound
                 _lastGroundedTime = Time.time;
             }
 
-            if (_coyoteTimeAvailable &&
-                Time.time - _lastGroundedTime > coyoteTime)
+            if (_coyoteTimeAvailable && Time.time - _lastGroundedTime > coyoteTime)
             {
                 _coyoteTimeAvailable = false;
             }
@@ -211,9 +222,15 @@ namespace Rulebound
                 Physics.gravity.y
             );
 
+            if (!isCoyoteJump)
+            {
+                AudioManager.Instance.PlaySFX(AudioChannelType.TVWORLD, jumpAudioClip, volume: 0.5f, randomizePitch: true);
+            }
+            
             rigidBody.linearVelocity = velocity;
             
             _jumpConsumed = true;
+            _landingExpected = true;
             
             _lastJumpPressedTime = Mathf.NegativeInfinity;
             _coyoteTimeAvailable = false;
