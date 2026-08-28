@@ -176,6 +176,8 @@ MonoBehaviour:
   platformRenderer: {fileID: 388054444582389381}
   platformCollider: {fileID: 1941403935166466823}
   platformColor: {r: 0.93333334, g: 0.93333334, b: 0.93333334, a: 1}
+  downDistance: 3
+  movementDuration: 0.2
   invisibleColor: {r: 0.20398712, g: 0.20398712, b: 0.20398712, a: 0.19607843}
   contourRenderer: {fileID: 388054444582389381}
   centerRenderer: {fileID: 2013776343064078092}

@@ -14,11 +14,14 @@ namespace Rulebound
         [SerializeField] private CharacterStaminaController _characterStaminaController;
         
         public Transform CharacterTransform => transform;
+        public Transform OriginalParent => _originalParent;
         public ICharacterMovementController CharacterMovementController => _characterMovementController;
         public ICharacterJumpController CharacterJumpController => _characterJumpController;
         public ICharacterLookController CharacterLookController => _characterLookController;
         public ICharacterSprintController CharacterSprintController => _characterSprintController;
         public ICharacterStaminaController CharacterStaminaController => _characterStaminaController;
+
+        private Transform _originalParent;
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace Rulebound
         private void InstallService()
         {
             ServiceLocator.RegisterService<ICharacter>(this);
+            _originalParent = transform.parent;
         }
 
         public void ResetCharacter()
@@ -43,6 +47,7 @@ namespace Rulebound
     public interface ICharacter
     {
         public Transform CharacterTransform { get; }
+        public Transform OriginalParent { get; }
         
         public ICharacterMovementController CharacterMovementController { get; }
         public ICharacterJumpController CharacterJumpController { get; }
