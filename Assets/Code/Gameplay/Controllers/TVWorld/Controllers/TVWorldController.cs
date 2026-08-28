@@ -1,4 +1,5 @@
-﻿using CorePatterns.ServiceLocator;
+﻿using CorePatterns.Managers;
+using CorePatterns.ServiceLocator;
 using UnityEngine;
 
 namespace Rulebound
@@ -7,6 +8,9 @@ namespace Rulebound
     {
         [Header("References")] 
         [SerializeField] private Transform startPoint;
+
+        [Header("Audio-Feedback")] 
+        [SerializeField] private AudioClip tvWorldAudioClip;
         
         private IHazardController _hazardController;
         private IPlatformController _platformController;
@@ -33,6 +37,7 @@ namespace Rulebound
 
         public void StartMinigame()
         {
+            AudioManager.Instance.PlayOST(AudioChannelType.TVWORLD, tvWorldAudioClip, volume: 0.35f, loop: true);
             _hazardController.EnableAllHazards();
             _platformController.EnableAllPlatforms();
             
