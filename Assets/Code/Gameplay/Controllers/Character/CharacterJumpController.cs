@@ -19,6 +19,7 @@ namespace Rulebound
         [SerializeField] private float gravityMultiplier = 4f;
         [SerializeField] private float coyoteTime = 0.15f;
         [SerializeField] private float jumpBufferTime = 0.15f;
+        [SerializeField] private float coyoteJumpMultiplier = 2f;
 
         [Header("Stamina")]
         [SerializeField] private bool useStamina = true;
@@ -30,15 +31,11 @@ namespace Rulebound
 
         private bool _isGrounded;
         private bool _wasGrounded;
+        private bool _coyoteTimeAvailable;
+        private bool _jumpConsumed;
 
         private float _lastGroundedTime;
         private float _lastJumpPressedTime = Mathf.NegativeInfinity;
-
-        private bool HasCoyoteTime => !_isGrounded &&
-                                      _wasGrounded &&
-                                      Time.time - _lastGroundedTime <= coyoteTime;
-
-        private bool HasBufferedJump => Time.time - _lastJumpPressedTime <= jumpBufferTime;
 
         private bool _isEnabled;
 
@@ -46,9 +43,20 @@ namespace Rulebound
 
         public bool IsGrounded => _isGrounded;
 
+        private bool HasCoyoteTime => !_isGrounded &&
+                                      _coyoteTimeAvailable &&
+                                      Time.time - _lastGroundedTime <= coyoteTime;
+
+        private bool HasBufferedJump => Time.time - _lastJumpPressedTime <= jumpBufferTime;
+
         public bool CanJump()
         {
-            bool baseJumpCondition = (_isGrounded || HasCoyoteTime) && _isEnabled;
+            if (!_isEnabled || _jumpConsumed)
+            {
+                return false;
+            }
+
+            bool baseJumpCondition = _isGrounded || HasCoyoteTime;
 
             if (useStamina)
             {
@@ -108,19 +116,34 @@ namespace Rulebound
         private void UpdateGrounded()
         {
             _wasGrounded = _isGrounded;
+            
+            if (_jumpConsumed && rigidBody.linearVelocity.y > 0.01f)
+            {
+                _isGrounded = false;
+                return;
+            }
 
             Vector3 origin = transform.position + Vector3.up * 0.1f;
 
-            _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f);
+            _isGrounded = Physics.Raycast(origin, Vector3.down, capsuleCollider.height / 2f + 0.15f
+            );
 
             if (_isGrounded)
             {
+                _jumpConsumed = false;
+                _coyoteTimeAvailable = false;
                 _lastGroundedTime = Time.time;
             }
-            
-            if (_wasGrounded && !_isGrounded)
+            else if (_wasGrounded)
             {
-                Debug.Log($"LEFT GROUND - Coyote started at {Time.time}");
+                _coyoteTimeAvailable = true;
+                _lastGroundedTime = Time.time;
+            }
+
+            if (_coyoteTimeAvailable &&
+                Time.time - _lastGroundedTime > coyoteTime)
+            {
+                _coyoteTimeAvailable = false;
             }
         }
 
@@ -133,15 +156,14 @@ namespace Rulebound
             
             _lastJumpPressedTime = Time.time;
 
-            Debug.Log(
-                $"JUMP PRESSED | Grounded: {_isGrounded} | " +
-                $"Coyote: {HasCoyoteTime} | " +
-                $"Time Since Grounded: {Time.time - _lastGroundedTime:F3}");
-            
-            if (CanJump())
+            if (!CanJump())
             {
-                PerformJump();
+                return;
             }
+
+            bool isCoyoteJump = !_isGrounded && HasCoyoteTime;
+
+            PerformJump(isCoyoteJump);
         }
 
         private void TryBufferedJump()
@@ -150,19 +172,23 @@ namespace Rulebound
             {
                 return;
             }
-            
+
             if (!_isGrounded)
             {
                 return;
             }
 
-            PerformJump();
+            if (!CanJump())
+            {
+                return;
+            }
+
+            PerformJump(false);
         }
 
-        private void PerformJump()
+        private void PerformJump(bool isCoyoteJump)
         {
-            if (useStamina &&
-                _staminaController.CurrentStamina < staminaToConsume)
+            if (useStamina && _staminaController.CurrentStamina < staminaToConsume)
             {
                 return;
             }
@@ -174,18 +200,25 @@ namespace Rulebound
 
             Vector3 velocity = rigidBody.linearVelocity;
 
+            float jumpMultiplier = isCoyoteJump
+                ? coyoteJumpMultiplier
+                : 1f;
+
             velocity.y = Mathf.Sqrt(
-                jumpHeight * -2f * Physics.gravity.y
+                jumpHeight *
+                jumpMultiplier *
+                -2f *
+                Physics.gravity.y
             );
 
             rigidBody.linearVelocity = velocity;
             
+            _jumpConsumed = true;
+            
             _lastJumpPressedTime = Mathf.NegativeInfinity;
-            
-            _lastGroundedTime = Mathf.NegativeInfinity;
-            
+            _coyoteTimeAvailable = false;
+
             _isGrounded = false;
-            _wasGrounded = false;
 
             OnJump?.Invoke();
         }
@@ -215,14 +248,18 @@ namespace Rulebound
         public void DisableController()
         {
             _isEnabled = false;
+
             _lastJumpPressedTime = Mathf.NegativeInfinity;
-            _lastGroundedTime = Mathf.NegativeInfinity;
+            _coyoteTimeAvailable = false;
+            _jumpConsumed = false;
         }
 
         public void ResetController()
         {
             _lastGroundedTime = Time.time;
             _lastJumpPressedTime = Mathf.NegativeInfinity;
+            _coyoteTimeAvailable = false;
+            _jumpConsumed = false;
             _isGrounded = true;
             _wasGrounded = true;
         }
@@ -235,3 +272,4 @@ namespace Rulebound
         public bool CanJump();
     }
 }
+

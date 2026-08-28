@@ -451,9 +451,11 @@ MonoBehaviour:
   rigidBody: {fileID: 766842203}
   capsuleCollider: {fileID: 766842204}
   jumpActionSO: {fileID: 11400000, guid: d98f25174b7970c4ba0392269e8d40f6, type: 2}
-  jumpHeight: 40
-  gravityMultiplier: 5
+  jumpHeight: 45
+  gravityMultiplier: 5.5
   coyoteTime: 0.5
+  jumpBufferTime: 0.2
+  coyoteJumpMultiplier: 2
   useStamina: 0
   staminaToConsume: 25
 --- !u!1 &554356580
