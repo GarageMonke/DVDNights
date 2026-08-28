@@ -12,6 +12,7 @@ namespace Rulebound
         [SerializeField] private CharacterLookController _characterLookController;
         [SerializeField] private CharacterSprintController _characterSprintController;
         [SerializeField] private CharacterStaminaController _characterStaminaController;
+        [SerializeField] private CharacterHeadBobController _characterHeadBobController;
         
         public Transform CharacterTransform => transform;
         public Transform OriginalParent => _originalParent;
@@ -20,6 +21,7 @@ namespace Rulebound
         public ICharacterLookController CharacterLookController => _characterLookController;
         public ICharacterSprintController CharacterSprintController => _characterSprintController;
         public ICharacterStaminaController CharacterStaminaController => _characterStaminaController;
+        public ICharacterHeadBobController CharacterHeadBobController => _characterHeadBobController;
 
         private Transform _originalParent;
 
@@ -41,6 +43,7 @@ namespace Rulebound
             _characterLookController.ResetController();
             _characterSprintController.ResetController();
             _characterStaminaController.ResetController();
+            _characterHeadBobController.ResetController();
         }
     }
     
@@ -54,6 +57,7 @@ namespace Rulebound
         public ICharacterLookController CharacterLookController { get; }
         public ICharacterSprintController CharacterSprintController { get; }
         public ICharacterStaminaController CharacterStaminaController { get; }
+        public ICharacterHeadBobController CharacterHeadBobController { get; }
         
 
         public void ResetCharacter();

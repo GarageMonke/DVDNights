@@ -7,7 +7,6 @@ namespace Rulebound
 {
     public class CharacterLookController : MonoBehaviour, ICharacterLookController
     {
-         
         [Header("Input")]
         [SerializeField] private InputActionSO lookActionSO;
 
@@ -26,19 +25,16 @@ namespace Rulebound
         [SerializeField] private float maxPitch = 85f;
  
         [Header("Headbob")]
-        [SerializeField] private HeadbobSettings headbob = new();
+        [SerializeField] private HeadBobSettings headBob = new();
         
         private float _yaw;
         private float _pitch;
-        private Vector3 _cameraRestLocalPos;
         private float _bobTimer;
         private bool _cursorLocked = true;
 
         private InputAction _lookAction;
         private bool _isEnabled;
-        private ICharacterMovementController _characterMovementController;
         
-
         private void Awake()
         {
             InstallService();
@@ -46,11 +42,6 @@ namespace Rulebound
 
         private void InstallService()
         {
-            if (cameraPivot)
-            {
-                _cameraRestLocalPos = cameraPivot.localPosition;
-            }
-
             _yaw = bodyTransform ? bodyTransform.eulerAngles.y : 0f;
 
             _lookAction = lookActionSO.GetInputAction();
@@ -62,7 +53,6 @@ namespace Rulebound
 
         private void Start()
         {
-            _characterMovementController = ServiceLocator.GetService<ICharacterMovementController>();
             EnableController();
         }
 
@@ -74,7 +64,6 @@ namespace Rulebound
             }
             
             ApplyLook();
-            ApplyHeadbob();
         }
 
         private void ApplyLook()
@@ -103,30 +92,7 @@ namespace Rulebound
                 cameraPivot.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
             }
         }
- 
-        private void ApplyHeadbob()
-        {
-            if (!headbob.enabled || !cameraPivot)
-            {
-                return;
-            }
-
-            if (_characterMovementController.IsMoving)
-            {
-                _bobTimer += Time.deltaTime * headbob.frequency;
-
-                float bobY = Mathf.Sin(_bobTimer) * headbob.amplitude;
-                float bobX = Mathf.Cos(_bobTimer * 0.5f) * headbob.amplitude;
-
-                Vector3 targetPosition = _cameraRestLocalPos + new Vector3(bobX, bobY, 0f);
-
-                cameraPivot.localPosition = Vector3.Lerp(cameraPivot.localPosition, targetPosition, headbob.smoothing * Time.deltaTime);
-            }
-            else
-            {
-                cameraPivot.localPosition = Vector3.Lerp(cameraPivot.localPosition, _cameraRestLocalPos, headbob.smoothing * Time.deltaTime);
-            }
-        }
+        
 
         public void EnableController()
         {
@@ -160,15 +126,6 @@ namespace Rulebound
             Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !locked;
         }
-    }
- 
-    [Serializable]
-    public class HeadbobSettings
-    {
-        public bool enabled = true;
-        public float frequency = 8f;
-        public float amplitude = 0.05f;
-        public float smoothing = 10f;
     }
 
     public interface ICharacterLookController : ICharacterController

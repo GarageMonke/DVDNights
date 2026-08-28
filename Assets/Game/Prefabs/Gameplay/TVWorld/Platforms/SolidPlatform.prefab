@@ -124,3 +124,5 @@ MonoBehaviour:
   platformRenderer: {fileID: 3249224312166401074}
   platformCollider: {fileID: 5329668116063358361}
   platformColor: {r: 0, g: 0.19607875, b: 1, a: 1}
+  downDistance: 0
+  movementDuration: 0
