@@ -124,14 +124,17 @@ namespace Rulebound
                 {
                     _stepTimer = 0f;
                     AudioClip selectedClip = footstepAudioClipProvider.GetRandomElement();
+                    bool isUnique = footstepAudioClipProvider.GetCount() == 1;
 
-                    while (selectedClip == _lastFootstepClip)
+                    if (!isUnique)
                     {
-                        selectedClip = footstepAudioClipProvider.GetRandomElement();
+                        while (selectedClip == _lastFootstepClip)
+                        {
+                            selectedClip = footstepAudioClipProvider.GetRandomElement();
+                        }
                     }
 
                     _lastFootstepClip = selectedClip;
-                    
                     AudioManager.Instance.PlaySFX(AudioChannelType.TVWORLD, _lastFootstepClip, volume: 0.5f);
                 }
             }

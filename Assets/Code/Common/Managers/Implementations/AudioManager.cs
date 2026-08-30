@@ -43,6 +43,18 @@ namespace CorePatterns.Managers
             AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
             channel.StopSFX();
         }
+
+        public bool IsSFXPlaying(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            return channel.IsSFXPlaying();
+        }
+        
+        public bool IsOSTPlaying(AudioChannelType channelType)
+        {
+            AudioSourceChannel channel = GetAudioSourceChannelByType(channelType);
+            return channel.IsOSTPlaying();
+        }
         
         public void PauseOST(AudioChannelType channelType, float fadeDuration = 2f)
         {

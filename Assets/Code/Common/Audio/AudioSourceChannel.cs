@@ -87,6 +87,16 @@ public class AudioSourceChannel : MonoBehaviour
         sfxSource.PlayOneShot(clip, finalVolume);
     }
 
+    public bool IsSFXPlaying()
+    {
+        return sfxSource.isPlaying;
+    }
+
+    public bool IsOSTPlaying()
+    {
+        return ostSource.isPlaying;
+    }
+
     public void PlayOST(AudioClip newClip, float volume = 1f, bool loop = false, float pitch = 1f, bool fadeIn = true)
     {
         if (!newClip)
