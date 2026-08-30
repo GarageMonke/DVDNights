@@ -32,6 +32,8 @@ namespace Rulebound
         private float _bobTimer;
         private bool _cursorLocked = true;
 
+        private float _originalYaw;
+
         private InputAction _lookAction;
         private bool _isEnabled;
         
@@ -43,6 +45,7 @@ namespace Rulebound
         private void InstallService()
         {
             _yaw = bodyTransform ? bodyTransform.eulerAngles.y : 0f;
+            _originalYaw = _yaw;
 
             _lookAction = lookActionSO.GetInputAction();
             
@@ -106,12 +109,12 @@ namespace Rulebound
 
         public void ResetController()
         {
-            _yaw = 0;
+            _yaw = _originalYaw;
             _pitch = 0;
             
             if (bodyTransform)
             {
-                bodyTransform.rotation = Quaternion.Euler(0f, _yaw, 0f);
+                bodyTransform.rotation = Quaternion.Euler(0f, _originalYaw, 0f);
             }
 
             if (cameraPivot)
