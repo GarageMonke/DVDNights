@@ -2034,12 +2034,18 @@ MonoBehaviour:
   goalPoint: {fileID: 102739318}
   platformPrefabs:
   - prefab: {fileID: 8031026181713083763, guid: 051c527bfc81e6d4ebaf905d706dc9a2, type: 3}
-    weight: 1
+    weight: 8
   - prefab: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+    weight: 6
+  - prefab: {fileID: 4238600471377994832, guid: 28714c143ff6e2346a175d5e03021a5b, type: 3}
+    weight: 2
+  - prefab: {fileID: 4238600471377994832, guid: f53c3f2d63640df4ca6d8a5d0498eb98, type: 3}
     weight: 1
-  - prefab: {fileID: 7440428059304003208, guid: 9be60962136b0154b8d44d140e8b09c2, type: 3}
+  - prefab: {fileID: 4238600471377994832, guid: c3096088acfd9ec4e9cca2c4b3d360de, type: 3}
+    weight: 2
+  - prefab: {fileID: 4238600471377994832, guid: a69a62da710429b4ba512d94dcdc28b3, type: 3}
     weight: 1
-  minimumDistance: 25
+  minimumDistance: 22
   maximumDistance: 50
   randomness: 1
   maximumSideOffset: 25
