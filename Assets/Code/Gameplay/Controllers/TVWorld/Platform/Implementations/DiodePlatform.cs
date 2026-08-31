@@ -53,7 +53,10 @@ namespace Rulebound
 
         private void OnDestroy()
         {
-            _character.CharacterJumpController.OnJump -= TogglePlatform;
+            if (_character != null)
+            {
+                _character.CharacterJumpController.OnJump -= TogglePlatform;
+            }
         }
     }
 }

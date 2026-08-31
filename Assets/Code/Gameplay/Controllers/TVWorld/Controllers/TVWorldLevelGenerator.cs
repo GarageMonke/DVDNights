@@ -53,14 +53,6 @@ namespace Rulebound
 
         private System.Random _random;
 
-        private void Start()
-        {
-            if (generateOnStart)
-            {
-                GenerateLevel();
-            }
-        }
-
         [ContextMenu("Generate Level")]
         public void GenerateLevel()
         {
@@ -162,8 +154,7 @@ namespace Rulebound
 
             _path.Add(current);
 
-            float totalDistance =
-                Vector3.Distance(current, goal);
+            float totalDistance = Vector3.Distance(current, goal);
             
             if (totalDistance <= maximumDistance)
             {
@@ -185,7 +176,6 @@ namespace Rulebound
             }
             
             int segmentCount = Mathf.CeilToInt(totalDistance / maximumDistance);
-
           
             if (totalDistance < segmentCount * minimumDistance)
             {
@@ -250,67 +240,58 @@ namespace Rulebound
                 
                 Vector3 currentDirection = toGoal.normalized;
 
-                float randomSide = RandomRange(-maximumSideOffset, maximumSideOffset);
+                float randomSide = RandomRange(-maximumSideOffset, maximumSideOffset) * randomness;
 
-                randomSide *= randomness;
-
-                Vector3 candidateDirection = currentDirection + side * randomSide;
-
-                candidateDirection.Normalize();
-
-                Vector3 candidate = current + candidateDirection * stepDistance;
-                
-                candidate = ClampToBounds(candidate);
-                
-                float actualDistance = Vector3.Distance(current, candidate);
-                
                 int segmentsAfterThis = remainingSegments - 1;
 
                 float futureMin = segmentsAfterThis * minimumDistance;
 
                 float futureMax = segmentsAfterThis * maximumDistance;
 
-                float distanceToGoalFromCandidate = Vector3.Distance(candidate, goal);
-                
-                bool segmentValid = actualDistance >= minimumDistance && actualDistance <= maximumDistance;
+                Vector3 candidate = current + currentDirection * stepDistance;
 
-                bool futureValid = distanceToGoalFromCandidate >= futureMin && distanceToGoalFromCandidate <= futureMax;
+                bool foundValid = false;
 
-                if (!segmentValid || !futureValid)
+                for (int wobble = 0; wobble < 6; wobble++)
                 {
-                    candidate = current + currentDirection * stepDistance;
+                    float wobbleScale = Mathf.Pow(0.5f, wobble);
 
-                    candidate = ClampToBounds(candidate);
+                    Vector3 candidateDirection = (currentDirection + side * (randomSide * wobbleScale)).normalized;
 
-                    actualDistance = Vector3.Distance(current, candidate);
+                    Vector3 tryCandidate = ClampToBounds(current + candidateDirection * stepDistance);
 
-                    distanceToGoalFromCandidate = Vector3.Distance(candidate, goal);
+                    float tryActualDistance = Vector3.Distance(current, tryCandidate);
 
-                    bool fallbackSegmentValid = actualDistance >= minimumDistance && actualDistance <= maximumDistance;
+                    float tryDistanceToGoal = Vector3.Distance(tryCandidate, goal);
 
-                    bool fallbackFutureValid = distanceToGoalFromCandidate >= futureMin && distanceToGoalFromCandidate <= futureMax;
+                    if (tryActualDistance >= minimumDistance && tryActualDistance <= maximumDistance &&
+                        tryDistanceToGoal >= futureMin && tryDistanceToGoal <= futureMax)
+                    {
+                        candidate = tryCandidate;
+                        foundValid = true;
+                        break;
+                    }
+                }
 
-                    if (!fallbackSegmentValid || !fallbackFutureValid)
+                if (!foundValid)
+                {
+                    candidate = ClampToBounds(current + currentDirection * stepDistance);
+
+                    float actualDistance = Vector3.Distance(current, candidate);
+
+                    float distanceToGoalFromCandidate = Vector3.Distance(candidate, goal);
+
+                    if (actualDistance < minimumDistance || actualDistance > maximumDistance ||
+                        distanceToGoalFromCandidate < futureMin || distanceToGoalFromCandidate > futureMax)
                     {
                         if (verboseLogging)
                             Debug.Log(
-                                $"[LevelGen] Segment {i}: even the straight-line fallback " +
-                                $"was invalid after clamping to bounds (distance {actualDistance:0.00}, " +
-                                $"remaining-to-goal {distanceToGoalFromCandidate:0.00}, " +
-                                $"needed [{futureMin:0.00}, {futureMax:0.00}]). " +
-                                "Level Bounds is likely too small/tight for the requested distances - " +
-                                "the box is clipping the step before it can reach a valid length.",
+                                $"[LevelGen] Segment {i}: no valid position found, even on the straight line " +
+                                $"(distance {actualDistance:0.00}, remaining-to-goal {distanceToGoalFromCandidate:0.00}, " +
+                                $"needed [{futureMin:0.00}, {futureMax:0.00}]).",
                                 this);
 
                         return false;
-                    }
-
-                    if (verboseLogging)
-                    {
-                        Debug.Log(
-                            $"[LevelGen] Segment {i}: random offset would have broken feasibility " +
-                            "for remaining segments, used straight-line fallback instead.",
-                            this);
                     }
                 }
 
@@ -524,7 +505,7 @@ namespace Rulebound
 
                 expandedExisting.Expand(minimumObjectSpacing * 2f);
 
-                if (expandedCandidate.Intersects(expandedExisting))
+                if (HorizontalIntersects(expandedCandidate, expandedExisting))
                 {
                     reason = "overlap";
                     return false;
@@ -532,6 +513,12 @@ namespace Rulebound
             }
 
             return true;
+        }
+
+        private static bool HorizontalIntersects(Bounds a, Bounds b)
+        {
+            return a.min.x <= b.max.x && a.max.x >= b.min.x &&
+                   a.min.z <= b.max.z && a.max.z >= b.min.z;
         }
 
         private Bounds CalculateBounds(Collider[] colliders)
@@ -627,7 +614,7 @@ namespace Rulebound
             else
                 Destroy(objectToDestroy);
 #else
-            Destroy(obj);
+            Destroy(objectToDestroy);
 #endif
         }
 

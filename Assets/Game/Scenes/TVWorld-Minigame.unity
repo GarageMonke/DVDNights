@@ -156,6 +156,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &102739317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102739318}
+  m_Layer: 0
+  m_Name: Goal-Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &102739318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102739317}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 655425688}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &116112785
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +235,37 @@ MonoBehaviour:
   staminaDrainRate: 35
   staminaRecoveryRate: 15
   minimumSprintStamina: 1
+--- !u!1 &131901277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131901278}
+  m_Layer: 0
+  m_Name: Start-Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &131901278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131901277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2079640327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &141129339
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 2038535721}
+  levelGenerator: {fileID: 1563106501}
   tvWorldAudioClip: {fileID: 8300000, guid: 95c563965dc7f494eb58cbe99126b227, type: 3}
 --- !u!1 &459191587
 GameObject:
@@ -787,7 +850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655425688}
   m_Layer: 0
-  m_Name: Goal
+  m_Name: GoalPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -807,6 +870,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1591239856}
+  - {fileID: 102739318}
   m_Father: {fileID: 1467723074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &679361010
@@ -926,7 +990,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 750, y: 20, z: 100}
+  m_Size: {x: 675, y: 20, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &688496402 stripped
 Transform:
@@ -1966,10 +2030,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelBounds: {fileID: 684563303}
   container: {fileID: 684563302}
-  startPoint: {fileID: 2079640327}
-  goalPoint: {fileID: 655425688}
+  startPoint: {fileID: 131901278}
+  goalPoint: {fileID: 102739318}
   platformPrefabs:
   - prefab: {fileID: 8031026181713083763, guid: 051c527bfc81e6d4ebaf905d706dc9a2, type: 3}
+    weight: 1
+  - prefab: {fileID: 4238600471377994832, guid: 3e161d57b85219840b16f18e1d07ad2e, type: 3}
+    weight: 1
+  - prefab: {fileID: 7440428059304003208, guid: 9be60962136b0154b8d44d140e8b09c2, type: 3}
     weight: 1
   minimumDistance: 25
   maximumDistance: 50
@@ -1979,7 +2047,7 @@ MonoBehaviour:
   minimumObjectSpacing: 1
   generateOnStart: 1
   randomizeSeed: 1
-  seed: -1568071791
+  seed: 351639405
   maximumAttempts: 100
   drawPath: 1
   drawBounds: 1
@@ -2819,7 +2887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2079640327}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: StartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2841,6 +2909,7 @@ Transform:
   - {fileID: 2038535721}
   - {fileID: 679361011}
   - {fileID: 5670117687816159805}
+  - {fileID: 131901278}
   m_Father: {fileID: 1467723074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &22182888667752931

@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Rulebound
 {
-    public class TVWorldController : MonoBehaviour, IFloorIsLavaController
+    public class TVWorldController : MonoBehaviour, ITVWorldController
     {
         [Header("References")] 
         [SerializeField] private Transform startPoint;
+        [SerializeField] private TVWorldLevelGenerator levelGenerator;
 
         [Header("Audio-Feedback")] 
         [SerializeField] private AudioClip tvWorldAudioClip;
@@ -23,7 +24,7 @@ namespace Rulebound
 
         private void InstallService()
         {
-            ServiceLocator.RegisterService<IFloorIsLavaController>(this);
+            ServiceLocator.RegisterService<ITVWorldController>(this);
         }
 
         private void Start()
@@ -32,6 +33,7 @@ namespace Rulebound
             _hazardController.OnHazardTriggered += ResetMinigame;
             _platformController = ServiceLocator.GetService<IPlatformController>();
             _character = ServiceLocator.GetService<ICharacter>();
+            levelGenerator.GenerateLevel();
             StartMinigame();
         }
 
@@ -40,7 +42,6 @@ namespace Rulebound
             AudioManager.Instance.PlayOST(AudioChannelType.TVWORLD, tvWorldAudioClip, volume: 0.35f, loop: true);
             _hazardController.EnableAllHazards();
             _platformController.EnableAllPlatforms();
-            
             ResetMinigame();
         }
 
@@ -63,7 +64,7 @@ namespace Rulebound
         }
     }
 
-    public interface IFloorIsLavaController
+    public interface ITVWorldController
     {
         public void StartMinigame();
         public void ResetMinigame();
