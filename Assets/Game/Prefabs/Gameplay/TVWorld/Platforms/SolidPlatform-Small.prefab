@@ -107,7 +107,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.25, y: 1, z: 1.25}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5852264871471123781
 MonoBehaviour:
@@ -124,5 +124,6 @@ MonoBehaviour:
   platformRenderer: {fileID: 3249224312166401074}
   platformCollider: {fileID: 5329668116063358361}
   platformColor: {r: 0, g: 0.19607875, b: 1, a: 1}
+  parentCharacter: 0
   downDistance: 0
   movementDuration: 0
